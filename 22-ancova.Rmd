@@ -1,0 +1,13 @@
+---
+title: "ANCOVA"
+output: html_document
+---
+
+# Mon Nov 02 - ANCOVA 
+
+## Readings 
+- Ch14.1
+
+
+### Upcoming assessments
+- **Fri 06 Nov:** Lab 8, Unit II Exam

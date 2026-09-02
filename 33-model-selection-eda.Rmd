@@ -1,0 +1,14 @@
+---
+title: "Model Selection I: EDA and Stepwise"
+output: html_document
+---
+
+# Mon Nov 30 - Model Selection I: EDA and Stepwise
+
+## Readings 
+- Ch19.2, 19.4
+
+
+
+## Upcoming assessments
+- **Wed 02 Dec:** Quiz 11

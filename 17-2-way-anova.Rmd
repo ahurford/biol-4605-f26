@@ -1,0 +1,14 @@
+---
+title: "2-way ANOVA"
+output: html_document
+---
+
+# Wed Oct 21 - 2-way ANOVA
+
+## Readings
+- Ch13.1
+
+
+
+### Upcoming assessments
+- **Fri 23 Oct:** Lab 6a, Quiz 6

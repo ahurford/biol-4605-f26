@@ -1,0 +1,15 @@
+---
+title: "Rev: 1 Expl Var"
+output: html_document
+---
+
+# Fri Oct 16 - Regression: 1 Expl Var
+
+## Readings
+- Ch11
+
+
+
+## Upcoming assessments
+- **Tue 20 Oct:** Lab 5a
+- **Fri 23 Oct:** Lab 6a, Quiz 6

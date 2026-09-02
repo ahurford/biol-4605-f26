@@ -1,0 +1,13 @@
+---
+title: "Regression II"
+output: html_document
+---
+
+# Wed Oct 14 - Regression
+
+## Readings
+
+- Ch9.3, 9.5
+
+## Upcoming assessments
+- **Fri 16 Oct:** Quiz 5

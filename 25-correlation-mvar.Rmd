@@ -1,0 +1,13 @@
+---
+title: "Correlation & Mvar"
+output: html_document
+---
+
+# Mon Nov 09 - Correlation & Mvar
+
+## Readings
+
+- Ch19.1, 20.1, 20.4
+
+## Upcoming assessments
+- **Fri 13 Nov:** Quiz 8

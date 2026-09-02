@@ -1,0 +1,12 @@
+---
+title: "Poisson Regression"
+output: html_document
+---
+
+# Wed Nov 25 - Poisson Regression
+
+## Readings:
+- Ch 17.1
+
+## Upcoming assessments
+- **Fri 27 Nov:** Quiz 10

@@ -1,0 +1,13 @@
+---
+title: "Freq Dist I"
+output: html_document
+---
+
+# Mon Sept 21 - Freq Dist I 
+
+## Readings
+- Ch6.1
+
+### Upcoming assessments
+- **Wed 23 Sept:** Assignment 2 (A2 Data Equations)
+- **Fri 25 Sept:** Lab 3, Quiz 3

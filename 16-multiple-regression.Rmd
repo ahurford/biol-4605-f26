@@ -1,0 +1,14 @@
+---
+title: "Multiple Regression"
+output: html_document
+---
+
+# Mon Oct 19 - Multiple Regression 
+
+## Readings
+- Ch12.1
+
+
+
+## Upcoming assessments
+- **Fri 23 Oct:** Lab 6a, Quiz 6

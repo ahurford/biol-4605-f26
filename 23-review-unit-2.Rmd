@@ -1,0 +1,14 @@
+---
+title: "Course Drop / Review"
+output: html_document
+---
+
+# Wed Nov 04 - Review Unit 2
+
+## Readings
+- Ch15 review
+
+
+
+### Upcoming assessments
+- **Fri 06 Nov:** Lab 8, Unit II Exam

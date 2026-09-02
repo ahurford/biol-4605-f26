@@ -1,0 +1,14 @@
+---
+title: "Logistic ANCOVA"
+output: html_document
+---
+
+# Mon Nov 23 - Logistic ANCOVA
+
+## Readings
+ - Ch 18.6
+
+
+### Upcoming assessments
+- **Tue 24 Nov:** Lab 9a,b
+- **Fri 27 Nov:** Quiz 10

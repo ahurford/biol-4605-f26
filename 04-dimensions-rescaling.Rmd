@@ -1,0 +1,12 @@
+---
+title: "Dimensions Rescaling"
+output: html_document
+---
+
+# Wed Sept 16 - Dimensions Rescaling 
+
+## Readings
+- Ch2.5, Ch3
+
+## Upcoming assessments
+- **Fri 18 Sept:** Lab 2, Quiz 2

@@ -1,0 +1,21 @@
+---
+title: "Introduction"
+output: html_document
+---
+
+# Wed Sept 9 - Introduction
+
+## Syllabus
+We will discuss how your grade will be assessed, the material covered in the course, and the resources available to you.
+
+## Use of AI in the course
+Course policies on the use of generative artificial intelligence (genAI, for example Claude or ChatGPT) are informed by these readings:
+
+- Bastani et al. 2025. [Generative AI without guardrails can harm learning](https://doi.org/10.1073/pnas.2422633122). PNAS.
+- Carlson lab blog. [The only reason you'll ever need not to write with AI](https://www.carlsonlab.bio/thoughts/the-only-reason-youll-ever-need-not-to-write-with-ai).
+
+## BIOL 7932
+Dr. Schneider will join by WebEx for students who might like to take BIOL 7932
+
+### Upcoming assessments
+- **Fri 11 Sept:** Worksheet for credit

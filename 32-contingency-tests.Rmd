@@ -1,0 +1,14 @@
+---
+title: "Contingency Tests, Poisson"
+output: html_document
+---
+
+# Fri Nov 27 - Contingency Tests, Poisson
+
+## Readings
+- Ch 17.4, 17.5
+
+
+
+## Upcoming assessments
+- **Wed 02 Dec:** Quiz 11

@@ -1,0 +1,10 @@
+---
+title: ""
+output: html_document
+---
+
+# Fri Dec 04 - Course Review 
+
+
+## Upcoming assessments
+- **Dec 10–18:**  Final Exam (Official Date TBD by Registrar)

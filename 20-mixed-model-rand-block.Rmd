@@ -1,0 +1,14 @@
+---
+title: "Mixed Model, Rand. Block"
+output: html_document
+---
+
+# Wed Oct 28 - Mixed Model, Rand. Block
+
+## Readings
+
+- Ch13.4
+
+
+## Upcoming assessments
+- **Fri 30 Oct:** Lab 7, Quiz 7

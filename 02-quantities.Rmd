@@ -1,0 +1,12 @@
+---
+title: "Quantities"
+output: html_document
+---
+
+# Fri Sept 11 - Quantities
+
+## Readings
+- Ch2.1, 2.2
+
+## Upcoming assessments
+- **Mon 14 Sept:** Assignment 1 (A1)

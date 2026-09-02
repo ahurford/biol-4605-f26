@@ -1,0 +1,12 @@
+---
+title: "Data Equations"
+output: html_document
+---
+
+# Fri Sept 18 - Data Equations 
+
+## Readings:
+ - Ch5
+
+### Upcoming assessments
+- **Wed 23 Sept:** Assignment 2 (A2 Data Equations)

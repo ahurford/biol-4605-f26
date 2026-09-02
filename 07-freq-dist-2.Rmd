@@ -1,0 +1,12 @@
+---
+title: "Freq Dist II"
+output: html_document
+---
+
+# Wed Sept 23 - Freq Dist II
+
+## Readings
+ - Ch6.2, 6.3
+
+## Upcoming assessments
+- **Fri 25 Sept:** Lab 3, Quiz 3

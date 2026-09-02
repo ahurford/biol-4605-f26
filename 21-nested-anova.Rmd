@@ -1,0 +1,15 @@
+---
+title: "Nested ANOVA"
+output: html_document
+---
+
+# Fri Oct 30 - Nested ANOVA 
+
+## Readings
+
+- Ch13.6, 13.7
+
+
+
+## Upcoming assessments
+- **Fri 06 Nov:** Lab 8, Unit II Exam

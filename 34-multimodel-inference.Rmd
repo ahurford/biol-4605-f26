@@ -1,0 +1,13 @@
+---
+title: "Multimodel Inf - AIC, SIC"
+output: html_document
+---
+
+# Wed Dec 02 - Multimodel Inf - AIC, SIC
+
+## Readings
+- Ch19.5
+
+### Upcoming assessments
+- **Fri 04 Dec:** Q&A Worksheet
+- **Dec 10–18:** Synchronous Final Exam (Official Date TBD by Registrar)

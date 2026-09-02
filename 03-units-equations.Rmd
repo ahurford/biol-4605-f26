@@ -1,0 +1,12 @@
+---
+title: "Units, Equations"
+output: html_document
+---
+
+# Mon Sept 14 - Units, Equations 
+
+## Readings
+- Ch2.5, Ch4
+
+### Upcoming assessments
+- **Fri 18 Sept:** Lab 2, Quiz 2

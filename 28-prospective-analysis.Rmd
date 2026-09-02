@@ -1,0 +1,14 @@
+---
+title: "Prospective Analysis"
+output: html_document
+---
+
+# Wed Nov 18 - Prospective Analysis
+
+## Readings
+- Ch 18.2
+
+
+## Upcoming assessments
+- **Fri 20 Nov:** Quiz 9
+- **Tue 24 Nov:** Lab 9a,b
