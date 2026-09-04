@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>19 Fri Oct 23 - ANOVA w/interaction | book.knit</title>
+  <title>4 Mon Sept 14 - Equations, units, and notation | book.knit</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="19 Fri Oct 23 - ANOVA w/interaction | book.knit" />
+  <meta property="og:title" content="4 Mon Sept 14 - Equations, units, and notation | book.knit" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="19 Fri Oct 23 - ANOVA w/interaction | book.knit" />
+  <meta name="twitter:title" content="4 Mon Sept 14 - Equations, units, and notation | book.knit" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="wed-oct-21---2-way-anova.html"/>
-<link rel="next" href="mon-oct-26---mixed-model---paired-t.html"/>
+<link rel="prev" href="fri-sept-11---models-and-quantities.html"/>
+<link rel="next" href="wed-sept-16---dimensions-rescaling.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -128,18 +128,30 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="fri-oct-23---anova-winteraction" class="section level1 hasAnchor" number="19">
-<h1><span class="header-section-number">19</span> Fri Oct 23 - ANOVA w/interaction<a href="fri-oct-23---anova-winteraction.html#fri-oct-23---anova-winteraction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="readings-14" class="section level2 hasAnchor" number="19.1">
-<h2><span class="header-section-number">19.1</span> Readings<a href="fri-oct-23---anova-winteraction.html#readings-14" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mon-sept-14---equations-units-and-notation" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Mon Sept 14 - Equations, units, and notation<a href="mon-sept-14---equations-units-and-notation.html#mon-sept-14---equations-units-and-notation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <ul>
-<li>Ch13.2</li>
+<li><p>Units must balance across an equals.</p></li>
+<li><p>The hypothesis and assumptions for common statistical tests should be written as equations.</p></li>
+<li><p>Estimated coefficients and quantities, i.e., slopes, coefficients, and standard deviations have units.</p></li>
+<li><p>A data equation consists of model + residual. Statistical tests often assume the residual follows a probability distribution.</p></li>
+<li><p>Statistical models have explanatory variables and response variables.</p></li>
+</ul>
+<div id="some-common-notations" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Some common notations<a href="mon-sept-14---equations-units-and-notation.html#some-common-notations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p><span class="math inline">\(E(H)\)</span> denotes the expected value.</p></li>
+<li><p><span class="math inline">\(\hat{\beta}\)</span> denotes an estimated value of <span class="math inline">\(\beta\)</span>.</p></li>
+<li><p><span class="math inline">\(X\)</span> denotes a realization of a random variable, where the random variable may follow a probability distribution such as <span class="math inline">\(P(X=x) = \frac{1}{\sqrt{2\pi \sigma^2}}e^{-(x-\mu)^2/2\sigma^2}\)</span>.</p></li>
+<li><p><span class="math inline">\(X \sim P(X=x)\)</span> means ‘X is distributed as P(X=x)’. Note that it is not correct to say <span class="math inline">\(X\)</span> is equal to <span class="math inline">\(P(X=x)\)</span> is <span class="math inline">\(X\)</span> is a realization from a probability distribution.</p></li>
 </ul>
 </div>
-<div id="upcoming-assessments-8" class="section level2 hasAnchor" number="19.2">
-<h2><span class="header-section-number">19.2</span> Upcoming assessments<a href="fri-oct-23---anova-winteraction.html#upcoming-assessments-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="readings-1" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Readings<a href="mon-sept-14---equations-units-and-notation.html#readings-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><strong>Fri 30 Oct:</strong> Lab 7, Quiz 7</li>
+<li><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch2_5.pdf">Ch2.5: Ratio scale units</a></li>
+<li><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch4.pdf">Ch4: Equations</a></li>
+<li><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch5.pdf">Ch5: Data equations</a></li>
 </ul>
 
 </div>
@@ -149,8 +161,8 @@
           </div>
         </div>
       </div>
-<a href="wed-oct-21---2-way-anova.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="mon-oct-26---mixed-model---paired-t.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="fri-sept-11---models-and-quantities.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="wed-sept-16---dimensions-rescaling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

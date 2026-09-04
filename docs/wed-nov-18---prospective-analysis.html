@@ -74,7 +74,7 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to BIOL/OSCS 4605/7220!</a></li>
 <li class="chapter" data-level="2" data-path="wed-sept-9---introduction.html"><a href="wed-sept-9---introduction.html"><i class="fa fa-check"></i><b>2</b> Wed Sept 9 - Introduction</a></li>
 <li class="chapter" data-level="3" data-path="fri-sept-11---models-and-quantities.html"><a href="fri-sept-11---models-and-quantities.html"><i class="fa fa-check"></i><b>3</b> Fri Sept 11 - Models and quantities</a></li>
-<li class="chapter" data-level="4" data-path="mon-sept-14---units-equations.html"><a href="mon-sept-14---units-equations.html"><i class="fa fa-check"></i><b>4</b> Mon Sept 14 - Units, Equations</a></li>
+<li class="chapter" data-level="4" data-path="mon-sept-14---equations-units-and-notation.html"><a href="mon-sept-14---equations-units-and-notation.html"><i class="fa fa-check"></i><b>4</b> Mon Sept 14 - Equations, units, and notation</a></li>
 <li class="chapter" data-level="5" data-path="wed-sept-16---dimensions-rescaling.html"><a href="wed-sept-16---dimensions-rescaling.html"><i class="fa fa-check"></i><b>5</b> Wed Sept 16 - Dimensions Rescaling</a></li>
 <li class="chapter" data-level="6" data-path="fri-sept-18---data-equations.html"><a href="fri-sept-18---data-equations.html"><i class="fa fa-check"></i><b>6</b> Fri Sept 18 - Data Equations</a></li>
 <li class="chapter" data-level="7" data-path="mon-sept-21---freq-dist-i.html"><a href="mon-sept-21---freq-dist-i.html"><i class="fa fa-check"></i><b>7</b> Mon Sept 21 - Freq Dist I</a></li>
@@ -205,6 +205,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

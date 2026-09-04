@@ -3,10 +3,31 @@ title: "Units, Equations"
 output: html_document
 ---
 
-# Mon Sept 14 - Units, Equations 
+# Mon Sept 14 - Equations, units, and notation
+
+- Units must balance across an equals.
+
+- The hypothesis and assumptions for common statistical tests should be written as equations.
+
+- Estimated coefficients and quantities, i.e., slopes, coefficients, and standard deviations have units.
+
+- A data equation consists of model + residual. Statistical tests often assume the residual follows a probability distribution.
+
+- Statistical models have explanatory variables and response variables.
+
+## Some common notations
+
+- $E(H)$ denotes the expected value.
+
+- $\hat{\beta}$ denotes an estimated value of $\beta$.
+
+- $X$ denotes a realization of a random variable, where the random variable may follow a probability distribution such as $P(X=x) = \frac{1}{\sqrt{2\pi \sigma^2}}e^{-(x-\mu)^2/2\sigma^2}$.
+
+- $X \sim P(X=x)$ means  'X is distributed as P(X=x)'. Note that it is not correct to say $X$ is equal to $P(X=x)$ is $X$ is a realization from a probability distribution.  
 
 ## Readings
 - [Ch2.5: Ratio scale units](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch2_5.pdf)
 - [Ch4: Equations](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch4.pdf)
+ - [Ch5: Data equations](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch5.pdf)
 
 

@@ -5,7 +5,8 @@ use-of-ai-in-the-course
 biol-7932
 fri-sept-11---models-and-quantities
 readings
-mon-sept-14---units-equations
+mon-sept-14---equations-units-and-notation
+some-common-notations
 readings-1
 wed-sept-16---dimensions-rescaling
 readings-2

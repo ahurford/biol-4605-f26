@@ -7,6 +7,6 @@ output: html_document
 
 ## Readings
 
- - [Ch5: Data equations](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch5.pdf)
+
 
 
