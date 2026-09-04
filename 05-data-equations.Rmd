@@ -5,8 +5,8 @@ output: html_document
 
 # Fri Sept 18 - Data Equations 
 
-## Readings:
- - Ch5
+## Readings
 
-### Upcoming assessments
-- **Wed 23 Sept:** Assignment 2 (A2 Data Equations)
+ - [Ch5: Data equations](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch5.pdf)
+
+

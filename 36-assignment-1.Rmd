@@ -1,0 +1,21 @@
+---
+title: ""
+output: html_document
+---
+
+# Assignment 1 - Quantities (due Wed Sept 16)
+
+In the library or online, find a journal reporting research results, i.e., _Ecology_. Open the journal to an article, and list the first defined physical or biological quantity you encounter (if you must move to the next article, then so be it).
+
+For 4 different quantities, complete the following checklist:
+
+- Journal name, volume, and page number:
+- Name of quantity in words:
+- symbol for quantity:
+- number of values,  n=:  
+- procedural statement (one sentence):
+- Reproducible by another investigator ?
+- type of measurement scale (nominal, ordinal, interval, ratio)
+- If ratio scale: units =
+
+If a component is not present then state ‘not present.’

@@ -6,8 +6,7 @@ output: html_document
 # Mon Sept 21 - Freq Dist I 
 
 ## Readings
-- Ch6.1
 
-### Upcoming assessments
-- **Wed 23 Sept:** Assignment 2 (A2 Data Equations)
-- **Fri 25 Sept:** Lab 3, Quiz 3
+- [Ch6.1: Empirical frequency distributions](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_1.pdf)
+
+

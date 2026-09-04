@@ -6,7 +6,10 @@ output: html_document
 # Fri Sept 25 - Statistical Inference
 
 ## Reading
- - Ch7, 7.1, 7.6
+ - [Ch7: ]()
+ 
+ - [Ch7.1]()
+ 
+ - [Ch7.6]()
 
-## Upcoming assessments
-- **Fri 02 Oct:** Assignment 3 (A3 Ch 7.3)
+

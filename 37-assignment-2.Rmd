@@ -1,0 +1,19 @@
+---
+title: ""
+output: html_document
+---
+
+# Assignment 2 - Data equations (due Wed Sept 23)
+
+
+In the published literature find a graph where a regression equation has been
+displayed. A list of such publications can be found [here](
+http://www.mun.ca/biology/schneider/b4605/Data/RefswithRegressionEquations.pdf).
+
+- State the source publication
+
+- Write the equation, write the name of each symbol or parameter value, and give its units.
+
+- Immediately below the equation (symbolic form) display a data equation for each of 3 different values of the explanatory (X) variable.
+
+

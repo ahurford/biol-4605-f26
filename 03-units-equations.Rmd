@@ -6,7 +6,7 @@ output: html_document
 # Mon Sept 14 - Units, Equations 
 
 ## Readings
-- Ch2.5, Ch4
+- [Ch2.5: Ratio scale units](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch2_5.pdf)
+- [Ch4: Equations](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch4.pdf)
 
-### Upcoming assessments
-- **Fri 18 Sept:** Lab 2, Quiz 2
+

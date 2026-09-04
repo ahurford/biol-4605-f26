@@ -6,7 +6,8 @@ output: html_document
 # Wed Sept 23 - Freq Dist II
 
 ## Readings
- - Ch6.2, 6.3
+ - [Ch6.2: Probability distributions - notation](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_2.pdf)
+ 
+ - [Ch6.3: Comparing observed distributions to probability models](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_3.pdf)
 
-## Upcoming assessments
-- **Fri 25 Sept:** Lab 3, Quiz 3
+

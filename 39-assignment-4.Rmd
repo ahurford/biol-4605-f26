@@ -1,0 +1,14 @@
+---
+title: ""
+output: html_document
+---
+
+# Assignment 4 - Confidence intervals (due Fri Oct 9)
+
+
+Find, in the published literature, two mean values with associated
+standard deviations and sample size.
+
+1. Report the 6 values with full citation of source of the published data.
+2. Compute the t-statistic using the appropriate formula from Ch7.3. State which formula you used and why. Use the generic recipe for decision making with statistics (Ch7.3, Table 7.1) to declare a decision about the two means.
+

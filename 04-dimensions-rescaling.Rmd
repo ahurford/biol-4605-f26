@@ -6,7 +6,13 @@ output: html_document
 # Wed Sept 16 - Dimensions Rescaling 
 
 ## Readings
-- Ch2.5, Ch3
 
-## Upcoming assessments
-- **Fri 18 Sept:** Lab 2, Quiz 2
+- [Ch3.1: Logical rescaling](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch3_1.pdf)
+
+- [Ch3.2: Operations of ratio scale quantities](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch3_2.pdf)
+
+- [Ch3.3: Descriptive statistics and rescaling](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch3_3.pdf)
+
+- [Ch3.4: Unit conversion and rigid re-scaling](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch3_4.pdf)
+
+
