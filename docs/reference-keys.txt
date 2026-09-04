@@ -94,7 +94,7 @@ readings-29
 upcoming-assessments-24
 fri-dec-04---course-review
 upcoming-assessments-25
-assignment-1---quantities-due-wed-sept-16
+assignment-1
 assignment-2---data-equations-due-wed-sept-23
 assignment-3---hypothesis-testing-due-fri-oct-2
 assignment-4---confidence-intervals-due-fri-oct-9

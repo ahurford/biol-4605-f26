@@ -8,17 +8,17 @@ output: html_document
 Almost every biological theory or hypothesis is a model of how nature works. We use data to separate models that are more likely correct from ones that are less likely correct. Data are measured quantities and the model can be written clearly using mathematical and statistical notation and concepts.
 
 - What kind of data do we need?
-- The signal and the noise
-- Random and representative
+- Our model describes the signal and the noise
+- Samples need to be representative of the population. This is best done by choosing them randomly.
 - Assessing model fit and the 'best' model
 - There can be multiple ways to correctly complete the statisics for your problem.
 - And... there are some choices that are wrong.
 
-Completing [assignment 1]() will help you understand what measured quantities are. This will help you understand the expectations for how should discuss your data in scientific writing and will prepare you for writing your statistical tests as equations, which allows you to communicate your biological hypotheses clearly.
+Completing [assignment 1](#assignment-1) will help you understand what measured quantities are. This will help you understand the expectations for how should discuss your data in scientific writing and will prepare you for writing your statistical tests as equations, which allows you to communicate your biological hypotheses clearly.
 
 ## Readings
 
-- [Ch1: Introdution (Quinn and Keough)]
+- [Ch1: Introduction (Quinn and Keough)]
 
 - [Ch2.1: Definition of a measured quantity](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch2_1.pdf)
 
