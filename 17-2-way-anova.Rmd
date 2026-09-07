@@ -1,12 +1,12 @@
 ---
-title: "2-way ANOVA"
+title: "rev: 1 expl var"
 output: html_document
 ---
 
-# Wed Oct 21 - 2-way ANOVA
+# Wed Oct 21 - Review: 1 explanatory variable
 
 ## Readings
-- Ch13.1
+- Ch11
 
 
 

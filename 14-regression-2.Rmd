@@ -1,5 +1,5 @@
 ---
-title: "Regression II"
+title: "Regression"
 output: html_document
 ---
 
@@ -7,7 +7,4 @@ output: html_document
 
 ## Readings
 
-- Ch9.3, 9.5
-
-## Upcoming assessments
-- **Fri 16 Oct:** Quiz 5
+- Ch9.1, 9.2 Regression

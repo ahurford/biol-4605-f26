@@ -1,14 +1,15 @@
 ---
-title: "ANOVA w/interaction"
+title: "Multiple regression"
 output: html_document
 ---
 
-# Fri Oct 23 - ANOVA w/interaction
+# **Fri Oct 23 (Q3)** - multiple regression
+
+## Last 15 minutes: Quiz 3
 
 ## Readings
 
-- Ch13.2
+- Ch12.1
 
 
-## Upcoming assessments
-- **Fri 30 Oct:** Lab 7, Quiz 7
+

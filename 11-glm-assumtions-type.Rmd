@@ -1,0 +1,11 @@
+---
+title: "Linear models assumptions and types of linear models"
+output: html_document
+---
+
+# Mon Oct 05 - Linear models assumptions and types of linear models
+
+## Readings
+- Ch4.6-4.7 Quinn and Keough
+
+

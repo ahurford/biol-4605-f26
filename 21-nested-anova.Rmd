@@ -1,15 +1,11 @@
 ---
-title: "Nested ANOVA"
+title: "Mixed model - paired t-test"
 output: html_document
 ---
 
-# Fri Oct 30 - Nested ANOVA 
+# Fri Oct 30 - Mixed model - paired t-test
 
 ## Readings
 
-- Ch13.6, 13.7
+- Ch13.3
 
-
-
-## Upcoming assessments
-- **Fri 06 Nov:** Lab 8, Unit II Exam

@@ -1,0 +1,23 @@
+---
+title: "Frequentist estimation"
+output: html_document
+---
+
+# **Fri Sept 18 (Q1)** - Frequentist estimation
+
+## Last 15 minutes: Quiz 1
+
+## Readings
+
+- Ch 2.4 Quinn and Keough
+
+ - Ch7.5
+ 
+ - [Ch7: ]()
+ 
+ - [Ch7.1]()
+ 
+ - [Ch7.6]()
+
+
+

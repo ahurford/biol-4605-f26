@@ -3,12 +3,8 @@ title: "Retrospective Analysis"
 output: html_document
 ---
 
-# Fri Nov 20 - Retrospective Analysis 
+# **Fri Nov 20 (Q4)**- Retrospective Analysis 
 
 ## Readings
 - Ch 18.3
 
-
-### Upcoming assessments
-- **Tue 24 Nov:** Lab 9a,b
-- **Fri 27 Nov:** Quiz 10

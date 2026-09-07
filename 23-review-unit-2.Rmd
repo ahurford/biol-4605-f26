@@ -3,12 +3,10 @@ title: "Course Drop / Review"
 output: html_document
 ---
 
-# Wed Nov 04 - Review Unit 2
+# Wed Nov 04 - Nested ANOVA
 
 ## Readings
-- Ch15 review
+- Ch13.6, 13.7
 
 
 
-### Upcoming assessments
-- **Fri 06 Nov:** Lab 8, Unit II Exam

@@ -1,0 +1,12 @@
+---
+title: "Hypothesis testing"
+output: html_document
+---
+
+# Mon Sept 21 - Hypothesis testing
+
+## Readings
+
+- Ch 2.5 Quinn and Keough
+
+- Ch7.2, 7.3

@@ -1,12 +1,12 @@
 ---
-title: "Multiple Regression"
+title: "1-way ANOVA"
 output: html_document
 ---
 
-# Mon Oct 19 - Multiple Regression 
+# Mon Oct 19 - 1 way ANOVA
 
 ## Readings
-- Ch12.1
+- Ch10.3 10.4
 
 
 

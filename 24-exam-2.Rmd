@@ -1,0 +1,10 @@
+---
+title: "Exam 2"
+output: html_document
+---
+
+# **Fri Nov 06 - EXAM 2**
+
+
+## Readings
+- Ch 15

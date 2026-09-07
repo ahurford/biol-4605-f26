@@ -1,0 +1,13 @@
+---
+title: "Sampling design"
+output: html_document
+---
+
+# Fri Sept 25 - Sampling and experimental design
+
+
+## Reading
+- Ch 3.1 and 3.2 in Quinn and Keough.
+
+
+

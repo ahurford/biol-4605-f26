@@ -1,0 +1,12 @@
+---
+title: "Power analysis"
+output: html_document
+---
+
+# Mon Sept 28 - Power analysis
+
+## Readings
+- Ch 3.3 Quinn and Keough.
+
+
+

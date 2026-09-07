@@ -1,0 +1,10 @@
+---
+title: "Exam I"
+output: html_document
+---
+
+# **Fri Oct 09 - EXAM I**
+
+
+
+

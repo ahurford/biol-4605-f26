@@ -1,13 +1,9 @@
 ---
-title: "Mixed Model - Paired t"
+title: "2 way ANOVA"
 output: html_document
 ---
 
-# Mon Oct 26 - Mixed Model - Paired t 
+# Mon Oct 26 - 2-way ANOVA 
 
 ## Readings 
-- Ch13.3
-
-
-## Upcoming assessments
-- **Fri 30 Oct:** Lab 7, Quiz 7
+- Ch13.1

@@ -1,0 +1,11 @@
+---
+title: "Exploratory data analysis"
+output: html_document
+---
+
+# Wed Oct 07 - Exploratory data analysis
+
+Not on exam 1
+
+## Readings
+- Ch 5 Quinn and Keough

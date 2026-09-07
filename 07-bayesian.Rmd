@@ -1,0 +1,10 @@
+---
+title: "Bayesian"
+output: html_document
+---
+
+# Wed Sept 23 - Bayesian statistical inference
+
+## Readings
+- Ch. 2.6 and 2.7 Quinn and Keough.
+- [Ch. 7.1 Three modes of statistical infereence](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch7_1.pdf)

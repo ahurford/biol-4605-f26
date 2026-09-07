@@ -1,0 +1,27 @@
+---
+title: "Probability distributions"
+output: html_document
+---
+
+# Wed Sept 16 - Samples, poulations, and probability distributions
+
+- Samples and populations
+
+- Empirical frequency distributions
+
+- Probability distributions
+
+- Distributions for statistics
+
+- Comparing observations to probability distributions
+
+## Readings
+
+- Chapter 2.1-2.3 of Quinn and Keough.
+
+- [Ch6.1: Empirical frequency distributions](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_1.pdf)
+
+ - [Ch6.2: Probability distributions - notation](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_2.pdf)
+ 
+ - [Ch6.3: Comparing observed distributions to probability models](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_3.pdf)
+

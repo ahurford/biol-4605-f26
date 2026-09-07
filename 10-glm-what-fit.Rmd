@@ -1,0 +1,15 @@
+---
+title: "What is a linear model?"
+output: html_document
+---
+
+# **Fri Oct 2 (Q2) ** - What is a linear model and how to assess model fit
+
+## Last 15 minutes: Quiz 2
+
+## Readings
+- Ch 4.1-4.5 Quinn and Keough.
+
+
+
+

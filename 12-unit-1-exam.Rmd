@@ -1,7 +1,0 @@
----
-title: "Unit 1 Exam"
-output: html_document
----
-
-# Wed Oct 07 - Unit 1 Exam
-

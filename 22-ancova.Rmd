@@ -1,13 +1,11 @@
 ---
-title: "ANCOVA"
+title: "Mixed model - random block"
 output: html_document
 ---
 
-# Mon Nov 02 - ANCOVA 
+# Mon Nov 02 - Mixed model - random block
 
 ## Readings 
-- Ch14.1
+- Ch13.4
 
 
-### Upcoming assessments
-- **Fri 06 Nov:** Lab 8, Unit II Exam

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>11 Mon Sept 28 - What is a linear model and model fit | book.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="11 Mon Sept 28 - What is a linear model and model fit | book.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="11 Mon Sept 28 - What is a linear model and model fit | book.knit" />
+  
+  
+  
+
+<meta name="author" content="Amy Hurford" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="mon-sept-28---power-analysis.html"/>
+<link rel="next" href="mon-oct-05---linear-models-assumptions-and-types-of-linear-models.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to BIOL/OSCS 4605/7220!</a></li>
+<li class="chapter" data-level="2" data-path="wed-sept-9---introduction.html"><a href="wed-sept-9---introduction.html"><i class="fa fa-check"></i><b>2</b> Wed Sept 9 - Introduction</a></li>
+<li class="chapter" data-level="3" data-path="fri-sept-11---models-and-quantities.html"><a href="fri-sept-11---models-and-quantities.html"><i class="fa fa-check"></i><b>3</b> Fri Sept 11 - Models and quantities</a></li>
+<li class="chapter" data-level="4" data-path="mon-sept-14---equations-units-and-notation.html"><a href="mon-sept-14---equations-units-and-notation.html"><i class="fa fa-check"></i><b>4</b> Mon Sept 14 - Equations, units, and notation</a></li>
+<li class="chapter" data-level="5" data-path="wed-sept-16---samples-poulations-and-probability-distributions.html"><a href="wed-sept-16---samples-poulations-and-probability-distributions.html"><i class="fa fa-check"></i><b>5</b> Wed Sept 16 - Samples, poulations, and probability distributions</a></li>
+<li class="chapter" data-level="6" data-path="fri-sept-18---frequentist-estimation.html"><a href="fri-sept-18---frequentist-estimation.html"><i class="fa fa-check"></i><b>6</b> Fri Sept 18 - Frequentist estimation</a></li>
+<li class="chapter" data-level="7" data-path="mon-sept-21---hypothesis-testing.html"><a href="mon-sept-21---hypothesis-testing.html"><i class="fa fa-check"></i><b>7</b> Mon Sept 21 - Hypothesis testing</a></li>
+<li class="chapter" data-level="8" data-path="wed-sept-23---bayesian-statistical-inference.html"><a href="wed-sept-23---bayesian-statistical-inference.html"><i class="fa fa-check"></i><b>8</b> Wed Sept 23 - Bayesian statistical inference</a></li>
+<li class="chapter" data-level="9" data-path="fri-sept-25---sampling-and-experimental-design.html"><a href="fri-sept-25---sampling-and-experimental-design.html"><i class="fa fa-check"></i><b>9</b> Fri Sept 25 - Sampling and experimental design</a></li>
+<li class="chapter" data-level="10" data-path="mon-sept-28---power-analysis.html"><a href="mon-sept-28---power-analysis.html"><i class="fa fa-check"></i><b>10</b> Mon Sept 28 - Power analysis</a></li>
+<li class="chapter" data-level="11" data-path="mon-sept-28---what-is-a-linear-model-and-model-fit.html"><a href="mon-sept-28---what-is-a-linear-model-and-model-fit.html"><i class="fa fa-check"></i><b>11</b> Mon Sept 28 - What is a linear model and model fit</a></li>
+<li class="chapter" data-level="12" data-path="mon-oct-05---linear-models-assumptions-and-types-of-linear-models.html"><a href="mon-oct-05---linear-models-assumptions-and-types-of-linear-models.html"><i class="fa fa-check"></i><b>12</b> Mon Oct 05 - Linear models assumptions and types of linear models</a></li>
+<li class="chapter" data-level="13" data-path="wed-oct-07---exploratory-data-analysis.html"><a href="wed-oct-07---exploratory-data-analysis.html"><i class="fa fa-check"></i><b>13</b> Wed Oct 07 - Exploratory data analysis</a></li>
+<li class="chapter" data-level="14" data-path="fri-oct-09---exam-i.html"><a href="fri-oct-09---exam-i.html"><i class="fa fa-check"></i><b>14</b> Fri Oct 09 - Exam I</a></li>
+<li class="chapter" data-level="15" data-path="wed-oct-14---regression.html"><a href="wed-oct-14---regression.html"><i class="fa fa-check"></i><b>15</b> Wed Oct 14 - Regression</a></li>
+<li class="chapter" data-level="16" data-path="fri-oct-16---regression-1-expl-var.html"><a href="fri-oct-16---regression-1-expl-var.html"><i class="fa fa-check"></i><b>16</b> Fri Oct 16 - Regression: 1 Expl Var</a></li>
+<li class="chapter" data-level="17" data-path="mon-oct-19---multiple-regression.html"><a href="mon-oct-19---multiple-regression.html"><i class="fa fa-check"></i><b>17</b> Mon Oct 19 - Multiple Regression</a></li>
+<li class="chapter" data-level="18" data-path="wed-oct-21---2-way-anova.html"><a href="wed-oct-21---2-way-anova.html"><i class="fa fa-check"></i><b>18</b> Wed Oct 21 - 2-way ANOVA</a></li>
+<li class="chapter" data-level="19" data-path="fri-oct-23---anova-winteraction.html"><a href="fri-oct-23---anova-winteraction.html"><i class="fa fa-check"></i><b>19</b> Fri Oct 23 - ANOVA w/interaction</a></li>
+<li class="chapter" data-level="20" data-path="mon-oct-26---mixed-model---paired-t.html"><a href="mon-oct-26---mixed-model---paired-t.html"><i class="fa fa-check"></i><b>20</b> Mon Oct 26 - Mixed Model - Paired t</a></li>
+<li class="chapter" data-level="21" data-path="wed-oct-28---mixed-model-rand.-block.html"><a href="wed-oct-28---mixed-model-rand.-block.html"><i class="fa fa-check"></i><b>21</b> Wed Oct 28 - Mixed Model, Rand. Block</a></li>
+<li class="chapter" data-level="22" data-path="fri-oct-30---nested-anova.html"><a href="fri-oct-30---nested-anova.html"><i class="fa fa-check"></i><b>22</b> Fri Oct 30 - Nested ANOVA</a></li>
+<li class="chapter" data-level="23" data-path="mon-nov-02---ancova.html"><a href="mon-nov-02---ancova.html"><i class="fa fa-check"></i><b>23</b> Mon Nov 02 - ANCOVA</a></li>
+<li class="chapter" data-level="24" data-path="wed-nov-04---review-unit-2.html"><a href="wed-nov-04---review-unit-2.html"><i class="fa fa-check"></i><b>24</b> Wed Nov 04 - Review Unit 2</a></li>
+<li class="chapter" data-level="25" data-path="fri-nov-06---unit-2-exam.html"><a href="fri-nov-06---unit-2-exam.html"><i class="fa fa-check"></i><b>25</b> Fri Nov 06 - Unit 2 Exam</a></li>
+<li class="chapter" data-level="26" data-path="mon-nov-09---correlation-mvar.html"><a href="mon-nov-09---correlation-mvar.html"><i class="fa fa-check"></i><b>26</b> Mon Nov 09 - Correlation &amp; Mvar</a></li>
+<li class="chapter" data-level="27" data-path="fri-nov-13---gzlm-intro.html"><a href="fri-nov-13---gzlm-intro.html"><i class="fa fa-check"></i><b>27</b> Fri Nov 13 - GzLM Intro</a></li>
+<li class="chapter" data-level="28" data-path="mon-nov-16---logistic-regression.html"><a href="mon-nov-16---logistic-regression.html"><i class="fa fa-check"></i><b>28</b> Mon Nov 16 - Logistic Regression</a></li>
+<li class="chapter" data-level="29" data-path="wed-nov-18---prospective-analysis.html"><a href="wed-nov-18---prospective-analysis.html"><i class="fa fa-check"></i><b>29</b> Wed Nov 18 - Prospective Analysis</a></li>
+<li class="chapter" data-level="30" data-path="fri-nov-20---retrospective-analysis.html"><a href="fri-nov-20---retrospective-analysis.html"><i class="fa fa-check"></i><b>30</b> Fri Nov 20 - Retrospective Analysis</a></li>
+<li class="chapter" data-level="31" data-path="mon-nov-23---logistic-ancova.html"><a href="mon-nov-23---logistic-ancova.html"><i class="fa fa-check"></i><b>31</b> Mon Nov 23 - Logistic ANCOVA</a></li>
+<li class="chapter" data-level="32" data-path="wed-nov-25---poisson-regression.html"><a href="wed-nov-25---poisson-regression.html"><i class="fa fa-check"></i><b>32</b> Wed Nov 25 - Poisson Regression</a></li>
+<li class="chapter" data-level="33" data-path="fri-nov-27---contingency-tests-poisson.html"><a href="fri-nov-27---contingency-tests-poisson.html"><i class="fa fa-check"></i><b>33</b> Fri Nov 27 - Contingency Tests, Poisson</a></li>
+<li class="chapter" data-level="34" data-path="mon-nov-30---model-selection-i-eda-and-stepwise.html"><a href="mon-nov-30---model-selection-i-eda-and-stepwise.html"><i class="fa fa-check"></i><b>34</b> Mon Nov 30 - Model Selection I: EDA and Stepwise</a></li>
+<li class="chapter" data-level="35" data-path="wed-dec-02---multimodel-inf---aic-sic.html"><a href="wed-dec-02---multimodel-inf---aic-sic.html"><i class="fa fa-check"></i><b>35</b> Wed Dec 02 - Multimodel Inf - AIC, SIC</a></li>
+<li class="chapter" data-level="36" data-path="fri-dec-04---course-review.html"><a href="fri-dec-04---course-review.html"><i class="fa fa-check"></i><b>36</b> Fri Dec 04 - Course Review</a></li>
+<li class="chapter" data-level="37" data-path="assignment-1.html"><a href="assignment-1.html"><i class="fa fa-check"></i><b>37</b> Assignment 1 - Quantities (due Wed Sept 16)</a></li>
+<li class="chapter" data-level="38" data-path="assignment-2---data-equations-due-wed-sept-23.html"><a href="assignment-2---data-equations-due-wed-sept-23.html"><i class="fa fa-check"></i><b>38</b> Assignment 2 - Data equations (due Wed Sept 23)</a></li>
+<li class="chapter" data-level="39" data-path="assignment-3---hypothesis-testing-due-fri-oct-2.html"><a href="assignment-3---hypothesis-testing-due-fri-oct-2.html"><i class="fa fa-check"></i><b>39</b> Assignment 3 - Hypothesis testing (due Fri Oct 2)</a></li>
+<li class="chapter" data-level="40" data-path="assignment-4---confidence-intervals-due-fri-oct-9.html"><a href="assignment-4---confidence-intervals-due-fri-oct-9.html"><i class="fa fa-check"></i><b>40</b> Assignment 4 - Confidence intervals (due Fri Oct 9)</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mon-sept-28---what-is-a-linear-model-and-model-fit" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">11</span> Mon Sept 28 - What is a linear model and model fit<a href="mon-sept-28---what-is-a-linear-model-and-model-fit.html#mon-sept-28---what-is-a-linear-model-and-model-fit" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="readings-7" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Readings<a href="mon-sept-28---what-is-a-linear-model-and-model-fit.html#readings-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Ch 3.3 Quinn and Keough.</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mon-sept-28---power-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mon-oct-05---linear-models-assumptions-and-types-of-linear-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
