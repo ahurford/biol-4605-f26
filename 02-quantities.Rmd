@@ -19,7 +19,7 @@ describes our hypothesis that phosphorus levels in the soil determine phosphorou
 
 - If $P_{corn}$ and $P_{soil}$ are measured quantities on the ratio scale and if we assume that the differences between the model-predicted values and the data, $\epsilon$, are independent and normally distributed (with equal variance), then the name of this model is a linear regression (with one predictor variable).
 
-Our model describes the signal and the noise.
+Our model describes the signal and the noise. Is there evidence for the signal, or are we just describing the noise?
 
 # Models and data
 
@@ -29,15 +29,17 @@ We use data to separate models that are more likely correct from ones that are l
 
 - Our population is the set of all objects that we wish to apply our conclusions to.
 
-- Samples need to be representative of the population. This is best done by choosing them randomly.
+- The data we collect are samples from the population. Samples need to be representative of the population. This is best done by choosing them randomly.
 
 - To determine if a model (our hypothesis) is supported by the data, we need to assess model fit, if the assumptions of the model are met, and the values of estimated parameters. For example, if $\hat{\beta}_{Psoil} = 0$, where $\hat{\beta}_{Psoil}$ is the estimated slope for the relationship between $P_{corn}$ and $P_{soil}$ for our data, then this says there is no relationship between the phosphorous in the soil and in the corn.
+
+- There are different approaches to assessing if a model fits well and if a model is better than it's competitors. You may already have heard of hypothesis testing, confidence intervals, and Bayesian statistics. Different approaches have strengths and weakness and you should understand what each approach involves.
 
 - We can find a 'best' model from a model set, but not a 'correct' model.
 
 - There can be multiple ways to correctly complete the statistics for your problem, and...
 
-- ... there are some choices that are wrong.
+- ... there are some choices that are wrong. Being wrong could be due to a mismatch between: (a) the biological question and the sampling design - you can't link the pattern in the data to the biological model; (b) your statistical model and the biological situation - you get a clear view from the analysis, but it doesn't answer your question; (c) your statistical model and the sampling or experimental design - you do not have confidence in your estimates; and (d) the statistical model and your data - conclusions are unrealiable if assumptions of the statistical test are not met.  
 
 ## Data are measured quantities
 
