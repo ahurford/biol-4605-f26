@@ -21,7 +21,7 @@ describes our hypothesis that phosphorus levels in the soil determine phosphorou
 
 Our model describes the signal and the noise. Is there evidence for the signal, or are we just describing the noise?
 
-# Models and data
+## Models and data
 
 We use data to separate models that are more likely correct from ones that are less likely correct.
 
@@ -45,11 +45,27 @@ We use data to separate models that are more likely correct from ones that are l
 
 To clearly write our model we need to establish some best standards for reporting and describing our data. Data are measured quantities. 
 
+- Measured quantities should have a name, symbol, a set of scaled numbers, units, and a procedural statement.
+
 - Types of measured quantities are: nominal, ordinal, interval, and ratio. You should know what type your data is (for each variable).
 
 - Which type of data you are using to test your biological hypotheses guides how you complete your statistical test.
 
-- Measured quantities should have a name, symbol, a set of scaled numbers, units, and a procedural statement.
+
+**Nominal.** Outcome of measurement is "yes" or "no" also coded as 0 or 1.
+
+**Ordinal.** Outcome is ranking: 1st, 2nd, 3rd, etc.
+There is no information about magnitude of difference from one rank to next.
+
+**Interval.** The distance between measurements is known, but zero is an arbitrary point.
+Addition and subtraction are valid. Multiplication and division are not.
+Example of compass direction. Direction is relative to an arbitrary point.
+Other examples are Dates (2 January, Julian day 180).
+
+**Ratio.** Distance between measurements is known, zero point is absolute, not arbitrary.
+An example is degrees Kelvin. There is no heat content at 0$^\circ$K
+In contrast, 0$^\circ$C does not mean "no temperature."
+Molecular motion (heat) is still present. So 0$^\circ$C is interval.
 
 Completing [assignment 1](#assignment-1) will help you understand what measured quantities are. This will help you understand the expectations for how should discuss your data in scientific writing and will prepare you for writing your statistical tests as equations, which allows you to communicate your biological hypotheses clearly.
 
