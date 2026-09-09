@@ -3,7 +3,7 @@ title: "Frequentist estimation"
 output: html_document
 ---
 
-# **Fri Sept 18 (Q1)** - Frequentist estimation
+# **Fri Sept 18 (Quiz 1, A1 due)** - Frequentist estimation
 
 ## Last 15 minutes: Quiz 1
 

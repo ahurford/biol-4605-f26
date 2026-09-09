@@ -3,7 +3,7 @@ title: "Mixed model - paired t-test"
 output: html_document
 ---
 
-# Fri Oct 30 - Mixed model - paired t-test
+# **Fri Oct 30 (A4 due)** - Mixed model - paired t-test
 
 ## Readings
 

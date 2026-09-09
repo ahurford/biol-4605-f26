@@ -3,7 +3,7 @@ title: "Retrospective Analysis"
 output: html_document
 ---
 
-# **Fri Nov 20 (Q4)**- Retrospective Analysis 
+# **Fri Nov 20 (Quiz 4)**- Retrospective Analysis 
 
 ## Readings
 - Ch 18.3

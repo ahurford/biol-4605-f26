@@ -3,7 +3,7 @@ title: "Multiple regression"
 output: html_document
 ---
 
-# **Fri Oct 23 (Q3)** - multiple regression
+# **Fri Oct 23 (Quiz 3)** - multiple regression
 
 ## Last 15 minutes: Quiz 3
 

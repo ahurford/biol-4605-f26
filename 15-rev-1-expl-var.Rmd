@@ -3,7 +3,7 @@ title: "Regression"
 output: html_document
 ---
 
-# Fri Oct 16 - Regression
+# **Fri Oct 16 (A3 due)** - Regression
 
 ## Readings
 - Chp 9.3, 9.5
