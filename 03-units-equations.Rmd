@@ -5,15 +5,37 @@ output: html_document
 
 # Mon Sept 14 - Equations, units, and notation
 
-- Units must balance across an equals.
+## Ratio scale units
 
-- The hypothesis and assumptions for common statistical tests should be written as equations.
+- You can rescale, i.e., grams to kilograms.
 
-- Estimated coefficients and quantities, i.e., slopes, coefficients, and standard deviations have units.
+- You can use the equations to calculate values, i.e., $e^{-Dt}$ example.
 
-- A data equation consists of model + residual. Statistical tests often assume the residual follows a probability distribution.
+- We estimated that $\hat{\beta} = 2$ and $\hat{\alpha} = 0$ for a regression $y = \hat{\alpha} + \hat{\beta} x$. Suppose if we consider a specific value of $x_1 = 1$, what is the value of $y_1$ predicted by the best fit line?
 
-- Statistical models have explanatory variables and response variables.
+## Equations
+
+- Units must balance across an equals (homogeneity of units). In the previous example, if the units of $y$ are grams and the units of $x$ are parts per million (ppm), what are the units of each of $\hat{\alpha}$ and $\hat{\beta}$? 
+
+- The hypothesis and assumptions for common statistical tests should be written as equations. The symbols should have biological interpretations and units.
+
+- Estimated coefficients and quantities, i.e., slopes, coefficients, and standard deviations have units and should be presented as such.
+
+## Data equations
+
+- A data equation:  data = model + residual. Statistical tests often assume the residual follows a probability distribution.
+
+- In symbols: $y = E(H) + \epsilon$, where $y$ are the data and $\epsilon$ are the residuals. Here $E(H)$ is your model, or what you expect under your hypothesis. You might expect a particular value, i.e., $E(H) = 0.3$ or you might expect a linear relationship with a predictor variable, i.e., $E(H) = \alpha + \beta x$.
+
+- Statistical models have explanatory (or predictor) variables and response variables.
+
+- Practice calculating the residual for set of data points practice calculating the residual and the residual sum of squares (see the heterozygousity example in [Example 5.2 Fruit fly heterozygosity in Ch 5 Data equations](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch5.pdf)).
+
+- How is bias calculated? Draw an illustration of positive and negative bias.
+
+- For a model with no predictor variable (no consideration of elevation) what is the best fit estimate of heterozygosity from the sample? How was this estimate calculated? What were the two criteria to define 'best fit'?
+
+- Some questions we will re-visit in future classes: What is the likelihood and how is it calculated? What is the likelihood ratio?
 
 ## Some common notations
 
@@ -23,7 +45,9 @@ output: html_document
 
 - $X$ denotes a realization of a random variable, where the random variable may follow a probability distribution such as $P(X=x) = \frac{1}{\sqrt{2\pi \sigma^2}}e^{-(x-\mu)^2/2\sigma^2}$.
 
-- $X \sim P(X=x)$ means  'X is distributed as P(X=x)'. Note that it is not correct to say $X$ is equal to $P(X=x)$ is $X$ is a realization from a probability distribution.  
+- $X \sim P(X=x)$ means  'X is distributed as P(X=x)'. Note that it is not correct to say $X$ is equal to $P(X=x)$ is $X$ is a realization from a probability distribution.
+
+- $L(\beta|X)$ is the likelihood of a parameter value, $\beta$, given the data, $X$.
 
 ## Readings
 - [Ch2.5: Ratio scale units](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch2_5.pdf)

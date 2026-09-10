@@ -130,24 +130,46 @@
             <section class="normal" id="section-">
 <div id="mon-sept-14---equations-units-and-notation" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">4</span> Mon Sept 14 - Equations, units, and notation<a href="mon-sept-14---equations-units-and-notation.html#mon-sept-14---equations-units-and-notation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="ratio-scale-units" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Ratio scale units<a href="mon-sept-14---equations-units-and-notation.html#ratio-scale-units" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><p>Units must balance across an equals.</p></li>
-<li><p>The hypothesis and assumptions for common statistical tests should be written as equations.</p></li>
-<li><p>Estimated coefficients and quantities, i.e., slopes, coefficients, and standard deviations have units.</p></li>
-<li><p>A data equation consists of model + residual. Statistical tests often assume the residual follows a probability distribution.</p></li>
-<li><p>Statistical models have explanatory variables and response variables.</p></li>
+<li><p>You can rescale, i.e., grams to kilograms.</p></li>
+<li><p>You can use the equations to calculate values, i.e., <span class="math inline">\(e^{-Dt}\)</span> example.</p></li>
+<li><p>We estimated that <span class="math inline">\(\hat{\beta} = 2\)</span> and <span class="math inline">\(\hat{\alpha} = 0\)</span> for a regression <span class="math inline">\(y = \hat{\alpha} + \hat{\beta} x\)</span>. Suppose if we consider a specific value of <span class="math inline">\(x_1 = 1\)</span>, what is the value of <span class="math inline">\(y_1\)</span> predicted by the best fit line?</p></li>
 </ul>
-<div id="some-common-notations" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Some common notations<a href="mon-sept-14---equations-units-and-notation.html#some-common-notations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="equations" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Equations<a href="mon-sept-14---equations-units-and-notation.html#equations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Units must balance across an equals (homogeneity of units). In the previous example, if the units of <span class="math inline">\(y\)</span> are grams and the units of <span class="math inline">\(x\)</span> are parts per million (ppm), what are the units of each of <span class="math inline">\(\hat{\alpha}\)</span> and <span class="math inline">\(\hat{\beta}\)</span>?</p></li>
+<li><p>The hypothesis and assumptions for common statistical tests should be written as equations. The symbols should have biological interpretations and units.</p></li>
+<li><p>Estimated coefficients and quantities, i.e., slopes, coefficients, and standard deviations have units and should be presented as such.</p></li>
+</ul>
+</div>
+<div id="data-equations" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Data equations<a href="mon-sept-14---equations-units-and-notation.html#data-equations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>A data equation: data = model + residual. Statistical tests often assume the residual follows a probability distribution.</p></li>
+<li><p>In symbols: <span class="math inline">\(y = E(H) + \epsilon\)</span>, where <span class="math inline">\(y\)</span> are the data and <span class="math inline">\(\epsilon\)</span> are the residuals. Here <span class="math inline">\(E(H)\)</span> is your model, or what you expect under your hypothesis. You might expect a particular value, i.e., <span class="math inline">\(E(H) = 0.3\)</span> or you might expect a linear relationship with a predictor variable, i.e., <span class="math inline">\(E(H) = \alpha + \beta x\)</span>.</p></li>
+<li><p>Statistical models have explanatory (or predictor) variables and response variables.</p></li>
+<li><p>Practice calculating the residual for set of data points practice calculating the residual and the residual sum of squares (see the heterozygousity example in <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch5.pdf">Example 5.2 Fruit fly heterozygosity in Ch 5 Data equations</a>).</p></li>
+<li><p>How is bias calculated? Draw an illustration of positive and negative bias.</p></li>
+<li><p>For a model with no predictor variable (no consideration of elevation) what is the best fit estimate of heterozygosity from the sample? How was this estimate calculated? What were the two criteria to define ‘best fit’?</p></li>
+<li><p>Some questions we will re-visit in future classes: What is the likelihood and how is it calculated? What is the likelihood ratio?</p></li>
+</ul>
+</div>
+<div id="some-common-notations" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Some common notations<a href="mon-sept-14---equations-units-and-notation.html#some-common-notations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p><span class="math inline">\(E(H)\)</span> denotes the expected value.</p></li>
 <li><p><span class="math inline">\(\hat{\beta}\)</span> denotes an estimated value of <span class="math inline">\(\beta\)</span>.</p></li>
 <li><p><span class="math inline">\(X\)</span> denotes a realization of a random variable, where the random variable may follow a probability distribution such as <span class="math inline">\(P(X=x) = \frac{1}{\sqrt{2\pi \sigma^2}}e^{-(x-\mu)^2/2\sigma^2}\)</span>.</p></li>
 <li><p><span class="math inline">\(X \sim P(X=x)\)</span> means ‘X is distributed as P(X=x)’. Note that it is not correct to say <span class="math inline">\(X\)</span> is equal to <span class="math inline">\(P(X=x)\)</span> is <span class="math inline">\(X\)</span> is a realization from a probability distribution.</p></li>
+<li><p><span class="math inline">\(L(\beta|X)\)</span> is the likelihood of a parameter value, <span class="math inline">\(\beta\)</span>, given the data, <span class="math inline">\(X\)</span>.</p></li>
 </ul>
 </div>
-<div id="readings-1" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Readings<a href="mon-sept-14---equations-units-and-notation.html#readings-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="readings-1" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Readings<a href="mon-sept-14---equations-units-and-notation.html#readings-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch2_5.pdf">Ch2.5: Ratio scale units</a></li>
 <li><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch4.pdf">Ch4: Equations</a></li>
