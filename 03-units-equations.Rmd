@@ -35,7 +35,7 @@ output: html_document
 
 - For a model with no predictor variable (no consideration of elevation) what is the best fit estimate of heterozygosity from the sample? How was this estimate calculated? What were the two criteria to define 'best fit'?
 
-- Some questions we will re-visit in future classes: What is the likelihood and how is it calculated? What is the likelihood ratio?
+- Some questions we will re-visit in future classes: What is the likelihood and how is it calculated? What is the likelihood ratio? What are degrees of freedom?
 
 ## Some common notations
 
