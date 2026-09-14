@@ -3,13 +3,13 @@ title: ""
 output: html_document
 ---
 
-# Assignment 1 - Quantities (due Wed Sept 16) {#assignment-1}
+# Assignment 1 - Quantities (due Fri Sept 18) {#assignment-1}
 
 In the library or online, find a journal reporting research results, i.e., _Ecology_. Open the journal to an article, and list the first defined physical or biological quantity you encounter (if you must move to the next article, then so be it).
 
 For 4 different quantities, complete the following checklist:
 
-- Journal name, volume, and page number:
+- Journal name, volume, and page number: (can be the same for all 4 quantities)
 - Name of quantity in words:
 - symbol for quantity:
 - number of values,  n=:  
@@ -19,3 +19,6 @@ For 4 different quantities, complete the following checklist:
 - If ratio scale: units =
 
 If a component is not present then state ‘not present.’
+
+Please add your name to the top of your assignment, and indicate if you are registered for 4605 (no project requirement) or 7220 (project requirement).
+
