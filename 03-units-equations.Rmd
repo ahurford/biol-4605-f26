@@ -9,9 +9,7 @@ output: html_document
 
 - You can rescale, i.e., grams to kilograms.
 
-- You can use the equations to calculate values, i.e., $e^{-Dt}$ example.
-
-- We estimated that $\hat{\beta} = 2$ and $\hat{\alpha} = 0$ for a regression $y = \hat{\alpha} + \hat{\beta} x$. Suppose if we consider a specific value of $x_1 = 1$, what is the value of $y_1$ predicted by the best fit line?
+- Suppose, we estimated that $\hat{\beta} = 2$ and $\hat{\alpha} = 0$ for a regression $y = \hat{\alpha} + \hat{\beta} x$. If we consider a specific value of $x_1 = 1$, what is the value of $y_1$ predicted by the best fit line?
 
 ## Equations
 

@@ -130,21 +130,38 @@
             <section class="normal" id="section-">
 <div id="wed-sept-16---samples-poulations-and-probability-distributions" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">5</span> Wed Sept 16 - Samples, poulations, and probability distributions<a href="wed-sept-16---samples-poulations-and-probability-distributions.html#wed-sept-16---samples-poulations-and-probability-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<ul>
-<li><p>Samples and populations</p></li>
-<li><p>Empirical frequency distributions</p></li>
-<li><p>Probability distributions</p></li>
-<li><p>Distributions for statistics</p></li>
-<li><p>Comparing observations to probability distributions</p></li>
-</ul>
-<div id="readings-2" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">5.1</span> Readings<a href="wed-sept-16---samples-poulations-and-probability-distributions.html#readings-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><p>Chapter 2.1-2.3 of Quinn and Keough.</p></li>
-<li><p><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_1.pdf">Ch6.1: Empirical frequency distributions</a></p></li>
-<li><p><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_2.pdf">Ch6.2: Probability distributions - notation</a></p></li>
-<li><p><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_3.pdf">Ch6.3: Comparing observed distributions to probability models</a></p></li>
-</ul>
+<div id="variables" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Samples and populations<a href="wed-sept-16---samples-poulations-and-probability-distributions.html#variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Populations are <em>all possible</em> units and their associated observations of interest. Samples are a collection of observations from a population. The number of units in the sample is the sample size.</p>
+<p>Variables, or measured quantities, are the characteristics that we record. Variables can be continuous, taking any value within a range, i.e., weight. Discrete variables can be ordered along the continuous scale (e.g., counts), and in some cases there are so many possibility that discrete variables can be treated essentially as continuous. For example, hypotheses that involve count data, when the values are large, are often tested with the same statistical tests as continuous data.</p>
+<p>(Based on 2.1 of Quinn and Keough)</p>
+</div>
+<div id="probability-and-probability-distributions" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Probability and probability distributions<a href="wed-sept-16---samples-poulations-and-probability-distributions.html#probability-and-probability-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Probabilities satisfy Kolmogorov’s properties. Probabilities can be interpretted as the relative frequency of an event, or the ‘degree of belief’ an event will occur.</p>
+<p>Bayes’ theorem relates to conditional probability <span class="math inline">\(P(A|B)\)</span>, which is the probability an event <span class="math inline">\(A\)</span> will occur given and event <span class="math inline">\(B\)</span>. Bayes’ theorem is fundamental to Bayesian statistics.</p>
+<p>The definition of independence is that that the probability of events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> occurring can be calculated by multiplying their probabilities: <span class="math inline">\(P(A,B) = P(A)P(B)\)</span>. We may not be justified in using that formula if <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are not independent. We we say that our statistical method assumes that our residuals are independent, we mean that we can multiply the probabilities associated with each residual to calculate the probability of observing these residuals for all the data, i.e., <span class="math inline">\(P(\epsilon_1, \dots, \epsilon_n) = \prod_{i=1}^n P(\epsilon_i)\)</span>. We will specifically show that we are using this assumption when we take the maximum likelihood approach to deriving the residual sum of squares formula (in a future lecture).</p>
+<div id="probability-distributions-for-variables" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Probability distributions for variables<a href="wed-sept-16---samples-poulations-and-probability-distributions.html#probability-distributions-for-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The normal or Gaussian distribution,</p>
+<p><span class="math display">\[f(y) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-(y-\mu)^2/2\sigma^2}. \]</span></p>
+<p>The standard normal distribution has a mean, <span class="math inline">\(\mu = 0\)</span>, and variance, <span class="math inline">\(\sigma^2 = 1\)</span>. Notational we might write the standard normal distribution as <span class="math inline">\(N(0,1)\)</span> where <span class="math inline">\(N(\mu,\sigma)\)</span> is the normal distribution with a mean of <span class="math inline">\(\mu\)</span> and variance of <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>The Bionomial distribution</p>
+<p><span class="math display">\[P(y=r) = \frac{n!}{r!(n-r)!}p^r(1-p)^{p-r}  \]</span></p>
+</div>
+<div id="probability-distributions-for-statistics" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Probability distributions for statistics<a href="wed-sept-16---samples-poulations-and-probability-distributions.html#probability-distributions-for-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>See Figure 2.1 in Q&amp;K (or do an internet search) to see the graphs of these distributions: <span class="math inline">\(z\)</span> (standard normal); Student’s <span class="math inline">\(t\)</span> (ratio of the difference between the sample statistic and its population value to the sample standard deviation); <span class="math inline">\(\chi^2\)</span> (square of values from a standard normal distribution; used for interval estimation of variances); and <span class="math inline">\(F\)</span> (ratio of two independent <span class="math inline">\(\chi^2\)</span> variables, each divided by its degrees of freedom (df); used for comparing variances).</p>
+<p>(Based on 2.2 of Quinn and Keough. See also - <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_2.pdf">Ch6.2: Probability distributions - notation</a>)</p>
+</div>
+</div>
+<div id="empirical-frequency-distributions" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Empirical frequency distributions<a href="wed-sept-16---samples-poulations-and-probability-distributions.html#empirical-frequency-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>(see also <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_1.pdf">Ch6.1: Empirical frequency distributions</a>)</p>
+</div>
+<div id="comparing-observations-to-probability-distributions-ch6.3" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Comparing observations to probability distributions (Ch6.3)<a href="wed-sept-16---samples-poulations-and-probability-distributions.html#comparing-observations-to-probability-distributions-ch6.3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>(based on <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_3.pdf">Ch6.3: Comparing observed distributions to probability models</a>)</p>
 
 </div>
 </div>
