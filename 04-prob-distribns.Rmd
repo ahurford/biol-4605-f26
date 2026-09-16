@@ -28,13 +28,52 @@ The normal or Gaussian distribution,
 
 The standard normal distribution has a mean, $\mu = 0$, and variance, $\sigma^2 = 1$. Notational we might write the standard normal distribution as $N(0,1)$ where $N(\mu,\sigma)$ is the normal distribution with a mean of $\mu$ and variance of $\sigma^2$.
 
-The Bionomial distribution
+The Bionomial distribution,
 
-\[P(y=r) = \frac{n!}{r!(n-r)!}p^r(1-p)^{p-r}  \]
+\[P(y=k) = \frac{n!}{k!(n-k)!}p^k(1-p)^{p-k}  \]
+
+where $k$ is the number of successes for $n$ Bernoulli trials, each with a probability of success $p$.
+
+This formula can be executed in `R` with the commands below. Try cutting and pasting the commands into your `R console`. To understand the arguments of the `dbinom()` function read the R help file [here](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Binomial.html). 
+
+```{r setup, include=FALSE, message=FALSE}
+library(ggplot2)
+library(dplyr)
+```
+
+````{r, eval=TRUE}
+k = seq(0,10)
+binom.probs=data.frame(k=k,P=dbinom(k, 10, 0.5))
+````
+
+```{r,eval=T}
+binom.probs
+P = select(binom.probs,P)
+sum(P)
+```
+What is $p$ and $n$ for this table? 
+
+What do you notice about the sum of the probabilities from 0 to $n$?
+
+Note that `select()` is a `dplyr` function to select a column. I have loaded `dplyr` in the background. I generally recommend `dplyr` for data manipulation as it makes easy to read code and used by the best coders in professions related to biological statistics.
+
+We can also make a nice graph of our binomial distribution with $p = 0.5$ and $n=10$. (I also loaded `ggplot` in the background, which is a widely-used package to make publication quality graphics).
+
+```{r,eval=T}
+ggplot(binom.probs, aes(x = k,y=P)) + 
+  geom_bar(fill = "steelblue", stat = "identity")+
+  scale_x_continuous(breaks = k)+
+ ggtitle("The Binomial probability distribution with n=10 and p=0.5)")+
+  ylab("P(y=k)")
+```
+
+From the graph (and the choice to plot it as a bar plot), we can see that the Binomial distribution describes the probability associated with events that are discrete, i.e., 0, 1, 2, etc. success, and the probability of 2.5 successes, or 11 successes when there are only 10 trials is 0. For discrete variables, the probability distribution is a probability _mass_ function. In contrast, the normal distribution corresponds to continuous variables and this type of probability distribution is called a probability _density_ function. 
+
+We could have also plotted or evaluated the normal distribution using R code. It is good to have an idea of what these probability distributions look like. I might add this in a bit later.
 
 ### Probability distributions for statistics
 
-See Figure 2.1 in Q&K (or do an internet search) to see the graphs of these distributions: $z$ (standard normal); Student's $t$ (ratio of the difference between the sample statistic and its population value to the sample standard deviation); $\chi^2$ (square of values from a standard normal distribution; used for interval estimation of variances); and $F$ (ratio of two independent $\chi^2$ variables, each divided by its degrees of freedom (df); used for comparing variances).
+See Figure 2.1 in Quinn and Kenough (or do an internet search) to see the graphs of these distributions: $z$ (standard normal); Student's $t$ (ratio of the difference between the sample statistic and its population value to the sample standard deviation); $\chi^2$ (square of values from a standard normal distribution; used for interval estimation of variances); and $F$ (ratio of two independent $\chi^2$ variables, each divided by its degrees of freedom (df); used for comparing variances).
 
 (Based on 2.2 of Quinn and Keough. See also  - [Ch6.2: Probability distributions - notation](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_2.pdf))
 

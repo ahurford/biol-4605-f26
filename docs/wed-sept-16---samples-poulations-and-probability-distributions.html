@@ -53,6 +53,71 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <style type="text/css">
   
@@ -146,12 +211,44 @@
 <p>The normal or Gaussian distribution,</p>
 <p><span class="math display">\[f(y) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-(y-\mu)^2/2\sigma^2}. \]</span></p>
 <p>The standard normal distribution has a mean, <span class="math inline">\(\mu = 0\)</span>, and variance, <span class="math inline">\(\sigma^2 = 1\)</span>. Notational we might write the standard normal distribution as <span class="math inline">\(N(0,1)\)</span> where <span class="math inline">\(N(\mu,\sigma)\)</span> is the normal distribution with a mean of <span class="math inline">\(\mu\)</span> and variance of <span class="math inline">\(\sigma^2\)</span>.</p>
-<p>The Bionomial distribution</p>
-<p><span class="math display">\[P(y=r) = \frac{n!}{r!(n-r)!}p^r(1-p)^{p-r}  \]</span></p>
+<p>The Bionomial distribution,</p>
+<p><span class="math display">\[P(y=k) = \frac{n!}{k!(n-k)!}p^k(1-p)^{p-k}  \]</span></p>
+<p>where <span class="math inline">\(k\)</span> is the number of successes for <span class="math inline">\(n\)</span> Bernoulli trials, each with a probability of success <span class="math inline">\(p\)</span>.</p>
+<p>This formula can be executed in <code>R</code> with the commands below. Try cutting and pasting the commands into your <code>R console</code>. To understand the arguments of the <code>dbinom()</code> function read the R help file <a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Binomial.html">here</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="wed-sept-16---samples-poulations-and-probability-distributions.html#cb1-1" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">10</span>)</span>
+<span id="cb1-2"><a href="wed-sept-16---samples-poulations-and-probability-distributions.html#cb1-2" tabindex="-1"></a>binom.probs<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">k=</span>k,<span class="at">P=</span><span class="fu">dbinom</span>(k, <span class="dv">10</span>, <span class="fl">0.5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="wed-sept-16---samples-poulations-and-probability-distributions.html#cb2-1" tabindex="-1"></a>binom.probs</span></code></pre></div>
+<pre><code>##     k            P
+## 1   0 0.0009765625
+## 2   1 0.0097656250
+## 3   2 0.0439453125
+## 4   3 0.1171875000
+## 5   4 0.2050781250
+## 6   5 0.2460937500
+## 7   6 0.2050781250
+## 8   7 0.1171875000
+## 9   8 0.0439453125
+## 10  9 0.0097656250
+## 11 10 0.0009765625</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="wed-sept-16---samples-poulations-and-probability-distributions.html#cb4-1" tabindex="-1"></a>P <span class="ot">=</span> <span class="fu">select</span>(binom.probs,P)</span>
+<span id="cb4-2"><a href="wed-sept-16---samples-poulations-and-probability-distributions.html#cb4-2" tabindex="-1"></a><span class="fu">sum</span>(P)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>What is <span class="math inline">\(p\)</span> and <span class="math inline">\(n\)</span> for this table?</p>
+<p>What do you notice about the sum of the probabilities from 0 to <span class="math inline">\(n\)</span>?</p>
+<p>Note that <code>select()</code> is a <code>dplyr</code> function to select a column. I have loaded <code>dplyr</code> in the background. I generally recommend <code>dplyr</code> for data manipulation as it makes easy to read code and used by the best coders in professions related to biological statistics.</p>
+<p>We can also make a nice graph of our binomial distribution with <span class="math inline">\(p = 0.5\)</span> and <span class="math inline">\(n=10\)</span>. (I also loaded <code>ggplot</code> in the background, which is a widely-used package to make publication quality graphics).</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="wed-sept-16---samples-poulations-and-probability-distributions.html#cb6-1" tabindex="-1"></a><span class="fu">ggplot</span>(binom.probs, <span class="fu">aes</span>(<span class="at">x =</span> k,<span class="at">y=</span>P)) <span class="sc">+</span> </span>
+<span id="cb6-2"><a href="wed-sept-16---samples-poulations-and-probability-distributions.html#cb6-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)<span class="sc">+</span></span>
+<span id="cb6-3"><a href="wed-sept-16---samples-poulations-and-probability-distributions.html#cb6-3" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> k)<span class="sc">+</span></span>
+<span id="cb6-4"><a href="wed-sept-16---samples-poulations-and-probability-distributions.html#cb6-4" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">&quot;The Binomial probability distribution with n=10 and p=0.5)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb6-5"><a href="wed-sept-16---samples-poulations-and-probability-distributions.html#cb6-5" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;P(y=k)&quot;</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" /></p>
+<p>From the graph (and the choice to plot it as a bar plot), we can see that the Binomial distribution describes the probability associated with events that are discrete, i.e., 0, 1, 2, etc. success, and the probability of 2.5 successes, or 11 successes when there are only 10 trials is 0. For discrete variables, the probability distribution is a probability <em>mass</em> function. In contrast, the normal distribution corresponds to continuous variables and this type of probability distribution is called a probability <em>density</em> function.</p>
+<p>We could have also plotted or evaluated the normal distribution using R code. It is good to have an idea of what these probability distributions look like. I might add this in a bit later.</p>
 </div>
 <div id="probability-distributions-for-statistics" class="section level3 hasAnchor" number="5.2.2">
 <h3><span class="header-section-number">5.2.2</span> Probability distributions for statistics<a href="wed-sept-16---samples-poulations-and-probability-distributions.html#probability-distributions-for-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>See Figure 2.1 in Q&amp;K (or do an internet search) to see the graphs of these distributions: <span class="math inline">\(z\)</span> (standard normal); Student’s <span class="math inline">\(t\)</span> (ratio of the difference between the sample statistic and its population value to the sample standard deviation); <span class="math inline">\(\chi^2\)</span> (square of values from a standard normal distribution; used for interval estimation of variances); and <span class="math inline">\(F\)</span> (ratio of two independent <span class="math inline">\(\chi^2\)</span> variables, each divided by its degrees of freedom (df); used for comparing variances).</p>
+<p>See Figure 2.1 in Quinn and Kenough (or do an internet search) to see the graphs of these distributions: <span class="math inline">\(z\)</span> (standard normal); Student’s <span class="math inline">\(t\)</span> (ratio of the difference between the sample statistic and its population value to the sample standard deviation); <span class="math inline">\(\chi^2\)</span> (square of values from a standard normal distribution; used for interval estimation of variances); and <span class="math inline">\(F\)</span> (ratio of two independent <span class="math inline">\(\chi^2\)</span> variables, each divided by its degrees of freedom (df); used for comparing variances).</p>
 <p>(Based on 2.2 of Quinn and Keough. See also - <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_2.pdf">Ch6.2: Probability distributions - notation</a>)</p>
 </div>
 </div>
