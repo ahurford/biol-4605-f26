@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>13 Wed Oct 07 - Exploratory data analysis | book.knit</title>
+  <title>6 Fri Sept 18 (Quiz 1, A1 due) Probability distributions | book.knit</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="13 Wed Oct 07 - Exploratory data analysis | book.knit" />
+  <meta property="og:title" content="6 Fri Sept 18 (Quiz 1, A1 due) Probability distributions | book.knit" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="13 Wed Oct 07 - Exploratory data analysis | book.knit" />
+  <meta name="twitter:title" content="6 Fri Sept 18 (Quiz 1, A1 due) Probability distributions | book.knit" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mon-oct-05---linear-models-assumptions-and-types-of-linear-models.html"/>
-<link rel="next" href="fri-oct-09---exam-i.html"/>
+<link rel="prev" href="wed-sept-16---samples-and-populations.html"/>
+<link rel="next" href="mon-sept-21---hypothesis-testing.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -193,13 +193,98 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="wed-oct-07---exploratory-data-analysis" class="section level1 hasAnchor" number="13">
-<h1><span class="header-section-number">13</span> Wed Oct 07 - Exploratory data analysis<a href="wed-oct-07---exploratory-data-analysis.html#wed-oct-07---exploratory-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Not on exam 1</p>
-<div id="readings-8" class="section level2 hasAnchor" number="13.1">
-<h2><span class="header-section-number">13.1</span> Readings<a href="wed-oct-07---exploratory-data-analysis.html#readings-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="fri-sept-18-quiz-1-a1-due-probability-distributions" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> <strong>Fri Sept 18 (Quiz 1, A1 due)</strong> Probability distributions<a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#fri-sept-18-quiz-1-a1-due-probability-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Frequentist estimation will be moved to the next lecture.</p>
+<div id="last-20-minutes-quiz-1" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Last 20 minutes: Quiz 1<a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#last-20-minutes-quiz-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="probability-and-probability-distributions" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Probability and probability distributions<a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#probability-and-probability-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Probabilities satisfy <a href="https://en.wikipedia.org/wiki/Probability_axioms">Kolmogorov’s properties</a>. Probabilities can be interpreted as the relative frequency of an event, or the ‘degree of belief’ an event will occur.</p>
+<p>Bayes’ theorem relates to conditional probability <span class="math inline">\(P(A|B)\)</span>, which is the probability an event <span class="math inline">\(A\)</span> will occur given and event <span class="math inline">\(B\)</span>. Bayes’ theorem is fundamental to Bayesian statistics.</p>
+<p>The definition of independence is that that the probability of events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> occurring can be calculated by multiplying their probabilities: <span class="math inline">\(P(A,B) = P(A)P(B)\)</span>. We may not be justified in using that formula if <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are not independent. We we say that our statistical method assumes that our residuals are independent, we mean that we can multiply the probabilities associated with each residual to calculate the probability of observing these residuals for all the data, i.e., <span class="math inline">\(P(\epsilon_1, \dots, \epsilon_n) = \prod_{i=1}^n P(\epsilon_i)\)</span>. We will specifically show that we are using this assumption when we take the maximum likelihood approach to deriving the residual sum of squares formula (in a future lecture).</p>
+<div id="probability-distributions-for-variables" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Probability distributions for variables<a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#probability-distributions-for-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="the-normal-or-gaussian-distribution" class="section level4 hasAnchor" number="6.2.1.1">
+<h4><span class="header-section-number">6.2.1.1</span> The normal (or Gaussian) distribution<a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#the-normal-or-gaussian-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The normal distribution arises frequently in statistics. Mathematically, it can be shown that the sum of independent identically distributed random variables are normally distributed, which can be appropriate to model many sources of error. The formula for the normal distribution is,</p>
+<p><span class="math display">\[f(y) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-(y-\mu)^2/2\sigma^2}, \]</span></p>
+<p>where <span class="math inline">\(y\)</span> is the independent variable, <span class="math inline">\(f(y)\)</span> is the probability density for a particular <span class="math inline">\(y\)</span> value, <span class="math inline">\(\mu\)</span> is the mean and <span class="math inline">\(\sigma^2\)</span> is the variance.</p>
+<p>The standard normal distribution has a mean, <span class="math inline">\(\mu = 0\)</span>, and variance, <span class="math inline">\(\sigma^2 = 1\)</span>. Notationally, we might write the standard normal distribution as <span class="math inline">\(N(0,1)\)</span> where <span class="math inline">\(N(\mu,\sigma^2)\)</span> is the normal distribution with a mean of <span class="math inline">\(\mu\)</span> and variance of <span class="math inline">\(\sigma^2\)</span>.</p>
+<p><img src="book_files/figure-html/unnamed-chunk-1-1.png" alt="" width="672" /></p>
+</div>
+<div id="the-binomial-distribution" class="section level4 hasAnchor" number="6.2.1.2">
+<h4><span class="header-section-number">6.2.1.2</span> The Binomial distribution<a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#the-binomial-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The binomial distribution also frequently occurs in statistics. A coin toss is an example of a Bernoulli trial. The formula for the binomial distribution is,</p>
+<p><span class="math display">\[P(y=k) = \frac{n!}{k!(n-k)!}p^k(1-p)^{p-k}  \]</span></p>
+<p>where <span class="math inline">\(k\)</span> is the number of successes for <span class="math inline">\(n\)</span> Bernoulli trials, each with a probability of success <span class="math inline">\(p\)</span>.</p>
+<p>This formula can be executed in <code>R</code> with the commands below. Try cutting and pasting the commands into your <code>R console</code>. To understand the arguments of the <code>dbinom()</code> function read the R help file <a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Binomial.html">here</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#cb1-1" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">10</span>)</span>
+<span id="cb1-2"><a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#cb1-2" tabindex="-1"></a>binom.probs<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">k=</span>k,<span class="at">P=</span><span class="fu">dbinom</span>(k, <span class="dv">10</span>, <span class="fl">0.5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#cb2-1" tabindex="-1"></a>binom.probs</span></code></pre></div>
+<pre><code>##     k            P
+## 1   0 0.0009765625
+## 2   1 0.0097656250
+## 3   2 0.0439453125
+## 4   3 0.1171875000
+## 5   4 0.2050781250
+## 6   5 0.2460937500
+## 7   6 0.2050781250
+## 8   7 0.1171875000
+## 9   8 0.0439453125
+## 10  9 0.0097656250
+## 11 10 0.0009765625</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#cb4-1" tabindex="-1"></a>P <span class="ot">=</span> <span class="fu">select</span>(binom.probs,P)</span>
+<span id="cb4-2"><a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#cb4-2" tabindex="-1"></a><span class="fu">sum</span>(P)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>What is <span class="math inline">\(p\)</span> and <span class="math inline">\(n\)</span> for this table?</p>
+<p>What do you notice about the sum of the probabilities from 0 to <span class="math inline">\(n\)</span>?</p>
+<p>Note that <code>select()</code> is a <code>dplyr</code> function to select a column. I have loaded <code>dplyr</code> in the background. I generally recommend <code>dplyr</code> for data manipulation as it makes easy to read code and used by the best coders in professions related to biological statistics.</p>
+<p>We can also make a nice graph of our binomial distribution with <span class="math inline">\(p = 0.5\)</span> and <span class="math inline">\(n=10\)</span>. (I also loaded <code>ggplot</code> in the background, which is a widely-used package to make publication quality graphics).</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#cb6-1" tabindex="-1"></a><span class="fu">ggplot</span>(binom.probs, <span class="fu">aes</span>(<span class="at">x =</span> k,<span class="at">y=</span>P)) <span class="sc">+</span> </span>
+<span id="cb6-2"><a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#cb6-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)<span class="sc">+</span></span>
+<span id="cb6-3"><a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#cb6-3" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> k)<span class="sc">+</span></span>
+<span id="cb6-4"><a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#cb6-4" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">&quot;The Binomial probability distribution with n=10 and p=0.5&quot;</span>)<span class="sc">+</span></span>
+<span id="cb6-5"><a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#cb6-5" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;P(y=k)&quot;</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" /></p>
+<p>From the graph (and the choice to plot it as a bar plot), we can see that the Binomial distribution describes the probability associated with events that are discrete, i.e., 0, 1, 2, etc. success, and the probability of 2.5 successes, or 11 successes when there are only 10 trials is 0. For discrete variables, the probability distribution is a probability <em>mass</em> function. In contrast, the normal distribution corresponds to continuous variables and this type of probability distribution is called a probability <em>density</em> function.</p>
+</div>
+<div id="the-poisson-distribution" class="section level4 hasAnchor" number="6.2.1.3">
+<h4><span class="header-section-number">6.2.1.3</span> The Poisson distribution<a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#the-poisson-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The Poisson distribution describes variables representing (typically small) number of occurrences of a particular event, i.e, people kicked by horses. The number of trials is not fixed for the Poisson distribution, and successes (where ‘success’ means a person is kicked by a horse!) occur with a mean rate of <span class="math inline">\(\mu\)</span>. The probability density for the Poisson distribution is,</p>
+<p><span class="math display">\[P(y=r) = \frac{e^{-\mu}\mu^r}{r!}, \]</span></p>
+<p>where this distribution can be understood to represent the probability of <span class="math inline">\(r\)</span> successes occurring during an observational period.</p>
+<p><img src="book_files/figure-html/unnamed-chunk-6-1.png" alt="" width="672" /></p>
+<p>The mean and variance are equal for the Poisson distribution so if count data is over-dispersed we might need to use a negative bionomial distribution instead (which specifies the variance as a parameter)</p>
+</div>
+</div>
+<div id="probability-distributions-for-statistics" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Probability distributions for statistics<a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#probability-distributions-for-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>See Figure 2.1 in Quinn and Kenough (or do an internet search) to see the graphs of these distributions:
+- <span class="math inline">\(z\)</span> (standard normal);
+- Student’s <span class="math inline">\(t\)</span> (ratio of the difference between the sample statistic and its population value to the sample standard deviation);
+- <span class="math inline">\(\chi^2\)</span> (square of values from a standard normal distribution; used for interval estimation of variances); and
+-<span class="math inline">\(F\)</span> (ratio of two independent <span class="math inline">\(\chi^2\)</span> variables, each divided by its degrees of freedom (df); used for comparing variances).</p>
+<p>(Based on 2.2 of Quinn and Keough. See also - <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_2.pdf">Ch6.2: Probability distributions - notation</a>)</p>
+</div>
+</div>
+<div id="empirical-frequency-distributions" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Empirical frequency distributions<a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#empirical-frequency-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>(see also <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_1.pdf">Ch6.1: Empirical frequency distributions</a>)</p>
+</div>
+<div id="comparing-observations-to-probability-distributions-ch6.3" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Comparing observations to probability distributions (Ch6.3)<a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#comparing-observations-to-probability-distributions-ch6.3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>(based on <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_3.pdf">Ch6.3: Comparing observed distributions to probability models</a>)</p>
+</div>
+<div id="readings-2" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Readings<a href="fri-sept-18-quiz-1-a1-due-probability-distributions.html#readings-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Ch 5 Quinn and Keough</li>
+<li><p>Ch 2.4 Quinn and Keough</p></li>
+<li><p>Ch7.5</p></li>
+<li><p><a href="">Ch7:</a></p></li>
+<li><p><a href="">Ch7.1</a></p></li>
+<li><p><a href="">Ch7.6</a></p></li>
 </ul>
 
 </div>
@@ -209,8 +294,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="mon-oct-05---linear-models-assumptions-and-types-of-linear-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="fri-oct-09---exam-i.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="wed-sept-16---samples-and-populations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mon-sept-21---hypothesis-testing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
