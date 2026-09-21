@@ -3,9 +3,10 @@ title: "Frequentist estimation"
 output: html_document
 ---
 
-# **Fri Sept 18 (Quiz 1, A1 due)** Probability distributions
+# **Fri Sept 18 (Quiz 1, A1 due, A2 available)** Probability distributions
 
-Frequentist estimation will be moved to the next lecture.
+## Assignment 2
+Assignment 2 is due Friday Sept 25. See [here](#assignment-2b) for the instructions.
 
 ## Last 20 minutes: Quiz 1
 
@@ -108,35 +109,6 @@ ggplot(pois.data, aes(x = x,y=P)) +
 
 The mean and variance are equal for the Poisson distribution so if count data is over-dispersed we might need to use a negative bionomial distribution instead (which specifies the variance as a parameter)
 
-### Probability distributions for statistics
-
-See Figure 2.1 in Quinn and Kenough (or do an internet search) to see the graphs of these distributions:
-- $z$ (standard normal);
-- Student's $t$ (ratio of the difference between the sample statistic and its population value to the sample standard deviation);
-- $\chi^2$ (square of values from a standard normal distribution; used for interval estimation of variances); and
--$F$ (ratio of two independent $\chi^2$ variables, each divided by its degrees of freedom (df); used for comparing variances).
-
-(Based on 2.2 of Quinn and Keough. See also  - [Ch6.2: Probability distributions - notation](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_2.pdf))
-
-## Empirical frequency distributions
-
-(see also [Ch6.1: Empirical frequency distributions](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_1.pdf))
-
-## Comparing observations to probability distributions (Ch6.3)
-
- (based on [Ch6.3: Comparing observed distributions to probability models](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_3.pdf))
-
-## Readings
-
-- Ch 2.4 Quinn and Keough
-
- - Ch7.5
- 
- - [Ch7: ]()
- 
- - [Ch7.1]()
- 
- - [Ch7.6]()
-
+These notes are from Quinn and Keough Ch 2.3.
 
 

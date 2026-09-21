@@ -3,7 +3,7 @@ title: ""
 output: html_document
 ---
 
-# Assignment 2 - Data equations (due Wed Sept 23)
+# Assignment 2 - Data equations (due Friday Sept 25){#assignment-2b}
 
 
 In the published literature find a graph where a regression equation has been
