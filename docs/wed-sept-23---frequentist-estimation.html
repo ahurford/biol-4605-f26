@@ -201,38 +201,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Table 2.1 in Quinn and Keough lists other commonly estimated parameters, statistics, and their formulas.</p>
 <p><strong>Degrees for freedom</strong> are the number of observations that are “free to vary” when we estimate a parameter. For example, for a sample of <span class="math inline">\(n\)</span> observations we have <span class="math inline">\(n-1\)</span> degrees of freedom to estimate the standard deviation because we use one degree of freedom to estimate the mean. Often the degrees of freedom are <span class="math inline">\(n-p\)</span> where <span class="math inline">\(p\)</span> is the number of parameters already estimated.</p>
 <p><strong>Interval estimates</strong> provide a range of values that might include the parameter with a given probability. The confidence interval is a range which we have some confidence that the true value of the parameter might lie in.</p>
-<p>The formula for a 95<span class="math inline">\(\%\)</span> confidence interval for the population mean, <span class="math inline">\(\mu\)</span>, is</p>
-<p><span class="math display">\[
-\bar{y} - t_{0.025, n-1}\dfrac{s}{\sqrt{n}} \quad \leq \quad \mu \quad \leq \quad \bar{y} + t_{0.025, n-1}\dfrac{s}{\sqrt{n}}
-\]</span></p>
-<p>where the sample mean is <span class="math inline">\(\bar{y} = \frac{1}{n}\sum_{i=1}^n y_i\)</span> for a sample with <span class="math inline">\(n\)</span> observations and where <span class="math inline">\(s\)</span> is the sample standarde deviation. The t-statistic for the quantiles 0.025 and 0.975 with <span class="math inline">\(n-1\)</span> degrees of freedom can be determined with the code:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="wed-sept-23---frequentist-estimation.html#cb7-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">100</span> <span class="co"># number of observations in sample</span></span>
-<span id="cb7-2"><a href="wed-sept-23---frequentist-estimation.html#cb7-2" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.025</span>, n<span class="dv">-1</span>)</span></code></pre></div>
-<pre><code>## [1] -1.984217</code></pre>
-<p>In the code above <span class="math inline">\(n\)</span> is specifically set to 100. There is a 95<span class="math inline">\(\%\)</span> probability that the population mean is between these values. <em>Practice calculating the 95<span class="math inline">\(\%\)</span> confidence interval for some data. Understand what the estimated quantity means.</em></p>
-<p>For example, consider some data on the github repository, <a href="https://github.com/ahurford/biol-4605-data">biol-4605-data</a>. I have choosen data describing pea lengths (cm) and then extracted only the control measurements. I am using <code>dplyr</code> commands and I loaded that package in the background.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="wed-sept-23---frequentist-estimation.html#cb9-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/pea_length.csv&quot;</span>)</span>
-<span id="cb9-2"><a href="wed-sept-23---frequentist-estimation.html#cb9-2" tabindex="-1"></a>lengths <span class="ot">=</span> <span class="fu">filter</span>(data, treatment<span class="sc">==</span><span class="st">&quot;Control&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">select</span>(length)</span>
-<span id="cb9-3"><a href="wed-sept-23---frequentist-estimation.html#cb9-3" tabindex="-1"></a>lengths</span></code></pre></div>
-<pre><code>##    length
-## 1      65
-## 2      67
-## 3      68
-## 4      70
-## 5      71
-## 6      75
-## 7      76
-## 8      74
-## 9      72
-## 10     68
-## 11     66</code></pre>
-<p>The 95<span class="math inline">\(\%\)</span> confidence interval for these data is:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="wed-sept-23---frequentist-estimation.html#cb11-1" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(lengths, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb11-2"><a href="wed-sept-23---frequentist-estimation.html#cb11-2" tabindex="-1"></a>result<span class="sc">$</span>conf.int</span></code></pre></div>
-<pre><code>## [1] 67.67141 72.69223
-## attr(,&quot;conf.level&quot;)
-## [1] 0.95</code></pre>
-<p>Can you get this same result using the formula?</p>
 <div id="methods-of-estimation-frequentist-estimation" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Methods of estimation (frequentist estimation)<a href="wed-sept-23---frequentist-estimation.html#methods-of-estimation-frequentist-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Ordinary least squares (OLS).</strong> The OLS estimator for a parameter minimizes the sum of the squared differences between each sample estimate adn the estimate of the population mean, <span class="math inline">\(\mu\)</span>. Assumes a normal distribution for confidence intervals.</p>
@@ -249,11 +217,12 @@ s^2 = \dfrac{\sum_{i=1}^n (y_i - \bar{y})}{n-1},
 <div id="sampling-the-distribution-mean" class="section level2 hasAnchor" number="8.3">
 <h2><span class="header-section-number">8.3</span> Sampling the distribution mean<a href="wed-sept-23---frequentist-estimation.html#sampling-the-distribution-mean" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Having a point estimate of the population mean is only the first step under frequentist estimation, we also need to estimate how variable our estimate might be under repeated sampling from the population.</p>
-<p>Assume that our sample, <span class="math inline">\((y_1, y_2, \dots, y_n)\)</span>, has come from a normally distributed population. We can compare our samples to the quantiles of a standard normal distribution (with a mean, <span class="math inline">\(\mu = 0\)</span>, and a variance, <span class="math inline">\(\sigma^2 = 1\)</span>) if we standardize our measurements,</p>
-<p><span class="math display">\[\
-z = \frac{y_i - \mu}{\sigma}.
-\]</span></p>
-<p>We usually only take one sample from a population, but if we took many samples and plotted the distribution of the sample means the sampling distribution of means ahs the following properties:</p>
+<!-- Assume that our sample, $(y_1, y_2, \dots, y_n)$, has come from a normally distributed population.
+We can compare our samples to the quantiles of a standard normal distribution (with a mean, $\mu = 0$, and a variance, $\sigma^2 = 1$) if we standardize our measurements, -->
+<!-- \[\ -->
+<!-- z = \frac{y_i - \mu}{\sigma}. -->
+<!-- \] -->
+<p>Assume that our sample, <span class="math inline">\((y_1, y_2, \dots, y_n)\)</span>, has come from a normally distributed population. We usually only take one sample from a population, but if we took many samples and plotted the distribution of the sample means the sampling distribution of means ahs the following properties:</p>
 <ul>
 <li>The probability distribution of means of samples from normal distributions are also normally distributed.</li>
 <li>As the sample size, <span class="math inline">\(n\)</span>, increases, the probability distributions of means of samples from any distribution will approach a normal distribution. This is a result of the central limit theorem.</li>
@@ -272,8 +241,109 @@ s_{\bar{y}} = \frac{s}{\sqrt{n}},
 \]</span></p>
 <p>where <span class="math inline">\(s\)</span> is the sample estimate of the SD original population (the population the samples are drawn from) adn <span class="math inline">\(n\)</span> is the sample size. The standard error describes the error in estimating the population mean, <span class="math inline">\(\mu\)</span>, using the sample estimator, <span class="math inline">\(\bar{y}\)</span>. If the standard error, <span class="math inline">\(s_{\bar{y}}\)</span> is large, then repeated sampling and estimation of the population mean would generate highly variable estimates.</p>
 </div>
-<div id="readings-2" class="section level2 hasAnchor" number="8.5">
-<h2><span class="header-section-number">8.5</span> Readings<a href="wed-sept-23---frequentist-estimation.html#readings-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="confidence-estimates-for-the-population-mean" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Confidence estimates for the population mean<a href="wed-sept-23---frequentist-estimation.html#confidence-estimates-for-the-population-mean" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can convert any sample mean into its equivalent value from a standard normal distribution as,</p>
+<p><span class="math display">\[
+z = \frac{\bar{y}-\mu}{\sigma_{\bar{y}}},
+\]</span></p>
+<p>where <span class="math inline">\(\sigma_{\bar{y}}\)</span> is the standard error (i.e., the SD of the mean). We can then use the quantiles of the standard normal distribution to estimate the range of values that the population mean occurs within withn a given probability, for example:</p>
+<p><span class="math display">\[
+P(\bar{y}-1.96\sigma_{\bar{y}} \leq \mu \leq \bar{y}+1.96\sigma_{\bar{y}}) = 0.95,
+\]</span></p>
+<p>which is an interval estimate for the population mean, <span class="math inline">\(\mu\)</span>, and specifically, given the values above means that there is a 95<span class="math inline">\(\%\)</span> chance that the sample mean is within the interval, <span class="math inline">\([\bar{y}-1.96\sigma_{\bar{y}},\bar{y}+1.96\sigma_{\bar{y}}]\)</span>.</p>
+<p>A problem with the fomula above is that we do not know <span class="math inline">\(\sigma_{\bar{y}}\)</span> which is the <em>population</em> variance, i.e., the <em>true</em> variance, of the distribution of sample means. Generally, we can never know these true population values, we can only try to estimate the true values using estimators.</p>
+<p>A version of the formula for a 95<span class="math inline">\(\%\)</span> confidence interval for the population mean, <span class="math inline">\(\mu\)</span>, where we can evaluate all the quantities in the formula is,</p>
+<p><span class="math display">\[
+\bar{y} - t_{0.025, n-1}\dfrac{s}{\sqrt{n}} \quad \leq \quad \mu \quad \leq \quad \bar{y} + t_{0.025, n-1}\dfrac{s}{\sqrt{n}}.
+\]</span></p>
+<p>The sample mean is <span class="math inline">\(\bar{y} = \frac{1}{n}\sum_{i=1}^n y_i\)</span> for a sample with <span class="math inline">\(n\)</span> observations and where <span class="math inline">\(s\)</span> is the sample standard deviation (see earlier in these notes for the formula), and the t-statistic (which approaches the standard normal distribution as <span class="math inline">\(n \to \infty\)</span>) for the quantiles 0.025 and 0.975 with <span class="math inline">\(n-1\)</span> degrees of freedom can be determined from a look-up table or with the code:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="wed-sept-23---frequentist-estimation.html#cb7-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">100</span> <span class="co"># number of observations in sample</span></span>
+<span id="cb7-2"><a href="wed-sept-23---frequentist-estimation.html#cb7-2" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.025</span>, n<span class="dv">-1</span>)</span></code></pre></div>
+<pre><code>## [1] -1.984217</code></pre>
+<p>In the code above <span class="math inline">\(n\)</span> is specifically set to 100. There is a 95<span class="math inline">\(\%\)</span> probability that the population mean is between these values. <em>Practice calculating the 95<span class="math inline">\(\%\)</span> confidence interval for some data. Understand what the estimated quantity means.</em></p>
+<div id="interpretation-of-confidence-intervals-for-the-population-mean." class="section level3 hasAnchor" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> Interpretation of confidence intervals for the population mean.<a href="wed-sept-23---frequentist-estimation.html#interpretation-of-confidence-intervals-for-the-population-mean." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We usually do not consider the population mean, <span class="math inline">\(\mu\)</span>, to be a random variable. Rather, we understand the population mean to be fixed value, although we do not know what this value is. The confidence interval is a probability statement about the interval rather than the parameter itself.</p>
+</div>
+<div id="example-pea-lengths" class="section level3 hasAnchor" number="8.5.2">
+<h3><span class="header-section-number">8.5.2</span> Example: Pea lengths<a href="wed-sept-23---frequentist-estimation.html#example-pea-lengths" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For example, consider some data on the github repository, <a href="https://github.com/ahurford/biol-4605-data">biol-4605-data</a>. I have choosen data describing pea lengths (cm) and then extracted only the control measurements. I am using <code>dplyr</code> commands and I loaded that package in the background.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="wed-sept-23---frequentist-estimation.html#cb9-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/pea_length.csv&quot;</span>)</span>
+<span id="cb9-2"><a href="wed-sept-23---frequentist-estimation.html#cb9-2" tabindex="-1"></a>pea.length <span class="ot">=</span> <span class="fu">filter</span>(data, treatment<span class="sc">==</span><span class="st">&quot;Control&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">select</span>(length)</span>
+<span id="cb9-3"><a href="wed-sept-23---frequentist-estimation.html#cb9-3" tabindex="-1"></a>pea.length</span></code></pre></div>
+<pre><code>##    length
+## 1      65
+## 2      67
+## 3      68
+## 4      70
+## 5      71
+## 6      75
+## 7      76
+## 8      74
+## 9      72
+## 10     68
+## 11     66</code></pre>
+<p>The 95<span class="math inline">\(\%\)</span> confidence interval for these data is:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="wed-sept-23---frequentist-estimation.html#cb11-1" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(pea.length, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb11-2"><a href="wed-sept-23---frequentist-estimation.html#cb11-2" tabindex="-1"></a>result<span class="sc">$</span>conf.int</span></code></pre></div>
+<pre><code>## [1] 67.67141 72.69223
+## attr(,&quot;conf.level&quot;)
+## [1] 0.95</code></pre>
+<p>Can you get this same result using the formula? Can you explain what the confidence interval means for this sample of pea lengths? For this example, can you calculate the sample size, <span class="math inline">\(n\)</span>, mean, median, standard deviation, variance, and standard error?</p>
+</div>
+</div>
+<div id="standard-errors-and-confidence-intervals-for-other-statistics" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Standard errors and confidence intervals for other statistics<a href="wed-sept-23---frequentist-estimation.html#standard-errors-and-confidence-intervals-for-other-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The standard error (SE) is the standard deviation (SD) of the probability distribution of a specific statistic, so we can calculate the SE for statistics other than the mean (as described in Sokal and Rohlf, 2012).</p>
+<p>However, the sample variance is known to follow a <span class="math inline">\(\chi^2\)</span> distribution and so a 95<span class="math inline">\(\%\)</span> confidence interval for the population variance is calculated as:
+<span class="math display">\[
+\left[\dfrac{s^2(n-1)}{\chi^2_{0.025, n-1}}, \dfrac{s^2(n-1)}{\chi^2_{0.975, n-1}}\right],
+\]</span></p>
+<p>where <span class="math inline">\(\chi_{\alpha/2, \text{df}}\)</span> is the <span class="math inline">\(\chi^2\)</span> distribution evaluated at the quantile, <span class="math inline">\(\alpha/2\)</span> with df degrees of freedom. This value needs to be looked up and can be evaluate in <code>R</code> using the <code>qchisq()</code> function. See the help file <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/Chisquare">here</a> for more details.</p>
+</div>
+<div id="resampling-methods-for-frequentist-estimation" class="section level2 hasAnchor" number="8.7">
+<h2><span class="header-section-number">8.7</span> Resampling methods for frequentist estimation<a href="wed-sept-23---frequentist-estimation.html#resampling-methods-for-frequentist-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The methods for estimating confidence intervals in this section rely on assumptions that the statistic’s sampling distribution follows a normal or t-distribution. We may be not be able to justify this assumption in some cases, or it might be difficult to derive an unbiased sample estimator.</p>
+<p>Without any other information, our best guess as to the distribution of the population is the observations in our sample.</p>
+<div id="bootstrap" class="section level3 hasAnchor" number="8.7.1">
+<h3><span class="header-section-number">8.7.1</span> Bootstrap<a href="wed-sept-23---frequentist-estimation.html#bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A bootstrap estimator is determined by randomly by resampling the data with replacement to create many new hypothetical data sets each with the same sample size. We calculate our statistic of interest for each of the many resampled (with replacement) hypothetical data sets. The bootstrap estimate of the parameter is the mean of these statistics. The SE of the bootstrap estimate is their SD.</p>
+<p>Confidence intervals for bootstrap methods are: percentile method, the bias corrected method, and the accelerated bootstrap (see Efron and Hastie 2016). Efron and Hastie recommended at least 2,000 samples for confidence interval estimation using bootstrap methods.</p>
+<p>The percentile method involves ranking the estimated statistic values for each sample. If there are 1000 samples, the 95<span class="math inline">\(\%\)</span> confidence interval is estimated as [25th ranked estimate, 975th estimate].</p>
+<p>Example of resampled (with replacement) data sets for the pea length data:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="wed-sept-23---frequentist-estimation.html#cb13-1" tabindex="-1"></a>pea.length <span class="ot">=</span> <span class="fu">t</span>(pea.length) <span class="co"># sample() function only works when pea.length is a row vector.</span></span>
+<span id="cb13-2"><a href="wed-sept-23---frequentist-estimation.html#cb13-2" tabindex="-1"></a>pea.length <span class="co"># print original pea length data for reference</span></span></code></pre></div>
+<pre><code>##        [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11]
+## length   65   67   68   70   71   75   76   74   72    68    66</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="wed-sept-23---frequentist-estimation.html#cb15-1" tabindex="-1"></a><span class="co"># Make samples </span></span>
+<span id="cb15-2"><a href="wed-sept-23---frequentist-estimation.html#cb15-2" tabindex="-1"></a>sample1 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-3"><a href="wed-sept-23---frequentist-estimation.html#cb15-3" tabindex="-1"></a>sample2 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-4"><a href="wed-sept-23---frequentist-estimation.html#cb15-4" tabindex="-1"></a>sample3 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-5"><a href="wed-sept-23---frequentist-estimation.html#cb15-5" tabindex="-1"></a>sample4 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-6"><a href="wed-sept-23---frequentist-estimation.html#cb15-6" tabindex="-1"></a>sample5 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-7"><a href="wed-sept-23---frequentist-estimation.html#cb15-7" tabindex="-1"></a>resampled.data <span class="ot">=</span> <span class="fu">data.frame</span>(sample1, sample2, sample3, sample4, sample5)</span>
+<span id="cb15-8"><a href="wed-sept-23---frequentist-estimation.html#cb15-8" tabindex="-1"></a>resampled.data</span></code></pre></div>
+<pre><code>##    sample1 sample2 sample3 sample4 sample5
+## 1       65      74      65      68      72
+## 2       72      72      68      75      68
+## 3       66      74      76      65      72
+## 4       76      76      75      74      76
+## 5       68      75      76      75      68
+## 6       76      68      66      74      66
+## 7       68      74      66      66      65
+## 8       75      75      65      71      71
+## 9       68      71      71      72      72
+## 10      68      65      67      67      68
+## 11      76      65      67      67      70</code></pre>
+</div>
+<div id="jackknife" class="section level3 hasAnchor" number="8.7.2">
+<h3><span class="header-section-number">8.7.2</span> Jackknife<a href="wed-sept-23---frequentist-estimation.html#jackknife" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The jackknife is an earlier alternative to bootstrapping that is less computer intensive. This approach involves recalculating statistics after removing successive data points.</p>
+</div>
+</div>
+<div id="readings-2" class="section level2 hasAnchor" number="8.8">
+<h2><span class="header-section-number">8.8</span> Readings<a href="wed-sept-23---frequentist-estimation.html#readings-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Ch. 2.4 Quinn and Keough.</li>
 </ul>

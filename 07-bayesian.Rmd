@@ -17,44 +17,6 @@ Table 2.1 in Quinn and Keough lists other commonly estimated parameters, statist
 
 **Interval estimates** provide a range of values that might include the parameter with a given probability. The confidence interval is a range which we have some confidence that the true value of the parameter might lie in.
 
-The formula for a 95$\%$ confidence interval for the population mean, $\mu$, is
-
-\[
-\bar{y} - t_{0.025, n-1}\dfrac{s}{\sqrt{n}} \quad \leq \quad \mu \quad \leq \quad \bar{y} + t_{0.025, n-1}\dfrac{s}{\sqrt{n}}
-\]
-
-where the sample mean is $\bar{y} = \frac{1}{n}\sum_{i=1}^n y_i$ for a sample with $n$ observations and where $s$ is the sample standarde deviation. The t-statistic for the quantiles 0.025 and 0.975 with $n-1$ degrees of freedom can be determined with the code:
-
-```{r, eval=T}
-n = 100 # number of observations in sample
-qt(0.025, n-1)
-```
-
-
-In the code above $n$ is specifically set to 100. There is a 95$\%$ probability that the population mean is between these values. _Practice calculating the 95$\%$ confidence interval for some data. Understand what the estimated quantity means._
-
-For example, consider some data on the github repository, [biol-4605-data](https://github.com/ahurford/biol-4605-data). I have choosen data describing pea lengths (cm) and then extracted only the control measurements. I am using `dplyr` commands and I loaded that package in the background.
-
-```{r, include=FALSE, message=FALSE}
-library(ggplot2)
-library(dplyr)
-```
-
-```{r, eval=T}
-data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/pea_length.csv")
-lengths = filter(data, treatment=="Control")%>%select(length)
-lengths
-```
-
-The 95$\%$ confidence interval for these data is:
-
-```{r, eval=T}
-result <- t.test(lengths, conf.level = 0.95)
-result$conf.int
-```
-
-Can you get this same result using the formula?
-
 ## Methods of estimation (frequentist estimation)
 **Ordinary least squares (OLS).** The OLS estimator for a parameter minimizes the sum of the squared differences between each sample estimate adn the estimate of the population mean, $\mu$. Assumes a normal distribution for confidence intervals.
 
@@ -72,13 +34,14 @@ and where the numerator is the residual sum of squares (RSS), and the denomenato
 ## Sampling the distribution mean
 Having a point estimate of the population mean is only the first step under frequentist estimation, we also need to estimate how variable our estimate might be under repeated sampling from the population.
 
-Assume that our sample, $(y_1, y_2, \dots, y_n)$, has come from a normally distributed population. We can compare our samples to the quantiles of a standard normal distribution (with a mean, $\mu = 0$, and a variance, $\sigma^2 = 1$) if we standardize our measurements,
+<!-- Assume that our sample, $(y_1, y_2, \dots, y_n)$, has come from a normally distributed population.
+We can compare our samples to the quantiles of a standard normal distribution (with a mean, $\mu = 0$, and a variance, $\sigma^2 = 1$) if we standardize our measurements, -->
 
-\[\
-z = \frac{y_i - \mu}{\sigma}.
-\]
+<!-- \[\ -->
+<!-- z = \frac{y_i - \mu}{\sigma}. -->
+<!-- \] -->
 
-We usually only take one sample from a population, but if we took many samples and plotted the distribution of the sample means the sampling distribution of means ahs the following properties:
+Assume that our sample, $(y_1, y_2, \dots, y_n)$, has come from a normally distributed population. We usually only take one sample from a population, but if we took many samples and plotted the distribution of the sample means the sampling distribution of means ahs the following properties:
 
 - The probability distribution of means of samples from normal distributions are also normally distributed.
 - As the sample size, $n$, increases, the probability distributions of means of samples from any distribution will approach a normal distribution. This is a result of the central limit theorem.
@@ -98,6 +61,110 @@ s_{\bar{y}} = \frac{s}{\sqrt{n}},
 \]
 
 where $s$ is the sample estimate of the SD original population (the population the samples are drawn from) adn $n$ is the sample size. The standard error describes the error in estimating the population mean, $\mu$, using the sample estimator, $\bar{y}$. If the standard error, $s_{\bar{y}}$ is large, then repeated sampling and estimation of the population mean would generate highly variable estimates.
+
+## Confidence estimates for the population mean
+We can convert any sample mean into its equivalent value from a standard normal distribution as,
+
+\[
+z = \frac{\bar{y}-\mu}{\sigma_{\bar{y}}},
+\]
+
+where $\sigma_{\bar{y}}$ is the standard error (i.e., the SD of the mean). We can then use the quantiles of the standard normal distribution to estimate the range of values that the population mean occurs within withn a given probability, for example:
+
+\[
+P(\bar{y}-1.96\sigma_{\bar{y}} \leq \mu \leq \bar{y}+1.96\sigma_{\bar{y}}) = 0.95,
+\]
+
+which is an interval estimate for the population mean, $\mu$, and specifically, given the values above means that there is a 95$\%$ chance that the sample mean is within the interval, $[\bar{y}-1.96\sigma_{\bar{y}},\bar{y}+1.96\sigma_{\bar{y}}]$.
+
+A problem with the fomula above is that we do not know $\sigma_{\bar{y}}$ which is the _population_ variance, i.e., the _true_ variance, of the distribution of sample means. Generally, we can never know these true population values, we can only try to estimate the true values using estimators. 
+
+A version of the formula for a 95$\%$ confidence interval for the population mean, $\mu$, where we can evaluate all the quantities in the formula is,
+
+\[
+\bar{y} - t_{0.025, n-1}\dfrac{s}{\sqrt{n}} \quad \leq \quad \mu \quad \leq \quad \bar{y} + t_{0.025, n-1}\dfrac{s}{\sqrt{n}}.
+\]
+
+The sample mean is $\bar{y} = \frac{1}{n}\sum_{i=1}^n y_i$ for a sample with $n$ observations and where $s$ is the sample standard deviation (see earlier in these notes for the formula), and the t-statistic (which approaches the standard normal distribution as $n \to \infty$) for the quantiles 0.025 and 0.975 with $n-1$ degrees of freedom can be determined from a look-up table or with the code:
+
+```{r, eval=T}
+n = 100 # number of observations in sample
+qt(0.025, n-1)
+```
+
+
+In the code above $n$ is specifically set to 100. There is a 95$\%$ probability that the population mean is between these values. _Practice calculating the 95$\%$ confidence interval for some data. Understand what the estimated quantity means._
+
+
+### Interpretation of confidence intervals for the population mean.
+We usually do not consider the population mean, $\mu$, to be a random variable. Rather, we understand the population mean to be fixed value, although we do not know what this value is. The confidence interval is a probability statement about the interval rather than the parameter itself. 
+
+### Example: Pea lengths
+For example, consider some data on the github repository, [biol-4605-data](https://github.com/ahurford/biol-4605-data). I have choosen data describing pea lengths (cm) and then extracted only the control measurements. I am using `dplyr` commands and I loaded that package in the background.
+
+```{r, include=FALSE, message=FALSE}
+library(ggplot2)
+library(dplyr)
+```
+
+```{r, eval=T}
+data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/pea_length.csv")
+pea.length = filter(data, treatment=="Control")%>%select(length)
+pea.length
+```
+
+The 95$\%$ confidence interval for these data is:
+
+```{r, eval=T}
+result <- t.test(pea.length, conf.level = 0.95)
+result$conf.int
+```
+
+Can you get this same result using the formula? Can you explain what the confidence interval means for this sample of pea lengths? For this example, can you calculate the sample size, $n$, mean, median, standard deviation, variance, and standard error?
+
+## Standard errors and confidence intervals for other statistics
+
+The standard error (SE) is the standard deviation (SD) of the probability distribution of a specific statistic, so we can calculate the SE for statistics other than the mean (as described in Sokal and Rohlf, 2012).
+
+However, the sample variance is known to follow a $\chi^2$ distribution and so a 95$\%$ confidence interval for the population variance is calculated as:
+\[
+\left[\dfrac{s^2(n-1)}{\chi^2_{0.025, n-1}}, \dfrac{s^2(n-1)}{\chi^2_{0.975, n-1}}\right],
+\]
+
+where $\chi_{\alpha/2, \text{df}}$ is the $\chi^2$ distribution evaluated at the quantile, $\alpha/2$ with df degrees of freedom. This value needs to be looked up and can be evaluate in `R` using the `qchisq()` function. See the help file [here](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/Chisquare) for more details.
+
+## Resampling methods for frequentist estimation
+
+The methods for estimating confidence intervals in this section rely on assumptions that the statistic's sampling distribution follows a normal or t-distribution. We may be not be able to justify this assumption in some cases, or it might be difficult to derive an unbiased sample estimator.
+
+Without any other information, our best guess as to the distribution of the population is the observations in our sample.
+
+### Bootstrap
+
+A bootstrap estimator is determined by randomly by resampling the data with replacement to create many new hypothetical data sets each with the same sample size. We calculate our statistic of interest for each of the many resampled (with replacement) hypothetical data sets. The bootstrap estimate of the parameter is the mean of these statistics. The SE of the bootstrap estimate is their SD. 
+
+Confidence intervals for bootstrap methods are: percentile method, the bias corrected method, and the accelerated bootstrap (see Efron and Hastie 2016). Efron and Hastie recommended at least 2,000 samples for confidence interval estimation using bootstrap methods.
+
+The percentile method involves ranking the estimated statistic values for each sample. If there are 1000 samples, the 95$\%$ confidence interval is estimated as [25th ranked estimate, 975th estimate].
+
+Example of resampled (with replacement) data sets for the pea length data:
+
+```{r, eval=T}
+pea.length = t(pea.length) # sample() function only works when pea.length is a row vector.
+pea.length # print original pea length data for reference
+# Make samples 
+sample1 <- sample(pea.length, replace = TRUE)
+sample2 <- sample(pea.length, replace = TRUE)
+sample3 <- sample(pea.length, replace = TRUE)
+sample4 <- sample(pea.length, replace = TRUE)
+sample5 <- sample(pea.length, replace = TRUE)
+resampled.data = data.frame(sample1, sample2, sample3, sample4, sample5)
+resampled.data
+```
+
+### Jackknife
+
+The jackknife is an earlier alternative to bootstrapping that is less computer intensive. This approach involves recalculating statistics after removing successive data points.
 
 ## Readings
 - Ch. 2.4 Quinn and Keough.
