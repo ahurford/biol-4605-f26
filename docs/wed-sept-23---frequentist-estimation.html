@@ -197,7 +197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">8</span> Wed Sept 23 - Frequentist estimation<a href="wed-sept-23---frequentist-estimation.html#wed-sept-23---frequentist-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Estimating population parameters from sample data is the goal of statistics. A good estimator should be unbiased.</p>
 <p>An example of a population parameter is the mean or the standard deviation. You likely already know the formula to calculate the mean, <span class="math inline">\(\bar{y}\)</span>, from a sample of size, <span class="math inline">\(n\)</span>. The formula to calculate the standard deviation is,</p>
-<p><span class="math display">\[ s = \sqrt{\dfrac{\sum_{i=1}^n (y_i - \bar{y})}{n-1}}. \]</span></p>
+<p><span class="math display">\[ s = \sqrt{\dfrac{\sum_{i=1}^n (y_i - \bar{y})^2}{n-1}}. \]</span></p>
 <p>Table 2.1 in Quinn and Keough lists other commonly estimated parameters, statistics, and their formulas.</p>
 <p><strong>Degrees for freedom</strong> are the number of observations that are “free to vary” when we estimate a parameter. For example, for a sample of <span class="math inline">\(n\)</span> observations we have <span class="math inline">\(n-1\)</span> degrees of freedom to estimate the standard deviation because we use one degree of freedom to estimate the mean. Often the degrees of freedom are <span class="math inline">\(n-p\)</span> where <span class="math inline">\(p\)</span> is the number of parameters already estimated.</p>
 <p><strong>Interval estimates</strong> provide a range of values that might include the parameter with a given probability. The confidence interval is a range which we have some confidence that the true value of the parameter might lie in.</p>
@@ -325,17 +325,17 @@ P(\bar{y}-1.96\sigma_{\bar{y}} \leq \mu \leq \bar{y}+1.96\sigma_{\bar{y}}) = 0.9
 <span id="cb15-7"><a href="wed-sept-23---frequentist-estimation.html#cb15-7" tabindex="-1"></a>resampled.data <span class="ot">=</span> <span class="fu">data.frame</span>(sample1, sample2, sample3, sample4, sample5)</span>
 <span id="cb15-8"><a href="wed-sept-23---frequentist-estimation.html#cb15-8" tabindex="-1"></a>resampled.data</span></code></pre></div>
 <pre><code>##    sample1 sample2 sample3 sample4 sample5
-## 1       65      74      65      68      72
-## 2       72      72      68      75      68
-## 3       66      74      76      65      72
-## 4       76      76      75      74      76
-## 5       68      75      76      75      68
-## 6       76      68      66      74      66
-## 7       68      74      66      66      65
-## 8       75      75      65      71      71
-## 9       68      71      71      72      72
-## 10      68      65      67      67      68
-## 11      76      65      67      67      70</code></pre>
+## 1       72      67      72      74      72
+## 2       75      76      65      65      71
+## 3       68      66      76      65      68
+## 4       72      71      71      67      76
+## 5       75      76      68      65      70
+## 6       71      75      76      68      70
+## 7       68      76      68      66      68
+## 8       72      68      71      68      70
+## 9       74      71      72      75      70
+## 10      71      70      65      72      72
+## 11      67      66      65      66      65</code></pre>
 </div>
 <div id="jackknife" class="section level3 hasAnchor" number="8.7.2">
 <h3><span class="header-section-number">8.7.2</span> Jackknife<a href="wed-sept-23---frequentist-estimation.html#jackknife" class="anchor-section" aria-label="Anchor link to header"></a></h3>

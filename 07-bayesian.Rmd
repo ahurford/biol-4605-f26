@@ -9,7 +9,7 @@ Estimating population parameters from sample data is the goal of statistics. A g
 
 An example of a population parameter is the mean or the standard deviation. You likely already know the formula to calculate the mean, $\bar{y}$, from a sample of size, $n$. The formula to calculate the standard deviation is,
 
-\[ s = \sqrt{\dfrac{\sum_{i=1}^n (y_i - \bar{y})}{n-1}}. \]
+\[ s = \sqrt{\dfrac{\sum_{i=1}^n (y_i - \bar{y})^2}{n-1}}. \]
 
 Table 2.1 in Quinn and Keough lists other commonly estimated parameters, statistics, and their formulas.
 
