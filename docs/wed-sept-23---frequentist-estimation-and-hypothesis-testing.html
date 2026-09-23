@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>16 Fri Oct 16 (A3 due) - Regression | book.knit</title>
+  <title>8 Wed Sept 23 - Frequentist estimation and hypothesis testing | book.knit</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="16 Fri Oct 16 (A3 due) - Regression | book.knit" />
+  <meta property="og:title" content="8 Wed Sept 23 - Frequentist estimation and hypothesis testing | book.knit" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="16 Fri Oct 16 (A3 due) - Regression | book.knit" />
+  <meta name="twitter:title" content="8 Wed Sept 23 - Frequentist estimation and hypothesis testing | book.knit" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="wed-oct-14---regression.html"/>
-<link rel="next" href="mon-oct-19---1-way-anova.html"/>
+<link rel="prev" href="mon-sept-21---review-quiz-1-statistical.html"/>
+<link rel="next" href="fri-sept-25-a2-due---bayesian-statistics.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -143,8 +143,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="wed-sept-16---samples-and-populations.html"><a href="wed-sept-16---samples-and-populations.html"><i class="fa fa-check"></i><b>5</b> Wed Sept 16 - Samples and populations</a></li>
 <li class="chapter" data-level="6" data-path="fri-sept-18-quiz-1-a1-due-a2-available-probability-distributions.html"><a href="fri-sept-18-quiz-1-a1-due-a2-available-probability-distributions.html"><i class="fa fa-check"></i><b>6</b> <strong>Fri Sept 18 (Quiz 1, A1 due, A2 available)</strong> Probability distributions</a></li>
 <li class="chapter" data-level="7" data-path="mon-sept-21---review-quiz-1-statistical.html"><a href="mon-sept-21---review-quiz-1-statistical.html"><i class="fa fa-check"></i><b>7</b> Mon Sept 21 - Review Quiz 1, statistical</a></li>
-<li class="chapter" data-level="8" data-path="wed-sept-23---frequentist-estimation.html"><a href="wed-sept-23---frequentist-estimation.html"><i class="fa fa-check"></i><b>8</b> Wed Sept 23 - Frequentist estimation</a></li>
-<li class="chapter" data-level="9" data-path="fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics.html"><a href="fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics.html"><i class="fa fa-check"></i><b>9</b> <strong>Fri Sept 25 (A2 due)</strong> - Hypothesis testing (frequentist) and Bayesian statistics</a></li>
+<li class="chapter" data-level="8" data-path="wed-sept-23---frequentist-estimation-and-hypothesis-testing.html"><a href="wed-sept-23---frequentist-estimation-and-hypothesis-testing.html"><i class="fa fa-check"></i><b>8</b> Wed Sept 23 - Frequentist estimation and hypothesis testing</a></li>
+<li class="chapter" data-level="9" data-path="fri-sept-25-a2-due---bayesian-statistics.html"><a href="fri-sept-25-a2-due---bayesian-statistics.html"><i class="fa fa-check"></i><b>9</b> <strong>Fri Sept 25 (A2 due)</strong> - Bayesian statistics</a></li>
 <li class="chapter" data-level="10" data-path="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html"><a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html"><i class="fa fa-check"></i><b>10</b> Mon Sept 28 - Sampling and experimental design and power analysis</a></li>
 <li class="chapter" data-level="11" data-path="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"><a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"><i class="fa fa-check"></i><b>11</b> <strong>Fri Oct 2 (Quiz 2) </strong> - What is a linear model and how to assess model fit</a></li>
 <li class="chapter" data-level="12" data-path="mon-oct-05---linear-models-assumptions-and-types-of-linear-models.html"><a href="mon-oct-05---linear-models-assumptions-and-types-of-linear-models.html"><i class="fa fa-check"></i><b>12</b> Mon Oct 05 - Linear models assumptions and types of linear models</a></li>
@@ -193,12 +193,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="fri-oct-16-a3-due---regression" class="section level1 hasAnchor" number="16">
-<h1><span class="header-section-number">16</span> <strong>Fri Oct 16 (A3 due)</strong> - Regression<a href="fri-oct-16-a3-due---regression.html#fri-oct-16-a3-due---regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="readings-8" class="section level2 hasAnchor" number="16.1">
-<h2><span class="header-section-number">16.1</span> Readings<a href="fri-oct-16-a3-due---regression.html#readings-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="wed-sept-23---frequentist-estimation-and-hypothesis-testing" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Wed Sept 23 - Frequentist estimation and hypothesis testing<a href="wed-sept-23---frequentist-estimation-and-hypothesis-testing.html#wed-sept-23---frequentist-estimation-and-hypothesis-testing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Estimating population parameters from sample data is the goal of statistics. A good estimator should be unbiased.</p>
+<p>An example of a population parameter is the mean or the standard deviation. You likely already know the formula to calculate the mean, <span class="math inline">\(\bar{y}\)</span>, from a sample of size, <span class="math inline">\(n\)</span>. The formula to calculate the standard deviation is,</p>
+<p><span class="math display">\[ s = \sqrt{\dfrac{\sum_{i=1}^n (y_i - \bar{y})}{n-1}}. \]</span></p>
+<p>Table 2.1 in Quinn and Keough lists other commonly estimated parameters, statistics, and their formulas.</p>
+<p><strong>Degrees for freedom</strong> are the number of observations that are “free to vary” when we estimate a parameter. For example, for a sample of <span class="math inline">\(n\)</span> observations we have <span class="math inline">\(n-1\)</span> degrees of freedom to estimate the standard deviation because we use one degree of freedom to estimate the mean. Often the degrees of freedom are <span class="math inline">\(n-p\)</span> where <span class="math inline">\(p\)</span> is the number of parameters already estimated.</p>
+<p><strong>Interval estimates</strong> provide a range of values that might include the parameter with a given probability. The confidence interval is a range which we have some confidence that the true value of the parameter might lie in.</p>
+<p>The formula for a 95<span class="math inline">\(\%\)</span> confidence interval for the population mean, <span class="math inline">\(\mu\)</span>, is</p>
+<p><span class="math display">\[
+\bar{y} - t_{0.025, n-1}\dfrac{s}{\sqrt{n}} \quad \leq \quad \mu \quad \leq \quad \bar{y} + t_{0.025, n-1}\dfrac{s}{\sqrt{n}}
+\]</span></p>
+<p>where the sample mean is <span class="math inline">\(\bar{y} = \frac{1}{n}\sum_{i=1}^n y_i\)</span> for a sample with <span class="math inline">\(n\)</span> observations and where <span class="math inline">\(s\)</span> is the sample standarde deviation. The t-statistic for the quantiles 0.025 and 0.975 with <span class="math inline">\(n-1\)</span> degrees of freedom can be determined with the code:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="wed-sept-23---frequentist-estimation-and-hypothesis-testing.html#cb7-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">100</span> <span class="co"># number of observations in sample</span></span>
+<span id="cb7-2"><a href="wed-sept-23---frequentist-estimation-and-hypothesis-testing.html#cb7-2" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.025</span>, n<span class="dv">-1</span>)</span></code></pre></div>
+<pre><code>## [1] -1.984217</code></pre>
+<p>In the code above <span class="math inline">\(n\)</span> is specifically set to 100. There is a 95<span class="math inline">\(\%\)</span> probability that the population mean is between these values. <em>Practice calculating the 95<span class="math inline">\(\%\)</span> confidence interval for some data. Understand what the estimated quantity means.</em></p>
+<p>For example, consider some data on the github repository, <a href="https://github.com/ahurford/biol-4605-data">biol-4605-data</a>. I have choosen data describing pea lengths (cm) and then extracted only the control measurements. I am using <code>dplyr</code> commands and I loaded that package in the background.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="wed-sept-23---frequentist-estimation-and-hypothesis-testing.html#cb9-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/pea_length.csv&quot;</span>)</span>
+<span id="cb9-2"><a href="wed-sept-23---frequentist-estimation-and-hypothesis-testing.html#cb9-2" tabindex="-1"></a>lengths <span class="ot">=</span> <span class="fu">filter</span>(data, treatment<span class="sc">==</span><span class="st">&quot;Control&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">select</span>(length)</span>
+<span id="cb9-3"><a href="wed-sept-23---frequentist-estimation-and-hypothesis-testing.html#cb9-3" tabindex="-1"></a>lengths</span></code></pre></div>
+<pre><code>##    length
+## 1      65
+## 2      67
+## 3      68
+## 4      70
+## 5      71
+## 6      75
+## 7      76
+## 8      74
+## 9      72
+## 10     68
+## 11     66</code></pre>
+<p>The 95<span class="math inline">\(\%\)</span> confidence interval for these data is:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="wed-sept-23---frequentist-estimation-and-hypothesis-testing.html#cb11-1" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(lengths, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb11-2"><a href="wed-sept-23---frequentist-estimation-and-hypothesis-testing.html#cb11-2" tabindex="-1"></a>result<span class="sc">$</span>conf.int</span></code></pre></div>
+<pre><code>## [1] 67.67141 72.69223
+## attr(,&quot;conf.level&quot;)
+## [1] 0.95</code></pre>
+<p>Can you get this same result using the formula?</p>
+<div id="methods-of-estimation-frequentist-estimation" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Methods of estimation (frequentist estimation)<a href="wed-sept-23---frequentist-estimation-and-hypothesis-testing.html#methods-of-estimation-frequentist-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Ordinary least squares (OLS).</strong> The OLS estimator for a parameter minimizes the sum of the squared differences between each sample estimate adn the estimate of the population mean, <span class="math inline">\(\mu\)</span>. Assumes a normal distribution for confidence intervals.</p>
+<p><strong>Maximum likelihood (ML).</strong> The ML estimator for a parameter is the one that maximizes the likelihood of observing the data.</p>
+</div>
+<div id="simple-parameters-and-statistics" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Simple parameters and statistics<a href="wed-sept-23---frequentist-estimation-and-hypothesis-testing.html#simple-parameters-and-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Given a sample of observations <span class="math inline">\((y_1, y_2, \dots, y_n)\)</span> we would usually like to estimate some measures of the data’s central tendency and its spread. The center of the distribution can be measured by the mean or median. The spread (or variability) can be measured by the standard deviation, or the variance, <span class="math inline">\(s^2\)</span>, where the sample variance is calculated as,</p>
+<p><span class="math display">\[
+s^2 = \dfrac{\sum_{i=1}^n (y_i - \bar{y})}{n-1},
+\]</span></p>
+<p>and where the numerator is the residual sum of squares (RSS), and the denomenator is <span class="math inline">\(n-1\)</span> (rather than <span class="math inline">\(n\)</span>) because the <span class="math inline">\(n-1\)</span> is needed for <span class="math inline">\(s^2\)</span> to be an unbiased estimate of the population variance. The units of the variance are squared that of the original measurements, while for the standard deviation, <span class="math inline">\(s = \sqrt{s^2}\)</span>, are same units as the original measurements.</p>
+</div>
+<div id="readings-2" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Readings<a href="wed-sept-23---frequentist-estimation-and-hypothesis-testing.html#readings-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Chp 9.3, 9.5</li>
+<li>Ch. 2.4 and 2.5 Quinn and Keough.</li>
 </ul>
 
 </div>
@@ -208,8 +259,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="wed-oct-14---regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="mon-oct-19---1-way-anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mon-sept-21---review-quiz-1-statistical.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="fri-sept-25-a2-due---bayesian-statistics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

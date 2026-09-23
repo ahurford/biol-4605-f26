@@ -30,9 +30,7 @@ See Figure 2.1 in Quinn and Kenough (or do an internet search) to see the graphs
 
 See [Ch6.1: Empirical frequency distributions](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_1.pdf)
 
-## Comparing observations to probability distributions (Ch6.3)
 
-See [Ch6.3: Comparing observed distributions to probability models](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch6_3.pdf)
 
 <!-- ## Readings -->
 

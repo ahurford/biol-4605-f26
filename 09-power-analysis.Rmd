@@ -3,7 +3,7 @@ title: "Power analysis"
 output: html_document
 ---
 
-# Mon Sept 28 - Power analysis
+# Mon Sept 28 - Sampling and experimental design and power analysis
 
 ## Readings
 - Ch 3.3 Quinn and Keough.

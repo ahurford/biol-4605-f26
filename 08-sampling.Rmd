@@ -3,7 +3,7 @@ title: "Sampling design"
 output: html_document
 ---
 
-# **Fri Sept 25 (A2 due)** - Sampling and experimental design
+# **Fri Sept 25 (A2 due)** - Hypothesis testing (frequentist) and Bayesian statistics 
 
 
 ## Reading

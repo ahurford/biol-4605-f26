@@ -3,8 +3,101 @@ title: "Bayesian"
 output: html_document
 ---
 
-# Wed Sept 23 - Bayesian statistical inference
+# Wed Sept 23 - Frequentist estimation
+
+Estimating population parameters from sample data is the goal of statistics. A good estimator should be unbiased.
+
+An example of a population parameter is the mean or the standard deviation. You likely already know the formula to calculate the mean, $\bar{y}$, from a sample of size, $n$. The formula to calculate the standard deviation is,
+
+\[ s = \sqrt{\dfrac{\sum_{i=1}^n (y_i - \bar{y})}{n-1}}. \]
+
+Table 2.1 in Quinn and Keough lists other commonly estimated parameters, statistics, and their formulas.
+
+**Degrees for freedom** are the number of observations that are "free to vary" when we estimate a parameter. For example, for a sample of $n$ observations we have $n-1$ degrees of freedom to estimate the standard deviation because we use one degree of freedom to estimate the mean. Often the degrees of freedom are $n-p$ where $p$ is the number of parameters already estimated.
+
+**Interval estimates** provide a range of values that might include the parameter with a given probability. The confidence interval is a range which we have some confidence that the true value of the parameter might lie in.
+
+The formula for a 95$\%$ confidence interval for the population mean, $\mu$, is
+
+\[
+\bar{y} - t_{0.025, n-1}\dfrac{s}{\sqrt{n}} \quad \leq \quad \mu \quad \leq \quad \bar{y} + t_{0.025, n-1}\dfrac{s}{\sqrt{n}}
+\]
+
+where the sample mean is $\bar{y} = \frac{1}{n}\sum_{i=1}^n y_i$ for a sample with $n$ observations and where $s$ is the sample standarde deviation. The t-statistic for the quantiles 0.025 and 0.975 with $n-1$ degrees of freedom can be determined with the code:
+
+```{r, eval=T}
+n = 100 # number of observations in sample
+qt(0.025, n-1)
+```
+
+
+In the code above $n$ is specifically set to 100. There is a 95$\%$ probability that the population mean is between these values. _Practice calculating the 95$\%$ confidence interval for some data. Understand what the estimated quantity means._
+
+For example, consider some data on the github repository, [biol-4605-data](https://github.com/ahurford/biol-4605-data). I have choosen data describing pea lengths (cm) and then extracted only the control measurements. I am using `dplyr` commands and I loaded that package in the background.
+
+```{r, include=FALSE, message=FALSE}
+library(ggplot2)
+library(dplyr)
+```
+
+```{r, eval=T}
+data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/pea_length.csv")
+lengths = filter(data, treatment=="Control")%>%select(length)
+lengths
+```
+
+The 95$\%$ confidence interval for these data is:
+
+```{r, eval=T}
+result <- t.test(lengths, conf.level = 0.95)
+result$conf.int
+```
+
+Can you get this same result using the formula?
+
+## Methods of estimation (frequentist estimation)
+**Ordinary least squares (OLS).** The OLS estimator for a parameter minimizes the sum of the squared differences between each sample estimate adn the estimate of the population mean, $\mu$. Assumes a normal distribution for confidence intervals.
+
+**Maximum likelihood (ML).** The ML estimator for a parameter is the one that maximizes the likelihood of observing the data.
+
+## Simple parameters and statistics
+Given a sample of observations $(y_1, y_2, \dots, y_n)$ we would usually like to estimate some measures of the data's central tendency and its spread. The center of the distribution can be measured by the mean or median. The spread (or variability) can be measured by the standard deviation, or the variance, $s^2$, where the sample variance is calculated as,
+
+\[
+s^2 = \dfrac{\sum_{i=1}^n (y_i - \bar{y})}{n-1},
+\]
+
+and where the numerator is the residual sum of squares (RSS), and the denomenator is $n-1$ (rather than $n$) because the $n-1$ is needed for $s^2$ to be an unbiased estimate of the population variance. The units of the variance are squared that of the original measurements, while for the standard deviation, $s = \sqrt{s^2}$, are same units as the original measurements. 
+
+## Sampling the distribution mean
+Having a point estimate of the population mean is only the first step under frequentist estimation, we also need to estimate how variable our estimate might be under repeated sampling from the population.
+
+Assume that our sample, $(y_1, y_2, \dots, y_n)$, has come from a normally distributed population. We can compare our samples to the quantiles of a standard normal distribution (with a mean, $\mu = 0$, and a variance, $\sigma^2 = 1$) if we standardize our measurements,
+
+\[\
+z = \frac{y_i - \mu}{\sigma}.
+\]
+
+We usually only take one sample from a population, but if we took many samples and plotted the distribution of the sample means the sampling distribution of means ahs the following properties:
+
+- The probability distribution of means of samples from normal distributions are also normally distributed.
+- As the sample size, $n$, increases, the probability distributions of means of samples from any distribution will approach a normal distribution. This is a result of the central limit theorem.
+- The expected value, or the mean, of the probability distribution of the sample means is the mean of the population ($\mu$) from which the samples where taken. 
+
+## Standard error of the sample mean
+Let's consider that the sample means have a normal distribution. We can calculate their variance, just as we calculated their mean values. The expected value of the standard deviation (SD) of the sample mean is,
+
+\[
+\sigma_{\bar{y}} = \frac{\sigma}{n},
+\]
+
+where $\sigma$ is the SD of the original population from which the repeated samples were taken. We rarely have many samples from the same population. The SD of the _sample_ means is called the standard error or the mean, and is estimated as,
+
+\[
+s_{\bar{y}} = \frac{s}{\sqrt{n}},
+\]
+
+where $s$ is the sample estimate of the SD original population (the population the samples are drawn from) adn $n$ is the sample size. The standard error describes the error in estimating the population mean, $\mu$, using the sample estimator, $\bar{y}$. If the standard error, $s_{\bar{y}}$ is large, then repeated sampling and estimation of the population mean would generate highly variable estimates.
 
 ## Readings
-- Ch. 2.6 and 2.7 Quinn and Keough.
-- [Ch. 7.1 Three modes of statistical infereence](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch7_1.pdf)
+- Ch. 2.4 Quinn and Keough.
