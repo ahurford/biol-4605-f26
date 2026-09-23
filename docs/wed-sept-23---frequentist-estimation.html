@@ -210,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.2</span> Simple parameters and statistics<a href="wed-sept-23---frequentist-estimation.html#simple-parameters-and-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Given a sample of observations <span class="math inline">\((y_1, y_2, \dots, y_n)\)</span> we would usually like to estimate some measures of the data’s central tendency and its spread. The center of the distribution can be measured by the mean or median. The spread (or variability) can be measured by the standard deviation, or the variance, <span class="math inline">\(s^2\)</span>, where the sample variance is calculated as,</p>
 <p><span class="math display">\[
-s^2 = \dfrac{\sum_{i=1}^n (y_i - \bar{y})}{n-1},
+s^2 = \dfrac{\sum_{i=1}^n (y_i - \bar{y})^2}{n-1},
 \]</span></p>
 <p>and where the numerator is the residual sum of squares (RSS), and the denomenator is <span class="math inline">\(n-1\)</span> (rather than <span class="math inline">\(n\)</span>) because the <span class="math inline">\(n-1\)</span> is needed for <span class="math inline">\(s^2\)</span> to be an unbiased estimate of the population variance. The units of the variance are squared that of the original measurements, while for the standard deviation, <span class="math inline">\(s = \sqrt{s^2}\)</span>, are same units as the original measurements.</p>
 </div>
@@ -325,17 +325,17 @@ P(\bar{y}-1.96\sigma_{\bar{y}} \leq \mu \leq \bar{y}+1.96\sigma_{\bar{y}}) = 0.9
 <span id="cb15-7"><a href="wed-sept-23---frequentist-estimation.html#cb15-7" tabindex="-1"></a>resampled.data <span class="ot">=</span> <span class="fu">data.frame</span>(sample1, sample2, sample3, sample4, sample5)</span>
 <span id="cb15-8"><a href="wed-sept-23---frequentist-estimation.html#cb15-8" tabindex="-1"></a>resampled.data</span></code></pre></div>
 <pre><code>##    sample1 sample2 sample3 sample4 sample5
-## 1       72      67      72      74      72
-## 2       75      76      65      65      71
-## 3       68      66      76      65      68
-## 4       72      71      71      67      76
-## 5       75      76      68      65      70
-## 6       71      75      76      68      70
-## 7       68      76      68      66      68
-## 8       72      68      71      68      70
-## 9       74      71      72      75      70
-## 10      71      70      65      72      72
-## 11      67      66      65      66      65</code></pre>
+## 1       65      72      70      66      75
+## 2       72      74      67      65      67
+## 3       71      68      72      65      68
+## 4       67      74      72      65      67
+## 5       68      74      74      72      67
+## 6       67      71      72      74      71
+## 7       74      70      68      70      65
+## 8       76      75      66      71      76
+## 9       76      67      71      67      68
+## 10      71      76      65      76      67
+## 11      65      72      74      70      67</code></pre>
 </div>
 <div id="jackknife" class="section level3 hasAnchor" number="8.7.2">
 <h3><span class="header-section-number">8.7.2</span> Jackknife<a href="wed-sept-23---frequentist-estimation.html#jackknife" class="anchor-section" aria-label="Anchor link to header"></a></h3>

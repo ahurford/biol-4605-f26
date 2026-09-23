@@ -26,7 +26,7 @@ Table 2.1 in Quinn and Keough lists other commonly estimated parameters, statist
 Given a sample of observations $(y_1, y_2, \dots, y_n)$ we would usually like to estimate some measures of the data's central tendency and its spread. The center of the distribution can be measured by the mean or median. The spread (or variability) can be measured by the standard deviation, or the variance, $s^2$, where the sample variance is calculated as,
 
 \[
-s^2 = \dfrac{\sum_{i=1}^n (y_i - \bar{y})}{n-1},
+s^2 = \dfrac{\sum_{i=1}^n (y_i - \bar{y})^2}{n-1},
 \]
 
 and where the numerator is the residual sum of squares (RSS), and the denomenator is $n-1$ (rather than $n$) because the $n-1$ is needed for $s^2$ to be an unbiased estimate of the population variance. The units of the variance are squared that of the original measurements, while for the standard deviation, $s = \sqrt{s^2}$, are same units as the original measurements. 
