@@ -43,6 +43,15 @@ bootstrap
 jackknife
 readings-2
 fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics
+hypothesis-testing-frequentist
+frequentist-statistical-hypothesis-testing
+decision-errors
+parameteric-tests-and-their-assumptions
+comments-on-frequentist-inference
+bayesian-statistical-inference
+prior-knowledge-and-probability
+example
+final-comments
 reading
 mon-sept-28---sampling-and-experimental-design-and-power-analysis
 readings-3

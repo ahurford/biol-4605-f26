@@ -5,9 +5,86 @@ output: html_document
 
 # **Fri Sept 25 (A2 due)** - Hypothesis testing (frequentist) and Bayesian statistics 
 
+## Hypothesis testing (frequentist)
+
+Mayo (2018) summarizes the hypothesis testing process as:
+
+- A hypothesis, typically about the value of a parameter, $\theta$, that reflects some biological process affecting the data. We make assumptions, via models, when we express our hypotheses in terms of parameter values.
+
+- A "distance function", calculated from the data that will allow to assess how well the data fits the model (or mathematical representation of your hypothesis). We we calculate the expected distribution of the "distance function" under the hypothesis we call this a test statistic.
+
+- A decision rule, to determine if the test statistic value calculated for our data and model, is consistent with the hypothesis.
+
+**Biological versus statistical significance.** If we find the differences between mean snail weights between two populations is 1$\%$, this result might be statistically significant (particularly if the sample size is large), but the result might not be biologically meaningful. We need to considered the specific biology to know if an effect is biologically significant. For example, for toxins, a small difference could be biologically meaningful, but for other biological question, i.e. snail weights, a small difference, even when statistically significant, might not be biologically meaningful.
+
+### Frequentist statistical hypothesis testing
+The frequentist approach, developed by RA Fisher, involves the following steps:
+
+- Construct a null hypothesis, $H_0$, i.e., there amount of phosphorous in corn does not depending of soil phosphorous, i.e., $\beta_1 = 0$, where $\beta_1$ is the slope of a hypothesiszed linear relationship.
+
+- Choose a test statistic that will compare our sample slope value ($b_1$) to that predicted ($\beta_1 = 0$) and generate a standard error from our data. This case, given our null hypothesis, the test statistic $(b_1 - 0)/s_b$ will follow a t-distribution with $n-2$ df.
+
+Fishers' test rule compares the test statistic from the data to values expected from such samples when $H_0$ is correct. A test statistic beyond a threshold is evidence for rejecting the null hypothesis.
+
+A key component of the framework is the p-value. A p-value of $0.01$ means only a 1$\%$ chance of obtaining these data if the null hypothesis were correct. The p-value is $P(\mbox{data}|H_0)$, i.e. the probability of observing these data given the null hypothesis.
+
+Fisher's approach was extended by Neyman-Pearson to consider an alternative hypothesis, $H_1$ (referred to as the N-P framework). Fisher's approach notes that we might falsely reject the null hypothesis when it is actually correct (termed  type I (or alpha) error). In the N-P framework, another possibility is that the alternative hypothesis is falsely rejected (termed  type II (or beta) error) due to random chance for these particular data there were collected.
+
+
+### Decision errors
+See Type I and Type II errors [here](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors).
+
+Traditionally, biologists have been concerned about Type I errors, i.e., not claiming an effect when none exists. The idea was that the discipline is protected by ensuring that we do not accept falsely correct hypotheses. Historically, $\alpha = 0.05\%$ was considered an acceptable type I error and an effect could only be claimed as statistically significant if the p-value for our analysis was less than $0.05$. A smaller value of $\alpha$ might protect against claiming false effects even more, but a problem with protecting against type I errors is that doing so increases the chance of Type II errors.
+
+In environmental assessment or experimetns involving human health, controlling type II errors may be more important than controlling type I errors. A type II error is failure to detect an effect that has occurred.
+
+Good sampling design should protect against both errors, primarily by taking large enough samples to be confident in our estimates and conclusions. Statistical power, $1-\beta$, is the probability of $H_1$ generating a test-statistic above the critical value, leading to $H_0$ being correctly rejected. 
+
+### Parameteric tests and their assumptions
+
+Tests, i.e. t-tests and ANOVA, that specify a probability distribution for the variable from which our samples came and the test statistic are referred to as 'parametric tests'. If the assumptions of any statistical test are not met, the parameter estimates and confidence intervals may be unreliable and the statistical decisions that are reached may be incorrect.
+
+When assumptions, such as that data arise from normally-distributed populations, observations are independent and sampled randomly form the same populations, and/or that group comparisons have equal variance are not met, we can consider robust tests, randomization procedures, and rank-based methods. 
+
+### Comments on frequentist inference
+Frequentist inference has long been the dominant approach in biology, health, environmental sciences, and other disciplines. More recently aspects of the frequentist approach, particularly null hypothesis statistical testing, have been intensely debated and criticized. This prompted the American Statistical Association to release a state on P-values', context, process and purpose (Wasserstein and Lazar, 2016). See Ellison et al. 2014 for an ecologically oriented discussion. Some of the criticisms are warranted, but all statistical approaches have limitations when scrutinized.
+
+It has been pointed out that researchers would prefer an interval that covers 95$\%$ of possible parameter values rather than a confidence interval. This can be achieved with Bayesian credible intervals. Similarly, we might prefer a probability that a hypothesis is true such as $H_0$ is true, but rather than that p-values quantify the probability of getting our sample data, or data more extreme from repeated sampling from our populations is the $H_0$ is true.
+
+A conclusion from the discussions in the literature has been that p-values, if interpreted correctly and in combination with effect sizes (interpretted in terms of biological significance), can be appropriate.
+
+A threshold value, such as $\alpha = 0.05$ has been criticized.
+
+The frequentist approach is not well-suited to incorporating prior knowledge.
+
+## Bayesian statistical inference
+Unlike frequentist statistics, Bayesian inference makes a philosophical shift in how we understand parameters and probabilities. In Bayesian statistics we understand the parameters of interest to be random variables that can take a range of values, each with different probabilities representing our degrees of belief. This contrast with the frequentist view that population parameters are fixed, but unknown. For Bayesian inference, we also understand probabilities as degrees of belief, rather than the long range frequency of events (which is the frequentist interpretation).
+
+In Bayesian statistics,
+
+\[
+P(\theta|\mbox{data}) = \dfrac{P(\mbox{data}|theta)P(\theta)}{P(\mbox{data})},
+\]
+
+where $\theta$ is our parameter to be estimated to assess the hypothesis, $P(\theta)$ is our prior probability distribution of the parameter value (not considering our data), and $P(\theta|\mbox{data})$ is the posterior probability, which the probability the $\theta$ is equal to a particular value given our data and our prior beliefs. $P(\mbox{data}|theta)$ is the probability of observing the data for a given value of $\theta$ and $P(\mbox{data})$ is the probability of observing the data and is normalization (so that the area under the probability distriubtion is 1).
+
+### Prior knowledge and probability
+
+Priors can be strongly or weakly informative of the parameter of interest. A weakly informative prior has a large variance, and can be an overly conservative interpretation of prior knowledge. A non-informative prior, i.e. a uniform distribution across a large range, implies that there is no prior knowledge of the parameter value and a frequentist approach is equivalent and appropriate. A strongly informative prior will have substantial impact on the estimated posterior distribution of the parameter of interest. It is very important that biologists explain their derivation of their prior when using Bayesian inference.
+
+Conclusions in Bayesian statistics are based on the posterior probability. It is necessary to use computationally intensive interative methoes (i.e., Markov chain Monte Carlo, MCMC) to estimate the posterior probability given data and a prior distribution. The most common MCMC method used to obtain the posterior probability is the Gibbs sampler.
+
+The mean of the posterior distribution is our parameter estimate when using Bayesian inference. Bayesian credible intervals are the analog of frequentist confidence intervals, but the credible intervals are interpretted differently. The 95$\%$ credible intervals are two values of the parameter between which 95$\%$ of the posterior probability lies. The credible intervals are interpretted as a 95$\%$ probability that the parameter falls within this range. The credible intervals are a statement about the parameter, while frequentist confidence intervals are a statement about the parameter. Credible intervals can be assymetric.
+
+### Example
+
+For an example that uses some Bayesian methods, see Anokye et al. 2026. [Quantifying SARS-CoV-2 Omicron variant spread and the impact of non-pharmaceutical interventions in Newfoundland and Labrador, Canada](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1013562). PLOS Computational Biology and particularly Table 1 in the main text (which reports credible intervals) and Section S1.6 in the [Supplementary Information](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1013562#sec015) which explains the Bayesian parameter estimation and visualizes the prior and posterior distributions.
+
+### Final comments
+In the course, as in the Quinn and Keough textbook we describe the frequentist approach to statistics. This is because without strongly informative priors, the Bayesian point estimates and credible intervals will be close to their frequentist analogs. We recognize the limitation of frequentist statistics in not being able to incorporate prior knowledge. Quinn and Keough view prior information as most valuable when used to frame, rather than answer, research questions.
 
 ## Reading
-- Ch 3.1 and 3.2 in Quinn and Keough.
+- Ch 2.5 - 2.7 in Quinn and Keough.
 
 
 
