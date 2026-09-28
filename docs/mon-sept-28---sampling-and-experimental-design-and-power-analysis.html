@@ -195,10 +195,93 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="mon-sept-28---sampling-and-experimental-design-and-power-analysis" class="section level1 hasAnchor" number="10">
 <h1><span class="header-section-number">10</span> Mon Sept 28 - Sampling and experimental design and power analysis<a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html#mon-sept-28---sampling-and-experimental-design-and-power-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="readings-3" class="section level2 hasAnchor" number="10.1">
-<h2><span class="header-section-number">10.1</span> Readings<a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html#readings-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="sampling-design" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Sampling design<a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html#sampling-design" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="probability-sampling" class="section level3 hasAnchor" number="10.1.1">
+<h3><span class="header-section-number">10.1.1</span> Probability sampling<a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html#probability-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Statistical population: Populations are <em>all possible</em> units and their associated observations of interest. Samples are a collection of observations from a population. The number of units in the sample is the sample size.</p>
+<p>Distinct from biological population (same species).</p>
+<p>Sampling error arise because any observation will be an imperfect representation of the population and is measured by the standard error: the standard deviation of a sample statistic based on repeated sampling.</p>
+<p>For probability sampling, the probabilities of selecting individual sampling units are known.</p>
+<p><strong>Simple random sampling</strong> For a given sample size, <span class="math inline">\(n\)</span>, all possible sampling units in the population have an equal chance of being selected. Can be achieved by giving all sampling units an identifier and using a random number generator. Examples: randomly select animals in a population, or overlay a spatial grid.</p>
+<p>Simple random sampling is always the goal, but it may be more expensive.</p>
+<p>Formula for means, variances, SE, and CIs assume simple random sampling.</p>
+<p><strong>Stratified sampling</strong> The population is partitioned into levels that represent clearly defined groups (or strata) of units. Under stratified sampling we sample independently and randomly from each group.</p>
+<p>There are different formulas for calculative the population mean and the standard error of the population mean when stratified sampling is used.</p>
+<p>The group/strata should be included in statistical models as a predictor variable.</p>
+<p>Examples of groups/strata: pool vs. riffle in a stream; or grassland, woodlood, wetland etc. We might want to sample equally, or in proportion to the area, of these habitats.</p>
+<p><strong>Cluster sampling</strong> Modifies simple random sampling to account for heterogeneity.</p>
+<p>Simple cluster sampling involves sampling all secondary units (i.e., branches) from within the randomly selected primary unit (i.e., tree).</p>
+<p><strong>Sytematic sampling</strong> involves choosing sampling units that are equally spaced in time or in space. A limitation is that is is not possible to calculate an unbiased estimate of sampling variance and standard error. Another limitation is that unknown regularity may coincide with sampling.</p>
+<p><strong>Unequal probability sampling</strong> may be useful to select units based on their size.</p>
+<p><strong>Adaptive sampling</strong> sampling design is based on initial observations.</p>
+</div>
+</div>
+<div id="sample-size-for-random-sampling" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Sample size for random sampling<a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html#sample-size-for-random-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>If we have some estimate of the variability between the sampling units in our population, we can estimate the sample size required to for any sample mean to be within some bounds around the true mean given repeated sampling. Specifically,</p>
+<p><span class="math display">\[
+n \geq \frac{z^2s^2}{d^2},
+\]</span></p>
+<p>where <span class="math inline">\(z\)</span> is the value from a standard normal distribution for a given level of confidence (i.e., <span class="math inline">\(z=1.96\)</span> for 95<span class="math inline">\(\%\)</span> confidence interval), <span class="math inline">\(s^2\)</span> is the estimate of the variance of the population (i.e., from a pilot study), and <span class="math inline">\(d\)</span> is the maximum allowable absolute difference between the estimated and true population means. This formula is for the mean, but comparable formula are availble for other statistics. These calculations are different/more difficult for other sampling designs (i.e. stratified sampling, systematic sampling).</p>
+</div>
+<div id="non-probability-sampling" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Non-probability sampling<a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html#non-probability-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Convenience sampling</strong> i.e., sampling streams near bridges, or forests near campus.</p>
+<p><strong>Haphazard sampling</strong> Mimics random sampling trying to avoid bias, however, our biases usually affect the choices (i.e., not getting feet wet, or walking all the way up a hill).</p>
+<p><strong>Purposive sampling</strong> i.e., people are selected because researchers judge them to be representative of the population.</p>
+</div>
+<div id="experimential-design" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> Experimential design<a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html#experimential-design" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Manipulative experiments have a treatment structure (i.e., treatment and control).</p>
+<p>The sets of related treatments are termed factors.</p>
+<p>The smallest unit to which an experimental treatment can be applied are experimental units.</p>
+<p>The design structure determines how the factor groups (i.e., different treatments) are applied to the experimental units.</p>
+<p>Confounding is differences in the treatment effects cannot be separated from extraneous factors, i.e., a hormone treatment is applied only to female crayfish. Note that confounding is generally not this easy to identify.</p>
+<p><strong>Replication of experimental units</strong> Replication is having multiple experimental/sampling units for each experimental treatment. Replication is necessary because biological systems are noisy. Without replication, confounding is very likely.</p>
+<p>Increasing replication by increasing observational, rather than experimental (treatment level) units, could result in pseudo-replication. For example, increasing the number of fish in a tank, rather than the number of tanks to which the treatment is applied, or increasing the number of tree samples taken within a burned area, instead of adding a new burn area to measure in.</p>
+<p>To avoid confounding, think about the unit to which the treatment is applied. This is the experimental unit. If we take multiple measurements within an experimental unit, it is recommended to take the mean of these measurements before doing the statistics to avoid confounding.</p>
+<p><strong>Controls</strong> allow us to measure that a change would not have occurred without the treatment. This is stronger evidence of a treatment effect as it reduces the chance of confounding.</p>
+<p><strong>Randomization</strong> random treatments should be sufficiently interspersed, for example, all treatment one (carbon subsidy) replicates occurs first along a gradient (i.e., upstream), and all treatment two (i.e., nitrogen subsidy) occur second along the gradient (see Figure 3.3 on p37 of Quinn and Keough). If this occurs, you should re-randomize, but in doing so it is necessary to decide on an acceptible level of interspersion a priori (i.e., before).</p>
+<p><strong>Independence</strong> lack of independence between experimental units can bias conclusions or complicate analysis. For example, treatment spreads downstream.</p>
+<p><strong>Reducing unexplained variance</strong>. Good experimental design aims to detect a signal and minimize unexplained variance. This could occur by including additional predictor variables, or narrowing the scope of the population form which the samples are drawn.</p>
+<p><strong>Limitations of manipulative experiments</strong> Manipulative experiments can introduce artifacts themselves. Extending inference beyond the experiment requires caution. Before-After-Control-Impact is a common approach used in environmental impact assessment.</p>
+</div>
+<div id="sample-size-for-detecting-differences-power-analysis" class="section level2 hasAnchor" number="10.5">
+<h2><span class="header-section-number">10.5</span> Sample size for detecting differences: power analysis<a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html#sample-size-for-detecting-differences-power-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Power is the probability of detecting an with our sample(s), if it occurs in the population(s). Power, <span class="math inline">\(1-\beta\)</span>, is the complement of type II error, <span class="math inline">\(\beta\)</span>, and</p>
+<p><span class="math display">\[
+\mbox{Power} \propto \dfrac{\mbox{ES}\alpha\sqrt{n}}{\sigma},
+\]</span></p>
+<p>where <span class="math inline">\(\mbox{ES}\)</span> is the effect size (the size of the effect we want to be able to detect - units are the same as the quantity we are measuring), <span class="math inline">\(n\)</span> is the sample size, <span class="math inline">\(\sigma^2\)</span> is the variation between experimental or sampling units, and <span class="math inline">\(\alpha\)</span> is a desired significance level (often choose as 0.05). Also, the acceptable level of Type I error.</p>
+<p><strong>Using power analysis to plan experiments (a prior power analysis)</strong>
+Most commonly used to estimate how many samples are needed, given a desired level of power, for specified values of <span class="math inline">\(\alpha\)</span> and effect size and an estimate of variance.</p>
+<p>If the number of samples is fixed, we could calculate the magnitude of the ES we can detected with a given power, i.e., minimum detectable effect size (MDES). This might be an option if you cannot specify an effect size a priori.</p>
+<p>See Box 3.1 and Figure 3.4 in Quinn and Keough.</p>
+<p>Sequence of steps:
+1. State clearly the effects to be observed if little or no effect occurs, and if a biologically meaningful effect is observed.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Identify the statistical model to be applied to the data and sate the desired power and decision criteria.</p></li>
+<li><p>Identify the assumptions of the statistical model. Use a comparable data analysis as a guide. If you expect to transform data, express the ES on the transformed scale.</p></li>
+<li><p>Estimate the variance in the variable to be analyzed (the variation between replicates). Consider published studies and/or a pilot study. The variability estimate should be on spatial and temporal scales similar to your planned data collection. There is no reason to think that variability estimates will translate between scales.</p></li>
+<li><p>If there is a constraint on sample size, we can calculate MDES.</p></li>
+</ol>
+<p><strong>Post hoc power calculation</strong> Calculating observed power tells us nothing new. We could make recommendations for future experiments and this requires defining the ES we wished to detect.</p>
+<p><strong>Effect size</strong> is a critical step in power analysis. This is a biological judgement. The more complex the statistical design the more difficult it is to calculate the effect size. See Nakagawa and Cuthill (2007) and Ialongo (2016) for some common effect sizes.</p>
+<p><strong>Using power analysis</strong> A priori power analysis should be a routine part of data analysis, even if researchers do not plan to make inferences based on “statistical significance”. If you cannot take the number of samples needed, you might still proceed with your data collection, but it is a gamble. You might consider a lower value of acceptable type I error (<span class="math inline">\(\alpha\)</span>).</p>
+<p><strong>Key points</strong></p>
 <ul>
-<li>Ch 3.3 Quinn and Keough.</li>
+<li><p>Getting answers to biological questions invovles: designing data collection to separate competing explanations, collecting data that are representative of statistical populations, collecting enough data to be confident in conclusions.</p></li>
+<li><p>Random sampling should be the default approach.</p></li>
+<li><p>Confounding can occur when appropriate controls are missing.</p></li>
+<li><p>Confounding also occurs with inappropriate replication at the level of the experiment treatment, i.e., pseuo-replication (Hurlbert 2009). Quinn and Keough recommend summarizing multiple observational units within the same replicate or sampling unit (i.e., by calculating the mean).</p></li>
+<li><p>Quinn and Keough also strongly recommend calcuating the appropriate number of samples before collecting data. This is the number necessary to estimate a parameter with a target confidence or an effect of a particular size (which is achieve with a power analysis).</p></li>
+</ul>
+</div>
+<div id="readings-3" class="section level2 hasAnchor" number="10.6">
+<h2><span class="header-section-number">10.6</span> Readings<a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html#readings-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Ch 3 Quinn and Keough.</li>
 </ul>
 
 </div>

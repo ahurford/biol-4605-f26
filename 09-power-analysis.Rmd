@@ -5,8 +5,137 @@ output: html_document
 
 # Mon Sept 28 - Sampling and experimental design and power analysis
 
+## Sampling design
+
+### Probability sampling
+
+Statistical population: Populations are _all possible_ units and their associated observations of interest. Samples are a collection of observations from a population. The number of units in the sample is the sample size.
+
+Distinct from biological population (same species).
+
+Sampling error arise because any observation will be an imperfect representation of the population and is measured by the standard error: the standard deviation of a sample statistic based on repeated sampling.
+
+For probability sampling, the probabilities of selecting individual sampling units are known.
+
+**Simple random sampling** For a given sample size, $n$, all possible sampling units in the population have an equal chance of being selected. Can be achieved by giving all sampling units an identifier and using a random number generator. Examples: randomly select animals in a population, or overlay a spatial grid.
+
+Simple random sampling is always the goal, but it may be more expensive.
+
+Formula for means, variances, SE, and CIs assume simple random sampling.
+
+**Stratified sampling** The population is partitioned into levels that represent clearly defined groups (or strata) of units. Under stratified sampling we sample independently and randomly from each group.
+
+There are different formulas for calculative the population mean and the standard error of the population mean when stratified sampling is used.
+
+The group/strata should be included in statistical models as a predictor variable.
+
+Examples of groups/strata: pool vs. riffle in a stream; or grassland, woodlood, wetland etc. We might want to sample equally, or in proportion to the area, of these habitats.
+
+**Cluster sampling** Modifies simple random sampling to account for heterogeneity.
+
+Simple cluster sampling involves sampling all secondary units (i.e., branches) from within the randomly selected primary unit (i.e., tree).
+
+**Sytematic sampling** involves choosing sampling units that are equally spaced in time or in space. A limitation is that is is not possible to calculate an unbiased estimate of sampling variance and standard error. Another limitation is that unknown regularity may coincide with sampling.
+
+**Unequal probability sampling** may be useful to select units based on their size.
+
+**Adaptive sampling** sampling design is based on initial observations.
+
+## Sample size for random sampling
+If we have some estimate of the variability between the sampling units in our population, we can estimate the sample size required to for any sample mean to be within some bounds around the true mean given repeated sampling. Specifically,
+
+\[
+n \geq \frac{z^2s^2}{d^2},
+\]
+
+where $z$ is the value from a standard normal distribution for a given level of confidence (i.e., $z=1.96$ for 95$\%$ confidence interval), $s^2$ is the estimate of the variance of the population (i.e., from a pilot study), and $d$ is the maximum allowable absolute difference between the estimated and true population means. This formula is for the mean, but comparable formula are availble for other statistics. These calculations are different/more difficult for other sampling designs (i.e. stratified sampling, systematic sampling).
+
+## Non-probability sampling
+
+**Convenience sampling** i.e., sampling streams near bridges, or forests near campus.
+
+**Haphazard sampling** Mimics random sampling trying to avoid bias, however, our biases usually affect the choices (i.e., not getting feet wet, or walking all the way up a hill).
+
+**Purposive sampling** i.e., people are selected because researchers judge them to be representative of the population.
+
+## Experimential design
+
+Manipulative experiments have a treatment structure (i.e., treatment and control).
+
+The sets of related treatments are termed factors.
+
+The smallest unit to which an experimental treatment can be applied are experimental units.
+
+The design structure determines how the factor groups (i.e., different treatments) are applied to the experimental units.
+
+Confounding is differences in the treatment effects cannot be separated from extraneous factors, i.e., a hormone treatment is applied only to female crayfish. Note that confounding is generally not this easy to identify.
+
+**Replication of experimental units** Replication is having multiple experimental/sampling units for each experimental treatment. Replication is necessary because biological systems are noisy. Without replication, confounding is very likely.
+
+Increasing replication by increasing observational, rather than experimental (treatment level) units, could result in pseudo-replication. For example, increasing the number of fish in a tank, rather than the number of tanks to which the treatment is applied, or increasing the number of tree samples taken within a burned area, instead of adding a new burn area to measure in.
+
+To avoid confounding, think about the unit to which the treatment is applied. This is the experimental unit. If we take multiple measurements within an experimental unit, it is recommended to take the mean of these measurements before doing the statistics to avoid confounding.
+
+**Controls** allow us to measure that a change would not have occurred without the treatment. This is stronger evidence of a treatment effect as it reduces the chance of confounding.
+
+**Randomization** random treatments should be sufficiently interspersed, for example, all treatment one (carbon subsidy) replicates occurs first along a gradient (i.e., upstream), and all treatment two (i.e., nitrogen subsidy) occur second along the gradient (see Figure 3.3 on p37 of Quinn and Keough). If this occurs, you should re-randomize, but in doing so it is necessary to decide on an acceptible level of interspersion a priori (i.e., before).
+
+**Independence** lack of independence between experimental units can bias conclusions or complicate analysis. For example, treatment spreads downstream.
+
+**Reducing unexplained variance**. Good experimental design aims to detect a signal and minimize unexplained variance. This could occur by including additional predictor variables, or narrowing the scope of the population form which the samples are drawn.
+
+**Limitations of manipulative experiments** Manipulative experiments can introduce artifacts themselves. Extending inference beyond the experiment requires caution. Before-After-Control-Impact is a common approach used in environmental impact assessment.
+
+## Sample size for detecting differences: power analysis
+
+Power is the probability of detecting an with our sample(s), if it occurs in the population(s). Power, $1-\beta$, is the complement of type II error, $\beta$, and
+
+\[
+\mbox{Power} \propto \dfrac{\mbox{ES}\alpha\sqrt{n}}{\sigma},
+\]
+
+where $\mbox{ES}$ is the effect size (the size of the effect we want to be able to detect - units are the same as the quantity we are measuring), $n$ is the sample size, $\sigma^2$ is the variation between experimental or sampling units, and $\alpha$ is a desired significance level (often choose as 0.05). Also, the acceptable level of Type I error. 
+
+**Using power analysis to plan experiments (a prior power analysis)**
+Most commonly used to estimate how many samples are needed, given a desired level of power, for specified values of $\alpha$ and effect size and an estimate of variance.
+
+If the number of samples is fixed, we could calculate the magnitude of the ES we can detected with a given power, i.e., minimum detectable effect size (MDES). This might be an option if you cannot specify an effect size a priori.
+
+See Box 3.1 and Figure 3.4 in Quinn and Keough.
+
+Sequence of steps:
+1. State clearly the effects to be observed if little or no effect occurs, and if a biologically meaningful effect is observed.
+
+2. Identify the statistical model to be applied to the data and sate the desired power and decision criteria.
+
+3. Identify the assumptions of the statistical model. Use a comparable data analysis as a guide. If you expect to transform data, express the ES on the transformed scale.
+
+4. Estimate the variance in the variable to be analyzed (the variation between replicates). Consider published studies and/or a pilot study. The variability estimate should be on spatial and temporal scales similar to your planned data collection. There is no reason to think that variability estimates will translate between scales.
+
+5. If there is a constraint on sample size, we can calculate MDES.
+
+
+**Post hoc power calculation**  Calculating observed power tells us nothing new. We could make recommendations for future experiments and this requires defining the ES we wished to detect.
+
+**Effect size** is a critical step in power analysis. This is a biological judgement. The more complex the statistical design the more difficult it is to calculate the effect size. See Nakagawa and Cuthill (2007) and Ialongo (2016) for some common effect sizes.
+
+**Using power analysis** A priori power analysis should be a routine part of data analysis, even if researchers do not plan to make inferences based on "statistical significance". If you cannot take the number of samples needed, you might still proceed with your data collection, but it is a gamble. You might consider a lower value of acceptable type I error ($\alpha$).
+
+**Key points**
+
+- Getting answers to biological questions invovles: designing data collection to separate competing explanations, collecting data that are representative of statistical populations, collecting enough data to be confident in conclusions.
+
+- Random sampling should be the default approach.
+
+- Confounding can occur when appropriate controls are missing.
+
+- Confounding also occurs with inappropriate replication at the level of the experiment treatment, i.e., pseuo-replication (Hurlbert 2009). Quinn and Keough recommend summarizing multiple observational units within the same replicate or sampling unit (i.e., by calculating the mean).
+
+- Quinn and Keough also strongly recommend calcuating the appropriate number of samples before collecting data. This is the number necessary to estimate a parameter with a target confidence or an effect of a particular size (which is achieve with a power analysis).
+
+
 ## Readings
-- Ch 3.3 Quinn and Keough.
+- Ch 3 Quinn and Keough.
 
 
 

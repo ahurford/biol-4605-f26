@@ -54,6 +54,12 @@ example
 final-comments
 reading
 mon-sept-28---sampling-and-experimental-design-and-power-analysis
+sampling-design
+probability-sampling
+sample-size-for-random-sampling
+non-probability-sampling
+experimential-design
+sample-size-for-detecting-differences-power-analysis
 readings-3
 fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit
 last-15-minutes-quiz-2
