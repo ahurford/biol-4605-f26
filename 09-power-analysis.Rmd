@@ -88,7 +88,7 @@ To avoid confounding, think about the unit to which the treatment is applied. Th
 
 ## Sample size for detecting differences: power analysis
 
-Power is the probability of detecting an with our sample(s), if it occurs in the population(s). Power, $1-\beta$, is the complement of type II error, $\beta$, and
+Power is the probability of detecting an effect with our sample(s), if it occurs in the population(s). Power, $1-\beta$, is the complement of type II error, $\beta$, and
 
 \[
 \mbox{Power} \propto \dfrac{\mbox{ES}\alpha\sqrt{n}}{\sigma},
