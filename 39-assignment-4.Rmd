@@ -3,7 +3,7 @@ title: ""
 output: html_document
 ---
 
-# Assignment 4 - Confidence intervals (due Fri Oct 9)
+# Assignment 4 - Confidence intervals (due Fri Oct 30)
 
 
 Find, in the published literature, two mean values with associated
