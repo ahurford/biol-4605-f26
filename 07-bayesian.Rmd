@@ -120,7 +120,29 @@ result <- t.test(pea.length, conf.level = 0.95)
 result$conf.int
 ```
 
-Can you get this same result using the formula? Can you explain what the confidence interval means for this sample of pea lengths? For this example, can you calculate the sample size, $n$, mean, median, standard deviation, variance, and standard error?
+Can you get this same result using the formula? Can you explain what the confidence interval means for this sample of pea lengths? For this pea length example, what is the sample size?
+
+```{r, include=F}
+pea.length<-unlist(pea.length)
+std.err <- sd(pea.length)/sqrt(length(pea.length)) 
+```
+
+Can you calculate the mean and the median? (the answers are below so you can check your answers)
+
+```{r,eval=T}
+mean(pea.length)
+median(pea.length)
+```
+
+Can you use the formulas to calculate the sample standard deviation, variance, and standard error? (answers below)
+
+```{r,eval=T}
+sd(pea.length)
+var(pea.length)
+std.err
+```
+
+All of these calculated values have units mm, except for the sample variance which has units mm$^2$.
 
 ## Standard errors and confidence intervals for other statistics
 

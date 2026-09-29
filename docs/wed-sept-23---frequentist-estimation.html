@@ -290,7 +290,20 @@ P(\bar{y}-1.96\sigma_{\bar{y}} \leq \mu \leq \bar{y}+1.96\sigma_{\bar{y}}) = 0.9
 <pre><code>## [1] 67.67141 72.69223
 ## attr(,&quot;conf.level&quot;)
 ## [1] 0.95</code></pre>
-<p>Can you get this same result using the formula? Can you explain what the confidence interval means for this sample of pea lengths? For this example, can you calculate the sample size, <span class="math inline">\(n\)</span>, mean, median, standard deviation, variance, and standard error?</p>
+<p>Can you get this same result using the formula? Can you explain what the confidence interval means for this sample of pea lengths? For this pea length example, what is the sample size?</p>
+<p>Can you calculate the mean and the median? (the answers are below so you can check your answers)</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="wed-sept-23---frequentist-estimation.html#cb13-1" tabindex="-1"></a><span class="fu">mean</span>(pea.length)</span></code></pre></div>
+<pre><code>## [1] 70.18182</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="wed-sept-23---frequentist-estimation.html#cb15-1" tabindex="-1"></a><span class="fu">median</span>(pea.length)</span></code></pre></div>
+<pre><code>## [1] 70</code></pre>
+<p>Can you use the formulas to calculate the sample standard deviation, variance, and standard error? (answers below)</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="wed-sept-23---frequentist-estimation.html#cb17-1" tabindex="-1"></a><span class="fu">sd</span>(pea.length)</span></code></pre></div>
+<pre><code>## [1] 3.736795</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="wed-sept-23---frequentist-estimation.html#cb19-1" tabindex="-1"></a><span class="fu">var</span>(pea.length)</span></code></pre></div>
+<pre><code>## [1] 13.96364</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="wed-sept-23---frequentist-estimation.html#cb21-1" tabindex="-1"></a>std.err</span></code></pre></div>
+<pre><code>## [1] 1.126686</code></pre>
+<p>All of these calculated values have units mm, except for the sample variance which has units mm<span class="math inline">\(^2\)</span>.</p>
 </div>
 </div>
 <div id="standard-errors-and-confidence-intervals-for-other-statistics" class="section level2 hasAnchor" number="8.6">
@@ -312,30 +325,32 @@ P(\bar{y}-1.96\sigma_{\bar{y}} \leq \mu \leq \bar{y}+1.96\sigma_{\bar{y}}) = 0.9
 <p>Confidence intervals for bootstrap methods are: percentile method, the bias corrected method, and the accelerated bootstrap (see Efron and Hastie 2016). Efron and Hastie recommended at least 2,000 samples for confidence interval estimation using bootstrap methods.</p>
 <p>The percentile method involves ranking the estimated statistic values for each sample. If there are 1000 samples, the 95<span class="math inline">\(\%\)</span> confidence interval is estimated as [25th ranked estimate, 975th estimate].</p>
 <p>Example of resampled (with replacement) data sets for the pea length data:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="wed-sept-23---frequentist-estimation.html#cb13-1" tabindex="-1"></a>pea.length <span class="ot">=</span> <span class="fu">t</span>(pea.length) <span class="co"># sample() function only works when pea.length is a row vector.</span></span>
-<span id="cb13-2"><a href="wed-sept-23---frequentist-estimation.html#cb13-2" tabindex="-1"></a>pea.length <span class="co"># print original pea length data for reference</span></span></code></pre></div>
-<pre><code>##        [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11]
-## length   65   67   68   70   71   75   76   74   72    68    66</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="wed-sept-23---frequentist-estimation.html#cb15-1" tabindex="-1"></a><span class="co"># Make samples </span></span>
-<span id="cb15-2"><a href="wed-sept-23---frequentist-estimation.html#cb15-2" tabindex="-1"></a>sample1 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-3"><a href="wed-sept-23---frequentist-estimation.html#cb15-3" tabindex="-1"></a>sample2 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-4"><a href="wed-sept-23---frequentist-estimation.html#cb15-4" tabindex="-1"></a>sample3 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-5"><a href="wed-sept-23---frequentist-estimation.html#cb15-5" tabindex="-1"></a>sample4 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-6"><a href="wed-sept-23---frequentist-estimation.html#cb15-6" tabindex="-1"></a>sample5 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-7"><a href="wed-sept-23---frequentist-estimation.html#cb15-7" tabindex="-1"></a>resampled.data <span class="ot">=</span> <span class="fu">data.frame</span>(sample1, sample2, sample3, sample4, sample5)</span>
-<span id="cb15-8"><a href="wed-sept-23---frequentist-estimation.html#cb15-8" tabindex="-1"></a>resampled.data</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="wed-sept-23---frequentist-estimation.html#cb23-1" tabindex="-1"></a>pea.length <span class="ot">=</span> <span class="fu">t</span>(pea.length) <span class="co"># sample() function only works when pea.length is a row vector.</span></span>
+<span id="cb23-2"><a href="wed-sept-23---frequentist-estimation.html#cb23-2" tabindex="-1"></a>pea.length <span class="co"># print original pea length data for reference</span></span></code></pre></div>
+<pre><code>##      length1 length2 length3 length4 length5 length6 length7 length8 length9
+## [1,]      65      67      68      70      71      75      76      74      72
+##      length10 length11
+## [1,]       68       66</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="wed-sept-23---frequentist-estimation.html#cb25-1" tabindex="-1"></a><span class="co"># Make samples </span></span>
+<span id="cb25-2"><a href="wed-sept-23---frequentist-estimation.html#cb25-2" tabindex="-1"></a>sample1 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-3"><a href="wed-sept-23---frequentist-estimation.html#cb25-3" tabindex="-1"></a>sample2 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-4"><a href="wed-sept-23---frequentist-estimation.html#cb25-4" tabindex="-1"></a>sample3 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-5"><a href="wed-sept-23---frequentist-estimation.html#cb25-5" tabindex="-1"></a>sample4 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-6"><a href="wed-sept-23---frequentist-estimation.html#cb25-6" tabindex="-1"></a>sample5 <span class="ot">&lt;-</span> <span class="fu">sample</span>(pea.length, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-7"><a href="wed-sept-23---frequentist-estimation.html#cb25-7" tabindex="-1"></a>resampled.data <span class="ot">=</span> <span class="fu">data.frame</span>(sample1, sample2, sample3, sample4, sample5)</span>
+<span id="cb25-8"><a href="wed-sept-23---frequentist-estimation.html#cb25-8" tabindex="-1"></a>resampled.data</span></code></pre></div>
 <pre><code>##    sample1 sample2 sample3 sample4 sample5
-## 1       75      74      72      66      70
-## 2       68      76      66      65      72
-## 3       70      72      76      68      76
-## 4       65      70      68      70      72
-## 5       65      74      67      74      72
-## 6       76      65      68      72      68
-## 7       75      71      68      70      71
-## 8       68      68      70      68      68
-## 9       67      67      75      76      68
-## 10      65      76      67      66      68
-## 11      70      75      67      65      66</code></pre>
+## 1       75      75      75      76      72
+## 2       74      67      67      65      68
+## 3       71      68      70      76      68
+## 4       68      71      76      67      70
+## 5       68      67      66      68      70
+## 6       68      65      65      65      71
+## 7       70      72      71      74      70
+## 8       68      75      65      74      68
+## 9       68      76      68      68      65
+## 10      70      70      71      67      75
+## 11      75      66      66      66      71</code></pre>
 </div>
 <div id="jackknife" class="section level3 hasAnchor" number="8.7.2">
 <h3><span class="header-section-number">8.7.2</span> Jackknife<a href="wed-sept-23---frequentist-estimation.html#jackknife" class="anchor-section" aria-label="Anchor link to header"></a></h3>
