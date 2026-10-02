@@ -82,14 +82,14 @@ A problem with the fomula above is that we do not know $\sigma_{\bar{y}}$ which 
 A version of the formula for a 95$\%$ confidence interval for the population mean, $\mu$, where we can evaluate all the quantities in the formula is,
 
 \[
-\bar{y} - t_{0.025, n-1}\dfrac{s}{\sqrt{n}} \quad \leq \quad \mu \quad \leq \quad \bar{y} + t_{0.025, n-1}\dfrac{s}{\sqrt{n}}.
+\bar{y} - t_{0.975, n-1}\dfrac{s}{\sqrt{n}} \quad \leq \quad \mu \quad \leq \quad \bar{y} + t_{0.975, n-1}\dfrac{s}{\sqrt{n}}.
 \]
 
 The sample mean is $\bar{y} = \frac{1}{n}\sum_{i=1}^n y_i$ for a sample with $n$ observations and where $s$ is the sample standard deviation (see earlier in these notes for the formula), and the t-statistic (which approaches the standard normal distribution as $n \to \infty$) for the quantiles 0.025 and 0.975 with $n-1$ degrees of freedom can be determined from a look-up table or with the code:
 
 ```{r, eval=T}
 n = 100 # number of observations in sample
-qt(0.025, n-1)
+qt(0.975, n-1)
 ```
 
 
