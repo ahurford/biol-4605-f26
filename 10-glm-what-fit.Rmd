@@ -5,10 +5,37 @@ output: html_document
 
 # **Fri Oct 2 (Quiz 2) ** - What is a linear model and how to assess model fit
 
-## Last 15 minutes: Quiz 2
+## Last 20 minutes: Quiz 2
+
+## What is a linear model?
+
+\begin{eqnarray}
+(\mbox{response variable})_i & =&  \qquad  (\mbox{linear predictors})_i \qquad \qquad \qquad \ + (\mbox{random error})_i, \\
+y_i  \qquad &=&  \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \dots + \beta_n x_{n,i} \qquad + \epsilon_i.
+\end{eqnarray}
+
+For linear models, predictor variables and their parameters are combined as a linear combination. The predictor variables maybe continuous (i.e., classical regression models) or categorial (i.e., classical regression model).
+
+Predictor variables may also be fixed (infererence restricted to the values used) or random (inference generalized to a broader population, i.e., where the variable corresponds to individuals or sites).
+
+For linear models:
+- the response variable should reflect the biological question and be measurable;
+- all predictor variables that are biological relevant should be measureed and included in the model;
+- the model should generalize to the population from which the observations came.
+
+These can be achieved by applying our biological knowledge and using an appropriate sampling strategy.
+
+### Response variables
+
+For continuous response variables, a normal distribution underlies OLS estimation for these types of variables. Biological data can often be right-skewed such that log-normal transformation might be considered.
+
+Discrete response variables might be binary (i.e., nominal) for example presence/absence or dead/alive. Binary response variables are usually modelled with a binomial distribution.
+
+Discrete response variables might be counts and modelled with a Poisson distribution. If data is over-dispersed (mean not equal to the variance) then a negative binomial can be used (see 13.6.2 in Quinn and Keough).
+
 
 ## Readings
-- Ch 4.1-4.5 Quinn and Keough.
+- Ch 4.1-4.2 Quinn and Keough.
 
 
 

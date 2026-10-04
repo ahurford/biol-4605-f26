@@ -195,13 +195,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit" class="section level1 hasAnchor" number="11">
 <h1><span class="header-section-number">11</span> <strong>Fri Oct 2 (Quiz 2) </strong> - What is a linear model and how to assess model fit<a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html#fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="last-15-minutes-quiz-2" class="section level2 hasAnchor" number="11.1">
-<h2><span class="header-section-number">11.1</span> Last 15 minutes: Quiz 2<a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html#last-15-minutes-quiz-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="last-20-minutes-quiz-2" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Last 20 minutes: Quiz 2<a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html#last-20-minutes-quiz-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div id="readings-4" class="section level2 hasAnchor" number="11.2">
-<h2><span class="header-section-number">11.2</span> Readings<a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html#readings-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="what-is-a-linear-model" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> What is a linear model?<a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html#what-is-a-linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[\begin{eqnarray}
+(\mbox{response variable})_i &amp; =&amp;  \qquad  (\mbox{linear predictors})_i \qquad \qquad \qquad \ + (\mbox{random error})_i, \\
+y_i  \qquad &amp;=&amp;  \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + \dots + \beta_n x_{n,i} \qquad + \epsilon_i.
+\end{eqnarray}\]</span></p>
+<p>For linear models, predictor variables and their parameters are combined as a linear combination. The predictor variables maybe continuous (i.e., classical regression models) or categorial (i.e., classical regression model).</p>
+<p>Predictor variables may also be fixed (infererence restricted to the values used) or random (inference generalized to a broader population, i.e., where the variable corresponds to individuals or sites).</p>
+<p>For linear models:
+- the response variable should reflect the biological question and be measurable;
+- all predictor variables that are biological relevant should be measureed and included in the model;
+- the model should generalize to the population from which the observations came.</p>
+<p>These can be achieved by applying our biological knowledge and using an appropriate sampling strategy.</p>
+<div id="response-variables" class="section level3 hasAnchor" number="11.2.1">
+<h3><span class="header-section-number">11.2.1</span> Response variables<a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html#response-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For continuous response variables, a normal distribution underlies OLS estimation for these types of variables. Biological data can often be right-skewed such that log-normal transformation might be considered.</p>
+<p>Discrete response variables might be binary (i.e., nominal) for example presence/absence or dead/alive. Binary response variables are usually modelled with a binomial distribution.</p>
+<p>Discrete response variables might be counts and modelled with a Poisson distribution. If data is over-dispersed (mean not equal to the variance) then a negative binomial can be used (see 13.6.2 in Quinn and Keough).</p>
+</div>
+</div>
+<div id="readings-4" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> Readings<a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html#readings-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Ch 4.1-4.5 Quinn and Keough.</li>
+<li>Ch 4.1-4.2 Quinn and Keough.</li>
 </ul>
 
 </div>
