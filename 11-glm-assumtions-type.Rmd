@@ -3,11 +3,112 @@ title: "Linear models assumptions and types of linear models"
 output: html_document
 ---
 
-# Mon Oct 05 - Linear models assumptions and types of linear models
+# Mon Oct 05 - Linear model fitting and how well does a linear model fit?
 
+## Assembing our linear model
+
+\begin{eqnarray}
+(\mbox{response variable}) & =&  \qquad  (\mbox{linear predictors}) \qquad \qquad \qquad \ + (\mbox{random error}), \\
+y  \qquad &=&  \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \dots + \beta_n x_{n} \qquad + \epsilon.
+\end{eqnarray}
+
+The linear model has a:
+
+- Random component, $\epsilon$. For the general linear model this is the normal distribution;
+
+- Systematic component. For the linear model this the sum of the predictor variables, and their associated parameters (including the intercept $\beta_0$);
+
+- Link function, which links the random and the systematic components. The link function essentially transforms the response variable so the transformed response variable has a linear relationship with the predictors. For general linear models the link function is the identity function ($\mu = f(\mu)$, i.e., no link function is needed). Other link functions are log ($\log(\mu_i)$) and logit ($\log(\mu_i/(1-\mu_i))$) which are used for Poisson regression, loglinear models, and binary and proportion responses in logistic regression.
+
+## Estimation and fit for linear models
+
+Our estimators should be BLUE: best linear unbiased estimators. Two estimation methods are ordinary least squares (OLS) and maximum likelihood (ML) estimation.
+
+### Ordinary least squares
+
+Minimize the sum of the squared deviations. Also called residual or error sums-of-squares ($\mbox{SS}_{\mbox{Residual}}$) where,
+\[
+\mbox{SS}_{\mbox{Residual}} = \sum_{i=1}^n(y_i - \hat{y})^2\].
+
+Here, $\hat{y}$ are the fitted values of $y$, the response variable (or the values of $y$ predicted by the fitted model). The fitted model is the one that minimizes the residual, and has fitted values of the intercept $\hat{\beta}_0$ and the slopes, $\hat{\beta}_1$, $\hat{\beta}_2$, etc. 
+
+Additionally, we also wish to estimate $\sigma^2_{\epsilon}$, the variance of the error terms. The error variance is often abbreviated to $\sigma^2$, and is the unexplained variance for the model. The unexplained variance measures how well our model fits the data and is used to estimate confidence intervals for parameters.
+
+OLS is usually more straightforward that ML estimation. The `R` function `lm()` is an implementation of OLS to estimate the BLUE parameters for general linear models.
+
+**OLS measures of fit: ANOVA**
+
+To test hypothesis that parameters are equal to zero, we can use a t-test. We can also compare the fit of the model with the parameter fitted (termed the **full model**) to the fit of the model with the parameter set equal to zero (termed the **reduced model**). When there is a single response variable we partition the total variation in the response variable into that explained by the model (i.e., the one predictor variable) and the unexplained variance (residual or error variance) using an ANOVA. The ratio of the two variances is an F-statistic.
+
+The term ANOVA is commonly used by biologists (and some statistical textbooks) to refer to a specific class of linear models with categorical predictors and a normally-distributed response variable. This can be misleading - while ANOVA is used to analyzie such models, it broadly applies to all linear models based on OLS regression (including classical regression models with continuous predictor variables.
+
+For example,
+
+```{r}
+x <- seq(0,4)
+data = data.frame(x = x, y=x+rnorm(5,0,1))
+data
+mod = lm(y~x, data=data)
+anova_table<-anova(mod)
+anova_table
+```
+
+We apply the `anova()` function to the fitted linear regression `mod` to test the null hypothesis that the population variances estimated by the two mean squares ($\mbox{MS}_{\mbox{Explained}}$ and $\mbox{MS}_{\mbox{Residual}}$) are the same. The result is the ANOVA table for our linear regression.
+
+The ANOVA table has the following characteristics:
+
+- $\mbox{df}_{\mbox{Explained}} +\mbox{df}_{\mbox{Residual}} =  \mbox{df}_{\mbox{Total}} = n-1$ (where $n$ is the sample size);
+
+- $\mbox{SS}_{\mbox{Explained}} +\mbox{SS}_{\mbox{Residual}} =  \mbox{SS}_{\mbox{Total}}$;
+
+- $\mbox{MS}_{\mbox{Explained}} = \mbox{SS}_{\mbox{Explained}}/\mbox{df}_{\mbox{Explained}}$ and $\mbox{MS}_{\mbox{Residual}} = \mbox{SS}_{\mbox{Residual}}/\mbox{df}_{\mbox{Residual}}$ (where MS is the mean square); and
+
+- The F-statistic is calculated as $F = \mbox{MS}_{\mbox{Explained}} / \mbox{MS}_{\mbox{Residual}}$.
+
+The $\mbox{SS}_{\mbox{Total}}$ for the data and model above is:
+
+```{r}
+# Sum the 'Sum Sq' column to get SST
+SSTotal <- sum(anova_table$"Sum Sq")
+SSTotal
+```
+
+For each of the bullet points, check that the ANOVA table satifies the formula that are given.
+
+### Maximum likelihood
+
+The maximum likelihood parameter estimates maximize the likelihood of observing our data. Maximum likelihood methods do not need to use normally distributed errors.
+
+**ML measures of fit: log-likelihood and deviance**
+
+Evaluating hypothesis (i.e., that parameter values are equal to 0) can be done done using the _likelihood-ratio test_. The likelihood ratio test statistic, $\lambda$, is,
+
+\[
+  \lambda = -2(LL_0 - LL_1),
+\]
+
+where $LL_0$ is the log-likelihood of the reduced model and $LL_1$ is the log-likelihood of the full model. The log-likelhood is the calculated by taking the natural logarithm of likelihood. The likelihoods are often numbers less than 1, and so the log-likelihoods are often negative numbers. A large likelihood corresponds to a good fit, and so does a large log-likelihood. When the full model is much more likely than the reduced model then $LL_0 - LL_1$ is large and negative, which corresponds to a large positive value of $\lambda$. The likelihood ratio test statistic, $\lambda$, follows a $\chi^2$ distribution if the sample sizes are not too small and this can be used to test hypotheses.
+
+The fit of ML measures is usually assessed by calculating the _deviance_. A **saturated model** is a model that has the same number of parameters as data points and explains all the variation in the response variable. The deviance is calculated as,
+\[
+D = 2(LL_S - LL_1)
+\]
+
+where $LL_S$ is the log-likelihood of the saturated model and $LL_1$ is the log-likelihood of our model. A large deviance means the fit of our model is poor.
+
+
+### Information criterion
+
+The term "ordinary" least squares is because there are other types of least squares. Information criteria such as Akaike Information Criterion (AIC) and Bayesian information criteria (BIC) are types of _penalized least squares_ that can involve minimizing the least squares and also including a term that penalizes unncessary model complexity. The AIC value for a model is calculated as,
+
+\[
+-2(\mbox{LL}_i - p_i)
+\]
+
+where $\mbox{LL}_i$ is the log-likelihood of the model $i$ and $p_i$ is the number of parameters in model $i$. AIC is used for non-nested models, when the likelihood ratio test cannot be used. If a model is nested it means that it can be obtained by setting a parameter in another model to 0.
 
 
 ## Readings
-- Ch4.6-4.7 Quinn and Keough
+- Ch4.3-4.5 Quinn and Keough
 
 

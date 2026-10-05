@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>35 Wed Dec 02 - Multimodel Inf - AIC, SIC | book.knit</title>
+  <title>12 Mon Oct 05 - Linear model fitting and how well does a linear model fit? | book.knit</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="35 Wed Dec 02 - Multimodel Inf - AIC, SIC | book.knit" />
+  <meta property="og:title" content="12 Mon Oct 05 - Linear model fitting and how well does a linear model fit? | book.knit" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="35 Wed Dec 02 - Multimodel Inf - AIC, SIC | book.knit" />
+  <meta name="twitter:title" content="12 Mon Oct 05 - Linear model fitting and how well does a linear model fit? | book.knit" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mon-nov-30---model-selection-i-eda-and-stepwise.html"/>
-<link rel="next" href="fri-dec-04---course-review.html"/>
+<link rel="prev" href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"/>
+<link rel="next" href="wed-oct-07---exploratory-data-analysis.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -193,21 +193,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="wed-dec-02---multimodel-inf---aic-sic" class="section level1 hasAnchor" number="35">
-<h1><span class="header-section-number">35</span> Wed Dec 02 - Multimodel Inf - AIC, SIC<a href="wed-dec-02---multimodel-inf---aic-sic.html#wed-dec-02---multimodel-inf---aic-sic" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="readings-27" class="section level2 hasAnchor" number="35.1">
-<h2><span class="header-section-number">35.1</span> Readings<a href="wed-dec-02---multimodel-inf---aic-sic.html#readings-27" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">12</span> Mon Oct 05 - Linear model fitting and how well does a linear model fit?<a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="assembing-our-linear-model" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Assembing our linear model<a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#assembing-our-linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[\begin{eqnarray}
+(\mbox{response variable}) &amp; =&amp;  \qquad  (\mbox{linear predictors}) \qquad \qquad \qquad \ + (\mbox{random error}), \\
+y  \qquad &amp;=&amp;  \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \dots + \beta_n x_{n} \qquad + \epsilon.
+\end{eqnarray}\]</span></p>
+<p>The linear model has a:</p>
 <ul>
-<li>Ch19.5</li>
+<li><p>Random component, <span class="math inline">\(\epsilon\)</span>. For the general linear model this is the normal distribution;</p></li>
+<li><p>Systematic component. For the linear model this the sum of the predictor variables, and their associated parameters (including the intercept <span class="math inline">\(\beta_0\)</span>);</p></li>
+<li><p>Link function, which links the random and the systematic components. The link function essentially transforms the response variable so the transformed response variable has a linear relationship with the predictors. For general linear models the link function is the identity function (<span class="math inline">\(\mu = f(\mu)\)</span>, i.e., no link function is needed). Other link functions are log (<span class="math inline">\(\log(\mu_i)\)</span>) and logit (<span class="math inline">\(\log(\mu_i/(1-\mu_i))\)</span>) which are used for Poisson regression, loglinear models, and binary and proportion responses in logistic regression.</p></li>
 </ul>
-<div id="upcoming-assessments-10" class="section level3 hasAnchor" number="35.1.1">
-<h3><span class="header-section-number">35.1.1</span> Upcoming assessments<a href="wed-dec-02---multimodel-inf---aic-sic.html#upcoming-assessments-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="estimation-and-fit-for-linear-models" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> Estimation and fit for linear models<a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#estimation-and-fit-for-linear-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Our estimators should be BLUE: best linear unbiased estimators. Two estimation methods are ordinary least squares (OLS) and maximum likelihood (ML) estimation.</p>
+<div id="ordinary-least-squares" class="section level3 hasAnchor" number="12.2.1">
+<h3><span class="header-section-number">12.2.1</span> Ordinary least squares<a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#ordinary-least-squares" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Minimize the sum of the squared deviations. Also called residual or error sums-of-squares (<span class="math inline">\(\mbox{SS}_{\mbox{Residual}}\)</span>) where,
+<span class="math display">\[
+\mbox{SS}_{\mbox{Residual}} = \sum_{i=1}^n(y_i - \hat{y})^2\]</span>.</p>
+<p>Here, <span class="math inline">\(\hat{y}\)</span> are the fitted values of <span class="math inline">\(y\)</span>, the response variable (or the values of <span class="math inline">\(y\)</span> predicted by the fitted model). The fitted model is the one that minimizes the residual, and has fitted values of the intercept <span class="math inline">\(\hat{\beta}_0\)</span> and the slopes, <span class="math inline">\(\hat{\beta}_1\)</span>, <span class="math inline">\(\hat{\beta}_2\)</span>, etc.</p>
+<p>Additionally, we also wish to estimate <span class="math inline">\(\sigma^2_{\epsilon}\)</span>, the variance of the error terms. The error variance is often abbreviated to <span class="math inline">\(\sigma^2\)</span>, and is the unexplained variance for the model. The unexplained variance measures how well our model fits the data and is used to estimate confidence intervals for parameters.</p>
+<p>OLS is usually more straightforward that ML estimation. The <code>R</code> function <code>lm()</code> is an implementation of OLS to estimate the BLUE parameters for general linear models.</p>
+<p><strong>OLS measures of fit: ANOVA</strong></p>
+<p>To test hypothesis that parameters are equal to zero, we can use a t-test. We can also compare the fit of the model with the parameter fitted (termed the <strong>full model</strong>) to the fit of the model with the parameter set equal to zero (termed the <strong>reduced model</strong>). When there is a single response variable we partition the total variation in the response variable into that explained by the model (i.e., the one predictor variable) and the unexplained variance (residual or error variance) using an ANOVA. The ratio of the two variances is an F-statistic.</p>
+<p>The term ANOVA is commonly used by biologists (and some statistical textbooks) to refer to a specific class of linear models with categorical predictors and a normally-distributed response variable. This can be misleading - while ANOVA is used to analyzie such models, it broadly applies to all linear models based on OLS regression (including classical regression models with continuous predictor variables.</p>
+<p>For example,</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb27-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">4</span>)</span>
+<span id="cb27-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb27-2" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y=</span>x<span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">5</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb27-3"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb27-3" tabindex="-1"></a>data</span></code></pre></div>
+<pre><code>##   x          y
+## 1 0  1.1853103
+## 2 1 -1.5017444
+## 3 2  0.8842987
+## 4 3  2.6233230
+## 5 4  3.1464581</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb29-1" tabindex="-1"></a>mod <span class="ot">=</span> <span class="fu">lm</span>(y<span class="sc">~</span>x, <span class="at">data=</span>data)</span>
+<span id="cb29-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb29-2" tabindex="-1"></a>anova_table<span class="ot">&lt;-</span><span class="fu">anova</span>(mod)</span>
+<span id="cb29-3"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb29-3" tabindex="-1"></a>anova_table</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: y
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)
+## x          1  6.476  6.4760  2.8932 0.1875
+## Residuals  3  6.715  2.2383</code></pre>
+<p>We apply the <code>anova()</code> function to the fitted linear regression <code>mod</code> to test the null hypothesis that the population variances estimated by the two mean squares (<span class="math inline">\(\mbox{MS}_{\mbox{Explained}}\)</span> and <span class="math inline">\(\mbox{MS}_{\mbox{Residual}}\)</span>) are the same. The result is the ANOVA table for our linear regression.</p>
+<p>The ANOVA table has the following characteristics:</p>
 <ul>
-<li><strong>Fri 04 Dec:</strong> Q&amp;A Worksheet</li>
-<li><strong>Dec 10–18:</strong> Synchronous Final Exam (Official Date TBD by Registrar)</li>
+<li><p><span class="math inline">\(\mbox{df}_{\mbox{Explained}} +\mbox{df}_{\mbox{Residual}} =  \mbox{df}_{\mbox{Total}} = n-1\)</span> (where <span class="math inline">\(n\)</span> is the sample size);</p></li>
+<li><p><span class="math inline">\(\mbox{SS}_{\mbox{Explained}} +\mbox{SS}_{\mbox{Residual}} =  \mbox{SS}_{\mbox{Total}}\)</span>;</p></li>
+<li><p><span class="math inline">\(\mbox{MS}_{\mbox{Explained}} = \mbox{SS}_{\mbox{Explained}}/\mbox{df}_{\mbox{Explained}}\)</span> and <span class="math inline">\(\mbox{MS}_{\mbox{Residual}} = \mbox{SS}_{\mbox{Residual}}/\mbox{df}_{\mbox{Residual}}\)</span> (where MS is the mean square); and</p></li>
+<li><p>The F-statistic is calculated as <span class="math inline">\(F = \mbox{MS}_{\mbox{Explained}} / \mbox{MS}_{\mbox{Residual}}\)</span>.</p></li>
+</ul>
+<p>The <span class="math inline">\(\mbox{SS}_{\mbox{Total}}\)</span> for the data and model above is:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb31-1" tabindex="-1"></a><span class="co"># Sum the &#39;Sum Sq&#39; column to get SST</span></span>
+<span id="cb31-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb31-2" tabindex="-1"></a>SSTotal <span class="ot">&lt;-</span> <span class="fu">sum</span>(anova_table<span class="sc">$</span><span class="st">&quot;Sum Sq&quot;</span>)</span>
+<span id="cb31-3"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb31-3" tabindex="-1"></a>SSTotal</span></code></pre></div>
+<pre><code>## [1] 13.19105</code></pre>
+<p>For each of the bullet points, check that the ANOVA table satifies the formula that are given.</p>
+</div>
+<div id="maximum-likelihood" class="section level3 hasAnchor" number="12.2.2">
+<h3><span class="header-section-number">12.2.2</span> Maximum likelihood<a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#maximum-likelihood" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The maximum likelihood parameter estimates maximize the likelihood of observing our data. Maximum likelihood methods do not need to use normally distributed errors.</p>
+<p><strong>ML measures of fit: log-likelihood and deviance</strong></p>
+<p>Evaluating hypothesis (i.e., that parameter values are equal to 0) can be done done using the <em>likelihood-ratio test</em>. The likelihood ratio test statistic, <span class="math inline">\(\lambda\)</span>, is,</p>
+<p><span class="math display">\[
+  \lambda = -2(LL_0 - LL_1),
+\]</span></p>
+<p>where <span class="math inline">\(LL_0\)</span> is the log-likelihood of the reduced model and <span class="math inline">\(LL_1\)</span> is the log-likelihood of the full model. The log-likelhood is the calculated by taking the natural logarithm of likelihood. The likelihoods are often numbers less than 1, and so the log-likelihoods are often negative numbers. A large likelihood corresponds to a good fit, and so does a large log-likelihood. When the full model is much more likely than the reduced model then <span class="math inline">\(LL_0 - LL_1\)</span> is large and negative, which corresponds to a large positive value of <span class="math inline">\(\lambda\)</span>. The likelihood ratio test statistic, <span class="math inline">\(\lambda\)</span>, follows a <span class="math inline">\(\chi^2\)</span> distribution if the sample sizes are not too small and this can be used to test hypotheses.</p>
+<p>The fit of ML measures is usually assessed by calculating the <em>deviance</em>. A <strong>saturated model</strong> is a model that has the same number of parameters as data points and explains all the variation in the response variable. The deviance is calculated as,
+<span class="math display">\[
+D = 2(LL_S - LL_1)
+\]</span></p>
+<p>where <span class="math inline">\(LL_S\)</span> is the log-likelihood of the saturated model and <span class="math inline">\(LL_1\)</span> is the log-likelihood of our model. A large deviance means the fit of our model is poor.</p>
+</div>
+<div id="information-criterion" class="section level3 hasAnchor" number="12.2.3">
+<h3><span class="header-section-number">12.2.3</span> Information criterion<a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#information-criterion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The term “ordinary” least squares is because there are other types of least squares. Information criteria such as Akaike Information Criterion (AIC) and Bayesian information criteria (BIC) are types of <em>penalized least squares</em> that can involve minimizing the least squares and also including a term that penalizes unncessary model complexity. The AIC value for a model is calculated as,</p>
+<p><span class="math display">\[
+-2(\mbox{LL}_i - p_i)
+\]</span></p>
+<p>where <span class="math inline">\(\mbox{LL}_i\)</span> is the log-likelihood of the model <span class="math inline">\(i\)</span> and <span class="math inline">\(p_i\)</span> is the number of parameters in model <span class="math inline">\(i\)</span>. AIC is used for non-nested models, when the likelihood ratio test cannot be used. If a model is nested it means that it can be obtained by setting a parameter in another model to 0.</p>
+</div>
+</div>
+<div id="readings-5" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> Readings<a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#readings-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Ch4.3-4.5 Quinn and Keough</li>
 </ul>
 
-</div>
 </div>
 </div>
             </section>
@@ -215,8 +293,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="mon-nov-30---model-selection-i-eda-and-stepwise.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="fri-dec-04---course-review.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="wed-oct-07---exploratory-data-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

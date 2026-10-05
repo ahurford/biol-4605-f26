@@ -195,10 +195,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="mon-oct-05---linear-models-assumptions-and-types-of-linear-models" class="section level1 hasAnchor" number="12">
 <h1><span class="header-section-number">12</span> Mon Oct 05 - Linear models assumptions and types of linear models<a href="mon-oct-05---linear-models-assumptions-and-types-of-linear-models.html#mon-oct-05---linear-models-assumptions-and-types-of-linear-models" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="readings-5" class="section level2 hasAnchor" number="12.1">
-<h2><span class="header-section-number">12.1</span> Readings<a href="mon-oct-05---linear-models-assumptions-and-types-of-linear-models.html#readings-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="assembing-our-linear-model" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Assembing our linear model<a href="mon-oct-05---linear-models-assumptions-and-types-of-linear-models.html#assembing-our-linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[\begin{eqnarray}
+(\mbox{response variable}) &amp; =&amp;  \qquad  (\mbox{linear predictors}) \qquad \qquad \qquad \ + (\mbox{random error}), \\
+y  \qquad &amp;=&amp;  \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \dots + \beta_n x_{n} \qquad + \epsilon.
+\end{eqnarray}\]</span></p>
+<p>The linear model has a:</p>
 <ul>
-<li>Ch4.6-4.7 Quinn and Keough</li>
+<li><p>Random component, <span class="math inline">\(\epsilon\)</span>. For the general linear model this is the normal distribution;</p></li>
+<li><p>Systematic component. For the linear model this the sum of the predictor variables, and their associated parameters (including the intercept <span class="math inline">\(\beta_0\)</span>);</p></li>
+<li><p>Link function, which links the random and the systematic components. The link function essentially transforms the response variable so the transformed response variable has a linear relationship with the predictors. For general linear models the link function is the identity function (<span class="math inline">\(\mu = f(\mu)\)</span>, i.e., no link function is needed). Other link functions are log (<span class="math inline">\(\log(\mu_i)\)</span>) and logit (<span class="math inline">\(\log(\mu_i/(1-\mu_i))\)</span>) which are used for Poisson regression, loglinear models, and binary and proportion responses in logistic regression.</p></li>
+</ul>
+</div>
+<div id="estimation-for-linear-models" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> Estimation for linear models<a href="mon-oct-05---linear-models-assumptions-and-types-of-linear-models.html#estimation-for-linear-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Our estimators should be BLUE: best linear unbiased estimators. Two estimation methods are ordinary least squares (OLS) and maximum likelihood (ML) estimation.</p>
+<p><strong>Ordinary least squares</strong> Minimize the sum of the squared deviations. Also called residual or error sums-of-squares (<span class="math inline">\(\mbox{SS}_{\mbox{Residual}}\)</span>) where,
+<span class="math display">\[
+\mbox{SS}_{\mbox{Residual}} = \sum_{i=1}^n(y_i - \hat{y})^2\]</span>.</p>
+<p>Here, <span class="math inline">\(\hat{y}\)</span> are the fitted values of <span class="math inline">\(y\)</span>, the response variable (or the values of <span class="math inline">\(y\)</span> predicted by the fitted model). The fitted model is the one that minimizes the residual, and has fitted values of the intercept <span class="math inline">\(\hat{\beta}_0\)</span> and the slopes, <span class="math inline">\(\hat{\beta}_1\)</span>, <span class="math inline">\(\hat{\beta}_2\)</span>, etc.</p>
+<p>Additionally, we also wish to estimate <span class="math inline">\(\sigma^2_{\epsilon}\)</span>, the variance of the error terms. The error variance is often abbreviated to <span class="math inline">\(\sigma^2\)</span>, and is the unexplained variance for the model. The unexplained variance measures how well our model fits the data and is used to estimate confidence intervals for parameters.</p>
+<p>To test hypothesis that parameters are equal to zero, we can use a t-test. We can also compare the fit of the model with the parameter fitted (termed the <strong>full model</strong>) to the fit of the model with the parameter set equal to zero (termed the <strong>reduced model</strong>). When there is a single response variable we partition the total variation in the response variable into that explained by the model (i.e., the one predictor variable) and the unexplained variance (residual or error variance) using an ANOVA. The ratio of the two variances is an F-statistic.</p>
+<p>The term “ordinary” least squares is because there are other types of least squares. Information criteria such as Akaike Information Criterion (AIC) and Bayesian information criteria (BIC) are types of <em>penalized least squares</em> that can involve minimizing the least squares and also including a term that penalizes unncessary model complexity.</p>
+<p>OLS is usually more straightforward that ML estimation. The <code>R</code> function <code>lm()</code> is an implementation of OLS to estimate the BLUE parameters for general linear models.</p>
+<p>** Maximum likelihood** The maximum likelihood parameter estimates maximize the likelihood of observing our data. Evaluating hypothesis (i.e., that parameter values are equal to 0) can be done done using the <em>likelihood-ratio test</em>. The likelihood ratio test statistic, <span class="math inline">\(\lambda\)</span>, is,</p>
+<p><span class="math display">\[
+  \lambda = -2(L_0 - L_1),
+\]</span></p>
+<p>where <span class="math inline">\(L_0\)</span> is the log-likelihood of the reduced model and <span class="math inline">\(L_1\)</span> is the log-likelihood of the full model. The log-likelhood is the calculated by taking the base-10 logarithm of likelihood. The likelihoods are numbers less than 1, and so the log-likelihoods are negative numbers. A large likelihood corresponds to a good fit, and so does a large log-likelihood. When the full model is much more likely than the reduced model then <span class="math inline">\(L_0 - L_1\)</span> is large and negative, which corresponds to a large positive value of <span class="math inline">\(\lambda\)</span>. The likelihood ratio test statistic, <span class="math inline">\(\lambda\)</span>, follows a <span class="math inline">\(\chi^2\)</span> distribution if the sample sizes are not too small and this can be used to test hypotheses.</p>
+<p>Maximum likelihood methods do not need to use normally distributed errors.</p>
+</div>
+<div id="readings-5" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> Readings<a href="mon-oct-05---linear-models-assumptions-and-types-of-linear-models.html#readings-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Ch4.3-4.7 Quinn and Keough</li>
 </ul>
 
 </div>

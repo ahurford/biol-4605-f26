@@ -66,7 +66,12 @@ last-20-minutes-quiz-2
 what-is-a-linear-model
 response-variables
 readings-4
-mon-oct-05---linear-models-assumptions-and-types-of-linear-models
+mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit
+assembing-our-linear-model
+estimation-and-fit-for-linear-models
+ordinary-least-squares
+maximum-likelihood
+information-criterion
 readings-5
 wed-oct-07---exploratory-data-analysis
 readings-6
