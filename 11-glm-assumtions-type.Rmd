@@ -49,6 +49,7 @@ x <- seq(0,4)
 data = data.frame(x = x, y=x+rnorm(5,0,1))
 data
 mod = lm(y~x, data=data)
+mod
 anova_table<-anova(mod)
 anova_table
 ```
