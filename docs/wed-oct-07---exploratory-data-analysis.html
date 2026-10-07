@@ -195,11 +195,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="wed-oct-07---exploratory-data-analysis" class="section level1 hasAnchor" number="13">
 <h1><span class="header-section-number">13</span> Wed Oct 07 - Exploratory data analysis<a href="wed-oct-07---exploratory-data-analysis.html#wed-oct-07---exploratory-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Not on exam 1</p>
-<div id="readings-6" class="section level2 hasAnchor" number="13.1">
-<h2><span class="header-section-number">13.1</span> Readings<a href="wed-oct-07---exploratory-data-analysis.html#readings-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Today’s lecture material will not be on Exam I.</p>
+<p><a href="https://en.wikipedia.org/wiki/Errors_and_residuals">Errors and residuals</a>: Errors are the difference between the observation and the population value. Residuals are the difference between the observation and the estimated value.</p>
+<div id="assumptions-for-linear-model-inference" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">13.1</span> Assumptions for linear model inference<a href="wed-oct-07---exploratory-data-analysis.html#assumptions-for-linear-model-inference" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Ch 5 Quinn and Keough</li>
+<li><p>OLS assumes independent identically distributed errors, and specifically, that the identical distributions are normal distributions with a mean of 0 and constant variance, <span class="math inline">\(\sigma^2\)</span>.</p></li>
+<li><p>Violations can result in inaccurate confidence intervals and p-values, although OLS is reasonably robust, at lest to non-normality and unequal variance.</p></li>
+</ul>
+<p>Assumptions of:</p>
+<ul>
+<li><p><strong>Zero conditional means of errors</strong>. Check by plotting the residuals against the predictors.</p></li>
+<li><p><strong>Independence of errors</strong>. The assumption strictly refers to independence of the model error terms, but it is often described as the independence of the observations, because correlated/non-independent observations usually result in non-independent errors. Test with a plot of the residuals against the predictors and look for obvious positive, negative, or cyclical trends. If spatial autocorrelation is the concern, make a variogram (Dale and Fortin 2009).</p></li>
+<li><p><strong>Homogeneity of error variances (homoskedasticity).</strong> Heteroskedasticity (non-equal variances) often results when the underlying model error distribution is non-normal. Can also be due to outliers. Plot residuals against the predictor values, and look for unequal spread of the residuals. For categorical variables plot the residuals against the group means.</p></li>
+<li><p><strong>Normality of errors.</strong> Assumption is that errors are normally distributed, but usually this means that response variables are normally distributed. Normality assumptions can be assessed with Q-Q plot (compares the quantiles of the data to the quantiles of a normal distribution), but statistical inference is generally robust to violations of the assumption of normally distributed errors and many statisticians do not view this assumption as a critical issue (Gelman and Hill 2006, cited on p57 of Quinn and Keough).</p></li>
+</ul>
+</div>
+<div id="types-of-linear-model" class="section level2 hasAnchor" number="13.2">
+<h2><span class="header-section-number">13.2</span> Types of linear model<a href="wed-oct-07---exploratory-data-analysis.html#types-of-linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>These are the most common types of linear models used by biologists.l</p>
+<div id="general-linear-models" class="section level3 hasAnchor" number="13.2.1">
+<h3><span class="header-section-number">13.2.1</span> General linear models<a href="wed-oct-07---exploratory-data-analysis.html#general-linear-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>General linear models are also commonly just called linear models. The response variable is continuous and has an underlying normal distribution. Use the identity link function.</p>
+<p><strong>Continuous predictor variables: Regression</strong>. This analysis is known as a regression, and the equation for the fitted regression is:</p>
+<p><span class="math display">\[
+\hat{y}_i = b_0 + b_1x_i
+\]</span></p>
+<p>where <span class="math inline">\(\hat{y}_i\)</span> are the fitted (or model-predicted) response variable values (i.e., as you did in assignment 2) and <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are the fitted (or estimated) intercept and slope. If <span class="math inline">\(b_1\)</span> is not different from 0 then this predictor variable, <span class="math inline">\(x_i\)</span> explains very little of the variation that was measured in the response variable.</p>
+<p><strong>Categorical predictor variables: ANOVA</strong>. This analysis is known as ANOVA. As the preditor variables are discrete we might plot our data as boxplots (or violin plots etc). The equation for an ANOVA is:</p>
+<p><span class="math display">\[
+y_{ij} = \mu + \alpha_i + \epsilon_ij
+\]</span></p>
+<p>where <span class="math inline">\(i\)</span> is category <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> is a particular observation. The effect of category <span class="math inline">\(i\)</span> is measured as <span class="math inline">\(\alpha_i\)</span>, which is written as being additive with respect to the mean <span class="math inline">\(\mu\)</span>, which is calculated by taking the mean by considering the observations across all the categories (i.e. ignoring the categories). The term <span class="math inline">\(\epsilon_{ij}\)</span> represents error for the observation <span class="math inline">\(i\)</span> in category <span class="math inline">\(j\)</span>.</p>
+<p>The group (or category mean) is <span class="math inline">\(\mu_i = \mu + \alpha_i\)</span>.</p>
+<p>Software packages often implement and report ANOVA as:</p>
+<p><span class="math display">\[
+\hat{y}_{i} = b_0 + b_1 \mathbb{1}_{i=1} + \dots + b_{m-1} \mathbb{1}_{i=m-1}
+\]</span></p>
+<p>which says that the estimated mean of category <span class="math inline">\(i\)</span> (the fitted parameter estimate) is <span class="math inline">\(\hat{y}_i\)</span> where <span class="math inline">\(b_0\)</span> is the estimated mean of the reference category (arbitrarily choosen and labelled <span class="math inline">\(i=0\)</span>) and <span class="math inline">\(i \in {0, 1, \dots, m-1}\)</span> are estimates for the other <span class="math inline">\(m-1\)</span> categorical variable means (relative to the mean of the reference category). <span class="math inline">\(\mathbb{1}_{i=j}\)</span> is an indicator variable that is 1 when we are considering catergory <span class="math inline">\(i = j\)</span> and 0 otherwise. This means that the formula to calculate the fitted value of <span class="math inline">\(\hat{y}_i\)</span> for a particular category is <span class="math inline">\(b_0\)</span> for the reference category or <span class="math inline">\(\hat{y}_i=b_0 + b_j\)</span> for any of the other categories. It does not matter which of the <span class="math inline">\(m\)</span> categorical variables are indexed by <span class="math inline">\(0, 1\)</span> or any of the other numbers up to <span class="math inline">\(m-1\)</span>.</p>
+</div>
+</div>
+<div id="generalized-linear-models" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> Generalized linear models<a href="wed-oct-07---exploratory-data-analysis.html#generalized-linear-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Generalized linear models include:</p>
+<ul>
+<li>Logistic regression: binary response; continuous predictor variables</li>
+<li>Possion regression: Poisson response; continuous predictor variables</li>
+<li>Contingency tables: Response is classified by two or more categorical variables. Question is about correlation or independence, i.e., 2 x 2 <span class="math inline">\(\chi^2\)</span> test for independence or deviation from an expected pattern.</li>
+<li>Linear mixed models. Predictor variables are modelled as fixed and random effects.</li>
+</ul>
+</div>
+<div id="exploratory-analysis" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> Exploratory analysis<a href="wed-oct-07---exploratory-data-analysis.html#exploratory-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="readings-6" class="section level2 hasAnchor" number="13.5">
+<h2><span class="header-section-number">13.5</span> Readings<a href="wed-oct-07---exploratory-data-analysis.html#readings-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Ch 4.6-4.7 and Ch 5 Quinn and Keough</li>
 </ul>
 
 </div>

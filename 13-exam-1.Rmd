@@ -5,6 +5,12 @@ output: html_document
 
 # **Fri Oct 09 - EXAM I**
 
+50 minutes, open notes calculators permitted.
 
+- Be able to answer questions like those asked on [Quiz 1](https://github.com/ahurford/biol-4605-f26/tree/main/quizzes%20and%20exams).
+
+- There was a mistake on [Quiz 2](https://github.com/ahurford/biol-4605-f26/tree/main/quizzes%20and%20exams) so I marked all related answers correct. I would still like to test that you understand the difference between credible interval and confidnece interval. Please study this.
+
+- ANOVA tables are used to test hypothesis about parameters that multiply predictor variables being different from zero. This means that a predictor variable has no effect. This is key for the class. Understand the structure of the ANOVA table and be able to fill in missing values.
 
 

@@ -5,7 +5,67 @@ output: html_document
 
 # Wed Oct 07 - Exploratory data analysis
 
-Not on exam 1
+Today's lecture material will not be on Exam I.
+
+[Errors and residuals](https://en.wikipedia.org/wiki/Errors_and_residuals): Errors are the difference between the observation and the population value. Residuals are the difference between the observation and the estimated value.
+
+## Assumptions for linear model inference
+
+- OLS assumes independent identically distributed errors, and specifically, that the identical distributions are normal distributions with a mean of 0 and constant variance, $\sigma^2$.
+
+- Violations can result in inaccurate confidence intervals and p-values, although OLS is reasonably robust, at lest to non-normality and unequal variance.
+
+Assumptions of:
+
+- **Zero conditional means of errors**. Check by plotting the residuals against the predictors.
+
+- **Independence of errors**. The assumption strictly refers to independence of the model error terms, but it is often described as the independence of the observations, because correlated/non-independent observations usually result in non-independent errors. Test with a plot of the residuals against the predictors and look for obvious positive, negative, or cyclical trends. If spatial autocorrelation is the concern, make a variogram (Dale and Fortin 2009).
+
+- **Homogeneity of error variances (homoskedasticity).** Heteroskedasticity (non-equal variances) often results when the underlying model error distribution is non-normal. Can also be due to outliers. Plot residuals against the predictor values, and look for unequal spread of the residuals. For categorical variables plot the residuals against the group means.
+
+- **Normality of errors.** Assumption is that errors are normally distributed, but usually this means that response variables are normally distributed. Normality assumptions can be assessed with Q-Q plot (compares the quantiles of the data to the quantiles of a normal distribution), but statistical inference is generally robust to violations of the assumption of normally distributed errors and many statisticians do not view this assumption as a critical issue (Gelman and Hill 2006, cited on p57 of Quinn and Keough).
+
+## Types of linear model
+These are the most common types of linear models used by biologists.l
+
+### General linear models
+General linear models are also commonly just called linear models. The response variable is continuous and has an underlying normal distribution. Use the identity link function.
+
+**Continuous predictor variables: Regression**. This analysis is known as a regression, and the equation for the fitted regression is:
+
+\[
+\hat{y}_i = b_0 + b_1x_i
+\]
+
+where $\hat{y}_i$ are the fitted (or model-predicted) response variable values (i.e., as you did in assignment 2) and $b_0$ and $b_1$ are the fitted (or estimated) intercept and slope. If $b_1$ is not different from 0 then this predictor variable, $x_i$ explains very little of the variation that was measured in the response variable.
+
+**Categorical predictor variables: ANOVA**. This analysis is known as ANOVA. As the preditor variables are discrete we might plot our data as boxplots (or violin plots etc). The equation for an ANOVA is:
+
+\[
+y_{ij} = \mu + \alpha_i + \epsilon_ij
+\]
+
+where $i$ is category $i$ and $j$ is a particular observation. The effect of category $i$ is measured as $\alpha_i$, which is written as being additive with respect to the mean $\mu$, which is calculated by taking the mean by considering the observations across all the categories (i.e. ignoring the categories). The term $\epsilon_{ij}$ represents error for the observation $i$ in category $j$.
+
+The group (or category mean) is $\mu_i = \mu + \alpha_i$.
+
+Software packages often implement and report ANOVA as:
+
+\[
+\hat{y}_{i} = b_0 + b_1 \mathbb{1}_{i=1} + \dots + b_{m-1} \mathbb{1}_{i=m-1} 
+\]
+
+which says that the estimated mean of category $i$ (the fitted parameter estimate) is $\hat{y}_i$ where $b_0$ is the estimated mean of the reference category (arbitrarily choosen and labelled $i=0$) and $i \in {0, 1, \dots, m-1}$ are estimates for the other $m-1$ categorical variable means (relative to the mean of the reference category).  $\mathbb{1}_{i=j}$ is an indicator variable that is 1 when we are considering catergory $i = j$ and 0 otherwise. This means that the formula to calculate the fitted value of $\hat{y}_i$ for a particular category is $b_0$ for the reference category or $\hat{y}_i=b_0 + b_j$ for any of the other categories. It does not matter which of the $m$ categorical variables are indexed by $0, 1$ or any of the other numbers up to $m-1$.
+
+## Generalized linear models
+Generalized linear models include:
+
+- Logistic regression: binary response; continuous predictor variables
+- Possion regression: Poisson response; continuous predictor variables
+- Contingency tables: Response is classified by two or more categorical variables. Question is about correlation or independence, i.e., 2 x 2 $\chi^2$ test for independence or deviation from an expected pattern.
+- Linear mixed models. Predictor variables are modelled as fixed and random effects.
+
+## Exploratory analysis
 
 ## Readings
-- Ch 5 Quinn and Keough
+- Ch 4.6-4.7 and Ch 5 Quinn and Keough

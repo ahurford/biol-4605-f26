@@ -74,6 +74,11 @@ maximum-likelihood
 information-criterion
 readings-5
 wed-oct-07---exploratory-data-analysis
+assumptions-for-linear-model-inference
+types-of-linear-model
+general-linear-models
+generalized-linear-models
+exploratory-analysis
 readings-6
 fri-oct-09---exam-i
 wed-oct-14---regression
