@@ -227,11 +227,11 @@ y  \qquad &amp;=&amp;  \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \dots + \beta_n
 <span id="cb27-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb27-2" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y=</span>x<span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">5</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
 <span id="cb27-3"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb27-3" tabindex="-1"></a>data</span></code></pre></div>
 <pre><code>##   x          y
-## 1 0 -0.3729375
-## 2 1  0.4914933
-## 3 2  3.7678501
-## 4 3  3.2004287
-## 5 4  3.2516186</code></pre>
+## 1 0  0.1067635
+## 2 1 -0.8153303
+## 3 2  0.9375336
+## 4 3  2.5188178
+## 5 4  3.5995243</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb29-1" tabindex="-1"></a>mod <span class="ot">=</span> <span class="fu">lm</span>(y<span class="sc">~</span>x, <span class="at">data=</span>data)</span>
 <span id="cb29-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb29-2" tabindex="-1"></a>mod</span></code></pre></div>
 <pre><code>## 
@@ -240,15 +240,15 @@ y  \qquad &amp;=&amp;  \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \dots + \beta_n
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##     0.07608      0.99580</code></pre>
+##     -0.7945       1.0320</code></pre>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb31-1" tabindex="-1"></a>anova_table<span class="ot">&lt;-</span><span class="fu">anova</span>(mod)</span>
 <span id="cb31-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb31-2" tabindex="-1"></a>anova_table</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: y
-##           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
-## x          1 9.9163  9.9163  7.2556 0.07419 .
-## Residuals  3 4.1001  1.3667                  
+##           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+## x          1 10.6496 10.6496  14.867 0.03082 *
+## Residuals  3  2.1489  0.7163                  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>We apply the <code>anova()</code> function to the fitted linear regression <code>mod</code> to test the null hypothesis that the population variances estimated by the two mean squares (<span class="math inline">\(\mbox{MS}_{\mbox{Explained}}\)</span> and <span class="math inline">\(\mbox{MS}_{\mbox{Residual}}\)</span>) are the same. The result is the ANOVA table for our linear regression.</p>
@@ -263,7 +263,7 @@ y  \qquad &amp;=&amp;  \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \dots + \beta_n
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb33-1" tabindex="-1"></a><span class="co"># Sum the &#39;Sum Sq&#39; column to get SST</span></span>
 <span id="cb33-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb33-2" tabindex="-1"></a>SSTotal <span class="ot">&lt;-</span> <span class="fu">sum</span>(anova_table<span class="sc">$</span><span class="st">&quot;Sum Sq&quot;</span>)</span>
 <span id="cb33-3"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb33-3" tabindex="-1"></a>SSTotal</span></code></pre></div>
-<pre><code>## [1] 14.01639</code></pre>
+<pre><code>## [1] 12.79848</code></pre>
 <p>For each of the bullet points, check that the ANOVA table satifies the formula that are given.</p>
 </div>
 <div id="maximum-likelihood" class="section level3 hasAnchor" number="12.2.2">

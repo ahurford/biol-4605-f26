@@ -97,7 +97,7 @@ Data with many zeros is best split into two processes: no response; and given a 
 
 Quinn and Keough recommend graphical approaches to inspect for hetroskedasticity (non-homogeneity of variance), for example box plots. These are preferred to formal tests (although Levene's test is an option) unless testing for unequal variance is the focal research question.
 
-**Is a linear model appropriate?** Examine this question by making a scatter plot. See also Anscombe (1973).
+**Is a linear model appropriate?** Examine this question by making a scatter plot. See also [Anscombe (1973)](https://www.sjsu.edu/faculty/gerstman/StatPrimer/anscombe1973.pdf).
 
 
 ### Is it Normal to transform data?
