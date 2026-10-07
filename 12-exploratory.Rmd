@@ -7,9 +7,11 @@ output: html_document
 
 Today's lecture material will not be on Exam I.
 
+## Introduction to linear models (continued)
+
 [Errors and residuals](https://en.wikipedia.org/wiki/Errors_and_residuals): Errors are the difference between the observation and the population value. Residuals are the difference between the observation and the estimated value.
 
-## Assumptions for linear model inference
+### Assumptions for linear model inference
 
 - OLS assumes independent identically distributed errors, and specifically, that the identical distributions are normal distributions with a mean of 0 and constant variance, $\sigma^2$.
 
@@ -25,11 +27,10 @@ Assumptions of:
 
 - **Normality of errors.** Assumption is that errors are normally distributed, but usually this means that response variables are normally distributed. Normality assumptions can be assessed with Q-Q plot (compares the quantiles of the data to the quantiles of a normal distribution), but statistical inference is generally robust to violations of the assumption of normally distributed errors and many statisticians do not view this assumption as a critical issue (Gelman and Hill 2006, cited on p57 of Quinn and Keough).
 
-## Types of linear model
+### Types of linear model (General and generalized)
 These are the most common types of linear models used by biologists.l
 
-### General linear models
-General linear models are also commonly just called linear models. The response variable is continuous and has an underlying normal distribution. Use the identity link function.
+**General linear models** are also commonly just called linear models. The response variable is continuous and has an underlying normal distribution. Use the identity link function.
 
 **Continuous predictor variables: Regression**. This analysis is known as a regression, and the equation for the fitted regression is:
 
@@ -57,8 +58,7 @@ Software packages often implement and report ANOVA as:
 
 which says that the estimated mean of category $i$ (the fitted parameter estimate) is $\hat{y}_i$ where $b_0$ is the estimated mean of the reference category (arbitrarily choosen and labelled $i=0$) and $i \in {0, 1, \dots, m-1}$ are estimates for the other $m-1$ categorical variable means (relative to the mean of the reference category).  $\mathbb{1}_{i=j}$ is an indicator variable that is 1 when we are considering catergory $i = j$ and 0 otherwise. This means that the formula to calculate the fitted value of $\hat{y}_i$ for a particular category is $b_0$ for the reference category or $\hat{y}_i=b_0 + b_j$ for any of the other categories. It does not matter which of the $m$ categorical variables are indexed by $0, 1$ or any of the other numbers up to $m-1$.
 
-## Generalized linear models
-Generalized linear models include:
+**Generalized linear models** include:
 
 - Logistic regression: binary response; continuous predictor variables
 - Possion regression: Poisson response; continuous predictor variables
@@ -66,6 +66,59 @@ Generalized linear models include:
 - Linear mixed models. Predictor variables are modelled as fixed and random effects.
 
 ## Exploratory analysis
+
+### Basic graphical tools
+
+- Basic common graphs: histogram, dotplot, boxplot, probability plot (i.e., violin plot), scatterplot, scatterplot matrix
+
+- Smoothing (i.e., LOESS or LOWESS)
+
+- Residual plots
+
+### Outliers
+
+Quinn and Keough argue that outliers are best identified by exploratory analysis (i.e. box plots) rather than statistical tests. After identifying the outliers, first check it is not a mistake, i.e., an equipment malfunction or data entry error.
+
+If you have an outlier, that does not have an explanation (in terms of being anomalous or a mistake), re-run the analysis without the outlier to determine if the outlier impacts the results. Cook's D-statistic measures how much an observation affects parameter estimation for linear models. You may need to use a statistic test developed for outliers.
+
+You should only remove outliers from your data if you have an a priori reason to expect the outlire is an anomaly or a mistake.
+
+### Am I fitting the right model?
+
+**The underlying probability distribution**. Inference is often robust to violations of normality assumptions, but we should check for symmetry in response variables and residuals using boxplots and p-p plots.
+
+If data is right-skewed, a log-trasformation could be considered, although inference is probably more robust if you instead consider errors following a Poisson distribution (i.e., a Poisson regression) or another distribution using ML estimation.
+
+The common probability distributions have one peak. If your response variable is multi-peaked the best approach might be to split your analysis into multiple populations, with separate analysis for each population.
+
+Data with many zeros is best split into two processes: no response; and given a response what is it's value. These statistical methods are called zero-inflated.
+
+**Homogeneity of variances**. Often more important than the assumption of normal errors (or response variables) is the assumption that the normal distribution has constant variance. For the normal distribution, $\sigma^2$ is an estimated parameter for both OLS and ML. The Poisson distribution has the mean equal to the variance (such that the variance may not be constant), a reason for heteroskedasticity could be that a Poisson error distribution is more consistent with these data.
+
+Quinn and Keough recommend graphical approaches to inspect for hetroskedasticity (non-homogeneity of variance), for example box plots. These are preferred to formal tests (although Levene's test is an option) unless testing for unequal variance is the focal research question.
+
+**Is a linear model appropriate?** Examine this question by making a scatter plot. See also Anscombe (1973).
+
+
+### Is it Normal to transform data?
+
+Transforming cm to m illustrates the arbitrary choices that we might make regarding transformations. The conclusions of linear transformations (i.e., cm to m) will be identical. 
+
+Nonlinear transformations (i.e., taking the logarithm of the response variable) change the research question being addressed by the analysis. Such transformations might be made to meet distributional assumptions of linear model analysis. If you transform your response variable, it has been argued that you should present your results on the transformed scale (i.e., log-growth rather than growth).
+
+Another common transformation is to take the squareroot of the response variable.
+
+Transformations can also help satisfy linearity assumptions.
+
+**Nowdays, it is not Normal to transform data**. It is generally awkward to frame research questions in terms of "log-growth" or the "square root of growth". Historically, transformations were needed because estimation with ML was computationally inaccessible. To meet distributional assumptions, it is better to use ML methods which have the flexibility to be formulated for a range of distributions.
+
+### Standardizations
+
+Standardizations can facilitate comparisons. Changing a variable to have a mean of 0 and a standard deviation of 1 is a common standardization.
+
+### Missing data
+
+There are different mechanisms for missingness. One approach to addressing missingness is imputation.
 
 ## Readings
 - Ch 4.6-4.7 and Ch 5 Quinn and Keough
