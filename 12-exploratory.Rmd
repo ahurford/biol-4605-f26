@@ -69,7 +69,9 @@ which says that the estimated mean of category $i$ (the fitted parameter estimat
 
 ### Basic graphical tools
 
-- Basic common graphs: histogram, dotplot, boxplot, probability plot (i.e., violin plot), scatterplot, scatterplot matrix
+We wish to understand the shape of the distribution of our sample data, particularly model residuals, which we can explore by graphing the shape of the distribution of our response variable.
+
+- Basic common graphs: histogram, dotplot, boxplot (and violin plot), probability plot (p-p and q-q), scatterplot, and scatterplot matrix.
 
 - Smoothing (i.e., LOESS or LOWESS)
 
