@@ -224,7 +224,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>where <span class="math inline">\(\hat{y}_i\)</span> are the fitted (or model-predicted) response variable values (i.e., as you did in assignment 2) and <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are the fitted (or estimated) intercept and slope. If <span class="math inline">\(b_1\)</span> is not different from 0 then this predictor variable, <span class="math inline">\(x_i\)</span> explains very little of the variation that was measured in the response variable.</p>
 <p><strong>Categorical predictor variables: ANOVA</strong>. This analysis is known as ANOVA. As the preditor variables are discrete we might plot our data as boxplots (or violin plots etc). The equation for an ANOVA is:</p>
 <p><span class="math display">\[
-y_{ij} = \mu + \alpha_i + \epsilon_ij
+y_{ij} = \mu + \alpha_i + \epsilon_{ij}
 \]</span></p>
 <p>where <span class="math inline">\(i\)</span> is category <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> is a particular observation. The effect of category <span class="math inline">\(i\)</span> is measured as <span class="math inline">\(\alpha_i\)</span>, which is written as being additive with respect to the mean <span class="math inline">\(\mu\)</span>, which is calculated by taking the mean by considering the observations across all the categories (i.e. ignoring the categories). The term <span class="math inline">\(\epsilon_{ij}\)</span> represents error for the observation <span class="math inline">\(i\)</span> in category <span class="math inline">\(j\)</span>.</p>
 <p>The group (or category mean) is <span class="math inline">\(\mu_i = \mu + \alpha_i\)</span>.</p>

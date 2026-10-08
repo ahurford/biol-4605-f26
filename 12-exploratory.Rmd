@@ -43,7 +43,7 @@ where $\hat{y}_i$ are the fitted (or model-predicted) response variable values (
 **Categorical predictor variables: ANOVA**. This analysis is known as ANOVA. As the preditor variables are discrete we might plot our data as boxplots (or violin plots etc). The equation for an ANOVA is:
 
 \[
-y_{ij} = \mu + \alpha_i + \epsilon_ij
+y_{ij} = \mu + \alpha_i + \epsilon_{ij}
 \]
 
 where $i$ is category $i$ and $j$ is a particular observation. The effect of category $i$ is measured as $\alpha_i$, which is written as being additive with respect to the mean $\mu$, which is calculated by taking the mean by considering the observations across all the categories (i.e. ignoring the categories). The term $\epsilon_{ij}$ represents error for the observation $i$ in category $j$.
