@@ -3,8 +3,35 @@ title: "Regression"
 output: html_document
 ---
 
-# Wed Oct 14 - Regression
+# Wed Oct 14 - Regression with one predictor variable fixed by experiment
+
+## Assignment 3
+[Assignment 3](#assignment-3) is due on Friday October 23.
+
+## Graduate project
+
+Please read Dr. Schneider's [instructions](https://davidcschneider.github.io/StatisticalScience/GradProj/ReportAssessment.pdf) for the grad project.
+
+All graduate students need to email me stating when they are free to meet on Tuesday Oct 20 (9am-2pm) or Thursday Oct 22 (9am-2pm) to discuss your ideas for your grad project. I will then schedule you a 10 min block to meet with me.
+
+## Linear model for a continuous single predition (regression)
+### Predictor variable is fixed by experiment
+
+[Chapter 9.1](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch9_1.pdf) from Dr. Schneider's notes considers a linear regression where the predictor variable is fixed by the experiment. Specifically,
+
+Example 9.3.1 from Snedecor and Cochran (1989). The quantity of
+interest is the phosphorus content of corn (Pcorn in ppm), in relation
+to the phosphorus levels in samples of soils with experimentally
+fixed levels of phosphorus (Psoil in ppm)
+
+```{r}
+data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/corn.csv")
+data
+```
 
 ## Readings
+Either:
 
-- Ch9.1, 9.2 Regression
+- Ch 6.1.1 to 6.1.6 of Quinn and Keough, or
+
+- [Ch 9.1](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch9_1.pdf) from Dr. Schneider's notes.

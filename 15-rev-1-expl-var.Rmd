@@ -3,10 +3,14 @@ title: "Regression"
 output: html_document
 ---
 
-# **Fri Oct 16 (A3 due)** - Regression
+# Fri Oct 16 - Regression
+
+Chapter 9.
 
 ## Readings
-- Chp 9.3, 9.5
+Either:
+- Ch 6.1.1 to 6.1.6 of Quinn and Keough, or
+- [Ch 9.1](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch9_1.pdf) from Dr. Schneider's notes.
 
 
 

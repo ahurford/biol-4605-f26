@@ -3,6 +3,8 @@ title: "Quantities"
 output: html_document
 ---
 
+<!-- In the future I would forget these lectures of Dave's and just work from Quinn and Keough. It was a rush to complete the exploratory analysis lecture. Also, the lecture about quantities more naturally fits with Chapter 4, linear models in Q & M -->
+
 # Fri Sept 11 - Models and quantities
 
 ## Models

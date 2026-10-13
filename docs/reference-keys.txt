@@ -86,9 +86,13 @@ standardizations
 missing-data
 readings-6
 fri-oct-09---exam-i
-wed-oct-14---regression
+wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment
+assignment-3
+graduate-project
+linear-model-for-a-continuous-single-predition-regression
+predictor-variable-is-fixed-by-experiment
 readings-7
-fri-oct-16-a3-due---regression
+fri-oct-16---regression
 readings-8
 mon-oct-19---1-way-anova
 readings-9
@@ -96,7 +100,7 @@ upcoming-assessments
 wed-oct-21---review-1-explanatory-variable
 readings-10
 upcoming-assessments-1
-fri-oct-23-quiz-3---multiple-regression
+fri-oct-23-quiz-3-a3-due---multiple-regression
 last-15-minutes-quiz-3
 readings-11
 mon-oct-26---2-way-anova
@@ -144,5 +148,4 @@ fri-dec-04---course-review
 upcoming-assessments-11
 assignment-1
 assignment-2b
-assignment-3---hypothesis-testing-due-fri-oct-16
 assignment-4---confidence-intervals-due-fri-oct-30

@@ -3,7 +3,7 @@ title: ""
 output: html_document
 ---
 
-# Assignment 3 - Hypothesis testing (due Fri Oct 16)
+# Assignment 3 - Hypothesis testing (due Fri Oct 23){#assignment-3}
 
 
 Find, in the published literature, two mean values with associated
