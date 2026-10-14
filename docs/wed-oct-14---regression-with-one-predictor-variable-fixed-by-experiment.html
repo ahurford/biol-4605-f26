@@ -208,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">15.3</span> Linear model for a continuous single predition (regression)<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#linear-model-for-a-continuous-single-predition-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="predictor-variable-is-fixed-by-experiment" class="section level3 hasAnchor" number="15.3.1">
 <h3><span class="header-section-number">15.3.1</span> Predictor variable is fixed by experiment<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#predictor-variable-is-fixed-by-experiment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch9_1.pdf">Chapter 9.1</a> from Dr. Schneider’s notes considers a linear regression where the predictor variable is fixed by the experiment. Specifically,</p>
+<p><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch9_1.pdf">Chapter 9.1</a> from Dr. Schneider’s notes considers a linear regression where the predictor variable is fixed by the experiment. Specifically:</p>
 <p>Example 9.3.1 from Snedecor and Cochran (1989). The quantity of
 interest is the phosphorus content of corn (Pcorn in ppm), in relation
 to the phosphorus levels in samples of soils with experimentally
@@ -223,7 +223,218 @@ fixed levels of phosphorus (Psoil in ppm)</p>
 ## 5    13    93
 ## 6    11    76
 ## 7    23    77
-## 8    23    95</code></pre>
+## 8    23    95
+## 9    28   109</code></pre>
+<p>There are <span class="math inline">\(n=9\)</span> observations. Dr. Schneider’s notes initially report only 8 data points in the data table. In some subsequent calculations in Dr. Schneider’s notes sometimes 8 observations are considered and sometimes 9. We will use these 9 data points for all the calculations.</p>
+<p>Rather than following the analysis from Dr. Schneider’s notes, we apply the analyses from Quinn and Keough.</p>
+<div id="exploratory-analysis-1" class="section level4 hasAnchor" number="15.3.1.1">
+<h4><span class="header-section-number">15.3.1.1</span> Exploratory analysis<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#exploratory-analysis-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Quinn and Keough recommends fitting a LOESS smoother as an exploratory test to evaluate for a linear relationship. We consider boxplots of the explanatory (predictor) and response variables to look for symmetry, which suggests the residuals likely statisfy the normality assumption.</p>
+<p>I load <code>ggplot2</code> and <code>ggExtra</code> to complete this plot of the data.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb37-2"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-2" tabindex="-1"></a><span class="fu">library</span>(ggExtra)</span>
+<span id="cb37-3"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-3" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-4" tabindex="-1"></a><span class="co"># 2. Save the base ggplot with the LOESS line</span></span>
+<span id="cb37-5"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-5" tabindex="-1"></a>main_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> Psoil, <span class="at">y =</span> Pcorn)) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;darkgray&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb37-7"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-7" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">span =</span> <span class="fl">0.75</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb37-8"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb37-9"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-9" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-10" tabindex="-1"></a><span class="co"># 3. Add marginal boxplots to the top and right sides</span></span>
+<span id="cb37-11"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-11" tabindex="-1"></a>final_plot <span class="ot">&lt;-</span> <span class="fu">ggMarginal</span>(</span>
+<span id="cb37-12"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-12" tabindex="-1"></a>  main_plot, </span>
+<span id="cb37-13"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-13" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;boxplot&quot;</span>, </span>
+<span id="cb37-14"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-14" tabindex="-1"></a>  <span class="at">margins =</span> <span class="st">&quot;both&quot;</span>,     <span class="co"># Adds to both top and right</span></span>
+<span id="cb37-15"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-15" tabindex="-1"></a>  <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>,   <span class="co"># Color of the boxplots</span></span>
+<span id="cb37-16"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-16" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">10</span>              <span class="co"># Relative ratio of main plot size to marginal plot size</span></span>
+<span id="cb37-17"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-17" tabindex="-1"></a>)</span>
+<span id="cb37-18"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-18" tabindex="-1"></a></span>
+<span id="cb37-19"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-19" tabindex="-1"></a><span class="co"># 4. Display the plot</span></span>
+<span id="cb37-20"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-20" tabindex="-1"></a><span class="fu">print</span>(final_plot)</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-18-1.png" alt="" width="672" /></p>
+<p>The LOESS plot can be compared to the analogous plots in Quinn and Keough (Figures 6.1 and 6.2 on p78 and 79). Our smoothed data seems to meet the assumption of linearity. The boxplots indicate no outliers.</p>
+<p>We can only assess assumptions concerning residuals after fitting a model.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-1" tabindex="-1"></a><span class="co"># 1. Fit the linear regression</span></span>
+<span id="cb38-2"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-2" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Psoil <span class="sc">~</span> Pcorn, <span class="at">data =</span> data)</span>
+<span id="cb38-3"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-3" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-4" tabindex="-1"></a><span class="co"># 2. Create data frame holding just the predicted and residual values</span></span>
+<span id="cb38-5"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-5" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb38-6"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-6" tabindex="-1"></a>  <span class="at">predicted =</span> <span class="fu">fitted</span>(model),</span>
+<span id="cb38-7"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-7" tabindex="-1"></a>  <span class="at">residuals =</span> <span class="fu">residuals</span>(model)</span>
+<span id="cb38-8"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-8" tabindex="-1"></a>)</span>
+<span id="cb38-9"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-9" tabindex="-1"></a></span>
+<span id="cb38-10"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-10" tabindex="-1"></a><span class="co"># 3. Build the ggplot</span></span>
+<span id="cb38-11"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-11" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> predicted, <span class="at">y =</span> residuals)) <span class="sc">+</span></span>
+<span id="cb38-12"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-12" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;darkblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb38-13"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-13" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb38-14"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-14" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Residuals vs. Predicted Plot&quot;</span>,</span>
+<span id="cb38-15"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-15" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Predicted Values (Fitted)&quot;</span>,</span>
+<span id="cb38-16"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-16" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Residuals&quot;</span></span>
+<span id="cb38-17"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-17" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb38-18"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-18" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-19-1.png" alt="" width="672" /></p>
+<p>We are hoping not to see bowls, arches or cones (see Dr. Schneider’s notes). Bowls and arches might arise from non-linear relationships between the predictor and the response. Cones would indicate heteroskedasticity. This looks like our assumptions of linearity and homoskedasticity are statisfied.</p>
+<p>Lastly, we can look for outliers.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-1" tabindex="-1"></a><span class="co"># 1. Create a data frame with Cook&#39;s distance values and row names/indices</span></span>
+<span id="cb39-2"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-2" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb39-3"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-3" tabindex="-1"></a>  <span class="at">observation =</span> <span class="fu">rownames</span>(data), <span class="co"># Or use 1:nrow(mtcars) for indices</span></span>
+<span id="cb39-4"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-4" tabindex="-1"></a>  <span class="at">cooks_d     =</span> <span class="fu">cooks.distance</span>(model)</span>
+<span id="cb39-5"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-5" tabindex="-1"></a>)</span>
+<span id="cb39-6"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-6" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-7" tabindex="-1"></a><span class="co"># 2. Define a standard threshold rule-of-thumb: 4 / n</span></span>
+<span id="cb39-8"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-8" tabindex="-1"></a>threshold <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">/</span> <span class="fu">nrow</span>(data)</span>
+<span id="cb39-9"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-9" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-10" tabindex="-1"></a><span class="co"># 3. Create the ggplot</span></span>
+<span id="cb39-11"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-11" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(observation, cooks_d), <span class="at">y =</span> cooks_d)) <span class="sc">+</span></span>
+<span id="cb39-12"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-12" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> observation, <span class="at">yend =</span> <span class="dv">0</span>), <span class="at">color =</span> <span class="st">&quot;gray&quot;</span>) <span class="sc">+</span> <span class="co"># The sticks</span></span>
+<span id="cb39-13"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-13" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>          <span class="co"># The candy dots</span></span>
+<span id="cb39-14"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-14" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> threshold, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb39-15"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-15" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="co"># Flips to horizontal for much easier reading of row names</span></span>
+<span id="cb39-16"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-16" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb39-17"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-17" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Cook&#39;s Distance Plot&quot;</span>,</span>
+<span id="cb39-18"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-18" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;Red dashed line indicates threshold (4/n) =&quot;</span>, <span class="fu">round</span>(threshold, <span class="dv">3</span>)),</span>
+<span id="cb39-19"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-19" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Observation&quot;</span>,</span>
+<span id="cb39-20"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-20" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Cook&#39;s Distance&quot;</span>,</span>
+<span id="cb39-21"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-21" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb39-22"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-22" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-20-1.png" alt="" width="672" /></p>
+<p>The Cook’s D test suggests no outliers for the linear model fitted to the data. The conclusion of our exploratory analysis is that it is reasonable to fit a linear model.</p>
+</div>
+</div>
+<div id="write-the-model-and-state-the-hypothesis" class="section level3 hasAnchor" number="15.3.2">
+<h3><span class="header-section-number">15.3.2</span> Write the model and state the hypothesis<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#write-the-model-and-state-the-hypothesis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Our exploratory analyses suggests that a linear regression is reasonable. Next, we will write our model and our hypothesis by following the steps in Dr. Schneider’s notes.</p>
+<p>Our model is therefore,
+<span class="math display">\[
+P_{corn} = \alpha + \beta_{Psoil} P_{soil} + \epsilon,
+\]</span></p>
+<p>where <span class="math inline">\(P_{corn}\)</span> is phosphorous in the corn (ppm), <span class="math inline">\(P_{soil}\)</span> is phosphorous in corn (ppm) and <span class="math inline">\(\alpha\)</span> (ppm) and <span class="math inline">\(\beta_{Psoil}\)</span> (unitless) are coefficients in our hypothesized linear relationship that will be estimated during fitting. The term <span class="math inline">\(\epsilon\)</span> is the residual and we assume these residuals are independent and normally distributed, which we can write as <span class="math inline">\(\epsilon \sim N(0,\sigma^2)\)</span>.</p>
+<p>Our null hypothesis is that <span class="math inline">\(\beta_{Psoil} = 0\)</span>. This means that there is no effect of soil phosphorous on corn phosphorous. At this point, you should decide to test this hypothesis using OLS or ML, but for pedagogical purposes we will illustrate both.</p>
+<p>The fitted model is,
+<span class="math display">\[
+E[P_{corn}] = \hat{\alpha} + \hat{\beta}_{Psoil} P_{soil},
+\]</span></p>
+<p>where <span class="math inline">\(\hat{\alpha}\)</span> and <span class="math inline">\(\hat{\beta}_{Psoil}\)</span> are the fitted coefficients (using either OLS or ML). We can choose different values of <span class="math inline">\(P_{soil}\)</span> to predict <span class="math inline">\(E[P_{corn}]\)</span> (the expected value of <span class="math inline">\(P_{corn}\)</span> without any noise), given our fitted model.</p>
+</div>
+<div id="ols-fit-of-a-linear-regression-of-the-phosphourous-data" class="section level3 hasAnchor" number="15.3.3">
+<h3><span class="header-section-number">15.3.3</span> OLS fit of a linear regression of the Phosphourous data<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#ols-fit-of-a-linear-regression-of-the-phosphourous-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To determine the values of <span class="math inline">\(\hat{\alpha}\)</span> and <span class="math inline">\(\hat{\beta}_{Psoil}\)</span> we can minimize the <span class="math inline">\(SS_{res}\)</span>, which is the approach of OLS.</p>
+<p>We have already completed this OLS fit (when completing the exploratory analysis when we executed the <code>lm()</code> command). We named our model, when the fitting was done using OLS <code>model</code>.</p>
+<p>To replicate the analysis that is reported in Quinn and Keough (Box 6.1, p77-78), we would like a print out of the estimated regression coefficients and their standard error (to estimate confidence intervals), the correlation coefficient (estimates the proportion of the variance that is unexplained by the model), and an ANOVA table to test our null hypothesis that the population variances estimated by the two mean squares for the model and the residual are the same. The commands below will print out these estimates.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb40-1" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Psoil ~ Pcorn, data = data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.9455 -4.6825 -0.1706  3.1398 11.3720 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) -23.5875    10.3913   -2.27  0.05748 . 
+## Pcorn         0.4573     0.1274    3.59  0.00886 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.075 on 7 degrees of freedom
+## Multiple R-squared:  0.648,  Adjusted R-squared:  0.5977 
+## F-statistic: 12.89 on 1 and 7 DF,  p-value: 0.008859</code></pre>
+<p>This tells us that the fitted value of the intercept is <span class="math inline">\(\hat{\alpha} = -23.6\)</span> ppm and the standard error for this estimate is 10.4 ppm. The fitted value of the slope of the relationship between <span class="math inline">\(P_{corn}\)</span> and <span class="math inline">\(P_{soil}\)</span> is <span class="math inline">\(\hat{\beta}_{Psoil} = 0.46\)</span> with a standard error of 0.13. The p-value estimates the Type 1 error associated with this estimate: the probability of estimating a <span class="math inline">\(t-value\)</span> of this magnitude under the null hypothesis that the true population value is <span class="math inline">\(\beta_{Psoil} = 0\)</span>. This probability is just 0.009, so it is very unlikely that the phosphorous in the soil has no effect on the phosphorous in the corn for this experiment.</p>
+<p>In this print out the Multiple R-squared (<span class="math inline">\(R^2\)</span>) is the coefficient of determination, and describes the proportion of variance in the response variable that is explained by the model. For our output, the linear model explains about 64.8% of the variance. The correlation coefficient is <span class="math inline">\(\pm \sqrt{\mbox{Multiple R-squared}}\)</span>. The Adjusted R-squared is a modified version of <span class="math inline">\(R^{2}\)</span> that penalizes the score for every extra predictor variable you add to the model.</p>
+<p>We can calculate <span class="math inline">\(R^2\)</span> as <span class="math inline">\(SS_{model}\)</span>/<span class="math inline">\(SS_{Total}\)</span> (from Dr. Schneider’s notes).</p>
+<p>We would like to better understand the partitioning of the variance in the response variable in terms of the residual or error (unexplained variance) and the variance explained by the model, as well as the degrees of freedom for each. This is the sum squares table:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb42-1" tabindex="-1"></a><span class="fu">anova</span>(model)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Psoil
+##           Df Sum Sq Mean Sq F value   Pr(&gt;F)   
+## Pcorn      1 475.64  475.64  12.887 0.008859 **
+## Residuals  7 258.36   36.91                    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>We should also partition our degrees of freedom. This is nicely explained in Dr. Schneider’s notes as:</p>
+<p><span class="math display">\[
+\begin{array}{llll}
+P_{corn} - \alpha &amp; = &amp;   \beta_{Psoil} Psoil &amp; +  \ \ \epsilon \\
+\mbox{df}_{Total} &amp; = &amp;  \mbox{df}_{Model} &amp; + \ \ \mbox{df}_{res} \\
+n - 1 &amp; = &amp; 1 &amp; + \ \ \mbox{df}_{res} \\
+8 &amp; = &amp;  1 &amp; + \ \ 7 \\
+\end{array}
+\]</span></p>
+<p>Which is how we estimate 7 degrees of freedom for the residual (error) term. Our calculations show that 1 degree of freedom is used to estimate each of the slope and the intercept, and the df associated with the intercept is counted in the total sum of squares (<span class="math inline">\(SS_{Total}\)</span>).</p>
+<p>Our analysis suggest the null hypothesis of no effect is unlikely, but we should plot our data and our fitted model:</p>
+<p><span class="math display">\[
+E[P_{corn}] = -23.6 + 0.46 P_{soil}
+\]</span></p>
+<p>as this plot should support and solidify our findings:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb44-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data, <span class="fu">aes</span>(<span class="at">x =</span> Psoil, <span class="at">y =</span> Pcorn)) <span class="sc">+</span></span>
+<span id="cb44-2"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb44-2" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">formula =</span> y <span class="sc">~</span> x,      <span class="co"># Fit and overlay a linear model</span></span>
+<span id="cb44-3"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb44-3" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>,  <span class="co"># Customize line and ribbon colors</span></span>
+<span id="cb44-4"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb44-4" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span>                         <span class="co"># TRUE includes the 95% confidence interval</span></span>
+<span id="cb44-5"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb44-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span>          <span class="co"># Add data points</span></span>
+<span id="cb44-6"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb44-6" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb44-7"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb44-7" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Linear Regression Fit&quot;</span>,</span>
+<span id="cb44-8"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb44-8" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Soil Phosphorous, Psoil (ppm)&quot;</span>,</span>
+<span id="cb44-9"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb44-9" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Corn Phosphorous, Pcorn (ppm)&quot;</span></span>
+<span id="cb44-10"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb44-10" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb44-11"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb44-11" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()  </span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-23-1.png" alt="" width="672" /></p>
+<p>This plot includes 95<span class="math inline">\(\%\)</span> CIs for both the slope and the intercept, and so the resulting 95<span class="math inline">\(\%\)</span> CI for the model has a bow-shape (i.e., fans out at the edges). Recall the interpretation of the CI: this interval has a 95<span class="math inline">\(\%\)</span> chance of containing the true value of <span class="math inline">\(P_{corn}\)</span> for any given value of <span class="math inline">\(P_{soil}\)</span>.</p>
+<p>We can recover the 95<span class="math inline">\(\%\)</span> CIs for our fitted parameters as:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb45-1" tabindex="-1"></a><span class="fu">confint</span>(model)</span></code></pre></div>
+<pre><code>##                   2.5 %    97.5 %
+## (Intercept) -48.1589386 0.9839166
+## Pcorn         0.1560901 0.7585977</code></pre>
+</div>
+<div id="mle-of-linear-model-coefficients-and-lrt." class="section level3 hasAnchor" number="15.3.4">
+<h3><span class="header-section-number">15.3.4</span> MLE of linear model coefficients and LRT.<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#mle-of-linear-model-coefficients-and-lrt." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Maximum likelihood estimation (MLE) is an alternative to OLS and involves defining a likelihood function. If we assume normally distributed errors our fitting is the same as OLS and the <code>lm()</code> function will estimate the log-likelihood for the fitted model.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb47-1" tabindex="-1"></a><span class="fu">logLik</span>(model)</span></code></pre></div>
+<pre><code>## &#39;log Lik.&#39; -27.87757 (df=3)</code></pre>
+<p>We can compare models by calculating the likelihood ratio. We can fit our null hypothesis as a reduced model:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb49-1" tabindex="-1"></a>reduced.model <span class="ot">=</span> <span class="fu">lm</span>(Pcorn <span class="sc">~</span> <span class="dv">1</span>,<span class="at">data=</span>data)</span>
+<span id="cb49-2"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb49-2" tabindex="-1"></a><span class="fu">summary</span>(reduced.model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Pcorn ~ 1, data = data)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+##    -26     -9     -3     13     29 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    80.00       5.62   14.23 5.78e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 16.86 on 8 degrees of freedom</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb51-1" tabindex="-1"></a><span class="fu">logLik</span>(reduced.model)</span></code></pre></div>
+<pre><code>## &#39;log Lik.&#39; -37.66477 (df=2)</code></pre>
+<p>The reduced model involves setting <span class="math inline">\(\beta_{Psoil} = 0\)</span>.</p>
+<p>We can use the package <code>lmtest</code> to perform a likelihood ratio test:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb53-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb53-2"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb53-2" tabindex="-1"></a><span class="co"># Perform the Likelihood Ratio Test</span></span>
+<span id="cb53-3"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb53-3" tabindex="-1"></a><span class="fu">lrtest</span>(reduced.model, model)</span></code></pre></div>
+<pre><code>## Likelihood ratio test
+## 
+## Model 1: Pcorn ~ 1
+## Model 2: Psoil ~ Pcorn
+##   #Df  LogLik Df  Chisq Pr(&gt;Chisq)    
+## 1   2 -37.665                         
+## 2   3 -27.878  1 19.574  9.676e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>This supports the hypothesis that the full model is more likely given the data. We could calculate the deviance, but this requires fitting a fully saturated model and we will do this another time.</p>
+<p>Note that the likelihood does not have to assume normally distributed errors, however, here we made that assumption because we calculated the log-likelihood for fitting that was done with the <code>lm()</code> function, which implements OLS.</p>
+<p>In this situation, the likelihood ratio in Dr. Schneider’s notes is calculated as:</p>
+<p><span class="math display">\[
+LR = \left(SS_{res}/SS_{total}\right)^{-n/2}
+\]</span></p>
+<p>where the term inside the parenthesis is <span class="math inline">\(1-R^2\)</span>, which is the proportion of the variance which is unexplained (equal to 1 - the proportion of the variance that is explained by the model).</p>
+<p>All of our analyses, and our graph of the model fit, indicate that the null hypothesis of no effect of soil phosphorous on corn phosphorous can be rejected.</p>
+<p>Dr. Schneider’s notes involve several more steps. This includes making a statement about whether the sample is representative of the population.</p>
 </div>
 </div>
 <div id="readings-7" class="section level2 hasAnchor" number="15.4">
