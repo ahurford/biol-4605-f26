@@ -174,7 +174,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="36" data-path="fri-dec-04---course-review.html"><a href="fri-dec-04---course-review.html"><i class="fa fa-check"></i><b>36</b> Fri Dec 04 - Course Review</a></li>
 <li class="chapter" data-level="37" data-path="assignment-1.html"><a href="assignment-1.html"><i class="fa fa-check"></i><b>37</b> Assignment 1 - Quantities (due Fri Sept 18)</a></li>
 <li class="chapter" data-level="38" data-path="assignment-2b.html"><a href="assignment-2b.html"><i class="fa fa-check"></i><b>38</b> Assignment 2 - Data equations (due Friday Sept 25)</a></li>
-<li class="chapter" data-level="39" data-path="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#assignment-3"><i class="fa fa-check"></i><b>39</b> Assignment 3 - Hypothesis testing (due Fri Oct 23)</a></li>
+<li class="chapter" data-level="39" data-path="assignment-3b.html"><a href="assignment-3b.html"><i class="fa fa-check"></i><b>39</b> Assignment 3 - Hypothesis testing (due Fri Oct 23)</a></li>
 <li class="chapter" data-level="40" data-path="assignment-4---confidence-intervals-due-fri-oct-30.html"><a href="assignment-4---confidence-intervals-due-fri-oct-30.html"><i class="fa fa-check"></i><b>40</b> Assignment 4 - Confidence intervals (due Fri Oct 30)</a></li>
 </ul>
 
@@ -226,12 +226,12 @@ y  \qquad &amp;=&amp;  \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \dots + \beta_n
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb27-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">4</span>)</span>
 <span id="cb27-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb27-2" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y=</span>x<span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">5</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
 <span id="cb27-3"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb27-3" tabindex="-1"></a>data</span></code></pre></div>
-<pre><code>##   x          y
-## 1 0 -0.4253167
-## 2 1  0.1312649
-## 3 2  0.3153929
-## 4 3  0.1486877
-## 5 4  3.9435996</code></pre>
+<pre><code>##   x         y
+## 1 0 -3.166133
+## 2 1  1.928466
+## 3 2  3.938509
+## 4 3  2.479667
+## 5 4  4.490590</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb29-1" tabindex="-1"></a>mod <span class="ot">=</span> <span class="fu">lm</span>(y<span class="sc">~</span>x, <span class="at">data=</span>data)</span>
 <span id="cb29-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb29-2" tabindex="-1"></a>mod</span></code></pre></div>
 <pre><code>## 
@@ -240,15 +240,17 @@ y  \qquad &amp;=&amp;  \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \dots + \beta_n
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##     -0.9283       0.8755</code></pre>
+##      -1.239        1.586</code></pre>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb31-1" tabindex="-1"></a>anova_table<span class="ot">&lt;-</span><span class="fu">anova</span>(mod)</span>
 <span id="cb31-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb31-2" tabindex="-1"></a>anova_table</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: y
-##           Df Sum Sq Mean Sq F value Pr(&gt;F)
-## x          1 7.6654  7.6654  4.7692 0.1169
-## Residuals  3 4.8218  1.6073</code></pre>
+##           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+## x          1 25.169 25.1687  6.4565 0.08461 .
+## Residuals  3 11.695  3.8982                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>We apply the <code>anova()</code> function to the fitted linear regression <code>mod</code> to test the null hypothesis that the population variances estimated by the two mean squares (<span class="math inline">\(\mbox{MS}_{\mbox{Explained}}\)</span> and <span class="math inline">\(\mbox{MS}_{\mbox{Residual}}\)</span>) are the same. The result is the ANOVA table for our linear regression.</p>
 <p>The ANOVA table has the following characteristics:</p>
 <ul>
@@ -261,7 +263,7 @@ y  \qquad &amp;=&amp;  \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \dots + \beta_n
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb33-1" tabindex="-1"></a><span class="co"># Sum the &#39;Sum Sq&#39; column to get SST</span></span>
 <span id="cb33-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb33-2" tabindex="-1"></a>SSTotal <span class="ot">&lt;-</span> <span class="fu">sum</span>(anova_table<span class="sc">$</span><span class="st">&quot;Sum Sq&quot;</span>)</span>
 <span id="cb33-3"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb33-3" tabindex="-1"></a>SSTotal</span></code></pre></div>
-<pre><code>## [1] 12.4873</code></pre>
+<pre><code>## [1] 36.86334</code></pre>
 <p>For each of the bullet points, check that the ANOVA table satifies the formula that are given.</p>
 </div>
 <div id="maximum-likelihood" class="section level3 hasAnchor" number="12.2.2">

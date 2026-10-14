@@ -174,7 +174,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="36" data-path="fri-dec-04---course-review.html"><a href="fri-dec-04---course-review.html"><i class="fa fa-check"></i><b>36</b> Fri Dec 04 - Course Review</a></li>
 <li class="chapter" data-level="37" data-path="assignment-1.html"><a href="assignment-1.html"><i class="fa fa-check"></i><b>37</b> Assignment 1 - Quantities (due Fri Sept 18)</a></li>
 <li class="chapter" data-level="38" data-path="assignment-2b.html"><a href="assignment-2b.html"><i class="fa fa-check"></i><b>38</b> Assignment 2 - Data equations (due Friday Sept 25)</a></li>
-<li class="chapter" data-level="39" data-path="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#assignment-3"><i class="fa fa-check"></i><b>39</b> Assignment 3 - Hypothesis testing (due Fri Oct 23)</a></li>
+<li class="chapter" data-level="39" data-path="assignment-3b.html"><a href="assignment-3b.html"><i class="fa fa-check"></i><b>39</b> Assignment 3 - Hypothesis testing (due Fri Oct 23)</a></li>
 <li class="chapter" data-level="40" data-path="assignment-4---confidence-intervals-due-fri-oct-30.html"><a href="assignment-4---confidence-intervals-due-fri-oct-30.html"><i class="fa fa-check"></i><b>40</b> Assignment 4 - Confidence intervals (due Fri Oct 30)</a></li>
 </ul>
 
@@ -197,7 +197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">15</span> Wed Oct 14 - Regression with one predictor variable fixed by experiment<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="assignment-3" class="section level2 hasAnchor" number="15.1">
 <h2><span class="header-section-number">15.1</span> Assignment 3<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#assignment-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#assignment-3">Assignment 3</a> is due on Friday October 23.</p>
+<p><a href="assignment-3b.html#assignment-3b">Assignment 3</a> is due on Friday October 23.</p>
 </div>
 <div id="graduate-project" class="section level2 hasAnchor" number="15.2">
 <h2><span class="header-section-number">15.2</span> Graduate project<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#graduate-project" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -236,7 +236,7 @@ fixed levels of phosphorus (Psoil in ppm)</p>
 <span id="cb37-3"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-3" tabindex="-1"></a></span>
 <span id="cb37-4"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-4" tabindex="-1"></a><span class="co"># 2. Save the base ggplot with the LOESS line</span></span>
 <span id="cb37-5"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-5" tabindex="-1"></a>main_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> Psoil, <span class="at">y =</span> Pcorn)) <span class="sc">+</span></span>
-<span id="cb37-6"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;darkgray&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb37-7"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-7" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">span =</span> <span class="fl">0.75</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb37-8"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
 <span id="cb37-9"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-9" tabindex="-1"></a></span>
@@ -265,7 +265,7 @@ fixed levels of phosphorus (Psoil in ppm)</p>
 <span id="cb38-9"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-9" tabindex="-1"></a></span>
 <span id="cb38-10"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-10" tabindex="-1"></a><span class="co"># 3. Build the ggplot</span></span>
 <span id="cb38-11"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-11" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> predicted, <span class="at">y =</span> residuals)) <span class="sc">+</span></span>
-<span id="cb38-12"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-12" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;darkblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb38-12"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-12" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb38-13"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-13" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
 <span id="cb38-14"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-14" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Residuals vs. Predicted Plot&quot;</span>,</span>
 <span id="cb38-15"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb38-15" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Predicted Values (Fitted)&quot;</span>,</span>

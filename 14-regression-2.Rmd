@@ -6,7 +6,7 @@ output: html_document
 # Wed Oct 14 - Regression with one predictor variable fixed by experiment
 
 ## Assignment 3
-[Assignment 3](#assignment-3) is due on Friday October 23.
+[Assignment 3](#assignment-3b) is due on Friday October 23.
 
 ## Graduate project
 
@@ -45,7 +45,7 @@ library(ggExtra)
 
 # 2. Save the base ggplot with the LOESS line
 main_plot <- ggplot(data, aes(x = Psoil, y = Pcorn)) +
-  geom_point(color = "darkgray", alpha = 0.7) +
+  geom_point(color = "black") +
   geom_smooth(method = "loess", span = 0.75, color = "blue", se = FALSE) +
   theme_minimal()
 
@@ -78,7 +78,7 @@ plot_data <- data.frame(
 
 # 3. Build the ggplot
 ggplot(plot_data, aes(x = predicted, y = residuals)) +
-  geom_point(color = "darkblue", alpha = 0.7) +
+  geom_point(color = "black") +
   labs(
     title = "Residuals vs. Predicted Plot",
     x = "Predicted Values (Fitted)",

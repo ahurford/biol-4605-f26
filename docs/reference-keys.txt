@@ -152,4 +152,5 @@ fri-dec-04---course-review
 upcoming-assessments-11
 assignment-1
 assignment-2b
+assignment-3b
 assignment-4---confidence-intervals-due-fri-oct-30
