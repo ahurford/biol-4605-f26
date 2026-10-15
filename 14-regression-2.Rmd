@@ -154,13 +154,22 @@ This tells us that the fitted value of the intercept is $\hat{\alpha} = -23.6$ p
 
 In this print out the Multiple R-squared ($R^2$) is the coefficient of determination, and describes the proportion of variance in the response variable that is explained by the model. For our output, the linear model explains about 64.8% of the variance. The correlation coefficient is $\pm \sqrt{\mbox{Multiple R-squared}}$. The Adjusted R-squared is a modified version of $R^{2}$ that penalizes the score for every extra predictor variable you add to the model.
 
-We can calculate $R^2$ as $SS_{model}$/$SS_{Total}$ (from Dr. Schneider's notes).
-
 We would like to better understand the partitioning of the variance in the response variable in terms of the residual or error (unexplained variance) and the variance explained by the model, as well as the degrees of freedom for each. This is the sum squares table: 
 
 ```{r}
 anova(model)
 ```
+
+We can calculate $R^2$ as $SS_{model}$/$SS_{Total}$ (from Dr. Schneider's notes).
+
+```{r}
+SSmodel = anova(model)$`Sum Sq`[1]
+SSTotal = sum(anova(model)$`Sum Sq`)
+R2 = SSmodel/SSTotal
+R2
+```
+
+
 
 We should also partition our degrees of freedom. This is nicely explained in Dr. Schneider's notes as:
 
@@ -221,9 +230,13 @@ summary(reduced.model)
 logLik(reduced.model)
 ```
 
-The reduced model involves setting $\beta_{Psoil} = 0$.
+The reduced model involves setting $\beta_{Psoil} = 0$ and only and intercept is estimated. Additionally, likelihood ratio test statistic is calculated form the log-likelihoods as:
 
-We can use the package `lmtest` to perform a likelihood ratio test:
+```{r}
+-2*(logLik(reduced.model) - logLik(model))
+```
+
+The likelihood ratio test statistic follows a Chi-squared distribution. We can use the package `lmtest` to perform a likelihood ratio test:
 
 ```{r,message=FALSE}
 library(lmtest)
@@ -231,17 +244,26 @@ library(lmtest)
 lrtest(reduced.model, model)
 ```
 
-This supports the hypothesis that the full model is more likely given the data. We could calculate the deviance, but this requires fitting a fully saturated model and we will do this another time.
+We find that the full model is more likely than the reduced model given the data.
 
-Note that the likelihood does not have to assume normally distributed errors, however, here we made that assumption because we calculated the log-likelihood for fitting that was done with the `lm()` function, which implements OLS.
+Model fit is usually assessed for ML by calculating the deviance, but this requires fitting a fully saturated model, and we will do this another time.
 
-In this situation, the likelihood ratio in Dr. Schneider's notes is calculated as:
+The likelihood ratio for this situation (OLS) in Dr. Schneider's notes is calculated as:
 
 \[
 LR = \left(SS_{res}/SS_{total}\right)^{-n/2}
 \]
 
-where the term inside the parenthesis is $1-R^2$, which is the proportion of the variance which is unexplained (equal to 1 - the proportion of the variance that is explained by the model).
+where the term inside the parenthesis is $1-R^2$, which is the proportion of the variance which is unexplained (equal to 1 - the proportion of the variance that is explained by the model). 
+
+```{r}
+n = nobs(model)            # Number of observations
+SSres = SSTotal - SSmodel  # Residual sum of squares
+LR = (SSres/SSTotal)^(-n/2)
+LR
+```
+
+Here are some additional notes from Dr. Schneider about interpreting the [LR](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch7_1.pdf) (see p17) that is calculated.
 
 All of our analyses, and our graph of the model fit, indicate that the null hypothesis of no effect of soil phosphorous on corn phosphorous can be rejected.
 
