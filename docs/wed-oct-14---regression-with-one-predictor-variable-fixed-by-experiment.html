@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="fri-oct-09---exam-i.html"/>
-<link rel="next" href="fri-oct-16---regression.html"/>
+<link rel="next" href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -151,7 +151,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13" data-path="wed-oct-07---exploratory-data-analysis.html"><a href="wed-oct-07---exploratory-data-analysis.html"><i class="fa fa-check"></i><b>13</b> Wed Oct 07 - Exploratory data analysis</a></li>
 <li class="chapter" data-level="14" data-path="fri-oct-09---exam-i.html"><a href="fri-oct-09---exam-i.html"><i class="fa fa-check"></i><b>14</b> <strong>Fri Oct 09 - EXAM I</strong></a></li>
 <li class="chapter" data-level="15" data-path="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html"><i class="fa fa-check"></i><b>15</b> Wed Oct 14 - Regression with one predictor variable fixed by experiment</a></li>
-<li class="chapter" data-level="16" data-path="fri-oct-16---regression.html"><a href="fri-oct-16---regression.html"><i class="fa fa-check"></i><b>16</b> Fri Oct 16 - Regression</a></li>
+<li class="chapter" data-level="16" data-path="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><i class="fa fa-check"></i><b>16</b> Fri Oct 16 - Linear model for a single categorical predictor (factor)</a></li>
 <li class="chapter" data-level="17" data-path="mon-oct-19---1-way-anova.html"><a href="mon-oct-19---1-way-anova.html"><i class="fa fa-check"></i><b>17</b> Mon Oct 19 - 1 way ANOVA</a></li>
 <li class="chapter" data-level="18" data-path="wed-oct-21---review-1-explanatory-variable.html"><a href="wed-oct-21---review-1-explanatory-variable.html"><i class="fa fa-check"></i><b>18</b> Wed Oct 21 - Review: 1 explanatory variable</a></li>
 <li class="chapter" data-level="19" data-path="fri-oct-23-quiz-3-a3-due---multiple-regression.html"><a href="fri-oct-23-quiz-3-a3-due---multiple-regression.html"><i class="fa fa-check"></i><b>19</b> <strong>Fri Oct 23 (Quiz 3, A3 due)</strong> - multiple regression</a></li>
@@ -206,8 +206,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="linear-model-for-a-continuous-single-predition-regression" class="section level2 hasAnchor" number="15.3">
 <h2><span class="header-section-number">15.3</span> Linear model for a continuous single predition (regression)<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#linear-model-for-a-continuous-single-predition-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="predictor-variable-is-fixed-by-experiment" class="section level3 hasAnchor" number="15.3.1">
-<h3><span class="header-section-number">15.3.1</span> Predictor variable is fixed by experiment<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#predictor-variable-is-fixed-by-experiment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Predictor variable is fixed by experiment</strong></p>
 <p><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch9_1.pdf">Chapter 9.1</a> from Dr. Schneider’s notes considers a linear regression where the predictor variable is fixed by the experiment. Specifically:</p>
 <p>Example 9.3.1 from Snedecor and Cochran (1989). The quantity of
 interest is the phosphorus content of corn (Pcorn in ppm), in relation
@@ -227,8 +226,8 @@ fixed levels of phosphorus (Psoil in ppm)</p>
 ## 9    28   109</code></pre>
 <p>There are <span class="math inline">\(n=9\)</span> observations. Dr. Schneider’s notes initially report only 8 data points in the data table. In some subsequent calculations in Dr. Schneider’s notes sometimes 8 observations are considered and sometimes 9. We will use these 9 data points for all the calculations.</p>
 <p>Rather than following the analysis from Dr. Schneider’s notes, we apply the analyses from Quinn and Keough.</p>
-<div id="exploratory-analysis-1" class="section level4 hasAnchor" number="15.3.1.1">
-<h4><span class="header-section-number">15.3.1.1</span> Exploratory analysis<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#exploratory-analysis-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="exploratory-analysis-1" class="section level3 hasAnchor" number="15.3.1">
+<h3><span class="header-section-number">15.3.1</span> Exploratory analysis<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#exploratory-analysis-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Quinn and Keough recommends fitting a LOESS smoother as an exploratory test to evaluate for a linear relationship. We consider boxplots of the explanatory (predictor) and response variables to look for symmetry, which suggests the residuals likely statisfy the normality assumption.</p>
 <p>I load <code>ggplot2</code> and <code>ggExtra</code> to complete this plot of the data.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb37-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -299,7 +298,6 @@ fixed levels of phosphorus (Psoil in ppm)</p>
 <span id="cb39-22"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb39-22" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="book_files/figure-html/unnamed-chunk-20-1.png" alt="" width="672" /></p>
 <p>The Cook’s D test suggests no outliers for the linear model fitted to the data. The conclusion of our exploratory analysis is that it is reasonable to fit a linear model.</p>
-</div>
 </div>
 <div id="write-the-model-and-state-the-hypothesis" class="section level3 hasAnchor" number="15.3.2">
 <h3><span class="header-section-number">15.3.2</span> Write the model and state the hypothesis<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#write-the-model-and-state-the-hypothesis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -445,9 +443,19 @@ LR = \left(SS_{res}/SS_{total}\right)^{-n/2}
 <span id="cb59-3"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb59-3" tabindex="-1"></a>LR <span class="ot">=</span> (SSres<span class="sc">/</span>SSTotal)<span class="sc">^</span>(<span class="sc">-</span>n<span class="sc">/</span><span class="dv">2</span>)</span>
 <span id="cb59-4"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#cb59-4" tabindex="-1"></a>LR</span></code></pre></div>
 <pre><code>## [1] 109.7996</code></pre>
-<p>Here are some additional notes from Dr. Schneider about interpreting the <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch7_1.pdf">LR</a> (see p17) that is calculated.</p>
-<p>All of our analyses, and our graph of the model fit, indicate that the null hypothesis of no effect of soil phosphorous on corn phosphorous can be rejected.</p>
+<p>Here are some additional notes from Dr. Schneider about interpreting the <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch7_1.pdf">LR</a> (see p17) that is calculated. Dr. Schneider interprets the likelihood ratio as the strength of evidence to support one model over another. He contrasts evidence with “uncertainty”, which he states is what is measured by the p-value. Dr. Schneider also recommends interpretting the strength of evidence as:</p>
+<ul>
+<li>LR &lt; 10: inadequate evidence</li>
+<li>LR &gt; 10: some evidence</li>
+<li>LR &gt; 20: good evidence</li>
+<li>LR &gt; 100: strong evidence</li>
+<li>LR &gt; 1000: very strong evidence</li>
+</ul>
+</div>
+<div id="reporting-and-interpretting-the-analysis" class="section level3 hasAnchor" number="15.3.5">
+<h3><span class="header-section-number">15.3.5</span> Reporting and interpretting the analysis<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html#reporting-and-interpretting-the-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Dr. Schneider’s notes involve several more steps. This includes making a statement about whether the sample is representative of the population.</p>
+<p>Reporting the science conclusion is important. All of our analyses, and our graph of the model fit, indicate that the null hypothesis of no effect of soil phosphorous on corn phosphorous can be rejected. Additionally, we should discuss the effect size. Specifically, we estimate that a one unit increase in ppm of soil phosphorous is associated with a 0.45 ppm increase in corn phosphorous (i.e., the estimated slope of our regression). Dr. Schneider additionally tests whether this estimated slope is greater than 1, which is a test for amplification of the phosphorous in the soil in the corn. This was done by looking at the confidence intervals for the regression slope. We had estimated the 95<span class="math inline">\(\%\)</span> confidence interval for the regression slope as <span class="math inline">\([0.16, 0.76]\)</span>. This interval does not overlap with 0, which we can understand to mean that our analysis does not support that there is no effect of soil phosphorous. In addition, it does not overlap with 1, which we can interpret to mean that not all of the soil phosphorous can be converted to corn phosphorous. (Note that due to using the 9 observations we are getting some different numbers than Dr. Schneider’s notes).</p>
 </div>
 </div>
 <div id="readings-7" class="section level2 hasAnchor" number="15.4">
@@ -466,7 +474,7 @@ LR = \left(SS_{res}/SS_{total}\right)^{-n/2}
         </div>
       </div>
 <a href="fri-oct-09---exam-i.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="fri-oct-16---regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

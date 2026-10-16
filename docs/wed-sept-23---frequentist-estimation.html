@@ -151,7 +151,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13" data-path="wed-oct-07---exploratory-data-analysis.html"><a href="wed-oct-07---exploratory-data-analysis.html"><i class="fa fa-check"></i><b>13</b> Wed Oct 07 - Exploratory data analysis</a></li>
 <li class="chapter" data-level="14" data-path="fri-oct-09---exam-i.html"><a href="fri-oct-09---exam-i.html"><i class="fa fa-check"></i><b>14</b> <strong>Fri Oct 09 - EXAM I</strong></a></li>
 <li class="chapter" data-level="15" data-path="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html"><i class="fa fa-check"></i><b>15</b> Wed Oct 14 - Regression with one predictor variable fixed by experiment</a></li>
-<li class="chapter" data-level="16" data-path="fri-oct-16---regression.html"><a href="fri-oct-16---regression.html"><i class="fa fa-check"></i><b>16</b> Fri Oct 16 - Regression</a></li>
+<li class="chapter" data-level="16" data-path="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><i class="fa fa-check"></i><b>16</b> Fri Oct 16 - Linear model for a single categorical predictor (factor)</a></li>
 <li class="chapter" data-level="17" data-path="mon-oct-19---1-way-anova.html"><a href="mon-oct-19---1-way-anova.html"><i class="fa fa-check"></i><b>17</b> Mon Oct 19 - 1 way ANOVA</a></li>
 <li class="chapter" data-level="18" data-path="wed-oct-21---review-1-explanatory-variable.html"><a href="wed-oct-21---review-1-explanatory-variable.html"><i class="fa fa-check"></i><b>18</b> Wed Oct 21 - Review: 1 explanatory variable</a></li>
 <li class="chapter" data-level="19" data-path="fri-oct-23-quiz-3-a3-due---multiple-regression.html"><a href="fri-oct-23-quiz-3-a3-due---multiple-regression.html"><i class="fa fa-check"></i><b>19</b> <strong>Fri Oct 23 (Quiz 3, A3 due)</strong> - multiple regression</a></li>
@@ -340,17 +340,17 @@ P(\bar{y}-1.96\sigma_{\bar{y}} \leq \mu \leq \bar{y}+1.96\sigma_{\bar{y}}) = 0.9
 <span id="cb25-7"><a href="wed-sept-23---frequentist-estimation.html#cb25-7" tabindex="-1"></a>resampled.data <span class="ot">=</span> <span class="fu">data.frame</span>(sample1, sample2, sample3, sample4, sample5)</span>
 <span id="cb25-8"><a href="wed-sept-23---frequentist-estimation.html#cb25-8" tabindex="-1"></a>resampled.data</span></code></pre></div>
 <pre><code>##    sample1 sample2 sample3 sample4 sample5
-## 1       65      72      71      68      74
-## 2       67      65      76      76      67
-## 3       68      67      68      74      66
-## 4       67      74      74      68      68
-## 5       68      76      74      66      68
-## 6       65      66      71      70      70
-## 7       68      68      70      70      72
-## 8       67      70      66      75      75
-## 9       65      68      76      67      68
-## 10      65      74      66      72      71
-## 11      74      66      70      75      76</code></pre>
+## 1       67      68      76      68      72
+## 2       74      74      76      70      65
+## 3       76      65      74      75      66
+## 4       66      65      65      72      65
+## 5       68      72      67      72      68
+## 6       70      68      67      68      67
+## 7       75      74      70      72      76
+## 8       65      67      70      67      72
+## 9       75      67      66      74      66
+## 10      72      67      65      70      68
+## 11      65      71      75      75      76</code></pre>
 </div>
 <div id="jackknife" class="section level3 hasAnchor" number="8.7.2">
 <h3><span class="header-section-number">8.7.2</span> Jackknife<a href="wed-sept-23---frequentist-estimation.html#jackknife" class="anchor-section" aria-label="Anchor link to header"></a></h3>

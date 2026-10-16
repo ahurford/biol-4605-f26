@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>16 Fri Oct 16 - Linear model for a single categorical predictor (factor) | book.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="16 Fri Oct 16 - Linear model for a single categorical predictor (factor) | book.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="16 Fri Oct 16 - Linear model for a single categorical predictor (factor) | book.knit" />
+  
+  
+  
+
+<meta name="author" content="Amy Hurford" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html"/>
+<link rel="next" href="mon-oct-19---1-way-anova.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to BIOL/OSCS 4605/7220!</a></li>
+<li class="chapter" data-level="2" data-path="wed-sept-9---introduction.html"><a href="wed-sept-9---introduction.html"><i class="fa fa-check"></i><b>2</b> Wed Sept 9 - Introduction</a></li>
+<li class="chapter" data-level="3" data-path="fri-sept-11---models-and-quantities.html"><a href="fri-sept-11---models-and-quantities.html"><i class="fa fa-check"></i><b>3</b> Fri Sept 11 - Models and quantities</a></li>
+<li class="chapter" data-level="4" data-path="mon-sept-14---equations-units-and-notation.html"><a href="mon-sept-14---equations-units-and-notation.html"><i class="fa fa-check"></i><b>4</b> Mon Sept 14 - Equations, units, and notation</a></li>
+<li class="chapter" data-level="5" data-path="wed-sept-16---samples-and-populations.html"><a href="wed-sept-16---samples-and-populations.html"><i class="fa fa-check"></i><b>5</b> Wed Sept 16 - Samples and populations</a></li>
+<li class="chapter" data-level="6" data-path="fri-sept-18-quiz-1-a1-due-a2-available-probability-distributions.html"><a href="fri-sept-18-quiz-1-a1-due-a2-available-probability-distributions.html"><i class="fa fa-check"></i><b>6</b> <strong>Fri Sept 18 (Quiz 1, A1 due, A2 available)</strong> Probability distributions</a></li>
+<li class="chapter" data-level="7" data-path="mon-sept-21---review-quiz-1-statistical.html"><a href="mon-sept-21---review-quiz-1-statistical.html"><i class="fa fa-check"></i><b>7</b> Mon Sept 21 - Review Quiz 1, statistical</a></li>
+<li class="chapter" data-level="8" data-path="wed-sept-23---frequentist-estimation.html"><a href="wed-sept-23---frequentist-estimation.html"><i class="fa fa-check"></i><b>8</b> Wed Sept 23 - Frequentist estimation</a></li>
+<li class="chapter" data-level="9" data-path="fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics.html"><a href="fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics.html"><i class="fa fa-check"></i><b>9</b> <strong>Fri Sept 25 (A2 due)</strong> - Hypothesis testing (frequentist) and Bayesian statistics</a></li>
+<li class="chapter" data-level="10" data-path="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html"><a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html"><i class="fa fa-check"></i><b>10</b> Mon Sept 28 - Sampling and experimental design and power analysis</a></li>
+<li class="chapter" data-level="11" data-path="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"><a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"><i class="fa fa-check"></i><b>11</b> <strong>Fri Oct 2 (Quiz 2) </strong> - What is a linear model and how to assess model fit</a></li>
+<li class="chapter" data-level="12" data-path="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html"><i class="fa fa-check"></i><b>12</b> Mon Oct 05 - Linear model fitting and how well does a linear model fit?</a></li>
+<li class="chapter" data-level="13" data-path="wed-oct-07---exploratory-data-analysis.html"><a href="wed-oct-07---exploratory-data-analysis.html"><i class="fa fa-check"></i><b>13</b> Wed Oct 07 - Exploratory data analysis</a></li>
+<li class="chapter" data-level="14" data-path="fri-oct-09---exam-i.html"><a href="fri-oct-09---exam-i.html"><i class="fa fa-check"></i><b>14</b> <strong>Fri Oct 09 - EXAM I</strong></a></li>
+<li class="chapter" data-level="15" data-path="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html"><i class="fa fa-check"></i><b>15</b> Wed Oct 14 - Regression with one predictor variable fixed by experiment</a></li>
+<li class="chapter" data-level="16" data-path="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><i class="fa fa-check"></i><b>16</b> Fri Oct 16 - Linear model for a single categorical predictor (factor)</a></li>
+<li class="chapter" data-level="17" data-path="mon-oct-19---1-way-anova.html"><a href="mon-oct-19---1-way-anova.html"><i class="fa fa-check"></i><b>17</b> Mon Oct 19 - 1 way ANOVA</a></li>
+<li class="chapter" data-level="18" data-path="wed-oct-21---review-1-explanatory-variable.html"><a href="wed-oct-21---review-1-explanatory-variable.html"><i class="fa fa-check"></i><b>18</b> Wed Oct 21 - Review: 1 explanatory variable</a></li>
+<li class="chapter" data-level="19" data-path="fri-oct-23-quiz-3-a3-due---multiple-regression.html"><a href="fri-oct-23-quiz-3-a3-due---multiple-regression.html"><i class="fa fa-check"></i><b>19</b> <strong>Fri Oct 23 (Quiz 3, A3 due)</strong> - multiple regression</a></li>
+<li class="chapter" data-level="20" data-path="mon-oct-26---2-way-anova.html"><a href="mon-oct-26---2-way-anova.html"><i class="fa fa-check"></i><b>20</b> Mon Oct 26 - 2-way ANOVA</a></li>
+<li class="chapter" data-level="21" data-path="wed-oct-28---anova-with-interaction.html"><a href="wed-oct-28---anova-with-interaction.html"><i class="fa fa-check"></i><b>21</b> Wed Oct 28 - ANOVA with interaction</a></li>
+<li class="chapter" data-level="22" data-path="fri-oct-30-a4-due---mixed-model---paired-t-test.html"><a href="fri-oct-30-a4-due---mixed-model---paired-t-test.html"><i class="fa fa-check"></i><b>22</b> <strong>Fri Oct 30 (A4 due)</strong> - Mixed model - paired t-test</a></li>
+<li class="chapter" data-level="23" data-path="mon-nov-02---mixed-model---random-block.html"><a href="mon-nov-02---mixed-model---random-block.html"><i class="fa fa-check"></i><b>23</b> Mon Nov 02 - Mixed model - random block</a></li>
+<li class="chapter" data-level="24" data-path="wed-nov-04---nested-anova.html"><a href="wed-nov-04---nested-anova.html"><i class="fa fa-check"></i><b>24</b> Wed Nov 04 - Nested ANOVA</a></li>
+<li class="chapter" data-level="25" data-path="fri-nov-06---exam-2.html"><a href="fri-nov-06---exam-2.html"><i class="fa fa-check"></i><b>25</b> <strong>Fri Nov 06 - EXAM 2</strong></a></li>
+<li class="chapter" data-level="26" data-path="mon-nov-09---correlation-mvar.html"><a href="mon-nov-09---correlation-mvar.html"><i class="fa fa-check"></i><b>26</b> Mon Nov 09 - Correlation &amp; Mvar</a></li>
+<li class="chapter" data-level="27" data-path="fri-nov-13---gzlm-intro.html"><a href="fri-nov-13---gzlm-intro.html"><i class="fa fa-check"></i><b>27</b> Fri Nov 13 - GzLM Intro</a></li>
+<li class="chapter" data-level="28" data-path="mon-nov-16---logistic-regression.html"><a href="mon-nov-16---logistic-regression.html"><i class="fa fa-check"></i><b>28</b> Mon Nov 16 - Logistic Regression</a></li>
+<li class="chapter" data-level="29" data-path="wed-nov-18---prospective-analysis.html"><a href="wed-nov-18---prospective-analysis.html"><i class="fa fa-check"></i><b>29</b> Wed Nov 18 - Prospective Analysis</a></li>
+<li class="chapter" data-level="30" data-path="fri-nov-20-quiz-4--retrospective-analysis.html"><a href="fri-nov-20-quiz-4--retrospective-analysis.html"><i class="fa fa-check"></i><b>30</b> <strong>Fri Nov 20 (Quiz 4)</strong>- Retrospective Analysis</a></li>
+<li class="chapter" data-level="31" data-path="mon-nov-23---logistic-ancova.html"><a href="mon-nov-23---logistic-ancova.html"><i class="fa fa-check"></i><b>31</b> Mon Nov 23 - Logistic ANCOVA</a></li>
+<li class="chapter" data-level="32" data-path="wed-nov-25---poisson-regression.html"><a href="wed-nov-25---poisson-regression.html"><i class="fa fa-check"></i><b>32</b> Wed Nov 25 - Poisson Regression</a></li>
+<li class="chapter" data-level="33" data-path="fri-nov-27---contingency-tests-poisson.html"><a href="fri-nov-27---contingency-tests-poisson.html"><i class="fa fa-check"></i><b>33</b> Fri Nov 27 - Contingency Tests, Poisson</a></li>
+<li class="chapter" data-level="34" data-path="mon-nov-30---model-selection-i-eda-and-stepwise.html"><a href="mon-nov-30---model-selection-i-eda-and-stepwise.html"><i class="fa fa-check"></i><b>34</b> Mon Nov 30 - Model Selection I: EDA and Stepwise</a></li>
+<li class="chapter" data-level="35" data-path="wed-dec-02---multimodel-inf---aic-sic.html"><a href="wed-dec-02---multimodel-inf---aic-sic.html"><i class="fa fa-check"></i><b>35</b> Wed Dec 02 - Multimodel Inf - AIC, SIC</a></li>
+<li class="chapter" data-level="36" data-path="fri-dec-04---course-review.html"><a href="fri-dec-04---course-review.html"><i class="fa fa-check"></i><b>36</b> Fri Dec 04 - Course Review</a></li>
+<li class="chapter" data-level="37" data-path="assignment-1.html"><a href="assignment-1.html"><i class="fa fa-check"></i><b>37</b> Assignment 1 - Quantities (due Fri Sept 18)</a></li>
+<li class="chapter" data-level="38" data-path="assignment-2b.html"><a href="assignment-2b.html"><i class="fa fa-check"></i><b>38</b> Assignment 2 - Data equations (due Friday Sept 25)</a></li>
+<li class="chapter" data-level="39" data-path="assignment-3b.html"><a href="assignment-3b.html"><i class="fa fa-check"></i><b>39</b> Assignment 3 - Hypothesis testing (due Fri Oct 23)</a></li>
+<li class="chapter" data-level="40" data-path="assignment-4---confidence-intervals-due-fri-oct-30.html"><a href="assignment-4---confidence-intervals-due-fri-oct-30.html"><i class="fa fa-check"></i><b>40</b> Assignment 4 - Confidence intervals (due Fri Oct 30)</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor" class="section level1 hasAnchor" number="16">
+<h1><span class="header-section-number">16</span> Fri Oct 16 - Linear model for a single categorical predictor (factor)<a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#fri-oct-16---linear-model-for-a-single-categorical-predictor-factor" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="finish-the-last-two-subsections-in-the-last-lecture" class="section level2 hasAnchor" number="16.1">
+<h2><span class="header-section-number">16.1</span> Finish the last two subsections in the last lecture<a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#finish-the-last-two-subsections-in-the-last-lecture" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>MLE of linear model coefficients and LRT and reporting and interpretting the analysis (see notes from the previous day)</p>
+<p>Some additional notes: Quinn and Keough discuss Model II regression, which is when there is variability in measuring both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> and when we have a question where it is not clear which is the predictor and which is the response variable (6.1.7, i.e., brain and body weight in mammals). This is <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch9_3.pdf">Ch 9.3</a> from Dr. Schneider’s notes. We will skip this because it has not been covered in BIOL 4605/7220 in previous years.</p>
+</div>
+<div id="linear-model-for-a-single-categorical-predictor-factor" class="section level2 hasAnchor" number="16.2">
+<h2><span class="header-section-number">16.2</span> Linear model for a single categorical predictor (factor)<a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#linear-model-for-a-single-categorical-predictor-factor" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>First, consider the difference between regression (continuous predictor) and ANOVA (categorical predictor). See <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10.pdf">here</a>.</p>
+<p>General linear models with categorical predictors can be called t-test (two levels (or groups) of the predictor) or ANOVA (3 or more levels or groups). Quinn and Keough had given the example of the effect of Isoflurane and Alpha chloralose on blood CO2 levels in mice in previous chapters (i.e., see Box 2.2 on p13-14) and Ch 6.2 of Quinn and Keough jumps right in to ANOVA, while <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3.html">Ch 10</a> from Dr. Schneider’s notes starts with t-test. For the linear model with the single categorical predictor, we will begin with a single sample t-test from Dr. Schneider’s notes.</p>
+<div id="single-sample-t-test" class="section level3 hasAnchor" number="16.2.1">
+<h3><span class="header-section-number">16.2.1</span> Single sample t-test<a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#single-sample-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>These notes follow <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_1.pdf">Ch 10.1</a>.</p>
+<p>The research question was whether Drug A (L-hyoscyamine) results in extra sleep relative to no drug,
+in 10 subjects. Cushny AR, Peebles AR (1905). The action of optical isomers.
+II. Hyoscines. J Physiology 32:501-510.</p>
+<p>The data are:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb61-1" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
+<span id="cb61-2"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb61-2" tabindex="-1"></a>sleep.data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/extrasleep.csv&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">filter</span>(drug<span class="sc">==</span><span class="st">&quot;A&quot;</span>)</span>
+<span id="cb61-3"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb61-3" tabindex="-1"></a>sleep.data</span></code></pre></div>
+<pre><code>##    drug extra.sleep person
+## 1     A         0.7      1
+## 2     A        -1.6      2
+## 3     A        -0.2      3
+## 4     A        -1.2      4
+## 5     A        -0.1      5
+## 6     A         3.4      6
+## 7     A         3.7      7
+## 8     A         0.8      8
+## 9     A         0.0      9
+## 10    A         2.0     10</code></pre>
+<p>Note, that I loaded <code>dplyr</code> to filter the data because these data actually report extra sleep for drugs A and B, but this example from Dr. Schneider’s notes is only for Drug A. Note also that this is <em>extra sleep</em> which involves the mean value for the person’s normal sleep (no drug) being subtracted from the mean sleep when the person is taking drug A. As such, negative numbers mean that the person got less sleep, on average, when they were taking the drug.</p>
+<div id="construct-the-model" class="section level4 hasAnchor" number="16.2.1.1">
+<h4><span class="header-section-number">16.2.1.1</span> Construct the model<a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#construct-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>State our verbal hypothesis: People who take Drug A get more or less sleep.</p>
+<p>Graph the data:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb63-2"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-2" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-3" tabindex="-1"></a><span class="co"># Using the built-in ToothGrowth dataset for demonstration</span></span>
+<span id="cb63-4"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-4" tabindex="-1"></a><span class="fu">ggplot</span>(sleep.data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(drug), <span class="at">y =</span> extra.sleep)) <span class="sc">+</span></span>
+<span id="cb63-5"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-5" tabindex="-1"></a>  <span class="co"># 1. Add the box plot layer</span></span>
+<span id="cb63-6"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb63-7"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-7" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span>,       <span class="co"># CRITICAL: Prevents duplicate plotting of outliers</span></span>
+<span id="cb63-8"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-8" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;grey95&quot;</span>,          <span class="co"># Light fill to keep it as a background summary</span></span>
+<span id="cb63-9"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-9" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;maroon&quot;</span>         <span class="co"># Muted border color</span></span>
+<span id="cb63-10"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-10" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb63-11"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-11" tabindex="-1"></a>  <span class="co"># 2. Add the strip plot (jittered points) layer</span></span>
+<span id="cb63-12"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-12" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(</span>
+<span id="cb63-13"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-13" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="dv">0</span>), <span class="co"># Controls data spreading</span></span>
+<span id="cb63-14"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-14" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,        <span class="co"># Pick a distinct color for raw data points</span></span>
+<span id="cb63-15"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-15" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">5</span>,                 <span class="co"># Modify point size</span></span>
+<span id="cb63-16"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-16" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb63-17"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-17" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb63-18"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-18" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Drug A&quot;</span>,</span>
+<span id="cb63-19"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-19" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Extra sleep (hours)&quot;</span>,</span>
+<span id="cb63-20"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-20" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Visualize the data (single sample t-test)&quot;</span></span>
+<span id="cb63-21"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-21" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb63-22"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-22" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb63-23"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-23" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-32-1.png" alt="" width="672" /></p>
+<p>This plot shows that the median extra sleep is <span class="math inline">\(&gt;0\)</span>, but not by a lot (small effect size) and also that there is a lot of variation between individuals such that the interquartile range overlaps with 0 (no extra sleep). There are also few observations. As part of our exploratory analysis we should also evaluate if the observations are symmetric around the median (i.e., to evaluate the assumption of normality).</p>
+<p>Formal model:</p>
+<p><span class="math display">\[
+S = \beta_A + \epsilon
+\]</span></p>
+<p>where <span class="math inline">\(S\)</span> is extra sleep (hours) and <span class="math inline">\(\beta_A\)</span> (hours) is the mean extra sleep for the people who took drug A. This is different notation that Dr. Schneider’s notes, but I choose it to be more intuitive. The variable <span class="math inline">\(\epsilon\)</span> denotes the errors and is <span class="math inline">\(N(0,\sigma^2)\)</span>.</p>
+<p>The null hypothesis is that <span class="math inline">\(\beta_A = 0\)</span>.</p>
+</div>
+<div id="execute-the-analysis" class="section level4 hasAnchor" number="16.2.1.2">
+<h4><span class="header-section-number">16.2.1.2</span> Execute the analysis<a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#execute-the-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Calculate the mean extra sleep.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb64-1" tabindex="-1"></a>mean.extra <span class="ot">=</span> <span class="fu">mean</span>(sleep.data<span class="sc">$</span>extra.sleep)</span>
+<span id="cb64-2"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb64-2" tabindex="-1"></a>mean.extra</span></code></pre></div>
+<pre><code>## [1] 0.75</code></pre>
+<p>(the data frame <code>extra.sleep</code> has 3 columns so I need to specify that I want to take the mean of the extra sleep column which is why <code>$</code> is there. Alternatively, I could have used <code>select()</code> from <code>dplyr</code>).</p>
+<p>We have estimated <span class="math inline">\(\hat{\beta}=0.75\)</span> hours.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb66-1" tabindex="-1"></a>mod <span class="ot">=</span> <span class="fu">t.test</span>(sleep.data<span class="sc">$</span>extra.sleep, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb66-2"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb66-2" tabindex="-1"></a>mod</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  sleep.data$extra.sleep
+## t = 1.3257, df = 9, p-value = 0.2176
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  -0.5297804  2.0297804
+## sample estimates:
+## mean of x 
+##      0.75</code></pre>
+<p>The p-value and the 95<span class="math inline">\(\%\)</span> confidence interval (overlapping 0) suggest that we cannot reject the null hypothesis that drug A does not change the amount of sleep a person gets.</p>
+<p>Dr. Schneider evaluates the model assumptions during this step, rather than exploratory analysis as presented in Quinn and Keough. This can be done with a qqplot.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb68-1" tabindex="-1"></a><span class="co"># Create the Q-Q plot</span></span>
+<span id="cb68-2"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb68-2" tabindex="-1"></a><span class="fu">ggplot</span>(sleep.data, <span class="fu">aes</span>(<span class="at">sample =</span> extra.sleep)) <span class="sc">+</span></span>
+<span id="cb68-3"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb68-3" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb68-4"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb68-4" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb68-5"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb68-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Normal Q-Q Plot&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Theoretical Quantiles (based on normal distribution)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Sample Quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb68-6"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb68-6" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-35-1.png" alt="" width="672" /></p>
+<p>This will work in place of Dr. Schneider’s plot of “Probability” versus “observations in rank order”. The plot suggests that our assumption that the response variable is normally distributed is reasonable.</p>
+<p>Many of the other assumptions of linear models are not applicable in this example of a one sample t-test. Independence of errors is pretty difficult to assess without more information on the study (the lagged residuals plot).</p>
+<p>We would like to partition the df and SS according to the model. Because we fit the model with <code>t.test()</code> rather than <code>lm()</code> we will need to calculate the SS ourselves.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb69-1" tabindex="-1"></a>epsilon <span class="ot">=</span> (sleep.data<span class="sc">$</span>extra.sleep <span class="sc">-</span> <span class="fu">mean</span>(sleep.data<span class="sc">$</span>extra.sleep))</span>
+<span id="cb69-2"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb69-2" tabindex="-1"></a>epsilon2 <span class="ot">=</span> epsilon<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb69-3"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb69-3" tabindex="-1"></a>SS.res <span class="ot">=</span> <span class="fu">sum</span>(epsilon2)</span>
+<span id="cb69-4"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb69-4" tabindex="-1"></a>total <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Total&quot;</span>, <span class="st">&quot;NA&quot;</span>, <span class="fu">sum</span>(sleep.data<span class="sc">$</span>extra.sleep), <span class="fu">round</span>(<span class="fu">sum</span>(epsilon),<span class="dv">6</span>), SS.res)</span>
+<span id="cb69-5"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb69-5" tabindex="-1"></a>sleep.data2 <span class="ot">=</span> <span class="fu">data.frame</span>(sleep.data, <span class="at">epsilon =</span> epsilon, <span class="at">epsilon2 =</span> epsilon2)</span>
+<span id="cb69-6"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb69-6" tabindex="-1"></a>sleep.data2 <span class="ot">=</span> <span class="fu">rbind</span>(sleep.data2, total)</span>
+<span id="cb69-7"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb69-7" tabindex="-1"></a>sleep.data2</span></code></pre></div>
+<pre><code>##     drug extra.sleep person epsilon epsilon2
+## 1      A         0.7      1   -0.05   0.0025
+## 2      A        -1.6      2   -2.35   5.5225
+## 3      A        -0.2      3   -0.95   0.9025
+## 4      A        -1.2      4   -1.95   3.8025
+## 5      A        -0.1      5   -0.85   0.7225
+## 6      A         3.4      6    2.65   7.0225
+## 7      A         3.7      7    2.95   8.7025
+## 8      A         0.8      8    0.05   0.0025
+## 9      A           0      9   -0.75   0.5625
+## 10     A           2     10    1.25   1.5625
+## 11 Total          NA    7.5       0   28.805</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb71-1" tabindex="-1"></a>SS.res</span></code></pre></div>
+<pre><code>## [1] 28.805</code></pre>
+<p>SS total we can calculate relative to our null hypothesis that drug A does not change the mean number of hours slept.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb73-1" tabindex="-1"></a>epsilon.total <span class="ot">=</span> sleep.data<span class="sc">$</span>extra.sleep <span class="sc">-</span> <span class="dv">0</span></span>
+<span id="cb73-2"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb73-2" tabindex="-1"></a>epsilon.total<span class="fl">.2</span> <span class="ot">=</span> epsilon.total<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb73-3"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb73-3" tabindex="-1"></a>SS.total <span class="ot">=</span> <span class="fu">sum</span>(epsilon.total<span class="fl">.2</span>)</span>
+<span id="cb73-4"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb73-4" tabindex="-1"></a>SS.total</span></code></pre></div>
+<pre><code>## [1] 34.43</code></pre>
+<p>The calculation of the p-value (0.21) from our t-statistic (1.33) needed to evaluate the df (stated as 9). Here the calculation to partition the df is shown:</p>
+<p><span class="math display">\[
+\begin{array}{lllll}
+\mbox{GLM} &amp; S &amp; = &amp;   \beta_A &amp; +  \ \ \epsilon \\
+\mbox{df} &amp; 10 &amp; = &amp;  1 &amp; + \ \ 9 \\
+\mbox{SS} &amp; 34.43 &amp; = &amp; 5.62 &amp; + \ \ 28.81 \\
+\end{array}
+\]</span></p>
+<p>The likelihood ratio is calculated as <span class="math inline">\(LR = (SS_{res}/SS_{total})^{-n/2} = (28.81/34.43)^{-10/2} = 2.4\)</span>. The observed difference (0.75 hours extra sleep) is only 2.4 times more likely than no extra sleep. This is inadequate evidence.</p>
+</div>
+</div>
+</div>
+<div id="report-the-biological-conclusion" class="section level2 hasAnchor" number="16.3">
+<h2><span class="header-section-number">16.3</span> Report the biological conclusion<a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#report-the-biological-conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The sample size is just 10 people. A power analysis suggests that we could have detected an increase of 1.29 hours slept. A bigger sample size would have helped us detect an effect. Our analysis did not suggest any change in sleep due to drug A. Additionally, given that the population is intended to be all people, it is unlikely that 10 people is a representative sample of the population. Furthermore, due to known differences in sex and other physical and socio-economic determinants of health, it would be advisable to consider some of these variables in the experimental design and analysis.</p>
+</div>
+<div id="readings-8" class="section level2 hasAnchor" number="16.4">
+<h2><span class="header-section-number">16.4</span> Readings<a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#readings-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Ch 6.2 Quinn and Keough (dives right into ANOVA)</li>
+<li><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_1.pdf">Ch 10.1</a> from Dr. Schneider’s notes (one sample t-test).</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mon-oct-19---1-way-anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -15,7 +15,8 @@ Please read Dr. Schneider's [instructions](https://davidcschneider.github.io/Sta
 All graduate students need to email me stating when they are free to meet on Tuesday Oct 20 (9am-2pm) or Thursday Oct 22 (9am-2pm) to discuss your ideas for your grad project. I will then schedule you a 10 min block to meet with me.
 
 ## Linear model for a continuous single predition (regression)
-### Predictor variable is fixed by experiment
+
+**Predictor variable is fixed by experiment**
 
 [Chapter 9.1](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch9_1.pdf) from Dr. Schneider's notes considers a linear regression where the predictor variable is fixed by the experiment. Specifically:
 
@@ -33,7 +34,7 @@ There are $n=9$ observations. Dr. Schneider's notes initially report only 8 data
 
 Rather than following the analysis from Dr. Schneider's notes, we apply the analyses from Quinn and Keough.
 
-#### Exploratory analysis
+### Exploratory analysis
 
 Quinn and Keough recommends fitting a LOESS smoother as an exploratory test to evaluate for a linear relationship. We consider boxplots of the explanatory (predictor) and response variables to look for symmetry, which suggests the residuals likely statisfy the normality assumption.
 
@@ -263,11 +264,19 @@ LR = (SSres/SSTotal)^(-n/2)
 LR
 ```
 
-Here are some additional notes from Dr. Schneider about interpreting the [LR](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch7_1.pdf) (see p17) that is calculated.
+Here are some additional notes from Dr. Schneider about interpreting the [LR](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch7_1.pdf) (see p17) that is calculated. Dr. Schneider interprets the likelihood ratio as the strength of evidence to support one model over another. He contrasts evidence with "uncertainty", which he states is what is measured by the p-value. Dr. Schneider also recommends interpretting the strength of evidence as:
 
-All of our analyses, and our graph of the model fit, indicate that the null hypothesis of no effect of soil phosphorous on corn phosphorous can be rejected.
+- LR < 10: inadequate evidence
+- LR > 10: some evidence
+- LR > 20: good evidence
+- LR > 100: strong evidence
+- LR > 1000: very strong evidence
+
+### Reporting and interpretting the analysis
 
 Dr. Schneider's notes involve several more steps. This includes making a statement about whether the sample is representative of the population.
+
+Reporting the science conclusion is important. All of our analyses, and our graph of the model fit, indicate that the null hypothesis of no effect of soil phosphorous on corn phosphorous can be rejected. Additionally, we should discuss the effect size. Specifically, we estimate that a one unit increase in ppm of soil phosphorous is associated with a 0.45 ppm increase in corn phosphorous (i.e., the estimated slope of our regression). Dr. Schneider additionally tests whether this estimated slope is greater than 1, which is a test for amplification of the phosphorous in the soil in the corn. This was done by looking at the confidence intervals for the regression slope. We had estimated the 95$\%$ confidence interval for the regression slope as $[0.16, 0.76]$. This interval does not overlap with 0, which we can understand to mean that our analysis does not support that there is no effect of soil phosphorous. In addition, it does not overlap with 1, which we can interpret to mean that not all of the soil phosphorous can be converted to corn phosphorous. (Note that due to using the 9 observations we are getting some different numbers than Dr. Schneider's notes).
 
 ## Readings
 Either:
