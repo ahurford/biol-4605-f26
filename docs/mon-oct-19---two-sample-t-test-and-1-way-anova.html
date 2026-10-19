@@ -198,7 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This lecture is based on <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_2.pdf">Chapter 10.2</a> from Dr. Schneider’s notes.</p>
 <p>In the past lecture, we considered a one-sample t-test. We had one categorical predictor variable (drug) and one level: drug A. In today’s lecture, we will have two levels of the one categorical preditor variable: drug A and drug B.</p>
 <p>For the one sample t-test, the question we considered was does the drug change the amount of sleep a person gets, and we tested whether we could reject the null hypothesis that the increase in sleep was 0 hours.</p>
-<p>For the two sample t-test, we can ask that same question, and additionally ask whether drug A and drug B perform differently from each other.</p>
+<p>For the two sample t-test, the question we are asking is “is the mean amount of extra sleep the same for the two drugs?”.</p>
 <p>Here is the description of the study:</p>
 <p>The example will be hours of extra sleep, in two drugs, hyoscyamine (Drug A) and hyoscine-L (Drug B).
 Data from Cushny AR, Peebles AR (1905). The action of optical isomers. II. Hyoscines. J Physiology 32:501-510.</p>
@@ -254,11 +254,14 @@ Data from Cushny AR, Peebles AR (1905). The action of optical isomers. II. Hyosc
 <p><span class="math display">\[
 S = \beta_{0} + \beta_{Drug}\mbox{Drug} + \epsilon,
 \]</span></p>
-<p>where <span class="math inline">\(S\)</span> is extra sleep (hours), _0 is the grand mean of extra sleep (in hours; the grand mean is the mean withough considering drug type), and <span class="math inline">\(\beta_{Drug = A}\)</span> is the amount of extra sleep for drug A relative to the grand mean (hours), <span class="math inline">\(\beta_{Drug = B}\)</span> is the amount of extra sleep for drug B relative to the grand mean (hours), <span class="math inline">\(\mbox{Drug}\)</span> is an indicator variable which is equal to 1 for the particular drug we are considering and 0 otherwise (unitless) and <span class="math inline">\(\epsilon\)</span> is the residuals.</p>
+<p>where <span class="math inline">\(S\)</span> is extra sleep (hours), _0 is the grand mean of extra sleep (in hours; the grand mean is the mean withough considering drug type), and <span class="math inline">\(\beta_A\)</span> is the amount of extra sleep for drug A relative to the grand mean (hours), <span class="math inline">\(\beta_B\)</span> is the amount of extra sleep for drug B relative to the grand mean (hours), <span class="math inline">\(\mbox{Drug}\)</span> is an indicator variable which is equal to 1 for the particular drug we are considering and 0 otherwise (unitless) and <span class="math inline">\(\epsilon\)</span> is the residuals.</p>
+<p>For the notation <span class="math inline">\(\beta_{Drug}\)</span>, the values of <span class="math inline">\(Drug\)</span> can be <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span>, which gives <span class="math inline">\(\beta_A\)</span> and <span class="math inline">\(\beta_B\)</span> as the possible values of <span class="math inline">\(\beta_{Drug}\)</span>.</p>
+<p>Our null hypothesis is that <span class="math inline">\(\beta_{A} = \beta_{B} = 0\)</span> hours, which means that both drug A and drug B have the same effect.</p>
+<p>Our alternative hypothesis is that <span class="math inline">\(\beta_{A} \neq \beta_{B} \neq 0\)</span> hours.</p>
 </div>
 <div id="execute-the-analysis-1" class="section level2 hasAnchor" number="17.2">
 <h2><span class="header-section-number">17.2</span> Execute the analysis<a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#execute-the-analysis-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Unlike the one sample t-test, where we has to use the function <code>t.test()</code>, when we have two-samples (i.e., groups or levls: the two drugs) we can use <code>lm()</code>, which is a function that we can use for all of our general linear models.</p>
+<p>Unlike the one sample t-test, where we had to use the function <code>t.test()</code>, when we have two-samples (i.e., groups or levels: the two drugs) we can use <code>lm()</code>, which is a function that we can use for all of our general linear models.</p>
 <div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb78-1" tabindex="-1"></a>sleepmodel2 <span class="ot">=</span> <span class="fu">lm</span>(extra.sleep<span class="sc">~</span>drug, <span class="at">data=</span>sleep.data2)</span>
 <span id="cb78-2"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb78-2" tabindex="-1"></a><span class="fu">summary</span>(sleepmodel2)</span></code></pre></div>
 <pre><code>## 
@@ -279,7 +282,7 @@ S = \beta_{0} + \beta_{Drug}\mbox{Drug} + \epsilon,
 ## Residual standard error: 1.899 on 18 degrees of freedom
 ## Multiple R-squared:  0.1613, Adjusted R-squared:  0.1147 
 ## F-statistic: 3.463 on 1 and 18 DF,  p-value: 0.07919</code></pre>
-<p>Since the column of our data <code>drug</code> contains letters, rather than numbers, <code>lm()</code> will treat this analysis as a t-test and not a regression.</p>
+<p>Since the column of our data <code>drug</code> contains letters, rather than numbers, <code>lm()</code> will treat this analysis as a t-test and not a regression. If there is any confusion about this, we should use the function <code>as.factor()</code> for us to tell the <code>lm()</code> function to treat the predictor variable as categorical (although here this is not necessary).</p>
 <p>Our results have been reported a bit differently than our model. Let’s calculate the grand mean, and the group means to understand the results better:</p>
 <div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb80-1" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
 <span id="cb80-2"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb80-2" tabindex="-1"></a>grand.mean <span class="ot">=</span> <span class="fu">mean</span>(sleep.data2<span class="sc">$</span>extra.sleep)</span>
@@ -291,7 +294,7 @@ S = \beta_{0} + \beta_{Drug}\mbox{Drug} + \epsilon,
 <pre><code>## [1] 0.75</code></pre>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb84-1" tabindex="-1"></a>mean.B</span></code></pre></div>
 <pre><code>## [1] 2.33</code></pre>
-<p><code>pull()</code> is necessary in the above code so that we can take the mean of the column. Given our model our parameter estimates are <span class="math inline">\(\hat{\beta} = 1.54\)</span> hours, <span class="math inline">\(\hat{\beta}_A = 0.75 - 1.54 = -0.79\)</span> hours and <span class="math inline">\(\hat{\beta}_B = 2.33 - 1.54 = 0.79\)</span> hours.</p>
+<p><code>pull()</code> is necessary in the above code so that we can take the mean of the column. Given our model our parameter estimates are <span class="math inline">\(\hat{\beta}_0 = 1.54\)</span> hours, <span class="math inline">\(\hat{\beta}_A = 0.75 - 1.54 = -0.79\)</span> hours and <span class="math inline">\(\hat{\beta}_B = 2.33 - 1.54 = 0.79\)</span> hours.</p>
 <div id="checking-model-assumptions" class="section level3 hasAnchor" number="17.2.1">
 <h3><span class="header-section-number">17.2.1</span> Checking model assumptions<a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#checking-model-assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Next we will evaluate the model assumptions. We can make a QQ-plot evaluate the assumption of normality. We note that the original <code>boxplot</code> showed some right-skewedness for both drug A and Drug B.</p>
@@ -328,8 +331,11 @@ S = \beta_{0} + \beta_{Drug}\mbox{Drug} + \epsilon,
 <span id="cb87-23"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-23" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb87-24"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-24" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="book_files/figure-html/unnamed-chunk-43-1.png" alt="" width="672" /></p>
-<p>The plot above shows the residuals versus the predicted values agains the normal distribution. There are too few observations to evaluate this assumption very well.</p>
-<p>The assumption of linearity does not apply to categorical variables. The assumption of independence is difficult to test without additional information. Therefore, there are no large violations of the model assumptions.</p>
+<p>The plot above shows the residuals versus the predicted values against the normal distribution. There are too few observations to evaluate this assumption very well.</p>
+<p>The assumption of linearity does not apply to categorical variables. The assumption of independence is difficult to test without additional information.</p>
+<p>We should consider the bar plots (see earlier in this lecture) to assess the assumption of equal variance.</p>
+<p>Therefore, there are no large violations of the model assumptions.</p>
+<p>Dr. Schneider takes a resampling approach to test if deviations from the assumptions matter. We have not considered this yet, but this is an option if you wish to test whether violations in the general linear model assumptions affect your conclusions. You can see Dr. Schneider’s notes for details.</p>
 </div>
 <div id="partitioning-ss-and-df" class="section level3 hasAnchor" number="17.2.2">
 <h3><span class="header-section-number">17.2.2</span> Partitioning SS and df<a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#partitioning-ss-and-df" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -351,10 +357,29 @@ S = \beta_{0} + \beta_{Drug}\mbox{Drug} + \epsilon,
 ## Residuals 18 64.886  3.6048                  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The result of this F-test is that we fail to reject our null hypothesis that the mean amount of extra sleep is different for each drug given that <span class="math inline">\(\alpha = 0.05\)</span> and <span class="math inline">\(p&gt;\alpha\)</span>.</p>
+<p>This is fine, but perhaps you are wondering does drug B increase sleep? This is not the question we have asked or answered. We did have output to the question is <span class="math inline">\(\beta_B = 0\)</span> earlier in the lecture. We found that the p-value associated with the mean amount of extra sleep for drug B (2.33 hours) was <span class="math inline">\(p=0.08\)</span>, while for drug A, this estimate was <span class="math inline">\(p=0.23\)</span>.</p>
+<p>While this value of <span class="math inline">\(p=0.084\)</span> is close to <span class="math inline">\(\alpha = 0.05\)</span>, when we ask many additional questions, such as is <span class="math inline">\(\beta_A = 0\)</span> and is <span class="math inline">\(\beta_B = 0\)</span>, we increase our type I error. If we ask 20 such questions, it is likely that one question will have a <span class="math inline">\(p&lt;0.05\)</span> just by random chance. Therefore, if we want to ask the question is <span class="math inline">\(\beta_B = 0\)</span>, we need to consider a Bonferroni correction of <span class="math inline">\(\alpha/n\)</span> where <span class="math inline">\(n\)</span> is the number of comparisons we are planning (in this case <span class="math inline">\(n=2\)</span>, one for each of drug A and drug B). Therefore, when we test if <span class="math inline">\(\beta_B = 0\)</span> or threshold value for <span class="math inline">\(p\)</span> is 0.025, and as such, we do not have support for drug B increasing hours of sleep.</p>
+<p>The proportion of the variance explained by the model is:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb90-1" tabindex="-1"></a>SSmodel <span class="ot">=</span> <span class="fu">anova</span>(sleepmodel2)<span class="sc">$</span><span class="st">`</span><span class="at">Sum Sq</span><span class="st">`</span>[<span class="dv">1</span>]</span>
+<span id="cb90-2"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb90-2" tabindex="-1"></a>SSTotal <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">anova</span>(sleepmodel2)<span class="sc">$</span><span class="st">`</span><span class="at">Sum Sq</span><span class="st">`</span>)</span>
+<span id="cb90-3"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb90-3" tabindex="-1"></a>R2 <span class="ot">=</span> SSmodel<span class="sc">/</span>SSTotal</span>
+<span id="cb90-4"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb90-4" tabindex="-1"></a>R2</span></code></pre></div>
+<pre><code>## [1] 0.1613329</code></pre>
+<p>The likelihood ratio is:</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb92-1" tabindex="-1"></a>LR <span class="ot">=</span> (<span class="dv">1</span><span class="sc">-</span>R2)<span class="sc">^</span>{<span class="sc">-</span><span class="dv">20</span><span class="sc">/</span><span class="dv">2</span>}</span>
+<span id="cb92-2"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb92-2" tabindex="-1"></a>LR</span></code></pre></div>
+<pre><code>## [1] 5.809031</code></pre>
+<p>An LR &lt; 20 is considered insufficient evidence of a difference between the two means (drug A and drug B).</p>
 </div>
 </div>
-<div id="readings-9" class="section level2 hasAnchor" number="17.3">
-<h2><span class="header-section-number">17.3</span> Readings<a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#readings-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="report-the-scientific-conclusion" class="section level2 hasAnchor" number="17.3">
+<h2><span class="header-section-number">17.3</span> Report the scientific conclusion<a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#report-the-scientific-conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We find not support for the hypothesis that the effect of the drugs are different. There are only 10 people involved in this study and for both drugs there is large variation in how much extra sleep people get when taking the drugs. This study should have been conducted with more people, and stratefied to detect effects of sex and other physical and socio-economic determinents of health.</p>
+<p>This analysis could also have been done as a paired t-test (where we consider that the effect of drug A and drug B in a single person is related). We will consider this as a later date.</p>
+</div>
+<div id="readings-9" class="section level2 hasAnchor" number="17.4">
+<h2><span class="header-section-number">17.4</span> Readings<a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#readings-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_2.pdf">Chapter 10.2</a></li>
 </ul>

@@ -109,6 +109,7 @@ construct-the-model-1
 execute-the-analysis-1
 checking-model-assumptions
 partitioning-ss-and-df
+report-the-scientific-conclusion
 readings-9
 wed-oct-21---review-1-explanatory-variable
 readings-10

@@ -3,15 +3,15 @@ title: "1-way ANOVA"
 output: html_document
 ---
 
-# Mon Oct 19 - Two sample t-test and 1 way ANOVA
+# Mon Oct 19 - Two sample t-test
 
 This lecture is based on [Chapter 10.2](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_2.pdf) from Dr. Schneider's notes.
 
-In the past lecture, we considered a one-sample t-test. We had one categorical predictor variable (drug) and one level: drug A. In today's lecture, we will have two levels of the one categorical preditor variable: drug A and drug B.
+In the past lecture, we considered a one-sample t-test. We had one categorical predictor variable (drug) and one level: drug A. In today's lecture, we will have two levels of the one categorical predictor variable: drug A and drug B.
 
 For the one sample t-test, the question we considered was does the drug change the amount of sleep a person gets, and we tested whether we could reject the null hypothesis that the increase in sleep was 0 hours.
 
-For the two sample t-test, we can ask that same question, and additionally ask whether drug A and drug B perform differently from each other.
+For the two sample t-test, the question we are asking is "is the mean amount of extra sleep the same for the two drugs?".
 
 Here is the description of the study:
 
@@ -58,18 +58,24 @@ Verbal model: Either drug increases sleep. Extra sleep depends on drug.
 S = \beta_{0} + \beta_{Drug}\mbox{Drug} + \epsilon,
 \]
 
-where $S$ is extra sleep (hours), \beta_0 is the grand mean of extra sleep (in hours; the grand mean is the mean withough considering drug type), and $\beta_{Drug = A}$ is the amount of extra sleep for drug A relative to the grand mean (hours), $\beta_{Drug = B}$ is the amount of extra sleep for drug B relative to the grand mean (hours), $\mbox{Drug}$ is an indicator variable which is equal to 1 for the particular drug we are considering and 0 otherwise (unitless) and $\epsilon$ is the residuals.
+where $S$ is extra sleep (hours), \beta_0 is the grand mean of extra sleep (in hours; the grand mean is the mean withough considering drug type), and $\beta_A$ is the amount of extra sleep for drug A relative to the grand mean (hours), $\beta_B$ is the amount of extra sleep for drug B relative to the grand mean (hours), $\mbox{Drug}$ is an indicator variable which is equal to 1 for the particular drug we are considering and 0 otherwise (unitless) and $\epsilon$ is the residuals.
+
+For the notation $\beta_{Drug}$, the values of $Drug$ can be $A$ or $B$, which gives $\beta_A$ and $\beta_B$ as the possible values of $\beta_{Drug}$.
+
+Our null hypothesis is that $\beta_{A} = \beta_{B} = 0$ hours, which means that both drug A and drug B have the same effect.
+
+Our alternative hypothesis is that $\beta_{A} \neq \beta_{B} \neq 0$ hours.
 
 ## Execute the analysis
 
-Unlike the one sample t-test, where we has to use the function `t.test()`, when we have two-samples (i.e., groups or levls: the two drugs) we can use `lm()`, which is a function that we can use for all of our general linear models.
+Unlike the one sample t-test, where we had to use the function `t.test()`, when we have two-samples (i.e., groups or levels: the two drugs) we can use `lm()`, which is a function that we can use for all of our general linear models.
 
 ```{r}
 sleepmodel2 = lm(extra.sleep~drug, data=sleep.data2)
 summary(sleepmodel2)
 ```
 
-Since the column of our data `drug` contains letters, rather than numbers, `lm()` will treat this analysis as a t-test and not a regression.
+Since the column of our data `drug` contains letters, rather than numbers, `lm()` will treat this analysis as a t-test and not a regression. If there is any confusion about this, we should use the function `as.factor()` for us to tell the `lm()` function to treat the predictor variable as categorical (although here this is not necessary).
 
 Our results have been reported a bit differently than our model. Let's calculate the grand mean, and the group means to understand the results better:
 
@@ -83,7 +89,7 @@ mean.A
 mean.B
 ```
 
-`pull()` is necessary in the above code so that we can take the mean of the column. Given our model our parameter estimates are $\hat{\beta} = 1.54$ hours, $\hat{\beta}_A = 0.75 - 1.54 = -0.79$ hours and $\hat{\beta}_B = 2.33 - 1.54 = 0.79$ hours.
+`pull()` is necessary in the above code so that we can take the mean of the column. Given our model our parameter estimates are $\hat{\beta}_0 = 1.54$ hours, $\hat{\beta}_A = 0.75 - 1.54 = -0.79$ hours and $\hat{\beta}_B = 2.33 - 1.54 = 0.79$ hours.
 
 ### Checking model assumptions
 
@@ -127,9 +133,15 @@ ggplot(sleep.data2, aes(x = residuals)) +
   theme_minimal()
 ```
 
-The plot above shows the residuals versus the predicted values agains the normal distribution. There are too few observations to evaluate this assumption very well.
+The plot above shows the residuals versus the predicted values against the normal distribution. There are too few observations to evaluate this assumption very well.
 
-The assumption of linearity does not apply to categorical variables. The assumption of independence is difficult to test without additional information. Therefore, there are no large violations of the model assumptions.
+The assumption of linearity does not apply to categorical variables. The assumption of independence is difficult to test without additional information.
+
+We should consider the bar plots (see earlier in this lecture) to assess the assumption of equal variance.
+
+Therefore, there are no large violations of the model assumptions.
+
+Dr. Schneider takes a resampling approach to test if deviations from the assumptions matter. We have not considered this yet, but this is an option if you wish to test whether violations in the general linear model assumptions affect your conclusions. You can see Dr. Schneider's notes for details.
 
 ### Partitioning SS and df
 The degrees of freedom for the model are the number of categories (i.e., levels or groups) - 1 = 2 - 1 = 1.
@@ -147,6 +159,36 @@ The SS values come from the `anova()` command and the formula: $SS_{Total} = SS_
 ```{r}
 anova(sleepmodel2)
 ```
+
+The result of this F-test is that we fail to reject our null hypothesis that the mean amount of extra sleep is different for each drug given that $\alpha = 0.05$ and $p>\alpha$.
+
+This is fine, but perhaps you are wondering does drug B increase sleep? This is not the question we have asked or answered. We did have output to the question is $\beta_B = 0$ earlier in the lecture. We found that the p-value associated with the mean amount of extra sleep for drug B (2.33 hours) was $p=0.08$, while for drug A, this estimate was $p=0.23$.
+
+While this value of $p=0.084$ is close to $\alpha = 0.05$, when we ask many additional questions, such as is $\beta_A = 0$ and is $\beta_B = 0$, we increase our type I error. If we ask 20 such questions, it is likely that one question will have a $p<0.05$ just by random chance. Therefore, if we want to ask the question is $\beta_B = 0$, we need to consider a Bonferroni correction of $\alpha/n$ where $n$ is the number of comparisons we are planning (in this case $n=2$, one for each of drug A and drug B). Therefore, when we test if $\beta_B = 0$ or threshold value for $p$ is 0.025, and as such, we do not have support for drug B increasing hours of sleep.
+
+The proportion of the variance explained by the model is:
+
+```{r}
+SSmodel = anova(sleepmodel2)$`Sum Sq`[1]
+SSTotal = sum(anova(sleepmodel2)$`Sum Sq`)
+R2 = SSmodel/SSTotal
+R2
+```
+
+The likelihood ratio is:
+
+```{r}
+LR = (1-R2)^{-20/2}
+LR
+```
+
+An LR < 20 is considered insufficient evidence of a difference between the two means (drug A and drug B).
+
+## Report the scientific conclusion
+We find not support for the hypothesis that the effect of the drugs are different. There are only 10 people involved in this study and for both drugs there is large variation in how much extra sleep people get when taking the drugs. This study should have been conducted with more people, and stratefied to detect effects of sex and other physical and socio-economic determinents of health.
+
+This analysis could also have been done as a paired t-test (where we consider that the effect of drug A and drug B in a single person is related). We will consider this as a later date.
+
 
 ## Readings
 - [Chapter 10.2](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_2.pdf) 
