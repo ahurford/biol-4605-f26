@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>17 Mon Oct 19 - Two sample t-test and 1 way ANOVA | book.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="17 Mon Oct 19 - Two sample t-test and 1 way ANOVA | book.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="17 Mon Oct 19 - Two sample t-test and 1 way ANOVA | book.knit" />
+  
+  
+  
+
+<meta name="author" content="Amy Hurford" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"/>
+<link rel="next" href="wed-oct-21---review-1-explanatory-variable.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to BIOL/OSCS 4605/7220!</a></li>
+<li class="chapter" data-level="2" data-path="wed-sept-9---introduction.html"><a href="wed-sept-9---introduction.html"><i class="fa fa-check"></i><b>2</b> Wed Sept 9 - Introduction</a></li>
+<li class="chapter" data-level="3" data-path="fri-sept-11---models-and-quantities.html"><a href="fri-sept-11---models-and-quantities.html"><i class="fa fa-check"></i><b>3</b> Fri Sept 11 - Models and quantities</a></li>
+<li class="chapter" data-level="4" data-path="mon-sept-14---equations-units-and-notation.html"><a href="mon-sept-14---equations-units-and-notation.html"><i class="fa fa-check"></i><b>4</b> Mon Sept 14 - Equations, units, and notation</a></li>
+<li class="chapter" data-level="5" data-path="wed-sept-16---samples-and-populations.html"><a href="wed-sept-16---samples-and-populations.html"><i class="fa fa-check"></i><b>5</b> Wed Sept 16 - Samples and populations</a></li>
+<li class="chapter" data-level="6" data-path="fri-sept-18-quiz-1-a1-due-a2-available-probability-distributions.html"><a href="fri-sept-18-quiz-1-a1-due-a2-available-probability-distributions.html"><i class="fa fa-check"></i><b>6</b> <strong>Fri Sept 18 (Quiz 1, A1 due, A2 available)</strong> Probability distributions</a></li>
+<li class="chapter" data-level="7" data-path="mon-sept-21---review-quiz-1-statistical.html"><a href="mon-sept-21---review-quiz-1-statistical.html"><i class="fa fa-check"></i><b>7</b> Mon Sept 21 - Review Quiz 1, statistical</a></li>
+<li class="chapter" data-level="8" data-path="wed-sept-23---frequentist-estimation.html"><a href="wed-sept-23---frequentist-estimation.html"><i class="fa fa-check"></i><b>8</b> Wed Sept 23 - Frequentist estimation</a></li>
+<li class="chapter" data-level="9" data-path="fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics.html"><a href="fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics.html"><i class="fa fa-check"></i><b>9</b> <strong>Fri Sept 25 (A2 due)</strong> - Hypothesis testing (frequentist) and Bayesian statistics</a></li>
+<li class="chapter" data-level="10" data-path="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html"><a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html"><i class="fa fa-check"></i><b>10</b> Mon Sept 28 - Sampling and experimental design and power analysis</a></li>
+<li class="chapter" data-level="11" data-path="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"><a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"><i class="fa fa-check"></i><b>11</b> <strong>Fri Oct 2 (Quiz 2) </strong> - What is a linear model and how to assess model fit</a></li>
+<li class="chapter" data-level="12" data-path="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html"><i class="fa fa-check"></i><b>12</b> Mon Oct 05 - Linear model fitting and how well does a linear model fit?</a></li>
+<li class="chapter" data-level="13" data-path="wed-oct-07---exploratory-data-analysis.html"><a href="wed-oct-07---exploratory-data-analysis.html"><i class="fa fa-check"></i><b>13</b> Wed Oct 07 - Exploratory data analysis</a></li>
+<li class="chapter" data-level="14" data-path="fri-oct-09---exam-i.html"><a href="fri-oct-09---exam-i.html"><i class="fa fa-check"></i><b>14</b> <strong>Fri Oct 09 - EXAM I</strong></a></li>
+<li class="chapter" data-level="15" data-path="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html"><i class="fa fa-check"></i><b>15</b> Wed Oct 14 - Regression with one predictor variable fixed by experiment</a></li>
+<li class="chapter" data-level="16" data-path="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><i class="fa fa-check"></i><b>16</b> Fri Oct 16 - Linear model for a single categorical predictor (factor)</a></li>
+<li class="chapter" data-level="17" data-path="mon-oct-19---two-sample-t-test-and-1-way-anova.html"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html"><i class="fa fa-check"></i><b>17</b> Mon Oct 19 - Two sample t-test and 1 way ANOVA</a></li>
+<li class="chapter" data-level="18" data-path="wed-oct-21---review-1-explanatory-variable.html"><a href="wed-oct-21---review-1-explanatory-variable.html"><i class="fa fa-check"></i><b>18</b> Wed Oct 21 - Review: 1 explanatory variable</a></li>
+<li class="chapter" data-level="19" data-path="fri-oct-23-quiz-3-a3-due---multiple-regression.html"><a href="fri-oct-23-quiz-3-a3-due---multiple-regression.html"><i class="fa fa-check"></i><b>19</b> <strong>Fri Oct 23 (Quiz 3, A3 due)</strong> - multiple regression</a></li>
+<li class="chapter" data-level="20" data-path="mon-oct-26---2-way-anova.html"><a href="mon-oct-26---2-way-anova.html"><i class="fa fa-check"></i><b>20</b> Mon Oct 26 - 2-way ANOVA</a></li>
+<li class="chapter" data-level="21" data-path="wed-oct-28---anova-with-interaction.html"><a href="wed-oct-28---anova-with-interaction.html"><i class="fa fa-check"></i><b>21</b> Wed Oct 28 - ANOVA with interaction</a></li>
+<li class="chapter" data-level="22" data-path="fri-oct-30-a4-due---mixed-model---paired-t-test.html"><a href="fri-oct-30-a4-due---mixed-model---paired-t-test.html"><i class="fa fa-check"></i><b>22</b> <strong>Fri Oct 30 (A4 due)</strong> - Mixed model - paired t-test</a></li>
+<li class="chapter" data-level="23" data-path="mon-nov-02---mixed-model---random-block.html"><a href="mon-nov-02---mixed-model---random-block.html"><i class="fa fa-check"></i><b>23</b> Mon Nov 02 - Mixed model - random block</a></li>
+<li class="chapter" data-level="24" data-path="wed-nov-04---nested-anova.html"><a href="wed-nov-04---nested-anova.html"><i class="fa fa-check"></i><b>24</b> Wed Nov 04 - Nested ANOVA</a></li>
+<li class="chapter" data-level="25" data-path="fri-nov-06---exam-2.html"><a href="fri-nov-06---exam-2.html"><i class="fa fa-check"></i><b>25</b> <strong>Fri Nov 06 - EXAM 2</strong></a></li>
+<li class="chapter" data-level="26" data-path="mon-nov-09---correlation-mvar.html"><a href="mon-nov-09---correlation-mvar.html"><i class="fa fa-check"></i><b>26</b> Mon Nov 09 - Correlation &amp; Mvar</a></li>
+<li class="chapter" data-level="27" data-path="fri-nov-13---gzlm-intro.html"><a href="fri-nov-13---gzlm-intro.html"><i class="fa fa-check"></i><b>27</b> Fri Nov 13 - GzLM Intro</a></li>
+<li class="chapter" data-level="28" data-path="mon-nov-16---logistic-regression.html"><a href="mon-nov-16---logistic-regression.html"><i class="fa fa-check"></i><b>28</b> Mon Nov 16 - Logistic Regression</a></li>
+<li class="chapter" data-level="29" data-path="wed-nov-18---prospective-analysis.html"><a href="wed-nov-18---prospective-analysis.html"><i class="fa fa-check"></i><b>29</b> Wed Nov 18 - Prospective Analysis</a></li>
+<li class="chapter" data-level="30" data-path="fri-nov-20-quiz-4--retrospective-analysis.html"><a href="fri-nov-20-quiz-4--retrospective-analysis.html"><i class="fa fa-check"></i><b>30</b> <strong>Fri Nov 20 (Quiz 4)</strong>- Retrospective Analysis</a></li>
+<li class="chapter" data-level="31" data-path="mon-nov-23---logistic-ancova.html"><a href="mon-nov-23---logistic-ancova.html"><i class="fa fa-check"></i><b>31</b> Mon Nov 23 - Logistic ANCOVA</a></li>
+<li class="chapter" data-level="32" data-path="wed-nov-25---poisson-regression.html"><a href="wed-nov-25---poisson-regression.html"><i class="fa fa-check"></i><b>32</b> Wed Nov 25 - Poisson Regression</a></li>
+<li class="chapter" data-level="33" data-path="fri-nov-27---contingency-tests-poisson.html"><a href="fri-nov-27---contingency-tests-poisson.html"><i class="fa fa-check"></i><b>33</b> Fri Nov 27 - Contingency Tests, Poisson</a></li>
+<li class="chapter" data-level="34" data-path="mon-nov-30---model-selection-i-eda-and-stepwise.html"><a href="mon-nov-30---model-selection-i-eda-and-stepwise.html"><i class="fa fa-check"></i><b>34</b> Mon Nov 30 - Model Selection I: EDA and Stepwise</a></li>
+<li class="chapter" data-level="35" data-path="wed-dec-02---multimodel-inf---aic-sic.html"><a href="wed-dec-02---multimodel-inf---aic-sic.html"><i class="fa fa-check"></i><b>35</b> Wed Dec 02 - Multimodel Inf - AIC, SIC</a></li>
+<li class="chapter" data-level="36" data-path="fri-dec-04---course-review.html"><a href="fri-dec-04---course-review.html"><i class="fa fa-check"></i><b>36</b> Fri Dec 04 - Course Review</a></li>
+<li class="chapter" data-level="37" data-path="assignment-1.html"><a href="assignment-1.html"><i class="fa fa-check"></i><b>37</b> Assignment 1 - Quantities (due Fri Sept 18)</a></li>
+<li class="chapter" data-level="38" data-path="assignment-2b.html"><a href="assignment-2b.html"><i class="fa fa-check"></i><b>38</b> Assignment 2 - Data equations (due Friday Sept 25)</a></li>
+<li class="chapter" data-level="39" data-path="assignment-3b.html"><a href="assignment-3b.html"><i class="fa fa-check"></i><b>39</b> Assignment 3 - Hypothesis testing (due Fri Oct 23)</a></li>
+<li class="chapter" data-level="40" data-path="assignment-4---confidence-intervals-due-fri-oct-30.html"><a href="assignment-4---confidence-intervals-due-fri-oct-30.html"><i class="fa fa-check"></i><b>40</b> Assignment 4 - Confidence intervals (due Fri Oct 30)</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mon-oct-19---two-sample-t-test-and-1-way-anova" class="section level1 hasAnchor" number="17">
+<h1><span class="header-section-number">17</span> Mon Oct 19 - Two sample t-test and 1 way ANOVA<a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#mon-oct-19---two-sample-t-test-and-1-way-anova" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This lecture is based on <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_2.pdf">Chapter 10.2</a> from Dr. Schneider’s notes.</p>
+<p>In the past lecture, we considered a one-sample t-test. We had one categorical predictor variable (drug) and one level: drug A. In today’s lecture, we will have two levels of the one categorical preditor variable: drug A and drug B.</p>
+<p>For the one sample t-test, the question we considered was does the drug change the amount of sleep a person gets, and we tested whether we could reject the null hypothesis that the increase in sleep was 0 hours.</p>
+<p>For the two sample t-test, we can ask that same question, and additionally ask whether drug A and drug B perform differently from each other.</p>
+<p>Here is the description of the study:</p>
+<p>The example will be hours of extra sleep, in two drugs, hyoscyamine (Drug A) and hyoscine-L (Drug B).
+Data from Cushny AR, Peebles AR (1905). The action of optical isomers. II. Hyoscines. J Physiology 32:501-510.</p>
+<p>Let’s load the data and graph it:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb75-1" tabindex="-1"></a>sleep.data2 <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/extrasleep.csv&quot;</span>)</span>
+<span id="cb75-2"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb75-2" tabindex="-1"></a>sleep.data2</span></code></pre></div>
+<pre><code>##    drug extra.sleep person
+## 1     A         0.7      1
+## 2     A        -1.6      2
+## 3     A        -0.2      3
+## 4     A        -1.2      4
+## 5     A        -0.1      5
+## 6     A         3.4      6
+## 7     A         3.7      7
+## 8     A         0.8      8
+## 9     A         0.0      9
+## 10    A         2.0     10
+## 11    B         1.9      1
+## 12    B         0.8      2
+## 13    B         1.1      3
+## 14    B         0.1      4
+## 15    B        -0.1      5
+## 16    B         4.4      6
+## 17    B         5.5      7
+## 18    B         1.6      8
+## 19    B         4.6      9
+## 20    B         3.4     10</code></pre>
+<p>This data format is called “long table”. Note that drug A and drug B could have been columns with the associated hours of extra sleep.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb77-2"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-2" tabindex="-1"></a><span class="fu">ggplot</span>(sleep.data2, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(drug), <span class="at">y =</span> extra.sleep)) <span class="sc">+</span></span>
+<span id="cb77-3"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-3" tabindex="-1"></a>  <span class="co"># 1. Add the box plot layer</span></span>
+<span id="cb77-4"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb77-5"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-5" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span>,       <span class="co"># CRITICAL: Prevents duplicate plotting of outliers</span></span>
+<span id="cb77-6"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-6" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;grey95&quot;</span>,          <span class="co"># Light fill to keep it as a background summary</span></span>
+<span id="cb77-7"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-7" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;maroon&quot;</span>,<span class="st">&quot;darkgray&quot;</span>)         <span class="co"># Muted border color</span></span>
+<span id="cb77-8"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb77-9"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-9" tabindex="-1"></a>  <span class="co"># 2. Add the strip plot (jittered points) layer</span></span>
+<span id="cb77-10"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-10" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(</span>
+<span id="cb77-11"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-11" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="dv">0</span>), <span class="co"># Controls data spreading</span></span>
+<span id="cb77-12"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-12" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,        <span class="co"># Pick a distinct color for raw data points</span></span>
+<span id="cb77-13"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-13" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">5</span>,                 <span class="co"># Modify point size</span></span>
+<span id="cb77-14"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-14" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb77-15"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-15" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb77-16"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-16" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Drug&quot;</span>,</span>
+<span id="cb77-17"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-17" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Extra sleep (hours)&quot;</span>,</span>
+<span id="cb77-18"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-18" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Visualize the data (two sample t-test)&quot;</span></span>
+<span id="cb77-19"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-19" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb77-20"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb77-20" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-39-1.png" alt="" width="672" /></p>
+<div id="construct-the-model-1" class="section level2 hasAnchor" number="17.1">
+<h2><span class="header-section-number">17.1</span> Construct the model<a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#construct-the-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Verbal model: Either drug increases sleep. Extra sleep depends on drug.</p>
+<p><span class="math display">\[
+S = \beta_{0} + \beta_{Drug}\mbox{Drug} + \epsilon,
+\]</span></p>
+<p>where <span class="math inline">\(S\)</span> is extra sleep (hours), _0 is the grand mean of extra sleep (in hours; the grand mean is the mean withough considering drug type), and <span class="math inline">\(\beta_{Drug = A}\)</span> is the amount of extra sleep for drug A relative to the grand mean (hours), <span class="math inline">\(\beta_{Drug = B}\)</span> is the amount of extra sleep for drug B relative to the grand mean (hours), <span class="math inline">\(\mbox{Drug}\)</span> is an indicator variable which is equal to 1 for the particular drug we are considering and 0 otherwise (unitless) and <span class="math inline">\(\epsilon\)</span> is the residuals.</p>
+</div>
+<div id="execute-the-analysis-1" class="section level2 hasAnchor" number="17.2">
+<h2><span class="header-section-number">17.2</span> Execute the analysis<a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#execute-the-analysis-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Unlike the one sample t-test, where we has to use the function <code>t.test()</code>, when we have two-samples (i.e., groups or levls: the two drugs) we can use <code>lm()</code>, which is a function that we can use for all of our general linear models.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb78-1" tabindex="-1"></a>sleepmodel2 <span class="ot">=</span> <span class="fu">lm</span>(extra.sleep<span class="sc">~</span>drug, <span class="at">data=</span>sleep.data2)</span>
+<span id="cb78-2"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb78-2" tabindex="-1"></a><span class="fu">summary</span>(sleepmodel2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = extra.sleep ~ drug, data = sleep.data2)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -2.430 -1.305 -0.580  1.455  3.170 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)   0.7500     0.6004   1.249   0.2276  
+## drugB         1.5800     0.8491   1.861   0.0792 .
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.899 on 18 degrees of freedom
+## Multiple R-squared:  0.1613, Adjusted R-squared:  0.1147 
+## F-statistic: 3.463 on 1 and 18 DF,  p-value: 0.07919</code></pre>
+<p>Since the column of our data <code>drug</code> contains letters, rather than numbers, <code>lm()</code> will treat this analysis as a t-test and not a regression.</p>
+<p>Our results have been reported a bit differently than our model. Let’s calculate the grand mean, and the group means to understand the results better:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb80-1" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
+<span id="cb80-2"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb80-2" tabindex="-1"></a>grand.mean <span class="ot">=</span> <span class="fu">mean</span>(sleep.data2<span class="sc">$</span>extra.sleep)</span>
+<span id="cb80-3"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb80-3" tabindex="-1"></a>mean.A <span class="ot">=</span> sleep.data2<span class="sc">%&gt;%</span><span class="fu">filter</span>(drug<span class="sc">==</span><span class="st">&quot;A&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">pull</span>(extra.sleep)<span class="sc">%&gt;%</span><span class="fu">mean</span>()</span>
+<span id="cb80-4"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb80-4" tabindex="-1"></a>mean.B <span class="ot">=</span> sleep.data2<span class="sc">%&gt;%</span><span class="fu">filter</span>(drug<span class="sc">==</span><span class="st">&quot;B&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">pull</span>(extra.sleep)<span class="sc">%&gt;%</span><span class="fu">mean</span>()</span>
+<span id="cb80-5"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb80-5" tabindex="-1"></a>grand.mean</span></code></pre></div>
+<pre><code>## [1] 1.54</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb82-1" tabindex="-1"></a>mean.A</span></code></pre></div>
+<pre><code>## [1] 0.75</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb84-1" tabindex="-1"></a>mean.B</span></code></pre></div>
+<pre><code>## [1] 2.33</code></pre>
+<p><code>pull()</code> is necessary in the above code so that we can take the mean of the column. Given our model our parameter estimates are <span class="math inline">\(\hat{\beta} = 1.54\)</span> hours, <span class="math inline">\(\hat{\beta}_A = 0.75 - 1.54 = -0.79\)</span> hours and <span class="math inline">\(\hat{\beta}_B = 2.33 - 1.54 = 0.79\)</span> hours.</p>
+<div id="checking-model-assumptions" class="section level3 hasAnchor" number="17.2.1">
+<h3><span class="header-section-number">17.2.1</span> Checking model assumptions<a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#checking-model-assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Next we will evaluate the model assumptions. We can make a QQ-plot evaluate the assumption of normality. We note that the original <code>boxplot</code> showed some right-skewedness for both drug A and Drug B.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb86-1" tabindex="-1"></a><span class="co"># Create the Q-Q plot</span></span>
+<span id="cb86-2"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb86-2" tabindex="-1"></a><span class="fu">ggplot</span>(sleep.data2, <span class="fu">aes</span>(<span class="at">sample =</span> extra.sleep)) <span class="sc">+</span></span>
+<span id="cb86-3"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb86-3" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span></span>
+<span id="cb86-4"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb86-4" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>(<span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb86-5"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb86-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Normal Q-Q Plot&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Theoretical Quantiles (based on normal distribution)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Sample Quantiles&quot;</span>) <span class="sc">+</span></span>
+<span id="cb86-6"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb86-6" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-42-1.png" alt="" width="672" /></p>
+<p>The deviation of the sample values from the theoretical values for large negative and positive values supports the right-skewedness of the distribution of the response variable. We can plot the distribution of our residuals for both of the groups:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-1" tabindex="-1"></a>sleep.data2<span class="sc">$</span>residuals <span class="ot">&lt;-</span> <span class="fu">residuals</span>(sleepmodel2)</span>
+<span id="cb87-2"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-2" tabindex="-1"></a></span>
+<span id="cb87-3"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-3" tabindex="-1"></a><span class="co"># 2. Plot using density instead of count</span></span>
+<span id="cb87-4"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-4" tabindex="-1"></a><span class="fu">ggplot</span>(sleep.data2, <span class="fu">aes</span>(<span class="at">x =</span> residuals)) <span class="sc">+</span></span>
+<span id="cb87-5"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-5" tabindex="-1"></a>  <span class="co"># after_stat(density) normalizes the bars so the curve fits the y-axis scale</span></span>
+<span id="cb87-6"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-6" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">bins =</span> <span class="dv">15</span>, </span>
+<span id="cb87-7"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-7" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb87-8"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-8" tabindex="-1"></a>  </span>
+<span id="cb87-9"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-9" tabindex="-1"></a>  <span class="co"># Layer a theoretical normal curve over each group&#39;s data</span></span>
+<span id="cb87-10"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-10" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb87-11"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-11" tabindex="-1"></a>    <span class="at">fun =</span> dnorm, </span>
+<span id="cb87-12"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-12" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fu">sd</span>(sleep.data2<span class="sc">$</span>residuals)), <span class="co"># ANOVA assumes pooled residual variance</span></span>
+<span id="cb87-13"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-13" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb87-14"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-14" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">1</span></span>
+<span id="cb87-15"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-15" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb87-16"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-16" tabindex="-1"></a>  </span>
+<span id="cb87-17"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-17" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb87-18"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-18" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> drug) <span class="sc">+</span> </span>
+<span id="cb87-19"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-19" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb87-20"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-20" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Residual Histograms vs. Theoretical Normal Distribution&quot;</span>,</span>
+<span id="cb87-21"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-21" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Residuals&quot;</span>,</span>
+<span id="cb87-22"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-22" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Density&quot;</span></span>
+<span id="cb87-23"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-23" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb87-24"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb87-24" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-43-1.png" alt="" width="672" /></p>
+<p>The plot above shows the residuals versus the predicted values agains the normal distribution. There are too few observations to evaluate this assumption very well.</p>
+<p>The assumption of linearity does not apply to categorical variables. The assumption of independence is difficult to test without additional information. Therefore, there are no large violations of the model assumptions.</p>
+</div>
+<div id="partitioning-ss-and-df" class="section level3 hasAnchor" number="17.2.2">
+<h3><span class="header-section-number">17.2.2</span> Partitioning SS and df<a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#partitioning-ss-and-df" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The degrees of freedom for the model are the number of categories (i.e., levels or groups) - 1 = 2 - 1 = 1.</p>
+<p><span class="math display">\[
+\begin{array}{lllll}
+\mbox{GLM} &amp; S-\beta_0 &amp; = &amp;   \beta_{Drug}\mbox{Drug} &amp; +  \ \ \epsilon \\
+\mbox{df} &amp; 20-1 &amp; = &amp;  2-1 &amp; + \ \ 18 \\
+\mbox{SS} &amp; 77.37 &amp; = &amp; 12.48 &amp; + \ \ 64.89 \\
+\end{array}
+\]</span></p>
+<p>The SS values come from the <code>anova()</code> command and the formula: <span class="math inline">\(SS_{Total} = SS_{model}+SS_{residual}\)</span>.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#cb88-1" tabindex="-1"></a><span class="fu">anova</span>(sleepmodel2)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: extra.sleep
+##           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+## drug       1 12.482 12.4820  3.4626 0.07919 .
+## Residuals 18 64.886  3.6048                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+</div>
+<div id="readings-9" class="section level2 hasAnchor" number="17.3">
+<h2><span class="header-section-number">17.3</span> Readings<a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html#readings-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_2.pdf">Chapter 10.2</a></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="wed-oct-21---review-1-explanatory-variable.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

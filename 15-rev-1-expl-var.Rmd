@@ -41,8 +41,6 @@ Graph the data:
 
 ```{r}
 library(ggplot2)
-
-# Using the built-in ToothGrowth dataset for demonstration
 ggplot(sleep.data, aes(x = factor(drug), y = extra.sleep)) +
   # 1. Add the box plot layer
   geom_boxplot(

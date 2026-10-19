@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html"/>
-<link rel="next" href="mon-oct-19---1-way-anova.html"/>
+<link rel="next" href="mon-oct-19---two-sample-t-test-and-1-way-anova.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -152,7 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14" data-path="fri-oct-09---exam-i.html"><a href="fri-oct-09---exam-i.html"><i class="fa fa-check"></i><b>14</b> <strong>Fri Oct 09 - EXAM I</strong></a></li>
 <li class="chapter" data-level="15" data-path="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html"><a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html"><i class="fa fa-check"></i><b>15</b> Wed Oct 14 - Regression with one predictor variable fixed by experiment</a></li>
 <li class="chapter" data-level="16" data-path="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><i class="fa fa-check"></i><b>16</b> Fri Oct 16 - Linear model for a single categorical predictor (factor)</a></li>
-<li class="chapter" data-level="17" data-path="mon-oct-19---1-way-anova.html"><a href="mon-oct-19---1-way-anova.html"><i class="fa fa-check"></i><b>17</b> Mon Oct 19 - 1 way ANOVA</a></li>
+<li class="chapter" data-level="17" data-path="mon-oct-19---two-sample-t-test-and-1-way-anova.html"><a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html"><i class="fa fa-check"></i><b>17</b> Mon Oct 19 - Two sample t-test and 1 way ANOVA</a></li>
 <li class="chapter" data-level="18" data-path="wed-oct-21---review-1-explanatory-variable.html"><a href="wed-oct-21---review-1-explanatory-variable.html"><i class="fa fa-check"></i><b>18</b> Wed Oct 21 - Review: 1 explanatory variable</a></li>
 <li class="chapter" data-level="19" data-path="fri-oct-23-quiz-3-a3-due---multiple-regression.html"><a href="fri-oct-23-quiz-3-a3-due---multiple-regression.html"><i class="fa fa-check"></i><b>19</b> <strong>Fri Oct 23 (Quiz 3, A3 due)</strong> - multiple regression</a></li>
 <li class="chapter" data-level="20" data-path="mon-oct-26---2-way-anova.html"><a href="mon-oct-26---2-way-anova.html"><i class="fa fa-check"></i><b>20</b> Mon Oct 26 - 2-way ANOVA</a></li>
@@ -231,28 +231,26 @@ II. Hyoscines. J Physiology 32:501-510.</p>
 <p>State our verbal hypothesis: People who take Drug A get more or less sleep.</p>
 <p>Graph the data:</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb63-2"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-2" tabindex="-1"></a></span>
-<span id="cb63-3"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-3" tabindex="-1"></a><span class="co"># Using the built-in ToothGrowth dataset for demonstration</span></span>
-<span id="cb63-4"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-4" tabindex="-1"></a><span class="fu">ggplot</span>(sleep.data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(drug), <span class="at">y =</span> extra.sleep)) <span class="sc">+</span></span>
-<span id="cb63-5"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-5" tabindex="-1"></a>  <span class="co"># 1. Add the box plot layer</span></span>
-<span id="cb63-6"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
-<span id="cb63-7"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-7" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span>,       <span class="co"># CRITICAL: Prevents duplicate plotting of outliers</span></span>
-<span id="cb63-8"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-8" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;grey95&quot;</span>,          <span class="co"># Light fill to keep it as a background summary</span></span>
-<span id="cb63-9"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-9" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;maroon&quot;</span>         <span class="co"># Muted border color</span></span>
-<span id="cb63-10"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-10" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb63-11"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-11" tabindex="-1"></a>  <span class="co"># 2. Add the strip plot (jittered points) layer</span></span>
-<span id="cb63-12"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-12" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(</span>
-<span id="cb63-13"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-13" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="dv">0</span>), <span class="co"># Controls data spreading</span></span>
-<span id="cb63-14"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-14" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,        <span class="co"># Pick a distinct color for raw data points</span></span>
-<span id="cb63-15"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-15" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">5</span>,                 <span class="co"># Modify point size</span></span>
-<span id="cb63-16"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-16" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb63-17"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-17" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb63-18"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-18" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Drug A&quot;</span>,</span>
-<span id="cb63-19"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-19" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Extra sleep (hours)&quot;</span>,</span>
-<span id="cb63-20"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-20" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Visualize the data (single sample t-test)&quot;</span></span>
-<span id="cb63-21"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-21" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb63-22"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-22" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb63-23"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-23" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<span id="cb63-2"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-2" tabindex="-1"></a><span class="fu">ggplot</span>(sleep.data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(drug), <span class="at">y =</span> extra.sleep)) <span class="sc">+</span></span>
+<span id="cb63-3"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-3" tabindex="-1"></a>  <span class="co"># 1. Add the box plot layer</span></span>
+<span id="cb63-4"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb63-5"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-5" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span>,       <span class="co"># CRITICAL: Prevents duplicate plotting of outliers</span></span>
+<span id="cb63-6"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-6" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;grey95&quot;</span>,          <span class="co"># Light fill to keep it as a background summary</span></span>
+<span id="cb63-7"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-7" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;maroon&quot;</span>         <span class="co"># Muted border color</span></span>
+<span id="cb63-8"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb63-9"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-9" tabindex="-1"></a>  <span class="co"># 2. Add the strip plot (jittered points) layer</span></span>
+<span id="cb63-10"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-10" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(</span>
+<span id="cb63-11"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-11" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="dv">0</span>), <span class="co"># Controls data spreading</span></span>
+<span id="cb63-12"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-12" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,        <span class="co"># Pick a distinct color for raw data points</span></span>
+<span id="cb63-13"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-13" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">5</span>,                 <span class="co"># Modify point size</span></span>
+<span id="cb63-14"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-14" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb63-15"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-15" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb63-16"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-16" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Drug A&quot;</span>,</span>
+<span id="cb63-17"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-17" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Extra sleep (hours)&quot;</span>,</span>
+<span id="cb63-18"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-18" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Visualize the data (single sample t-test)&quot;</span></span>
+<span id="cb63-19"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-19" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb63-20"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-20" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb63-21"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html#cb63-21" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
 <p><img src="book_files/figure-html/unnamed-chunk-32-1.png" alt="" width="672" /></p>
 <p>This plot shows that the median extra sleep is <span class="math inline">\(&gt;0\)</span>, but not by a lot (small effect size) and also that there is a lot of variation between individuals such that the interquartile range overlaps with 0 (no extra sleep). There are also few observations. As part of our exploratory analysis we should also evaluate if the observations are symmetric around the median (i.e., to evaluate the assumption of normality).</p>
 <p>Formal model:</p>
@@ -353,7 +351,7 @@ S = \beta_A + \epsilon
         </div>
       </div>
 <a href="wed-oct-14---regression-with-one-predictor-variable-fixed-by-experiment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="mon-oct-19---1-way-anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mon-oct-19---two-sample-t-test-and-1-way-anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
