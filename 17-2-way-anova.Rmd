@@ -3,12 +3,12 @@ title: "rev: 1 expl var"
 output: html_document
 ---
 
-# Wed Oct 21 - Review: 1 explanatory variable
+# Wed Oct 21 - One way ANOVA (fixed effects)
 
-## Readings
-- Ch11
-
+This lecture is based on Chapter [10.3](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_3.pdf)  of Dr. Schneider's notes.
 
 
-### Upcoming assessments
-- **Fri 23 Oct:** Lab 6a, Quiz 6
+
+### Readings
+[Ch 10.3](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_3.pdf) 
+

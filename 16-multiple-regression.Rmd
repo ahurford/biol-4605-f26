@@ -46,8 +46,7 @@ ggplot(sleep.data2, aes(x = factor(drug), y = extra.sleep)) +
     x = "Drug",
     y = "Extra sleep (hours)",
     title = "Visualize the data (two sample t-test)"
-  ) +
-  theme_minimal()
+  )+theme_minimal()
 ```
 
 ## Construct the model
@@ -162,9 +161,11 @@ anova(sleepmodel2)
 
 The result of this F-test is that we fail to reject our null hypothesis that the mean amount of extra sleep is different for each drug given that $\alpha = 0.05$ and $p>\alpha$.
 
-This is fine, but perhaps you are wondering does drug B increase sleep? This is not the question we have asked or answered. We did have output to the question is $\beta_B = 0$ earlier in the lecture. We found that the p-value associated with the mean amount of extra sleep for drug B (2.33 hours) was $p=0.08$, while for drug A, this estimate was $p=0.23$.
+This is fine, but perhaps you are wondering does drug B increase sleep? This is not the question we have asked or answered. We did have output to the question is $\hat{\beta_0} + \hat{\beta}_B = 0$ earlier in the lecture. We found that the p-value associated with the mean amount of extra sleep for drug B (2.33 hours) was $p=0.08$, while for drug A, this estimate was $p=0.23$.
 
-While this value of $p=0.084$ is close to $\alpha = 0.05$, when we ask many additional questions, such as is $\beta_A = 0$ and is $\beta_B = 0$, we increase our type I error. If we ask 20 such questions, it is likely that one question will have a $p<0.05$ just by random chance. Therefore, if we want to ask the question is $\beta_B = 0$, we need to consider a Bonferroni correction of $\alpha/n$ where $n$ is the number of comparisons we are planning (in this case $n=2$, one for each of drug A and drug B). Therefore, when we test if $\beta_B = 0$ or threshold value for $p$ is 0.025, and as such, we do not have support for drug B increasing hours of sleep.
+While this value of $p=0.08$ is close to $\alpha = 0.05$, when we ask many additional questions, such as is $\beta_0 + \beta_A = 0$ and is $\beta_0 + \beta_B = 0$, we increase our type I error. If we ask 20 such questions, it is likely that one question will have a $p<0.05$ just by random chance.
+
+Therefore, if we want to ask the question is $\beta_0 + \beta_B = 0$, we need to consider a Bonferroni correction of $\alpha/n$ where $n$ is the number of comparisons we are planning (in this case $n=2$, one for each of drug A and drug B). Therefore, when we test if $\beta_0 + \beta_B = 0$ our threshold value for $p$ is 0.025, and as such, we do not have support for drug B increasing hours of sleep.
 
 The proportion of the variance explained by the model is:
 
@@ -181,6 +182,8 @@ The likelihood ratio is:
 LR = (1-R2)^{-20/2}
 LR
 ```
+
+This is not much variance in the response variable (extra sleep pooled by drugs) than explained by the model (grouping by drug A and B).
 
 An LR < 20 is considered insufficient evidence of a difference between the two means (drug A and drug B).
 
