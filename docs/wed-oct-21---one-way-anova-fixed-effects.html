@@ -196,10 +196,445 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="wed-oct-21---one-way-anova-fixed-effects" class="section level1 hasAnchor" number="18">
 <h1><span class="header-section-number">18</span> Wed Oct 21 - One way ANOVA (fixed effects)<a href="wed-oct-21---one-way-anova-fixed-effects.html#wed-oct-21---one-way-anova-fixed-effects" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This lecture is based on Chapter <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_3.pdf">10.3</a> of Dr. Schneider’s notes.</p>
-<div id="readings-10" class="section level3 hasAnchor" number="18.0.1">
-<h3><span class="header-section-number">18.0.1</span> Readings<a href="wed-oct-21---one-way-anova-fixed-effects.html#readings-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Sokal and Rohlf (1995, Box 9.4) present pea section lengths in ocular units (0.114
+units/mm). The purpose of the experiment was to test the effects of four sugars and one
+control on growth as measured by pea section length. Instead of asking “What is the best
+test?” or What test do I use?” we ask: “What model do I use to analyze the effects?”</p>
+<div id="construct-the-model-2" class="section level2 hasAnchor" number="18.1">
+<h2><span class="header-section-number">18.1</span> Construct the model<a href="wed-oct-21---one-way-anova-fixed-effects.html#construct-the-model-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Verbal model:</strong> pea section lengths in treated groups differ from the control (untreated)
+group and among themselves.</p>
+<p>From the verbal model we see that we have one response variable (pea section length)
+and an explanatory variable (four sugars and one control; 5 levels/groups).
+The explanatory variable consists of groups—it is a categorical variable</p>
+<p>Let’s write the code to load and plot the data:</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb94-1" tabindex="-1"></a>pea.data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/pea-length.csv&quot;</span>)</span>
+<span id="cb94-2"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb94-2" tabindex="-1"></a>pea.data</span></code></pre></div>
+<pre><code>##    treatment length
+## 1    Control     65
+## 2    Control     67
+## 3    Control     68
+## 4    Control     70
+## 5    Control     71
+## 6    Control     75
+## 7    Control     76
+## 8    Control     74
+## 9    Control     72
+## 10   Control     68
+## 11   Control     66
+## 12   Glucose     57
+## 13   Glucose     58
+## 14   Glucose     59
+## 15   Glucose     60
+## 16   Glucose     61
+## 17   Glucose     62
+## 18   Glucose     60
+## 19   Glucose     60
+## 20   Glucose     59
+## 21   Glucose     59
+## 22   Glucose     59
+## 23  Fructose     56
+## 24  Fructose     57
+## 25  Fructose     58
+## 26  Fructose     60
+## 27  Fructose     61
+## 28  Fructose     58
+## 29  Fructose     58
+## 30  Fructose     58
+## 31  Fructose     58
+## 32  Fructose     58
+## 33  Fructose     58
+## 34  Fructose     58
+## 35   Sucrose     56
+## 36   Sucrose     57
+## 37   Sucrose     58
+## 38   Sucrose     59
+## 39   Sucrose     61
+## 40 Gluc.Fruc     62
+## 41 Gluc.Fruc     63
+## 42 Gluc.Fruc     64
+## 43 Gluc.Fruc     65
+## 44 Gluc.Fruc     66
+## 45 Gluc.Fruc     67
+## 46 Gluc.Fruc     64
+## 47 Gluc.Fruc     65
+## 48 Gluc.Fruc     64
+## 49 Gluc.Fruc     65
+## 50 Gluc.Fruc     65</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-1" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
+<span id="cb96-2"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-2" tabindex="-1"></a><span class="fu">ggplot</span>(pea.data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(treatment), <span class="at">y =</span> length, <span class="at">fill =</span> <span class="fu">factor</span>(treatment), <span class="at">color =</span> <span class="fu">factor</span>(treatment))) <span class="sc">+</span></span>
+<span id="cb96-3"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-3" tabindex="-1"></a>  <span class="co"># 1. Add the violin plot layer</span></span>
+<span id="cb96-4"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-4" tabindex="-1"></a>  <span class="fu">geom_violin</span>(</span>
+<span id="cb96-5"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-5" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>                  <span class="co"># Makes the violin fill transparent</span></span>
+<span id="cb96-6"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-6" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb96-7"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-7" tabindex="-1"></a>  <span class="co"># 2. Add the strip plot (jittered points) layer</span></span>
+<span id="cb96-8"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-8" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(</span>
+<span id="cb96-9"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-9" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="dv">0</span>), <span class="co"># Controls data spreading</span></span>
+<span id="cb96-10"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-10" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,      </span>
+<span id="cb96-11"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-11" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>                     <span class="co"># Modify point size</span></span>
+<span id="cb96-12"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-12" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb96-13"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-13" tabindex="-1"></a>  <span class="co"># 3. Specify the custom colors for each of the 5 treatments</span></span>
+<span id="cb96-14"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-14" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;maroon&quot;</span>, <span class="st">&quot;darkgray&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;lightgray&quot;</span>, <span class="st">&quot;gold2&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb96-15"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-15" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;maroon&quot;</span>, <span class="st">&quot;darkgray&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;lightgray&quot;</span>, <span class="st">&quot;gold2&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb96-16"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-16" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb96-17"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-17" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Treatment&quot;</span>,</span>
+<span id="cb96-18"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-18" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;length (units/mm)&quot;</span>,</span>
+<span id="cb96-19"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-19" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Visualize the data (one categorical explanatory variable with 5 levels - ANOVA)&quot;</span></span>
+<span id="cb96-20"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-20" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb96-21"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-21" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb96-22"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb96-22" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="co"># Hides the redundant legend since treatments are already on the x-axis</span></span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-48-1.png" alt="" width="672" /></p>
+<p>This is a figure that could support our results in a published paper. Alongside it we could report the results of our statistical analysis. We have switched from a boxplot to a violin plot. For comparison here is the box plot:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb97-2"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-2" tabindex="-1"></a><span class="fu">ggplot</span>(pea.data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(treatment), <span class="at">y =</span> length)) <span class="sc">+</span></span>
+<span id="cb97-3"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-3" tabindex="-1"></a>  <span class="co"># 1. Add the box plot layer</span></span>
+<span id="cb97-4"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb97-5"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-5" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span>,       <span class="co"># CRITICAL: Prevents duplicate plotting of outliers</span></span>
+<span id="cb97-6"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-6" tabindex="-1"></a>    <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;maroon&quot;</span>, <span class="st">&quot;darkgray&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;lightgray&quot;</span>, <span class="st">&quot;gold2&quot;</span>),          </span>
+<span id="cb97-7"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-7" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;maroon&quot;</span>, <span class="st">&quot;darkgray&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;lightgray&quot;</span>, <span class="st">&quot;gold2&quot;</span>),       <span class="co"># Memorial colours</span></span>
+<span id="cb97-8"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-8" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span> <span class="co"># some transparency so we can still read the plot</span></span>
+<span id="cb97-9"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-9" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb97-10"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-10" tabindex="-1"></a>  <span class="co"># 2. Add the strip plot (jittered points) layer</span></span>
+<span id="cb97-11"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-11" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(</span>
+<span id="cb97-12"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-12" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="dv">0</span>), <span class="co"># Controls data spreading</span></span>
+<span id="cb97-13"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-13" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,        <span class="co"># Pick a distinct color for raw data points</span></span>
+<span id="cb97-14"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-14" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,                 <span class="co"># Modify point size</span></span>
+<span id="cb97-15"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-15" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb97-16"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-16" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb97-17"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-17" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Treatment&quot;</span>,</span>
+<span id="cb97-18"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-18" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;length (units/mm)&quot;</span>,</span>
+<span id="cb97-19"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-19" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;For comparison with the violin plot&quot;</span></span>
+<span id="cb97-20"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb97-20" tabindex="-1"></a>  )<span class="sc">+</span><span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-49-1.png" alt="" width="672" /></p>
+<p>For both plots the assumption of equal variance for each group does not appear to be met. There are also some outliers. Nonetheless, normal errors are reasonable place to start.</p>
+<p><strong>Write the model</strong>.</p>
+<p><span class="math display">\[L = \beta_0 + \beta_{Trt}\mbox{Trt} + \epsilon, \]</span></p>
+<p>where <span class="math inline">\(L\)</span> is ocular length (units/mm), <span class="math inline">\(\beta_0\)</span> is the grand mean (units/mm), <span class="math inline">\(\beta_{Trt}\)</span> is the effect of each treatment relative to the grand mean (units/mm), <span class="math inline">\(\mbox{Trt}\)</span> is an indicator variable, and <span class="math inline">\(\epsilon\)</span> is normally distributed normal errors (units/mm). The explanatory variable, treatment is a <em>fixed effect</em> as we will infer our results to these groups: Control; Glucose; Fructose; Sucrose; and Glucose and Fructose (and not other sugars). The parameter <span class="math inline">\(\beta_{Trt} \in \{\beta_{Control}, \beta_{Glucose}, \beta_{Fructose}, \beta_{Sucrose}, \beta_{Gluc+Fruc}\}\)</span>.</p>
+<p><strong>Aside.</strong> The name of the analysis is one-way ANOVA. This is because we have one explanatory (predictor) variable and &gt;3 levels of the categorical variable. This is a different name for a very similar analysis that we did for one explanatory (predictor) variable and 2 levels of the categorical variable, which is referred to as a 2-sample t-test.</p>
+<p>When we had one continuous explanatory variable (and a continuous response variable), the name of the analysis is regression.</p>
+</div>
+<div id="execute-the-analysis." class="section level2 hasAnchor" number="18.2">
+<h2><span class="header-section-number">18.2</span> Execute the analysis.<a href="wed-oct-21---one-way-anova-fixed-effects.html#execute-the-analysis." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb98-1" tabindex="-1"></a>pea.model <span class="ot">=</span> <span class="fu">lm</span>(length<span class="sc">~</span>treatment, <span class="at">data=</span>pea.data)</span>
+<span id="cb98-2"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb98-2" tabindex="-1"></a><span class="fu">summary</span>(pea.model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = length ~ treatment, data = pea.data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.1818 -1.0114 -0.1667  0.7364  5.8182 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)         70.1818     0.6507 107.864  &lt; 2e-16 ***
+## treatmentFructose  -12.0152     0.9008 -13.338  &lt; 2e-16 ***
+## treatmentGluc.Fruc  -5.6364     0.9202  -6.125 2.03e-07 ***
+## treatmentGlucose   -10.7273     0.9202 -11.658 3.44e-15 ***
+## treatmentSucrose   -11.9818     1.1639 -10.294 2.08e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.158 on 45 degrees of freedom
+## Multiple R-squared:  0.8418, Adjusted R-squared:  0.8277 
+## F-statistic: 59.86 on 4 and 45 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb100-1" tabindex="-1"></a><span class="fu">mean</span>(pea.data<span class="sc">$</span>length)</span></code></pre></div>
+<pre><code>## [1] 62.5</code></pre>
+<p>Our estimate of the grand mean is <span class="math inline">\(\hat{\beta}_0 = 62.5\)</span> units per mm. We notice that “Control” is missing from our output, so this is reported as “Intercept”. Our estimates of the group means are:</p>
+<p><span class="math display">\[\hat{\beta}_{0} + \hat{\beta}_{Control} = 70.2\]</span></p>
+<p><span class="math display">\[\hat{\beta}_{0} + \hat{\beta}_{Fructose} = 70.2 - 12.0 = 58.2\]</span></p>
+<p><span class="math display">\[\hat{\beta}_{0} + \hat{\beta}_{Gluc+Fruc} = 70.2 - 5.6 = 64.6\]</span></p>
+<p><span class="math display">\[\hat{\beta}_{0} + \hat{\beta}_{Gluc} = 70.2 - 10.7 = 59.5\]</span></p>
+<p><span class="math display">\[\hat{\beta}_{0} + \hat{\beta}_{Sucrose} = 70.2 - 12.0 = 58.2\]</span></p>
+<p>which all have units per mm. In case we have concerns about our calculations, we could also calculate the group means (rounded to the nearest 0.1 unit per mm).</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb102-1" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
+<span id="cb102-2"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb102-2" tabindex="-1"></a>group.means<span class="ot">=</span>pea.data<span class="sc">%&gt;%</span><span class="fu">group_by</span>(treatment)<span class="sc">%&gt;%</span><span class="fu">summarise</span>(<span class="at">group.mean=</span><span class="fu">round</span>(<span class="fu">mean</span>(length),<span class="dv">1</span>))<span class="sc">%&gt;%</span><span class="fu">as.data.frame</span>()</span>
+<span id="cb102-3"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb102-3" tabindex="-1"></a>group.means</span></code></pre></div>
+<pre><code>##   treatment group.mean
+## 1   Control       70.2
+## 2  Fructose       58.2
+## 3 Gluc.Fruc       64.5
+## 4   Glucose       59.5
+## 5   Sucrose       58.2</code></pre>
+<p>We can evaluate our assumption of normally distributed errors (which, in this case, is with respect to the fitted values (the group means) and the observations).</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-1" tabindex="-1"></a>pea.data<span class="sc">$</span>residuals <span class="ot">&lt;-</span> <span class="fu">residuals</span>(pea.model)</span>
+<span id="cb104-2"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-2" tabindex="-1"></a></span>
+<span id="cb104-3"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-3" tabindex="-1"></a><span class="co"># Plot using density instead of count</span></span>
+<span id="cb104-4"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-4" tabindex="-1"></a><span class="fu">ggplot</span>(pea.data, <span class="fu">aes</span>(<span class="at">x =</span> residuals)) <span class="sc">+</span></span>
+<span id="cb104-5"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-5" tabindex="-1"></a>  <span class="co"># after_stat(density) normalizes the bars so the curve fits the y-axis scale</span></span>
+<span id="cb104-6"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-6" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">bins =</span> <span class="dv">15</span>, </span>
+<span id="cb104-7"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-7" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb104-8"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-8" tabindex="-1"></a>  </span>
+<span id="cb104-9"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-9" tabindex="-1"></a><span class="co"># Layer a theoretical normal curve over the overall residuals data</span></span>
+<span id="cb104-10"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-10" tabindex="-1"></a><span class="fu">stat_function</span>(</span>
+<span id="cb104-11"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-11" tabindex="-1"></a>  <span class="at">fun =</span> dnorm, </span>
+<span id="cb104-12"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-12" tabindex="-1"></a>  <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fu">sd</span>(pea.data<span class="sc">$</span>residuals)), </span>
+<span id="cb104-13"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-13" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb104-14"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-14" tabindex="-1"></a>  <span class="at">linewidth =</span> <span class="dv">1</span></span>
+<span id="cb104-15"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-15" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb104-16"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-16" tabindex="-1"></a>  </span>
+<span id="cb104-17"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-17" tabindex="-1"></a><span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb104-18"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-18" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb104-19"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-19" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Residual Histogram vs. Theoretical Normal Distribution&quot;</span>,</span>
+<span id="cb104-20"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-20" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">&quot;Residuals&quot;</span>,</span>
+<span id="cb104-21"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-21" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">&quot;Density&quot;</span></span>
+<span id="cb104-22"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-22" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb104-23"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb104-23" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-52-1.png" alt="" width="672" /></p>
+<p>Aside from more observations of little deviation of the data from the group means (low variance), these sample quantiles match the quantiles of the normal distribution quite well for this pea length data example.</p>
+<p>We should also test our hypothesis that the group means for these treatments are different.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb105-1" tabindex="-1"></a><span class="fu">anova</span>(pea.model)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: length
+##           Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## treatment  4 1114.94 278.736  59.855 &lt; 2.2e-16 ***
+## Residuals 45  209.56   4.657                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Given this p-value, it is very unlikely that the null hypothesis that all the group means are equal could have produced an F-value this large by chance.</p>
+</div>
+<div id="partition-ss-and-df" class="section level2 hasAnchor" number="18.3">
+<h2><span class="header-section-number">18.3</span> Partition SS and df<a href="wed-oct-21---one-way-anova-fixed-effects.html#partition-ss-and-df" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Our SS are partitioned in the output above. The only quantity missing is <span class="math inline">\(SS_{Total} = SS_{model} + SS_{residual} = 1324.4\)</span> units<span class="math inline">\(^2\)</span>/mm<span class="math inline">\(^2\)</span>. We can also calculate the proportion of the variance explained by the group means (i.e., the model) as <span class="math inline">\(R^2=\)</span> 1114.9/1324.4 = 0.841 (which shows the calculation of an earlier output for <code>multiple R2</code>).</p>
+<p>The partitioning of the degrees of freedom is the same as for our two-sample t-test from last lecture.</p>
+<p><span class="math display">\[
+\begin{array}{lllll}
+\mbox{GLM} &amp; L-\beta_0 &amp; = &amp;   \beta_{Trt}\mbox{Trt} &amp; +  \ \ \epsilon \\
+\mbox{df} &amp; 50-1 &amp; = &amp;  5-1 &amp; + \ \ 45 \\
+\mbox{SS} &amp; 1324.4 &amp; = &amp; 1114.9 &amp; + \ \ 209.5 \\
+\end{array}
+\]</span></p>
+</div>
+<div id="calculate-the-likelihood-ratio" class="section level2 hasAnchor" number="18.4">
+<h2><span class="header-section-number">18.4</span> Calculate the likelihood ratio<a href="wed-oct-21---one-way-anova-fixed-effects.html#calculate-the-likelihood-ratio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb107-1" tabindex="-1"></a>SSmodel <span class="ot">=</span> <span class="fu">anova</span>(pea.model)<span class="sc">$</span><span class="st">`</span><span class="at">Sum Sq</span><span class="st">`</span>[<span class="dv">1</span>]</span>
+<span id="cb107-2"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb107-2" tabindex="-1"></a>SSTotal <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">anova</span>(pea.model)<span class="sc">$</span><span class="st">`</span><span class="at">Sum Sq</span><span class="st">`</span>)</span>
+<span id="cb107-3"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb107-3" tabindex="-1"></a>R2 <span class="ot">=</span> SSmodel<span class="sc">/</span>SSTotal</span>
+<span id="cb107-4"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb107-4" tabindex="-1"></a>LR <span class="ot">=</span> (<span class="dv">1</span><span class="sc">-</span>R2)<span class="sc">^</span>{<span class="sc">-</span><span class="dv">50</span><span class="sc">/</span><span class="dv">2</span>}</span>
+<span id="cb107-5"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb107-5" tabindex="-1"></a>LR</span></code></pre></div>
+<pre><code>## [1] 1.044035e+20</code></pre>
+<p>This is a very large number (<span class="math inline">\(&gt;1000\)</span>) so there is very strong evidence that the group means are not the same.</p>
+</div>
+<div id="post-hoc-planned-comparisons" class="section level2 hasAnchor" number="18.5">
+<h2><span class="header-section-number">18.5</span> Post-hoc planned comparisons<a href="wed-oct-21---one-way-anova-fixed-effects.html#post-hoc-planned-comparisons" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We would like to also test the following three hypothesis:</p>
+<p>The pea length for the control is different than for all the sugar treatments:</p>
+<p><span class="math display">\[\beta_{Control} \neq (1/4)(\beta_{Glucose}+\beta_{Fructose}+\beta_{Sucrose}+\beta_{Gluc+Fruc}) \]</span></p>
+<p>The pea length for two sugars is different than for one sugar:</p>
+<p><span class="math display">\[\beta_{Gluc+Fruc} \neq (1/3)(\beta_{Glucose}+\beta_{Fructose}+\beta_{Sucrose}) \]</span></p>
+<p>The mean pea length for the monosaccharides is different than the polysaccharides:</p>
+<p><span class="math display">\[\beta_{Sucrose} \neq (1/2)(\beta_{Glucose}+\beta_{Fructose}). \]</span></p>
+<p>This is three comparisons (that we had planned for) so we could test for these differences, but we need to Bonferroni correct for the type I error as <span class="math inline">\(\alpha/3 = 0.05/3 = 0.0167\)</span>. An alternative method is called the Dunn-Sidak method (Ury
+1976 in Sokal and Rohlf 1995).</p>
+<p>To test these hypothesis we need to entirely redo our analyses! (not that if we are planning to redo our analyses, that is always a clue that we need to correct our type I error for the additional tests).</p>
+<p>We will use dplyr to create some new data columns that will help us do these additional tests:</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb109-1" tabindex="-1"></a>pea.data1 <span class="ot">=</span> <span class="fu">select</span>(pea.data,<span class="sc">-</span>residuals)<span class="sc">|&gt;</span><span class="fu">mutate</span>(<span class="at">control =</span> <span class="fu">if_else</span>(treatment<span class="sc">==</span><span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Treatment&quot;</span>))</span>
+<span id="cb109-2"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb109-2" tabindex="-1"></a>pea.data1</span></code></pre></div>
+<pre><code>##    treatment length   control
+## 1    Control     65   Control
+## 2    Control     67   Control
+## 3    Control     68   Control
+## 4    Control     70   Control
+## 5    Control     71   Control
+## 6    Control     75   Control
+## 7    Control     76   Control
+## 8    Control     74   Control
+## 9    Control     72   Control
+## 10   Control     68   Control
+## 11   Control     66   Control
+## 12   Glucose     57 Treatment
+## 13   Glucose     58 Treatment
+## 14   Glucose     59 Treatment
+## 15   Glucose     60 Treatment
+## 16   Glucose     61 Treatment
+## 17   Glucose     62 Treatment
+## 18   Glucose     60 Treatment
+## 19   Glucose     60 Treatment
+## 20   Glucose     59 Treatment
+## 21   Glucose     59 Treatment
+## 22   Glucose     59 Treatment
+## 23  Fructose     56 Treatment
+## 24  Fructose     57 Treatment
+## 25  Fructose     58 Treatment
+## 26  Fructose     60 Treatment
+## 27  Fructose     61 Treatment
+## 28  Fructose     58 Treatment
+## 29  Fructose     58 Treatment
+## 30  Fructose     58 Treatment
+## 31  Fructose     58 Treatment
+## 32  Fructose     58 Treatment
+## 33  Fructose     58 Treatment
+## 34  Fructose     58 Treatment
+## 35   Sucrose     56 Treatment
+## 36   Sucrose     57 Treatment
+## 37   Sucrose     58 Treatment
+## 38   Sucrose     59 Treatment
+## 39   Sucrose     61 Treatment
+## 40 Gluc.Fruc     62 Treatment
+## 41 Gluc.Fruc     63 Treatment
+## 42 Gluc.Fruc     64 Treatment
+## 43 Gluc.Fruc     65 Treatment
+## 44 Gluc.Fruc     66 Treatment
+## 45 Gluc.Fruc     67 Treatment
+## 46 Gluc.Fruc     64 Treatment
+## 47 Gluc.Fruc     65 Treatment
+## 48 Gluc.Fruc     64 Treatment
+## 49 Gluc.Fruc     65 Treatment
+## 50 Gluc.Fruc     65 Treatment</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb111-1" tabindex="-1"></a>pea.data2 <span class="ot">=</span> <span class="fu">select</span>(pea.data,<span class="sc">-</span>residuals)<span class="sc">|&gt;</span><span class="fu">filter</span>(treatment <span class="sc">!=</span> <span class="st">&quot;Control&quot;</span>)<span class="sc">|&gt;</span><span class="fu">mutate</span>(<span class="at">sugars =</span> <span class="fu">if_else</span>(treatment<span class="sc">==</span><span class="st">&quot;Gluc.Fruc&quot;</span>, <span class="st">&quot;two&quot;</span>, <span class="st">&quot;one&quot;</span>))</span>
+<span id="cb111-2"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb111-2" tabindex="-1"></a>pea.data2</span></code></pre></div>
+<pre><code>##    treatment length sugars
+## 1    Glucose     57    one
+## 2    Glucose     58    one
+## 3    Glucose     59    one
+## 4    Glucose     60    one
+## 5    Glucose     61    one
+## 6    Glucose     62    one
+## 7    Glucose     60    one
+## 8    Glucose     60    one
+## 9    Glucose     59    one
+## 10   Glucose     59    one
+## 11   Glucose     59    one
+## 12  Fructose     56    one
+## 13  Fructose     57    one
+## 14  Fructose     58    one
+## 15  Fructose     60    one
+## 16  Fructose     61    one
+## 17  Fructose     58    one
+## 18  Fructose     58    one
+## 19  Fructose     58    one
+## 20  Fructose     58    one
+## 21  Fructose     58    one
+## 22  Fructose     58    one
+## 23  Fructose     58    one
+## 24   Sucrose     56    one
+## 25   Sucrose     57    one
+## 26   Sucrose     58    one
+## 27   Sucrose     59    one
+## 28   Sucrose     61    one
+## 29 Gluc.Fruc     62    two
+## 30 Gluc.Fruc     63    two
+## 31 Gluc.Fruc     64    two
+## 32 Gluc.Fruc     65    two
+## 33 Gluc.Fruc     66    two
+## 34 Gluc.Fruc     67    two
+## 35 Gluc.Fruc     64    two
+## 36 Gluc.Fruc     65    two
+## 37 Gluc.Fruc     64    two
+## 38 Gluc.Fruc     65    two
+## 39 Gluc.Fruc     65    two</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb113-1" tabindex="-1"></a>pea.data3 <span class="ot">=</span> <span class="fu">select</span>(pea.data2, <span class="sc">-</span> sugars)<span class="sc">|&gt;</span><span class="fu">filter</span>(treatment <span class="sc">!=</span> <span class="st">&quot;Gluc.Fruc&quot;</span>)<span class="sc">|&gt;</span><span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">if_else</span>(treatment<span class="sc">==</span><span class="st">&quot;Sucrose&quot;</span>, <span class="st">&quot;polysaccaride&quot;</span>, <span class="st">&quot;monosaccaride&quot;</span>))</span>
+<span id="cb113-2"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb113-2" tabindex="-1"></a>pea.data3</span></code></pre></div>
+<pre><code>##    treatment length          type
+## 1    Glucose     57 monosaccaride
+## 2    Glucose     58 monosaccaride
+## 3    Glucose     59 monosaccaride
+## 4    Glucose     60 monosaccaride
+## 5    Glucose     61 monosaccaride
+## 6    Glucose     62 monosaccaride
+## 7    Glucose     60 monosaccaride
+## 8    Glucose     60 monosaccaride
+## 9    Glucose     59 monosaccaride
+## 10   Glucose     59 monosaccaride
+## 11   Glucose     59 monosaccaride
+## 12  Fructose     56 monosaccaride
+## 13  Fructose     57 monosaccaride
+## 14  Fructose     58 monosaccaride
+## 15  Fructose     60 monosaccaride
+## 16  Fructose     61 monosaccaride
+## 17  Fructose     58 monosaccaride
+## 18  Fructose     58 monosaccaride
+## 19  Fructose     58 monosaccaride
+## 20  Fructose     58 monosaccaride
+## 21  Fructose     58 monosaccaride
+## 22  Fructose     58 monosaccaride
+## 23  Fructose     58 monosaccaride
+## 24   Sucrose     56 polysaccaride
+## 25   Sucrose     57 polysaccaride
+## 26   Sucrose     58 polysaccaride
+## 27   Sucrose     59 polysaccaride
+## 28   Sucrose     61 polysaccaride</code></pre>
+<p>The results of these comparisons will help us write the figure caption for our violin plot (and the corresponding results section of our write-up). The violin plot suggests that the sugars decrease the occular length of the peas; the one sugar treatments decrease the pea lengths the most, and there doesn’t appear to be a difference between the monosaccarides and the polysaccaride (Sucrose). Let’s test the models to determine if our visual inspect is correct.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb115-1" tabindex="-1"></a>pea.model1 <span class="ot">=</span> <span class="fu">lm</span>(length<span class="sc">~</span>control, <span class="at">data=</span>pea.data1)</span>
+<span id="cb115-2"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb115-2" tabindex="-1"></a>pea.model2 <span class="ot">=</span> <span class="fu">lm</span>(length<span class="sc">~</span>sugars, <span class="at">data=</span>pea.data2)</span>
+<span id="cb115-3"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb115-3" tabindex="-1"></a>pea.model3 <span class="ot">=</span> <span class="fu">lm</span>(length<span class="sc">~</span>type, <span class="at">data=</span>pea.data3)</span>
+<span id="cb115-4"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb115-4" tabindex="-1"></a><span class="fu">summary</span>(pea.model1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = length ~ control, data = pea.data1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.1818 -2.3333 -0.8333  2.4545  6.6667 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       70.1818     0.9656  72.682  &lt; 2e-16 ***
+## controlTreatment  -9.8485     1.0933  -9.008 6.91e-12 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.203 on 48 degrees of freedom
+## Multiple R-squared:  0.6283, Adjusted R-squared:  0.6206 
+## F-statistic: 81.14 on 1 and 48 DF,  p-value: 6.907e-12</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb117-1" tabindex="-1"></a><span class="fu">summary</span>(pea.model2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = length ~ sugars, data = pea.data2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.6786 -0.6786 -0.5455  0.8880  3.3214 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  58.6786     0.2793  210.07  &lt; 2e-16 ***
+## sugarstwo     5.8669     0.5260   11.15 2.15e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.478 on 37 degrees of freedom
+## Multiple R-squared:  0.7708, Adjusted R-squared:  0.7646 
+## F-statistic: 124.4 on 1 and 37 DF,  p-value: 2.15e-13</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="wed-oct-21---one-way-anova-fixed-effects.html#cb119-1" tabindex="-1"></a><span class="fu">summary</span>(pea.model3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = length ~ type, data = pea.data3)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7826 -0.7826 -0.4913  1.2174  3.2174 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)        58.7826     0.3186 184.484   &lt;2e-16 ***
+## typepolysaccaride  -0.5826     0.7540  -0.773    0.447    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.528 on 26 degrees of freedom
+## Multiple R-squared:  0.02245,    Adjusted R-squared:  -0.01515 
+## F-statistic: 0.597 on 1 and 26 DF,  p-value: 0.4467</code></pre>
+<p>The p-values for these outputs confirm what we inferred from the plots of the data. For example, there is not a difference between the polysaccaride (Sucrose) and the monosaccarides (Fructose and Glucose) because p-value associated with this test is <span class="math inline">\(p=0.447\)</span>. The p-value associated with the intercept is that the group mean for one sugar (Fructose and Glucose) is different from 0. This is highly significant, but the test of the difference between polysaccaride and monosaccharide is nto significant. The tests for a difference between the control and the sugar treatment (<code>pea.model1</code>) and the difference between the two sugars or one (<code>pea.model2</code>) find that the group means for these groups are different.</p>
+<p>Note also that for these three different post-hoc comparisons, the number of observations <span class="math inline">\(n\)</span> changes (i.e., because the treatment data is excluded when we look for differences between one or two sugars and the two sugar data is excluded when we look for the difference between mono- and polysaccarides.) In addition, the number of levels is only 2 for all of these post-hoc comparisons, while it was 5 for the original analysis. You should confirm that you can calculate the correct df for these outputs for the 3 posthoc comparisons.</p>
+<p>We could also calculated the LR for these 3 post-hoc tests.</p>
+</div>
+<div id="state-population-and-whether-sample-is-representative." class="section level2 hasAnchor" number="18.6">
+<h2><span class="header-section-number">18.6</span> State population and whether sample is representative.<a href="wed-oct-21---one-way-anova-fixed-effects.html#state-population-and-whether-sample-is-representative." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Population is all possible measurements, given the method of applying treatments and
+the protocol for taking measurements. It is taken to be representative (not biased).
+This is a fixed effect model, we are inferring only to these 5 categories. We are not
+inferring to other sugars or combinations of sugars.</p>
+</div>
+<div id="biological-conclusion" class="section level2 hasAnchor" number="18.7">
+<h2><span class="header-section-number">18.7</span> Biological conclusion<a href="wed-oct-21---one-way-anova-fixed-effects.html#biological-conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The experimental treatment of sugars decreases the occular length of peas. A two sugar treatment decreases the length more than a one sugar treatment, however, there is no difference between the application of one monosaccaride sugar as compared to one polysaccaride sugar.</p>
+<div id="readings-10" class="section level3 hasAnchor" number="18.7.1">
+<h3><span class="header-section-number">18.7.1</span> Readings<a href="wed-oct-21---one-way-anova-fixed-effects.html#readings-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_3.pdf">Ch 10.3</a></p>
 
+</div>
 </div>
 </div>
             </section>

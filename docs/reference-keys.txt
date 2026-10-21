@@ -112,6 +112,13 @@ partitioning-ss-and-df
 report-the-scientific-conclusion
 readings-9
 wed-oct-21---one-way-anova-fixed-effects
+construct-the-model-2
+execute-the-analysis.
+partition-ss-and-df
+calculate-the-likelihood-ratio
+post-hoc-planned-comparisons
+state-population-and-whether-sample-is-representative.
+biological-conclusion
 readings-10
 fri-oct-23-quiz-3-a3-due---multiple-regression
 last-15-minutes-quiz-3

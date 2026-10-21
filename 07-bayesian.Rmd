@@ -108,7 +108,7 @@ library(dplyr)
 ```
 
 ```{r, eval=T}
-data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/pea_length.csv")
+data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/pea-length.csv")
 pea.length = filter(data, treatment=="Control")%>%select(length)
 pea.length
 ```

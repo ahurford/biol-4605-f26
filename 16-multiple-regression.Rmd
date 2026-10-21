@@ -114,22 +114,21 @@ ggplot(sleep.data2, aes(x = residuals)) +
   geom_histogram(aes(y = after_stat(density)), bins = 15, 
                  fill = "steelblue", color = "white", alpha = 0.6) +
   
-  # Layer a theoretical normal curve over each group's data
-  stat_function(
-    fun = dnorm, 
-    args = list(mean = 0, sd = sd(sleep.data2$residuals)), # ANOVA assumes pooled residual variance
-    color = "black", 
-    linewidth = 1
-  ) +
+# Layer a theoretical normal curve over the overall residuals data
+stat_function(
+  fun = dnorm, 
+  args = list(mean = 0, sd = sd(sleep.data2$residuals)), 
+  color = "black", 
+  linewidth = 1
+) +
   
-  geom_vline(xintercept = 0, linetype = "dashed", color = "red", linewidth = 0.8) +
-  facet_wrap(~ drug) + 
-  labs(
-    title = "Residual Histograms vs. Theoretical Normal Distribution",
-    x = "Residuals",
-    y = "Density"
-  ) +
-  theme_minimal()
+geom_vline(xintercept = 0, linetype = "dashed", color = "red", linewidth = 0.8) +
+labs(
+  title = "Residual Histogram vs. Theoretical Normal Distribution",
+  x = "Residuals",
+  y = "Density"
+) +
+theme_minimal()
 ```
 
 The plot above shows the residuals versus the predicted values against the normal distribution. There are too few observations to evaluate this assumption very well.

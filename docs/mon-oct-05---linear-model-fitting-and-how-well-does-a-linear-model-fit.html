@@ -226,12 +226,12 @@ y  \qquad &amp;=&amp;  \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \dots + \beta_n
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb27-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">4</span>)</span>
 <span id="cb27-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb27-2" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y=</span>x<span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">5</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
 <span id="cb27-3"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb27-3" tabindex="-1"></a>data</span></code></pre></div>
-<pre><code>##   x          y
-## 1 0 -0.7059497
-## 2 1  1.5947699
-## 3 2  2.7212138
-## 4 3  3.2095745
-## 5 4  4.5771163</code></pre>
+<pre><code>##   x           y
+## 1 0 -0.09845284
+## 2 1 -0.59888681
+## 3 2  0.63472547
+## 4 3  1.81698597
+## 5 4  4.96083462</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb29-1" tabindex="-1"></a>mod <span class="ot">=</span> <span class="fu">lm</span>(y<span class="sc">~</span>x, <span class="at">data=</span>data)</span>
 <span id="cb29-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb29-2" tabindex="-1"></a>mod</span></code></pre></div>
 <pre><code>## 
@@ -240,15 +240,15 @@ y  \qquad &amp;=&amp;  \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \dots + \beta_n
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##     -0.1568       1.2181</code></pre>
+##      -1.164        1.253</code></pre>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb31-1" tabindex="-1"></a>anova_table<span class="ot">&lt;-</span><span class="fu">anova</span>(mod)</span>
 <span id="cb31-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb31-2" tabindex="-1"></a>anova_table</span></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: y
-##           Df  Sum Sq Mean Sq F value   Pr(&gt;F)   
-## x          1 14.8375 14.8375  50.386 0.005752 **
-## Residuals  3  0.8834  0.2945                    
+##           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+## x          1 15.7112 15.7112  11.925 0.04084 *
+## Residuals  3  3.9525  1.3175                  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>We apply the <code>anova()</code> function to the fitted linear regression <code>mod</code> to test the null hypothesis that the population variances estimated by the two mean squares (<span class="math inline">\(\mbox{MS}_{\mbox{Explained}}\)</span> and <span class="math inline">\(\mbox{MS}_{\mbox{Residual}}\)</span>) are the same. The result is the ANOVA table for our linear regression.</p>
@@ -263,7 +263,7 @@ y  \qquad &amp;=&amp;  \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \dots + \beta_n
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb33-1" tabindex="-1"></a><span class="co"># Sum the &#39;Sum Sq&#39; column to get SST</span></span>
 <span id="cb33-2"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb33-2" tabindex="-1"></a>SSTotal <span class="ot">&lt;-</span> <span class="fu">sum</span>(anova_table<span class="sc">$</span><span class="st">&quot;Sum Sq&quot;</span>)</span>
 <span id="cb33-3"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html#cb33-3" tabindex="-1"></a>SSTotal</span></code></pre></div>
-<pre><code>## [1] 15.72096</code></pre>
+<pre><code>## [1] 19.66375</code></pre>
 <p>For each of the bullet points, check that the ANOVA table satifies the formula that are given.</p>
 </div>
 <div id="maximum-likelihood" class="section level3 hasAnchor" number="12.2.2">

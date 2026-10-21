@@ -269,7 +269,7 @@ P(\bar{y}-1.96\sigma_{\bar{y}} \leq \mu \leq \bar{y}+1.96\sigma_{\bar{y}}) = 0.9
 <div id="example-pea-lengths" class="section level3 hasAnchor" number="8.5.2">
 <h3><span class="header-section-number">8.5.2</span> Example: Pea lengths<a href="wed-sept-23---frequentist-estimation.html#example-pea-lengths" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For example, consider some data on the github repository, <a href="https://github.com/ahurford/biol-4605-data">biol-4605-data</a>. I have choosen data describing pea lengths (cm) and then extracted only the control measurements. I am using <code>dplyr</code> commands and I loaded that package in the background.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="wed-sept-23---frequentist-estimation.html#cb9-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/pea_length.csv&quot;</span>)</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="wed-sept-23---frequentist-estimation.html#cb9-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/pea-length.csv&quot;</span>)</span>
 <span id="cb9-2"><a href="wed-sept-23---frequentist-estimation.html#cb9-2" tabindex="-1"></a>pea.length <span class="ot">=</span> <span class="fu">filter</span>(data, treatment<span class="sc">==</span><span class="st">&quot;Control&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">select</span>(length)</span>
 <span id="cb9-3"><a href="wed-sept-23---frequentist-estimation.html#cb9-3" tabindex="-1"></a>pea.length</span></code></pre></div>
 <pre><code>##    length
@@ -340,17 +340,17 @@ P(\bar{y}-1.96\sigma_{\bar{y}} \leq \mu \leq \bar{y}+1.96\sigma_{\bar{y}}) = 0.9
 <span id="cb25-7"><a href="wed-sept-23---frequentist-estimation.html#cb25-7" tabindex="-1"></a>resampled.data <span class="ot">=</span> <span class="fu">data.frame</span>(sample1, sample2, sample3, sample4, sample5)</span>
 <span id="cb25-8"><a href="wed-sept-23---frequentist-estimation.html#cb25-8" tabindex="-1"></a>resampled.data</span></code></pre></div>
 <pre><code>##    sample1 sample2 sample3 sample4 sample5
-## 1       76      68      75      65      71
-## 2       74      74      74      68      67
-## 3       76      71      68      70      67
-## 4       76      70      65      72      68
-## 5       72      75      74      75      66
-## 6       68      74      67      68      68
-## 7       71      74      66      74      71
-## 8       68      68      76      68      66
-## 9       65      68      76      65      76
-## 10      68      66      75      71      74
-## 11      68      70      66      66      74</code></pre>
+## 1       68      74      75      71      65
+## 2       76      67      76      68      72
+## 3       65      67      76      65      68
+## 4       75      68      72      75      76
+## 5       68      74      67      67      74
+## 6       72      65      75      72      67
+## 7       65      74      70      74      66
+## 8       70      74      65      68      76
+## 9       74      65      67      67      71
+## 10      70      68      68      66      67
+## 11      76      71      72      74      72</code></pre>
 </div>
 <div id="jackknife" class="section level3 hasAnchor" number="8.7.2">
 <h3><span class="header-section-number">8.7.2</span> Jackknife<a href="wed-sept-23---frequentist-estimation.html#jackknife" class="anchor-section" aria-label="Anchor link to header"></a></h3>

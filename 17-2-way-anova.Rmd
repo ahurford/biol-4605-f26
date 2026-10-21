@@ -8,6 +8,238 @@ output: html_document
 This lecture is based on Chapter [10.3](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_3.pdf)  of Dr. Schneider's notes.
 
 
+Sokal and Rohlf (1995, Box 9.4) present pea section lengths in ocular units (0.114
+units/mm). The purpose of the experiment was to test the effects of four sugars and one
+control on growth as measured by pea section length. Instead of asking “What is the best
+test?” or What test do I use?” we ask: “What model do I use to analyze the effects?”
+
+## Construct the model
+
+**Verbal model:** pea section lengths in treated groups differ from the control (untreated)
+group and among themselves.
+
+From the verbal model we see that we have one response variable (pea section length)
+and an explanatory variable (four sugars and one control; 5 levels/groups).
+The explanatory variable consists of groups—it is a categorical variable
+
+Let's write the code to load and plot the data:
+
+```{r}
+pea.data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/pea-length.csv")
+pea.data
+```
+
+```{r}
+require(ggplot2)
+ggplot(pea.data, aes(x = factor(treatment), y = length, fill = factor(treatment), color = factor(treatment))) +
+  # 1. Add the violin plot layer
+  geom_violin(
+    alpha = 0.5                  # Makes the violin fill transparent
+  ) +
+  # 2. Add the strip plot (jittered points) layer
+  geom_jitter(
+    position = position_jitter(width = 0.2, height = 0), # Controls data spreading
+    color = "black",      
+    size = 3                     # Modify point size
+  ) +
+  # 3. Specify the custom colors for each of the 5 treatments
+  scale_fill_manual(values = c("maroon", "darkgray", "lightblue", "lightgray", "gold2")) +
+  scale_color_manual(values = c("maroon", "darkgray", "lightblue", "lightgray", "gold2")) +
+  labs(
+    x = "Treatment",
+    y = "length (units/mm)",
+    title = "Visualize the data (one categorical explanatory variable with 5 levels - ANOVA)"
+  ) + 
+  theme_minimal() +
+  theme(legend.position = "none") # Hides the redundant legend since treatments are already on the x-axis
+```
+
+This is a figure that could support our results in a published paper. Alongside it we could report the results of our statistical analysis. We have switched from a boxplot to a violin plot. For comparison here is the box plot:
+
+```{r,message=FALSE}
+library(ggplot2)
+ggplot(pea.data, aes(x = factor(treatment), y = length)) +
+  # 1. Add the box plot layer
+  geom_boxplot(
+    outlier.shape = NA,       # CRITICAL: Prevents duplicate plotting of outliers
+    fill = c("maroon", "darkgray", "lightblue", "lightgray", "gold2"),          
+    color = c("maroon", "darkgray", "lightblue", "lightgray", "gold2"),       # Memorial colours
+    alpha = 0.5 # some transparency so we can still read the plot
+  ) +
+  # 2. Add the strip plot (jittered points) layer
+  geom_jitter(
+    position = position_jitter(width = 0.2, height = 0), # Controls data spreading
+    color = "black",        # Pick a distinct color for raw data points
+    size = 3,                 # Modify point size
+  ) +
+  labs(
+    x = "Treatment",
+    y = "length (units/mm)",
+    title = "For comparison with the violin plot"
+  )+theme_minimal()
+```
+
+For both plots the assumption of equal variance for each group does not appear to be met. There are also some outliers. Nonetheless, normal errors are reasonable place to start.
+
+**Write the model**.
+
+\[L = \beta_0 + \beta_{Trt}\mbox{Trt} + \epsilon, \]
+
+where $L$ is ocular length (units/mm), $\beta_0$ is the grand mean (units/mm), $\beta_{Trt}$ is the effect of each treatment relative to the grand mean (units/mm), $\mbox{Trt}$ is an indicator variable, and $\epsilon$ is normally distributed normal errors (units/mm). The explanatory variable, treatment is a *fixed effect* as we will infer our results to these groups: Control; Glucose; Fructose; Sucrose; and Glucose and Fructose (and not other sugars). The parameter $\beta_{Trt} \in \{\beta_{Control}, \beta_{Glucose}, \beta_{Fructose}, \beta_{Sucrose}, \beta_{Gluc+Fruc}\}$.
+
+**Aside.** The name of the analysis is one-way ANOVA. This is because we have one explanatory (predictor) variable and >3 levels of the categorical variable. This is a different name for a very similar analysis that we did for one explanatory (predictor) variable and 2 levels of the categorical variable, which is referred to as a 2-sample t-test.
+
+When we had one continuous explanatory variable (and a continuous response variable), the name of the analysis is regression. 
+
+## Execute the analysis.
+
+```{r}
+pea.model = lm(length~treatment, data=pea.data)
+summary(pea.model)
+mean(pea.data$length)
+```
+
+Our estimate of the grand mean is $\hat{\beta}_0 = 62.5$ units per mm. We notice that "Control" is missing from our output, so this is reported as "Intercept". Our estimates of the group means are:
+
+\[\hat{\beta}_{0} + \hat{\beta}_{Control} = 70.2\]
+
+\[\hat{\beta}_{0} + \hat{\beta}_{Fructose} = 70.2 - 12.0 = 58.2\]
+
+\[\hat{\beta}_{0} + \hat{\beta}_{Gluc+Fruc} = 70.2 - 5.6 = 64.6\]
+
+\[\hat{\beta}_{0} + \hat{\beta}_{Gluc} = 70.2 - 10.7 = 59.5\]
+
+\[\hat{\beta}_{0} + \hat{\beta}_{Sucrose} = 70.2 - 12.0 = 58.2\]
+
+which all have units per mm. In case we have concerns about our calculations, we could also calculate the group means (rounded to the nearest 0.1 unit per mm).
+
+```{r,message=F}
+require(dplyr)
+group.means=pea.data%>%group_by(treatment)%>%summarise(group.mean=round(mean(length),1))%>%as.data.frame()
+group.means
+```
+
+We can evaluate our assumption of normally distributed errors (which, in this case, is with respect to the fitted values (the group means) and the observations).
+
+```{r}
+pea.data$residuals <- residuals(pea.model)
+
+# Plot using density instead of count
+ggplot(pea.data, aes(x = residuals)) +
+  # after_stat(density) normalizes the bars so the curve fits the y-axis scale
+  geom_histogram(aes(y = after_stat(density)), bins = 15, 
+                 fill = "steelblue", color = "white", alpha = 0.6) +
+  
+# Layer a theoretical normal curve over the overall residuals data
+stat_function(
+  fun = dnorm, 
+  args = list(mean = 0, sd = sd(pea.data$residuals)), 
+  color = "black", 
+  linewidth = 1
+) +
+  
+geom_vline(xintercept = 0, linetype = "dashed", color = "red", linewidth = 0.8) +
+labs(
+  title = "Residual Histogram vs. Theoretical Normal Distribution",
+  x = "Residuals",
+  y = "Density"
+) +
+theme_minimal()
+```
+
+Aside from more observations of little deviation of the data from the group means (low variance), these sample quantiles match the quantiles of the normal distribution quite well for this pea length data example.
+
+We should also test our hypothesis that the group means for these treatments are different.
+
+```{r}
+anova(pea.model)
+```
+
+Given this p-value, it is very unlikely that the null hypothesis that all the group means are equal could have produced an F-value this large by chance.
+
+## Partition SS and df
+
+Our SS are partitioned in the output above. The only quantity missing is $SS_{Total} = SS_{model} + SS_{residual} = 1324.4$ units$^2$/mm$^2$. We can also calculate the proportion of the variance explained by the group means (i.e., the model) as $R^2=$ 1114.9/1324.4 = 0.841 (which shows the calculation of an earlier output for `multiple R2`).
+
+The partitioning of the degrees of freedom is the same as for our two-sample t-test from last lecture.
+
+\[
+\begin{array}{lllll}
+\mbox{GLM} & L-\beta_0 & = &   \beta_{Trt}\mbox{Trt} & +  \ \ \epsilon \\
+\mbox{df} & 50-1 & = &  5-1 & + \ \ 45 \\
+\mbox{SS} & 1324.4 & = & 1114.9 & + \ \ 209.5 \\
+\end{array}
+\]
+
+## Calculate the likelihood ratio
+
+```{r}
+SSmodel = anova(pea.model)$`Sum Sq`[1]
+SSTotal = sum(anova(pea.model)$`Sum Sq`)
+R2 = SSmodel/SSTotal
+LR = (1-R2)^{-50/2}
+LR
+```
+
+This is a very large number ($>1000$) so there is very strong evidence that the group means are not the same.
+
+## Post-hoc planned comparisons
+
+We would like to also test the following three hypothesis:
+
+The pea length for the control is different than for all the sugar treatments:
+
+\[\beta_{Control} \neq (1/4)(\beta_{Glucose}+\beta_{Fructose}+\beta_{Sucrose}+\beta_{Gluc+Fruc}) \]
+
+The pea length for two sugars is different than for one sugar:
+
+\[\beta_{Gluc+Fruc} \neq (1/3)(\beta_{Glucose}+\beta_{Fructose}+\beta_{Sucrose}) \]
+
+The mean pea length for the monosaccharides is different than the polysaccharides:
+
+\[\beta_{Sucrose} \neq (1/2)(\beta_{Glucose}+\beta_{Fructose}). \]
+
+This is three comparisons (that we had planned for) so we could test for these differences, but we need to Bonferroni correct for the type I error as $\alpha/3 = 0.05/3 = 0.0167$. An alternative method is called the Dunn-Sidak method (Ury
+1976 in Sokal and Rohlf 1995).
+
+To test these hypothesis we need to entirely redo our analyses! (not that if we are planning to redo our analyses, that is always a clue that we need to correct our type I error for the additional tests).
+
+We will use dplyr to create some new data columns that will help us do these additional tests:
+
+```{r}
+pea.data1 = select(pea.data,-residuals)|>mutate(control = if_else(treatment=="Control", "Control", "Treatment"))
+pea.data1
+pea.data2 = select(pea.data,-residuals)|>filter(treatment != "Control")|>mutate(sugars = if_else(treatment=="Gluc.Fruc", "two", "one"))
+pea.data2
+pea.data3 = select(pea.data2, - sugars)|>filter(treatment != "Gluc.Fruc")|>mutate(type = if_else(treatment=="Sucrose", "polysaccaride", "monosaccaride"))
+pea.data3
+```
+
+The results of these comparisons will help us write the figure caption for our violin plot (and the corresponding results section of our write-up). The violin plot suggests that the sugars decrease the occular length of the peas; the one sugar treatments decrease the pea lengths the most, and there doesn't appear to be a difference between the monosaccarides and the polysaccaride (Sucrose). Let's test the models to determine if our visual inspect is correct.
+
+```{r}
+pea.model1 = lm(length~control, data=pea.data1)
+pea.model2 = lm(length~sugars, data=pea.data2)
+pea.model3 = lm(length~type, data=pea.data3)
+summary(pea.model1)
+summary(pea.model2)
+summary(pea.model3)
+```
+
+The p-values for these outputs confirm what we inferred from the plots of the data. For example, there is not a difference between the polysaccaride (Sucrose) and the monosaccarides (Fructose and Glucose) because p-value associated with this test is $p=0.447$. The p-value associated with the intercept is that the group mean for one sugar (Fructose and Glucose) is different from 0. This is highly significant, but the test of the difference between polysaccaride and monosaccharide is nto significant. The tests for a difference between the control and the sugar treatment (`pea.model1`) and the difference between the two sugars or one (`pea.model2`) find that the group means for these groups are different.
+
+Note also that for these three different post-hoc comparisons, the number of observations $n$ changes (i.e., because the treatment data is excluded when we look for differences between one or two sugars and the two sugar data is excluded when we look for the difference between mono- and polysaccarides.) In addition, the number of levels is only 2 for all of these post-hoc comparisons, while it was 5 for the original analysis. You should confirm that you can calculate the correct df for these outputs for the 3 posthoc comparisons.
+
+We could also calculated the LR for these 3 post-hoc tests.
+
+## State population and whether sample is representative.
+Population is all possible measurements, given the method of applying treatments and
+the protocol for taking measurements. It is taken to be representative (not biased).
+This is a fixed effect model, we are inferring only to these 5 categories. We are not
+inferring to other sugars or combinations of sugars.
+
+## Biological conclusion
+The experimental treatment of sugars decreases the occular length of peas. A two sugar treatment decreases the length more than a one sugar treatment, however, there is no difference between the application of one monosaccaride sugar as compared to one polysaccaride sugar.
 
 ### Readings
 [Ch 10.3](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_3.pdf) 

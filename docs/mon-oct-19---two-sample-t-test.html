@@ -313,22 +313,21 @@ S = \beta_{0} + \beta_{Drug}\mbox{Drug} + \epsilon,
 <span id="cb87-6"><a href="mon-oct-19---two-sample-t-test.html#cb87-6" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">bins =</span> <span class="dv">15</span>, </span>
 <span id="cb87-7"><a href="mon-oct-19---two-sample-t-test.html#cb87-7" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
 <span id="cb87-8"><a href="mon-oct-19---two-sample-t-test.html#cb87-8" tabindex="-1"></a>  </span>
-<span id="cb87-9"><a href="mon-oct-19---two-sample-t-test.html#cb87-9" tabindex="-1"></a>  <span class="co"># Layer a theoretical normal curve over each group&#39;s data</span></span>
-<span id="cb87-10"><a href="mon-oct-19---two-sample-t-test.html#cb87-10" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
-<span id="cb87-11"><a href="mon-oct-19---two-sample-t-test.html#cb87-11" tabindex="-1"></a>    <span class="at">fun =</span> dnorm, </span>
-<span id="cb87-12"><a href="mon-oct-19---two-sample-t-test.html#cb87-12" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fu">sd</span>(sleep.data2<span class="sc">$</span>residuals)), <span class="co"># ANOVA assumes pooled residual variance</span></span>
-<span id="cb87-13"><a href="mon-oct-19---two-sample-t-test.html#cb87-13" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, </span>
-<span id="cb87-14"><a href="mon-oct-19---two-sample-t-test.html#cb87-14" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">1</span></span>
-<span id="cb87-15"><a href="mon-oct-19---two-sample-t-test.html#cb87-15" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb87-9"><a href="mon-oct-19---two-sample-t-test.html#cb87-9" tabindex="-1"></a><span class="co"># Layer a theoretical normal curve over the overall residuals data</span></span>
+<span id="cb87-10"><a href="mon-oct-19---two-sample-t-test.html#cb87-10" tabindex="-1"></a><span class="fu">stat_function</span>(</span>
+<span id="cb87-11"><a href="mon-oct-19---two-sample-t-test.html#cb87-11" tabindex="-1"></a>  <span class="at">fun =</span> dnorm, </span>
+<span id="cb87-12"><a href="mon-oct-19---two-sample-t-test.html#cb87-12" tabindex="-1"></a>  <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fu">sd</span>(sleep.data2<span class="sc">$</span>residuals)), </span>
+<span id="cb87-13"><a href="mon-oct-19---two-sample-t-test.html#cb87-13" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb87-14"><a href="mon-oct-19---two-sample-t-test.html#cb87-14" tabindex="-1"></a>  <span class="at">linewidth =</span> <span class="dv">1</span></span>
+<span id="cb87-15"><a href="mon-oct-19---two-sample-t-test.html#cb87-15" tabindex="-1"></a>) <span class="sc">+</span></span>
 <span id="cb87-16"><a href="mon-oct-19---two-sample-t-test.html#cb87-16" tabindex="-1"></a>  </span>
-<span id="cb87-17"><a href="mon-oct-19---two-sample-t-test.html#cb87-17" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb87-18"><a href="mon-oct-19---two-sample-t-test.html#cb87-18" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> drug) <span class="sc">+</span> </span>
-<span id="cb87-19"><a href="mon-oct-19---two-sample-t-test.html#cb87-19" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb87-20"><a href="mon-oct-19---two-sample-t-test.html#cb87-20" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Residual Histograms vs. Theoretical Normal Distribution&quot;</span>,</span>
-<span id="cb87-21"><a href="mon-oct-19---two-sample-t-test.html#cb87-21" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Residuals&quot;</span>,</span>
-<span id="cb87-22"><a href="mon-oct-19---two-sample-t-test.html#cb87-22" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Density&quot;</span></span>
-<span id="cb87-23"><a href="mon-oct-19---two-sample-t-test.html#cb87-23" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb87-24"><a href="mon-oct-19---two-sample-t-test.html#cb87-24" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<span id="cb87-17"><a href="mon-oct-19---two-sample-t-test.html#cb87-17" tabindex="-1"></a><span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb87-18"><a href="mon-oct-19---two-sample-t-test.html#cb87-18" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb87-19"><a href="mon-oct-19---two-sample-t-test.html#cb87-19" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Residual Histogram vs. Theoretical Normal Distribution&quot;</span>,</span>
+<span id="cb87-20"><a href="mon-oct-19---two-sample-t-test.html#cb87-20" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">&quot;Residuals&quot;</span>,</span>
+<span id="cb87-21"><a href="mon-oct-19---two-sample-t-test.html#cb87-21" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">&quot;Density&quot;</span></span>
+<span id="cb87-22"><a href="mon-oct-19---two-sample-t-test.html#cb87-22" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb87-23"><a href="mon-oct-19---two-sample-t-test.html#cb87-23" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="book_files/figure-html/unnamed-chunk-43-1.png" alt="" width="672" /></p>
 <p>The plot above shows the residuals versus the predicted values against the normal distribution. There are too few observations to evaluate this assumption very well.</p>
 <p>The assumption of linearity does not apply to categorical variables. The assumption of independence is difficult to test without additional information.</p>

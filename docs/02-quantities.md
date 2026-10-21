@@ -1,0 +1,87 @@
+---
+title: "Quantities"
+output: html_document
+---
+
+<!-- In the future I would forget these lectures of Dave's and just work from Quinn and Keough. It was a rush to complete the exploratory analysis lecture. Also, the lecture about quantities more naturally fits with Chapter 4, linear models in Q & M -->
+
+# Fri Sept 11 - Models and quantities
+
+## Models
+
+Almost every biological theory or hypothesis is a model of how nature works. The model can be written in mathematical notation for clarity. For example,
+
+\[ P_{corn} = \alpha + \beta_{Psoil} P_{soil} + \epsilon \]
+
+describes our hypothesis that phosphorus levels in the soil determine phosphorous levels in corn. This equation comprises of symbols, and unless we define these symbols the equation is meaningless.
+
+- $P_{corn}$ and $P_{soil}$ are symbols that correspond to data (or measured quantities, see below).
+
+- $\alpha$, $\beta_{Psoil}$, and $\epsilon$ are symbols that we need to describe our model, i.e., our hypothesis of how the phosphorous in the soil is related to the phosphorus in the soil.
+
+- If $P_{corn}$ and $P_{soil}$ are measured quantities on the ratio scale and if we assume that the differences between the model-predicted values and the data, $\epsilon$, are independent and normally distributed (with equal variance), then the name of this model is a linear regression (with one predictor variable).
+
+Our model describes the signal and the noise. Is there evidence for the signal, or are we just describing the noise?
+
+## Models and data
+
+We use data to separate models that are more likely correct from ones that are less likely correct.
+
+- We should consider what kind of data do we need?
+
+- Our population is the set of all objects that we wish to apply our conclusions to.
+
+- The data we collect are samples from the population. Samples need to be representative of the population. This is best done by choosing them randomly.
+
+- To determine if a model (our hypothesis) is supported by the data, we need to assess model fit, if the assumptions of the model are met, and the values of estimated parameters. For example, if $\hat{\beta}_{Psoil} = 0$, where $\hat{\beta}_{Psoil}$ is the estimated slope for the relationship between $P_{corn}$ and $P_{soil}$ for our data, then this says there is no relationship between the phosphorous in the soil and in the corn.
+
+- There are different approaches to assessing if a model fits well and if a model is better than it's competitors. You may already have heard of hypothesis testing, confidence intervals, and Bayesian statistics. Different approaches have strengths and weakness and you should understand what each approach involves.
+
+- We can find a 'best' model from a model set, but not a 'correct' model.
+
+- There can be multiple ways to correctly complete the statistics for your problem, and...
+
+- ... there are some choices that are wrong. Being wrong could be due to a mismatch between: (a) the biological question and the sampling design - you can't link the pattern in the data to the biological model; (b) your statistical model and the biological situation - you get a clear view from the analysis, but it doesn't answer your question; (c) your statistical model and the sampling or experimental design - you do not have confidence in your estimates; and (d) the statistical model and your data - conclusions are unrealiable if assumptions of the statistical test are not met.  
+
+## Data are measured quantities
+
+To clearly write our model we need to establish some best standards for reporting and describing our data. Data are measured quantities. 
+
+- Measured quantities should have a name, symbol, a set of scaled numbers, units, and a procedural statement.
+
+- Types of measured quantities are: nominal, ordinal, interval, and ratio. You should know what type your data is (for each variable).
+
+- Which type of data you are using to test your biological hypotheses guides how you complete your statistical test.
+
+
+**Nominal.** Outcome of measurement is "yes" or "no" also coded as 0 or 1.
+
+**Ordinal.** Outcome is ranking: 1st, 2nd, 3rd, etc.
+There is no information about magnitude of difference from one rank to next.
+
+**Interval.** The distance between measurements is known, but zero is an arbitrary point.
+Addition and subtraction are valid. Multiplication and division are not.
+Example of compass direction. Direction is relative to an arbitrary point.
+Other examples are Dates (2 January, Julian day 180).
+
+**Ratio.** Distance between measurements is known, zero point is absolute, not arbitrary.
+An example is degrees Kelvin. There is no heat content at 0$^\circ$K
+In contrast, 0$^\circ$C does not mean "no temperature."
+Molecular motion (heat) is still present. So 0$^\circ$C is interval.
+
+This categorization of types of measured quantities is based on Dr. Schneider's past lectures. The types of _variables_ (discrete or continuous, where Quinn and Keough use the term variables as Dr. Schneider uses measured quantities) are described by Quinn and Keough and summarized [here](#variables). The Quinn and Keough description has more relevance to choice of statistical test, and I will use that framework for future teaching of the course. 
+
+Completing [assignment 1](#assignment-1) will help you understand what measured quantities are. This will help you understand the expectations for how should discuss your data in scientific writing and will prepare you for writing your statistical tests as equations, which allows you to communicate your biological hypotheses clearly.
+
+## Readings
+
+This lecture is based on the following readings:
+
+- Ch1: Introduction by Quinn and Keough.
+
+- [Ch2.1: Definition of a measured quantity](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch2_1.pdf)
+
+- [Ch2.2: Types of measurement and scale](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt1/Ch2_2.pdf)
+
+
+
