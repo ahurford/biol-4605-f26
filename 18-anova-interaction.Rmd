@@ -3,13 +3,75 @@ title: "Multiple regression"
 output: html_document
 ---
 
-# **Fri Oct 23 (Quiz 3, A3 due)** - multiple regression
+# **Fri Oct 23 (Quiz 3, A3 due)** Randomization when assumptions are not met.
 
-## Last 15 minutes: Quiz 3
+## Last 20 minutes: Quiz 3
 
-## Readings
+Dr. Schneider's notes discuss using randomization when the assumptions of the linear model are not met. Below is the code to do this. I will illustrate this first with the corn phosphorous data (regression) and then I will illustrate it using sugar experiment data (one-way ANOVA).
 
-- Ch12.1
+## Regression example
 
+```{r}
+corn.data <- read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/corn.csv")
+corn.data
+```
+
+We can revisit the assumption checking that we did when did a regression for these data [here](#corn). The exploratory analysis found that all our assumptions were quite well satisfied. Dr. Schneider performed a randomization for these data in Step 8 of Chapter 9.1 [here](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch9_1.pdf). Dr. Schneider finds $p=0.0079$ for 10,000 samples under random resampling, and concludes that the residuals not being normally distributed for this analysis does not change our conclusions.
+
+Our analysis of the data found that there was a relationship between the soil phosphorous and corn phosphorous. We will test the null hypothesis of no relationship by reshuffling the response variable data by randomly assigning response variable values (without replacement) to the explanatory variable values: i.e., if there is no relationship between the soil phosphorous and the corn phosphorous then it should not matter to which value of the predictor variable, we assign any of the response variable values. We will then re-calculate our slope coefficient given our re-sampled data, where we assumed the null hypothesis of no relationship between the explanatory variable and the response variable.
+
+We interpret the result of our randomization by evaluating the proportion of times that the randomized data (assuming the null hypothesis) resulted in an F-statistic larger then the F-statistic we calculated for the regression slope for the original data. In the original analysis, we calculated a p-value for that F-statistic by assuming independent normally distributed residuals with equal variance. For the randomization experiment, we equate the F-statistic with a p-value (describing the type I error) by calculating the proportion of times that the randomization experiment (assuming the null hypothesis) produced an F-statistic larger then the F-statistic calculated for the actual data.
+
+```{r}
+Psoil<-corn.data$Psoil # explanatory varaible
+
+# Make a function that calculates the F-statistic for the regression assuming the null hypothesis
+reg.func = function(){
+resample.Pcorn = sample(corn.data$Pcorn,replace=FALSE)
+resample.corn = data.frame(Psoil=Psoil, Pcorn = resample.Pcorn)
+resample.mod = lm(Pcorn~Psoil, data = resample.corn)
+anova_result = anova(resample.mod) 
+f.stat <- anova_result["F value"][1, 1]
+return(f.stat)
+}
+
+# repeat the reg.func() calcuation 10,000 times to generated 10,000 F-statistics assuming the null hypothesis
+random.f = replicate(10000,reg.func())
+```
+
+If you copy and paste this code into an R console (or script) run the function `reg.func()` a few times and observe that it calculates a different F-statistic for the randomized data, under the assumption of the null hypothesis being true, each time. The `replicate` function performs the `reg.func()` calculations 10,000 times.
+
+We can make an empirical cumulative density function of our resulting F-statistics:
+
+```{r,message=FALSE}
+require(ggplot2)
+ecdf = data.frame(f.value = sort(random.f), quantile = seq(1,10000)/10000)
+g1 = ggplot(ecdf, aes(x = f.value, y = quantile)) + 
+  geom_line()+xlab("F-statistic values assuming null hypothesis")+theme_classic()
+g1
+```
+
+Now we consider the F-statistic that we calculate for the actual data:
+
+```{r}
+mod = lm(Pcorn~Psoil, data = corn.data) # using the corn.data rather than the resampled data
+anova_result = anova(mod) 
+f.data <- anova_result["F value"][1, 1]
+f.data
+```
+
+We calculate the quantile in the randomized F-statistic dataset for which our F-statistic calculated from the data occurs:
+
+```{r}
+p.est = ecdf$quantile[min(which(ecdf$f.value>f.data))]
+1-p.est
+```
+
+We estimate that 0.0086 of the randomly generated F-statistics (assuming the null hypothesis) are bigger than the F-statistic generated from the real data. We can add this to our `ggplot`:
+
+```{r,message=FALSE}
+g2 = g1 + geom_point(aes(x=f.data, y=p.est)) + geom_vline(xintercept=f.data, alpha=0.5)
+g2
+```
 
 

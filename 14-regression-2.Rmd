@@ -3,7 +3,7 @@ title: "Regression"
 output: html_document
 ---
 
-# Wed Oct 14 - Regression with one predictor variable fixed by experiment
+# Wed Oct 14 - Regression with one predictor variable fixed by experiment {#corn}
 
 ## Assignment 3
 [Assignment 3](#assignment-3b) is due on Friday October 23.
