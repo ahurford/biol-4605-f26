@@ -3,7 +3,157 @@ title: "2 way ANOVA"
 output: html_document
 ---
 
-# Mon Oct 26 - 2-way ANOVA 
+# Mon Oct 26 - One-way ANOVA with random effects.
+
+This lecture is based on [Chapter 10.4](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_4.pdf) of Dr. Schneider's notes.
+
+We have mentioned random versus fixed effects a few times in class already. Today we will do an example of an analysis involving one explanatory variable that is a random effect.
+
+A **Random factor** categories that are considered a sample from some larger population
+of units, such as plots or fields in an agricultural experiment. A **fixed factor** has levels
+that are the only ones of interest, as in the analysis of sleep data in relation to drug.
+
+With a fixed factor we are inferring only to the levels at hand. With a random factor we
+assume that the levels are a sample from a larger population of levels or units, which
+vary. With a random factor we infer to a larger population of levels or units that might
+have been chosen.
+
+
+**Example**. 
+The choice between random and fixed depends on how we define the
+population. Here is an example. A biologist carries out an experiment on the effects of
+nutrient enrichment on the growth of marine algae, at three different intertidal locations.
+Then repeats the experiment two more times, so that each location is exposed to each
+nutrient level on all three occasions.
+
+The nutrient factor is clearly fixed.
+
+The location
+factor is usually random. However, the location factor could be taken as fixed, if the
+biologist had chosen the locations to represent the fixed types of possible conditions in the
+study area (i.e., low, medium and high turbidity).
+
+The three occasions can also be taken as either random or fixed. They
+would be random if a known source of temporal variation, such as season and time of
+day, were held the same, or selected at random. They become fixed if occasions where deliberated selected to differ with respect to a known source of temporal variation (i.e., sunrise, midday, sunset).
+
+## Tick widths on rabbit hosts: one explanatory varaible (rabbit), which is a random effect.
+
+Tick widths are measured on 4 different rabbits. Our question of interest is:
+
+
+- Does the variance in width size among hosts (rabbits) exceed variance within hosts?
+
+
+Our formal model is:
+
+\[
+W = \beta_0 + \beta_H H + \epsilon
+\]
+
+where $W$ is the width of the ticks in mm, $\beta_0$ is the grand mean of tick width (mm), $\beta_H$ is the mean width of ticks on each rabbit host relatve to the grand mean (mm), $H$ is an indicator varaible corresponding to each of the four rabbits, and $\epsilon$ are normally distributed errors.
+
+Dr. Schneider has a note that it is nice to use arabic letters such as $H$ for random effects and greek letters, such as $\alpha$ for fixed effects.
+
+Let's load and visualize the tick data:
+
+```{r}
+tick.data=read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/tick-width.csv")
+tick.data
+```
+
+The column "Host" (as a letter) ensures that `R` treats the rabbit identifier as categorical. Another option is to ask `R` to treat the host number column `as.character()`. In the above data, `R` is treating host number as an integer, and integers are numbers, so if we do not make it clear that `HostNumber` should be treated as a category, `R` might treat it as counts or ranks.
+
+I want to response variable (`Wscut`) to remain as an integer, so that we can have a numeric response variable.
+
+Here is a way we can do that:
+
+```{r,message=FALSE}
+tick.data$HostNumber = as.character(tick.data$HostNumber)
+tick.data
+```
+
+The print out of the data shows that `HostNumber` is changed to a character, so that it will be treated as a category in the analysis. We also have the column `Host`, which we can always use to check that there has been not mistake in treating `HostNumber` as a rank or integer.
+
+Let's visualize the tick data:
+
+```{r,message=FALSE}
+library(ggplot2)
+ggplot(tick.data, aes(x = factor(HostNumber), y = Wscut)) +
+  # 1. Add the box plot layer
+  geom_boxplot(
+    outlier.shape = NA,       # CRITICAL: Prevents duplicate plotting of outliers
+    fill = c("maroon", "darkgray", "lightblue", "gold2"),          
+    color = c("maroon", "darkgray", "lightblue", "gold2"),       # Memorial colours
+    alpha = 0.5 # some transparency so we can still read the plot
+  ) +
+  # 2. Add the strip plot (jittered points) layer
+  geom_jitter(
+    position = position_jitter(width = 0.2, height = 0), # Controls data spreading
+    color = "black",        # Pick a distinct color for raw data points
+    size = 3,                 # Modify point size
+  ) +
+  labs(
+    x = "Rabbit host identifier",
+    y = "Scutum width (mm)",
+    title = "One explanatory variable that is a random effect"
+  )+theme_minimal()
+```
+
+Based on this plot, it looks like the mean tick width is higher for rabbit 1, and that tick widths are more variable on rabbit 4 (a violation of our homogeneity of variance assumption). Therefore, I am expecting that we might reject the null hypothesis that tick width is the same for all the rabbits, but of course, we will need to test this!
+
+We can also inspect normality of our residuals:
+
+```{r}
+tick.model = lm(Wscut~HostNumber, data = tick.data) # This treats HostNumber as a fixed effect (when we check our assumptions by plotting the residuals)
+tick.data$residuals <- residuals(tick.model)
+
+# Plot using density instead of count
+ggplot(tick.data, aes(x = residuals)) +
+  # after_stat(density) normalizes the bars so the curve fits the y-axis scale
+  geom_histogram(aes(y = after_stat(density)), bins = 15, 
+                 fill = "steelblue", color = "white", alpha = 0.6) +
+  
+# Layer a theoretical normal curve over the overall residuals data
+stat_function(
+  fun = dnorm, 
+  args = list(mean = 0, sd = sd(tick.data$residuals)), 
+  color = "black", 
+  linewidth = 1
+) +
+  
+geom_vline(xintercept = 0, linetype = "dashed", color = "red", linewidth = 0.8) +
+labs(
+  title = "Residual Histogram vs. Theoretical Normal Distribution",
+  x = "Residuals",
+  y = "Density"
+) +
+theme_minimal()
+```
+
+It looks like the residuals are quite normally-distributed.
+
+### Execute the analysis
+
+To perform an analysis with random effects, we need to load a specific package `lme4`. You can do this using the `install.package()` command (or see the [Quantitative training guide](https://ahurford.github.io/quant-guide-all-courses/)). To produce p-values associated with hypothesis testing we need to load `lmerTest`.
+
+```{r,message=FALSE}
+require(lme4)
+require(lmerTest)
+# 1. Fit the random effects model
+mod = lmer(Wscut~1|HostNumber,data = tick.data)
+
+# 2. View full summary (including p-values if lmerTest is loaded)
+summary(mod)
+
+# 3. Extract variance components as a readable data frame
+var_comp <- as.data.frame(VarCorr(mod))
+print(var_comp)
+```
+
+
+## Last 10 mins: Correct any errors on Quiz 3
 
 ## Readings 
-- Ch13.1
+
+- [Chapter 10.4](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_4.pdf) of Dr. Schneider's notes.

@@ -47,7 +47,7 @@ We can make an empirical cumulative density function of our resulting F-statisti
 require(ggplot2)
 ecdf = data.frame(f.value = sort(random.f), quantile = seq(1,10000)/10000)
 g1 = ggplot(ecdf, aes(x = f.value, y = quantile)) + 
-  geom_line()+xlab("F-statistic values assuming null hypothesis")+theme_classic()
+  geom_line()+xlab("F-statistic values assuming null hypothesis")+ggtitle("Regression example: Soil phosphorous")+theme_classic()
 g1
 ```
 
@@ -63,6 +63,7 @@ f.data
 We calculate the quantile in the randomized F-statistic dataset for which our F-statistic calculated from the data occurs:
 
 ```{r}
+ecdf = data.frame(f.value = sort(random.f), quantile = seq(1,10000)/10000)
 p.est = ecdf$quantile[min(which(ecdf$f.value>f.data))]
 1-p.est
 ```
@@ -70,8 +71,60 @@ p.est = ecdf$quantile[min(which(ecdf$f.value>f.data))]
 We estimate that 0.0086 of the randomly generated F-statistics (assuming the null hypothesis) are bigger than the F-statistic generated from the real data. We can add this to our `ggplot`:
 
 ```{r,message=FALSE}
-g2 = g1 + geom_point(aes(x=f.data, y=p.est)) + geom_vline(xintercept=f.data, alpha=0.5)
+g2 = g1+ geom_point(aes(x=f.data, y=p.est)) + geom_vline(xintercept=f.data, alpha=0.5)
 g2
 ```
 
+## ANOVA example
 
+Using the same reasoning as above, under the null hypothesis the pea length measurements would have been the same irrespective of the treatment that was applied.
+
+```{r}
+pea.data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/pea-length.csv")
+pea.data
+```
+Let's create 10,000 random data sets and calculate the F-statistic each time, where the assumption is that there is no effect of the treatment on the pea length:
+
+```{r}
+treatment<-pea.data$treatment # explanatory varaible
+
+# Make a function that calculates the F-statistic for the regression assuming the null hypothesis
+reg.func = function(){
+resample.pea = sample(pea.data$length,replace=FALSE)
+resample.pea = data.frame(treatment=treatment, length = resample.pea)
+resample.mod = lm(length~treatment, data = resample.pea)
+anova_result = anova(resample.mod) 
+f.stat <- anova_result["F value"][1, 1]
+return(f.stat)
+}
+
+# repeat the reg.func() calcuation 10,000 times to generated 10,000 F-statistics assuming the null hypothesis
+random.f = replicate(10000,reg.func())
+```
+
+
+Let's calculate the F-value for the ANOVA on the actual data:
+```{r}
+mod = lm(length~treatment, data = pea.data) # using the corn.data rather than the resampled data
+anova_result = anova(mod) 
+f.data <- anova_result["F value"][1, 1]
+f.data
+```
+
+
+And the quantile for the randomized data that thre real estimate corresponds to:
+```{r}
+p.est = ecdf$quantile[min(which(ecdf$f.value>f.data))]
+1-p.est
+```
+
+Let's graph the results to see where the real estimate of the F-value occurs with respect to the quantiles of the F-statistics generated unber the null hypothesis
+
+```{r,message=FALSE}
+ggplot(ecdf, aes(x = f.value, y = quantile)) + 
+  geom_line()+xlab("F-statistic values assuming null hypothesis")+ggtitle("ANOVA example: pea length")+theme_classic()+ geom_point(aes(x=f.data, y=p.est)) + geom_vline(xintercept=f.data, alpha=0.5)
+```
+
+We find that we still reject the null hypothesis that the group means for all the treatments (including the control) are the same.
+
+We could also do our posthoc analysis on the randomization data to test then null hypothesis that the mean of the control is equal to the mean of the treatments, for example.

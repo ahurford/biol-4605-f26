@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="wed-oct-21---one-way-anova-fixed-effects.html"/>
-<link rel="next" href="mon-oct-26---2-way-anova.html"/>
+<link rel="next" href="mon-oct-26---one-way-anova-with-random-effects..html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -155,7 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="17" data-path="mon-oct-19---two-sample-t-test.html"><a href="mon-oct-19---two-sample-t-test.html"><i class="fa fa-check"></i><b>17</b> Mon Oct 19 - Two sample t-test</a></li>
 <li class="chapter" data-level="18" data-path="wed-oct-21---one-way-anova-fixed-effects.html"><a href="wed-oct-21---one-way-anova-fixed-effects.html"><i class="fa fa-check"></i><b>18</b> Wed Oct 21 - One way ANOVA (fixed effects)</a></li>
 <li class="chapter" data-level="19" data-path="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"><i class="fa fa-check"></i><b>19</b> <strong>Fri Oct 23 (Quiz 3, A3 due)</strong> Randomization when assumptions are not met.</a></li>
-<li class="chapter" data-level="20" data-path="mon-oct-26---2-way-anova.html"><a href="mon-oct-26---2-way-anova.html"><i class="fa fa-check"></i><b>20</b> Mon Oct 26 - 2-way ANOVA</a></li>
+<li class="chapter" data-level="20" data-path="mon-oct-26---one-way-anova-with-random-effects..html"><a href="mon-oct-26---one-way-anova-with-random-effects..html"><i class="fa fa-check"></i><b>20</b> Mon Oct 26 - One-way ANOVA with random effects.</a></li>
 <li class="chapter" data-level="21" data-path="wed-oct-28---anova-with-interaction.html"><a href="wed-oct-28---anova-with-interaction.html"><i class="fa fa-check"></i><b>21</b> Wed Oct 28 - ANOVA with interaction</a></li>
 <li class="chapter" data-level="22" data-path="fri-oct-30-a4-due---mixed-model---paired-t-test.html"><a href="fri-oct-30-a4-due---mixed-model---paired-t-test.html"><i class="fa fa-check"></i><b>22</b> <strong>Fri Oct 30 (A4 due)</strong> - Mixed model - paired t-test</a></li>
 <li class="chapter" data-level="23" data-path="mon-nov-02---mixed-model---random-block.html"><a href="mon-nov-02---mixed-model---random-block.html"><i class="fa fa-check"></i><b>23</b> Mon Nov 02 - Mixed model - random block</a></li>
@@ -235,7 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb124-1" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
 <span id="cb124-2"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb124-2" tabindex="-1"></a>ecdf <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">f.value =</span> <span class="fu">sort</span>(random.f), <span class="at">quantile =</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">10000</span>)<span class="sc">/</span><span class="dv">10000</span>)</span>
 <span id="cb124-3"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb124-3" tabindex="-1"></a>g1 <span class="ot">=</span> <span class="fu">ggplot</span>(ecdf, <span class="fu">aes</span>(<span class="at">x =</span> f.value, <span class="at">y =</span> quantile)) <span class="sc">+</span> </span>
-<span id="cb124-4"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb124-4" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;F-statistic values assuming null hypothesis&quot;</span>)<span class="sc">+</span><span class="fu">theme_classic</span>()</span>
+<span id="cb124-4"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb124-4" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;F-statistic values assuming null hypothesis&quot;</span>)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&quot;Regression example: Soil phosphorous&quot;</span>)<span class="sc">+</span><span class="fu">theme_classic</span>()</span>
 <span id="cb124-5"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb124-5" tabindex="-1"></a>g1</span></code></pre></div>
 <p><img src="book_files/figure-html/unnamed-chunk-59-1.png" alt="" width="672" /></p>
 <p>Now we consider the F-statistic that we calculate for the actual data:</p>
@@ -245,18 +245,108 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb125-4"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb125-4" tabindex="-1"></a>f.data</span></code></pre></div>
 <pre><code>## [1] 12.8868</code></pre>
 <p>We calculate the quantile in the randomized F-statistic dataset for which our F-statistic calculated from the data occurs:</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb127-1" tabindex="-1"></a>p.est <span class="ot">=</span> ecdf<span class="sc">$</span>quantile[<span class="fu">min</span>(<span class="fu">which</span>(ecdf<span class="sc">$</span>f.value<span class="sc">&gt;</span>f.data))]</span>
-<span id="cb127-2"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb127-2" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span>p.est</span></code></pre></div>
-<pre><code>## [1] 0.0093</code></pre>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb127-1" tabindex="-1"></a>ecdf <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">f.value =</span> <span class="fu">sort</span>(random.f), <span class="at">quantile =</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">10000</span>)<span class="sc">/</span><span class="dv">10000</span>)</span>
+<span id="cb127-2"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb127-2" tabindex="-1"></a>p.est <span class="ot">=</span> ecdf<span class="sc">$</span>quantile[<span class="fu">min</span>(<span class="fu">which</span>(ecdf<span class="sc">$</span>f.value<span class="sc">&gt;</span>f.data))]</span>
+<span id="cb127-3"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb127-3" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span>p.est</span></code></pre></div>
+<pre><code>## [1] 0.0076</code></pre>
 <p>We estimate that 0.0086 of the randomly generated F-statistics (assuming the null hypothesis) are bigger than the F-statistic generated from the real data. We can add this to our <code>ggplot</code>:</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb129-1" tabindex="-1"></a>g2 <span class="ot">=</span> g1 <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>f.data, <span class="at">y=</span>p.est)) <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>f.data, <span class="at">alpha=</span><span class="fl">0.5</span>)</span>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb129-1" tabindex="-1"></a>g2 <span class="ot">=</span> g1<span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>f.data, <span class="at">y=</span>p.est)) <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>f.data, <span class="at">alpha=</span><span class="fl">0.5</span>)</span>
 <span id="cb129-2"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb129-2" tabindex="-1"></a>g2</span></code></pre></div>
-<pre><code>## Warning in geom_point(aes(x = f.data, y = p.est)): All aesthetics have length 1, but the data
-## has 10000 rows.
-## ℹ Please consider using `annotate()` or
-##   provide this layer with data containing a
-##   single row.</code></pre>
+<pre><code>## Warning in geom_point(aes(x = f.data, y = p.est)): All aesthetics have length 1, but the data has 10000 rows.
+## ℹ Please consider using `annotate()` or provide this layer with data
+##   containing a single row.</code></pre>
 <p><img src="book_files/figure-html/unnamed-chunk-62-1.png" alt="" width="672" /></p>
+</div>
+<div id="anova-example" class="section level2 hasAnchor" number="19.3">
+<h2><span class="header-section-number">19.3</span> ANOVA example<a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#anova-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Using the same reasoning as above, under the null hypothesis the pea length measurements would have been the same irrespective of the treatment that was applied.</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb131-1" tabindex="-1"></a>pea.data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/pea-length.csv&quot;</span>)</span>
+<span id="cb131-2"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb131-2" tabindex="-1"></a>pea.data</span></code></pre></div>
+<pre><code>##    treatment length
+## 1    Control     65
+## 2    Control     67
+## 3    Control     68
+## 4    Control     70
+## 5    Control     71
+## 6    Control     75
+## 7    Control     76
+## 8    Control     74
+## 9    Control     72
+## 10   Control     68
+## 11   Control     66
+## 12   Glucose     57
+## 13   Glucose     58
+## 14   Glucose     59
+## 15   Glucose     60
+## 16   Glucose     61
+## 17   Glucose     62
+## 18   Glucose     60
+## 19   Glucose     60
+## 20   Glucose     59
+## 21   Glucose     59
+## 22   Glucose     59
+## 23  Fructose     56
+## 24  Fructose     57
+## 25  Fructose     58
+## 26  Fructose     60
+## 27  Fructose     61
+## 28  Fructose     58
+## 29  Fructose     58
+## 30  Fructose     58
+## 31  Fructose     58
+## 32  Fructose     58
+## 33  Fructose     58
+## 34  Fructose     58
+## 35   Sucrose     56
+## 36   Sucrose     57
+## 37   Sucrose     58
+## 38   Sucrose     59
+## 39   Sucrose     61
+## 40 Gluc.Fruc     62
+## 41 Gluc.Fruc     63
+## 42 Gluc.Fruc     64
+## 43 Gluc.Fruc     65
+## 44 Gluc.Fruc     66
+## 45 Gluc.Fruc     67
+## 46 Gluc.Fruc     64
+## 47 Gluc.Fruc     65
+## 48 Gluc.Fruc     64
+## 49 Gluc.Fruc     65
+## 50 Gluc.Fruc     65</code></pre>
+<p>Let’s create 10,000 random data sets and calculate the F-statistic each time, where the assumption is that there is no effect of the treatment on the pea length:</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb133-1" tabindex="-1"></a>treatment<span class="ot">&lt;-</span>pea.data<span class="sc">$</span>treatment <span class="co"># explanatory varaible</span></span>
+<span id="cb133-2"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb133-2" tabindex="-1"></a></span>
+<span id="cb133-3"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb133-3" tabindex="-1"></a><span class="co"># Make a function that calculates the F-statistic for the regression assuming the null hypothesis</span></span>
+<span id="cb133-4"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb133-4" tabindex="-1"></a>reg.func <span class="ot">=</span> <span class="cf">function</span>(){</span>
+<span id="cb133-5"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb133-5" tabindex="-1"></a>resample.pea <span class="ot">=</span> <span class="fu">sample</span>(pea.data<span class="sc">$</span>length,<span class="at">replace=</span><span class="cn">FALSE</span>)</span>
+<span id="cb133-6"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb133-6" tabindex="-1"></a>resample.pea <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">treatment=</span>treatment, <span class="at">length =</span> resample.pea)</span>
+<span id="cb133-7"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb133-7" tabindex="-1"></a>resample.mod <span class="ot">=</span> <span class="fu">lm</span>(length<span class="sc">~</span>treatment, <span class="at">data =</span> resample.pea)</span>
+<span id="cb133-8"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb133-8" tabindex="-1"></a>anova_result <span class="ot">=</span> <span class="fu">anova</span>(resample.mod) </span>
+<span id="cb133-9"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb133-9" tabindex="-1"></a>f.stat <span class="ot">&lt;-</span> anova_result[<span class="st">&quot;F value&quot;</span>][<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb133-10"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb133-10" tabindex="-1"></a><span class="fu">return</span>(f.stat)</span>
+<span id="cb133-11"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb133-11" tabindex="-1"></a>}</span>
+<span id="cb133-12"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb133-12" tabindex="-1"></a></span>
+<span id="cb133-13"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb133-13" tabindex="-1"></a><span class="co"># repeat the reg.func() calcuation 10,000 times to generated 10,000 F-statistics assuming the null hypothesis</span></span>
+<span id="cb133-14"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb133-14" tabindex="-1"></a>random.f <span class="ot">=</span> <span class="fu">replicate</span>(<span class="dv">10000</span>,<span class="fu">reg.func</span>())</span></code></pre></div>
+<p>Let’s calculate the F-value for the ANOVA on the actual data:</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb134-1" tabindex="-1"></a>mod <span class="ot">=</span> <span class="fu">lm</span>(length<span class="sc">~</span>treatment, <span class="at">data =</span> pea.data) <span class="co"># using the corn.data rather than the resampled data</span></span>
+<span id="cb134-2"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb134-2" tabindex="-1"></a>anova_result <span class="ot">=</span> <span class="fu">anova</span>(mod) </span>
+<span id="cb134-3"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb134-3" tabindex="-1"></a>f.data <span class="ot">&lt;-</span> anova_result[<span class="st">&quot;F value&quot;</span>][<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb134-4"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb134-4" tabindex="-1"></a>f.data</span></code></pre></div>
+<pre><code>## [1] 59.85516</code></pre>
+<p>And the quantile for the randomized data that thre real estimate corresponds to:</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb136-1" tabindex="-1"></a>p.est <span class="ot">=</span> ecdf<span class="sc">$</span>quantile[<span class="fu">min</span>(<span class="fu">which</span>(ecdf<span class="sc">$</span>f.value<span class="sc">&gt;</span>f.data))]</span>
+<span id="cb136-2"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb136-2" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span>p.est</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>Let’s graph the results to see where the real estimate of the F-value occurs with respect to the quantiles of the F-statistics generated unber the null hypothesis</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb138-1" tabindex="-1"></a><span class="fu">ggplot</span>(ecdf, <span class="fu">aes</span>(<span class="at">x =</span> f.value, <span class="at">y =</span> quantile)) <span class="sc">+</span> </span>
+<span id="cb138-2"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb138-2" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;F-statistic values assuming null hypothesis&quot;</span>)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&quot;ANOVA example: pea length&quot;</span>)<span class="sc">+</span><span class="fu">theme_classic</span>()<span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>f.data, <span class="at">y=</span>p.est)) <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>f.data, <span class="at">alpha=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<pre><code>## Warning in geom_point(aes(x = f.data, y = p.est)): All aesthetics have length 1, but the data has 10000 rows.
+## ℹ Please consider using `annotate()` or provide this layer with data
+##   containing a single row.</code></pre>
+<p><img src="book_files/figure-html/unnamed-chunk-67-1.png" alt="" width="672" /></p>
+<p>We find that we still reject the null hypothesis that the group means for all the treatments (including the control) are the same.</p>
+<p>We could also do our posthoc analysis on the randomization data to test then null hypothesis that the mean of the control is equal to the mean of the treatments, for example.</p>
 
 </div>
 </div>
@@ -266,7 +356,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="wed-oct-21---one-way-anova-fixed-effects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="mon-oct-26---2-way-anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mon-oct-26---one-way-anova-with-random-effects..html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

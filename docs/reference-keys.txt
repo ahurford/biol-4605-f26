@@ -123,7 +123,11 @@ readings-10
 fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met.
 last-20-minutes-quiz-3
 regression-example
-mon-oct-26---2-way-anova
+anova-example
+mon-oct-26---one-way-anova-with-random-effects.
+tick-widths-on-rabbit-hosts-one-explanatory-varaible-rabbit-which-is-a-random-effect.
+execute-the-analysis-2
+last-10-mins-correct-any-errors-on-quiz-3
 readings-11
 wed-oct-28---anova-with-interaction
 readings-12

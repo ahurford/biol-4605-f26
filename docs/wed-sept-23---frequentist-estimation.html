@@ -155,7 +155,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="17" data-path="mon-oct-19---two-sample-t-test.html"><a href="mon-oct-19---two-sample-t-test.html"><i class="fa fa-check"></i><b>17</b> Mon Oct 19 - Two sample t-test</a></li>
 <li class="chapter" data-level="18" data-path="wed-oct-21---one-way-anova-fixed-effects.html"><a href="wed-oct-21---one-way-anova-fixed-effects.html"><i class="fa fa-check"></i><b>18</b> Wed Oct 21 - One way ANOVA (fixed effects)</a></li>
 <li class="chapter" data-level="19" data-path="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"><i class="fa fa-check"></i><b>19</b> <strong>Fri Oct 23 (Quiz 3, A3 due)</strong> Randomization when assumptions are not met.</a></li>
-<li class="chapter" data-level="20" data-path="mon-oct-26---2-way-anova.html"><a href="mon-oct-26---2-way-anova.html"><i class="fa fa-check"></i><b>20</b> Mon Oct 26 - 2-way ANOVA</a></li>
+<li class="chapter" data-level="20" data-path="mon-oct-26---one-way-anova-with-random-effects..html"><a href="mon-oct-26---one-way-anova-with-random-effects..html"><i class="fa fa-check"></i><b>20</b> Mon Oct 26 - One-way ANOVA with random effects.</a></li>
 <li class="chapter" data-level="21" data-path="wed-oct-28---anova-with-interaction.html"><a href="wed-oct-28---anova-with-interaction.html"><i class="fa fa-check"></i><b>21</b> Wed Oct 28 - ANOVA with interaction</a></li>
 <li class="chapter" data-level="22" data-path="fri-oct-30-a4-due---mixed-model---paired-t-test.html"><a href="fri-oct-30-a4-due---mixed-model---paired-t-test.html"><i class="fa fa-check"></i><b>22</b> <strong>Fri Oct 30 (A4 due)</strong> - Mixed model - paired t-test</a></li>
 <li class="chapter" data-level="23" data-path="mon-nov-02---mixed-model---random-block.html"><a href="mon-nov-02---mixed-model---random-block.html"><i class="fa fa-check"></i><b>23</b> Mon Nov 02 - Mixed model - random block</a></li>
@@ -340,17 +340,17 @@ P(\bar{y}-1.96\sigma_{\bar{y}} \leq \mu \leq \bar{y}+1.96\sigma_{\bar{y}}) = 0.9
 <span id="cb25-7"><a href="wed-sept-23---frequentist-estimation.html#cb25-7" tabindex="-1"></a>resampled.data <span class="ot">=</span> <span class="fu">data.frame</span>(sample1, sample2, sample3, sample4, sample5)</span>
 <span id="cb25-8"><a href="wed-sept-23---frequentist-estimation.html#cb25-8" tabindex="-1"></a>resampled.data</span></code></pre></div>
 <pre><code>##    sample1 sample2 sample3 sample4 sample5
-## 1       74      66      75      67      70
-## 2       71      72      68      74      70
-## 3       68      68      75      74      70
-## 4       71      72      68      65      72
-## 5       76      70      74      66      71
-## 6       75      71      74      75      68
-## 7       71      76      76      68      74
-## 8       76      75      68      75      71
-## 9       68      75      72      76      67
-## 10      74      67      65      66      72
-## 11      65      66      76      75      75</code></pre>
+## 1       74      71      66      66      70
+## 2       71      66      72      71      66
+## 3       68      72      68      76      67
+## 4       68      72      65      67      70
+## 5       72      71      67      76      66
+## 6       65      66      74      68      75
+## 7       72      70      67      76      75
+## 8       71      72      68      68      70
+## 9       70      75      68      74      68
+## 10      75      68      75      68      68
+## 11      71      72      72      65      71</code></pre>
 </div>
 <div id="jackknife" class="section level3 hasAnchor" number="8.7.2">
 <h3><span class="header-section-number">8.7.2</span> Jackknife<a href="wed-sept-23---frequentist-estimation.html#jackknife" class="anchor-section" aria-label="Anchor link to header"></a></h3>

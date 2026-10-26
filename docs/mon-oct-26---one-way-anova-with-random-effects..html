@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>20 Mon Oct 26 - One-way ANOVA with random effects. | book.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="20 Mon Oct 26 - One-way ANOVA with random effects. | book.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="20 Mon Oct 26 - One-way ANOVA with random effects. | book.knit" />
+  
+  
+  
+
+<meta name="author" content="Amy Hurford" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"/>
+<link rel="next" href="wed-oct-28---anova-with-interaction.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to BIOL/OSCS 4605/7220!</a></li>
+<li class="chapter" data-level="2" data-path="wed-sept-9---introduction.html"><a href="wed-sept-9---introduction.html"><i class="fa fa-check"></i><b>2</b> Wed Sept 9 - Introduction</a></li>
+<li class="chapter" data-level="3" data-path="fri-sept-11---models-and-quantities.html"><a href="fri-sept-11---models-and-quantities.html"><i class="fa fa-check"></i><b>3</b> Fri Sept 11 - Models and quantities</a></li>
+<li class="chapter" data-level="4" data-path="mon-sept-14---equations-units-and-notation.html"><a href="mon-sept-14---equations-units-and-notation.html"><i class="fa fa-check"></i><b>4</b> Mon Sept 14 - Equations, units, and notation</a></li>
+<li class="chapter" data-level="5" data-path="wed-sept-16---samples-and-populations.html"><a href="wed-sept-16---samples-and-populations.html"><i class="fa fa-check"></i><b>5</b> Wed Sept 16 - Samples and populations</a></li>
+<li class="chapter" data-level="6" data-path="fri-sept-18-quiz-1-a1-due-a2-available-probability-distributions.html"><a href="fri-sept-18-quiz-1-a1-due-a2-available-probability-distributions.html"><i class="fa fa-check"></i><b>6</b> <strong>Fri Sept 18 (Quiz 1, A1 due, A2 available)</strong> Probability distributions</a></li>
+<li class="chapter" data-level="7" data-path="mon-sept-21---review-quiz-1-statistical.html"><a href="mon-sept-21---review-quiz-1-statistical.html"><i class="fa fa-check"></i><b>7</b> Mon Sept 21 - Review Quiz 1, statistical</a></li>
+<li class="chapter" data-level="8" data-path="wed-sept-23---frequentist-estimation.html"><a href="wed-sept-23---frequentist-estimation.html"><i class="fa fa-check"></i><b>8</b> Wed Sept 23 - Frequentist estimation</a></li>
+<li class="chapter" data-level="9" data-path="fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics.html"><a href="fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics.html"><i class="fa fa-check"></i><b>9</b> <strong>Fri Sept 25 (A2 due)</strong> - Hypothesis testing (frequentist) and Bayesian statistics</a></li>
+<li class="chapter" data-level="10" data-path="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html"><a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html"><i class="fa fa-check"></i><b>10</b> Mon Sept 28 - Sampling and experimental design and power analysis</a></li>
+<li class="chapter" data-level="11" data-path="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"><a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"><i class="fa fa-check"></i><b>11</b> <strong>Fri Oct 2 (Quiz 2) </strong> - What is a linear model and how to assess model fit</a></li>
+<li class="chapter" data-level="12" data-path="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html"><i class="fa fa-check"></i><b>12</b> Mon Oct 05 - Linear model fitting and how well does a linear model fit?</a></li>
+<li class="chapter" data-level="13" data-path="wed-oct-07---exploratory-data-analysis.html"><a href="wed-oct-07---exploratory-data-analysis.html"><i class="fa fa-check"></i><b>13</b> Wed Oct 07 - Exploratory data analysis</a></li>
+<li class="chapter" data-level="14" data-path="fri-oct-09---exam-i.html"><a href="fri-oct-09---exam-i.html"><i class="fa fa-check"></i><b>14</b> <strong>Fri Oct 09 - EXAM I</strong></a></li>
+<li class="chapter" data-level="15" data-path="corn.html"><a href="corn.html"><i class="fa fa-check"></i><b>15</b> Wed Oct 14 - Regression with one predictor variable fixed by experiment</a></li>
+<li class="chapter" data-level="16" data-path="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><i class="fa fa-check"></i><b>16</b> Fri Oct 16 - Linear model for a single categorical predictor (factor)</a></li>
+<li class="chapter" data-level="17" data-path="mon-oct-19---two-sample-t-test.html"><a href="mon-oct-19---two-sample-t-test.html"><i class="fa fa-check"></i><b>17</b> Mon Oct 19 - Two sample t-test</a></li>
+<li class="chapter" data-level="18" data-path="wed-oct-21---one-way-anova-fixed-effects.html"><a href="wed-oct-21---one-way-anova-fixed-effects.html"><i class="fa fa-check"></i><b>18</b> Wed Oct 21 - One way ANOVA (fixed effects)</a></li>
+<li class="chapter" data-level="19" data-path="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"><i class="fa fa-check"></i><b>19</b> <strong>Fri Oct 23 (Quiz 3, A3 due)</strong> Randomization when assumptions are not met.</a></li>
+<li class="chapter" data-level="20" data-path="mon-oct-26---one-way-anova-with-random-effects..html"><a href="mon-oct-26---one-way-anova-with-random-effects..html"><i class="fa fa-check"></i><b>20</b> Mon Oct 26 - One-way ANOVA with random effects.</a></li>
+<li class="chapter" data-level="21" data-path="wed-oct-28---anova-with-interaction.html"><a href="wed-oct-28---anova-with-interaction.html"><i class="fa fa-check"></i><b>21</b> Wed Oct 28 - ANOVA with interaction</a></li>
+<li class="chapter" data-level="22" data-path="fri-oct-30-a4-due---mixed-model---paired-t-test.html"><a href="fri-oct-30-a4-due---mixed-model---paired-t-test.html"><i class="fa fa-check"></i><b>22</b> <strong>Fri Oct 30 (A4 due)</strong> - Mixed model - paired t-test</a></li>
+<li class="chapter" data-level="23" data-path="mon-nov-02---mixed-model---random-block.html"><a href="mon-nov-02---mixed-model---random-block.html"><i class="fa fa-check"></i><b>23</b> Mon Nov 02 - Mixed model - random block</a></li>
+<li class="chapter" data-level="24" data-path="wed-nov-04---nested-anova.html"><a href="wed-nov-04---nested-anova.html"><i class="fa fa-check"></i><b>24</b> Wed Nov 04 - Nested ANOVA</a></li>
+<li class="chapter" data-level="25" data-path="fri-nov-06---exam-2.html"><a href="fri-nov-06---exam-2.html"><i class="fa fa-check"></i><b>25</b> <strong>Fri Nov 06 - EXAM 2</strong></a></li>
+<li class="chapter" data-level="26" data-path="mon-nov-09---correlation-mvar.html"><a href="mon-nov-09---correlation-mvar.html"><i class="fa fa-check"></i><b>26</b> Mon Nov 09 - Correlation &amp; Mvar</a></li>
+<li class="chapter" data-level="27" data-path="fri-nov-13---gzlm-intro.html"><a href="fri-nov-13---gzlm-intro.html"><i class="fa fa-check"></i><b>27</b> Fri Nov 13 - GzLM Intro</a></li>
+<li class="chapter" data-level="28" data-path="mon-nov-16---logistic-regression.html"><a href="mon-nov-16---logistic-regression.html"><i class="fa fa-check"></i><b>28</b> Mon Nov 16 - Logistic Regression</a></li>
+<li class="chapter" data-level="29" data-path="wed-nov-18---prospective-analysis.html"><a href="wed-nov-18---prospective-analysis.html"><i class="fa fa-check"></i><b>29</b> Wed Nov 18 - Prospective Analysis</a></li>
+<li class="chapter" data-level="30" data-path="fri-nov-20-quiz-4--retrospective-analysis.html"><a href="fri-nov-20-quiz-4--retrospective-analysis.html"><i class="fa fa-check"></i><b>30</b> <strong>Fri Nov 20 (Quiz 4)</strong>- Retrospective Analysis</a></li>
+<li class="chapter" data-level="31" data-path="mon-nov-23---logistic-ancova.html"><a href="mon-nov-23---logistic-ancova.html"><i class="fa fa-check"></i><b>31</b> Mon Nov 23 - Logistic ANCOVA</a></li>
+<li class="chapter" data-level="32" data-path="wed-nov-25---poisson-regression.html"><a href="wed-nov-25---poisson-regression.html"><i class="fa fa-check"></i><b>32</b> Wed Nov 25 - Poisson Regression</a></li>
+<li class="chapter" data-level="33" data-path="fri-nov-27---contingency-tests-poisson.html"><a href="fri-nov-27---contingency-tests-poisson.html"><i class="fa fa-check"></i><b>33</b> Fri Nov 27 - Contingency Tests, Poisson</a></li>
+<li class="chapter" data-level="34" data-path="mon-nov-30---model-selection-i-eda-and-stepwise.html"><a href="mon-nov-30---model-selection-i-eda-and-stepwise.html"><i class="fa fa-check"></i><b>34</b> Mon Nov 30 - Model Selection I: EDA and Stepwise</a></li>
+<li class="chapter" data-level="35" data-path="wed-dec-02---multimodel-inf---aic-sic.html"><a href="wed-dec-02---multimodel-inf---aic-sic.html"><i class="fa fa-check"></i><b>35</b> Wed Dec 02 - Multimodel Inf - AIC, SIC</a></li>
+<li class="chapter" data-level="36" data-path="fri-dec-04---course-review.html"><a href="fri-dec-04---course-review.html"><i class="fa fa-check"></i><b>36</b> Fri Dec 04 - Course Review</a></li>
+<li class="chapter" data-level="37" data-path="assignment-1.html"><a href="assignment-1.html"><i class="fa fa-check"></i><b>37</b> Assignment 1 - Quantities (due Fri Sept 18)</a></li>
+<li class="chapter" data-level="38" data-path="assignment-2b.html"><a href="assignment-2b.html"><i class="fa fa-check"></i><b>38</b> Assignment 2 - Data equations (due Friday Sept 25)</a></li>
+<li class="chapter" data-level="39" data-path="assignment-3b.html"><a href="assignment-3b.html"><i class="fa fa-check"></i><b>39</b> Assignment 3 - Hypothesis testing (due Fri Oct 23)</a></li>
+<li class="chapter" data-level="40" data-path="assignment-4---confidence-intervals-due-fri-oct-30.html"><a href="assignment-4---confidence-intervals-due-fri-oct-30.html"><i class="fa fa-check"></i><b>40</b> Assignment 4 - Confidence intervals (due Fri Oct 30)</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mon-oct-26---one-way-anova-with-random-effects." class="section level1 hasAnchor" number="20">
+<h1><span class="header-section-number">20</span> Mon Oct 26 - One-way ANOVA with random effects.<a href="mon-oct-26---one-way-anova-with-random-effects..html#mon-oct-26---one-way-anova-with-random-effects." class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This lecture is based on <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_4.pdf">Chapter 10.4</a> of Dr. Schneider’s notes.</p>
+<p>We have mentioned random versus fixed effects a few times in class already. Today we will do an example of an analysis involving one explanatory variable that is a random effect.</p>
+<p>A <strong>Random factor</strong> categories that are considered a sample from some larger population
+of units, such as plots or fields in an agricultural experiment. A <strong>fixed factor</strong> has levels
+that are the only ones of interest, as in the analysis of sleep data in relation to drug.</p>
+<p>With a fixed factor we are inferring only to the levels at hand. With a random factor we
+assume that the levels are a sample from a larger population of levels or units, which
+vary. With a random factor we infer to a larger population of levels or units that might
+have been chosen.</p>
+<p><strong>Example</strong>.
+The choice between random and fixed depends on how we define the
+population. Here is an example. A biologist carries out an experiment on the effects of
+nutrient enrichment on the growth of marine algae, at three different intertidal locations.
+Then repeats the experiment two more times, so that each location is exposed to each
+nutrient level on all three occasions.</p>
+<p>The nutrient factor is clearly fixed.</p>
+<p>The location
+factor is usually random. However, the location factor could be taken as fixed, if the
+biologist had chosen the locations to represent the fixed types of possible conditions in the
+study area (i.e., low, medium and high turbidity).</p>
+<p>The three occasions can also be taken as either random or fixed. They
+would be random if a known source of temporal variation, such as season and time of
+day, were held the same, or selected at random. They become fixed if occasions where deliberated selected to differ with respect to a known source of temporal variation (i.e., sunrise, midday, sunset).</p>
+<div id="tick-widths-on-rabbit-hosts-one-explanatory-varaible-rabbit-which-is-a-random-effect." class="section level2 hasAnchor" number="20.1">
+<h2><span class="header-section-number">20.1</span> Tick widths on rabbit hosts: one explanatory varaible (rabbit), which is a random effect.<a href="mon-oct-26---one-way-anova-with-random-effects..html#tick-widths-on-rabbit-hosts-one-explanatory-varaible-rabbit-which-is-a-random-effect." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Tick widths are measured on 4 different rabbits. Our question of interest is:</p>
+<ul>
+<li>Does the variance in width size among hosts (rabbits) exceed variance within hosts?</li>
+</ul>
+<p>Our formal model is:</p>
+<p><span class="math display">\[
+W = \beta_0 + \beta_H H + \epsilon
+\]</span></p>
+<p>where <span class="math inline">\(W\)</span> is the width of the ticks in mm, <span class="math inline">\(\beta_0\)</span> is the grand mean of tick width (mm), <span class="math inline">\(\beta_H\)</span> is the mean width of ticks on each rabbit host relatve to the grand mean (mm), <span class="math inline">\(H\)</span> is an indicator varaible corresponding to each of the four rabbits, and <span class="math inline">\(\epsilon\)</span> are normally distributed errors.</p>
+<p>Dr. Schneider has a note that it is nice to use arabic letters such as <span class="math inline">\(H\)</span> for random effects and greek letters, such as <span class="math inline">\(\alpha\)</span> for fixed effects.</p>
+<p>Let’s load and visualize the tick data:</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb140-1" tabindex="-1"></a>tick.data<span class="ot">=</span><span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/tick-width.csv&quot;</span>)</span>
+<span id="cb140-2"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb140-2" tabindex="-1"></a>tick.data</span></code></pre></div>
+<pre><code>##    Wscut HostNumber Host
+## 1    380          1    A
+## 2    376          1    A
+## 3    360          1    A
+## 4    368          1    A
+## 5    372          1    A
+## 6    366          1    A
+## 7    374          1    A
+## 8    382          1    A
+## 9    350          2    B
+## 10   356          2    B
+## 11   358          2    B
+## 12   376          2    B
+## 13   338          2    B
+## 14   342          2    B
+## 15   366          2    B
+## 16   350          2    B
+## 17   344          2    B
+## 18   364          2    B
+## 19   354          3    C
+## 20   360          3    C
+## 21   362          3    C
+## 22   352          3    C
+## 23   366          3    C
+## 24   372          3    C
+## 25   362          3    C
+## 26   344          3    C
+## 27   342          3    C
+## 28   358          3    C
+## 29   351          3    C
+## 30   348          3    C
+## 31   348          3    C
+## 32   376          4    D
+## 33   344          4    D
+## 34   342          4    D
+## 35   372          4    D
+## 36   374          4    D
+## 37   360          4    D</code></pre>
+<p>The column “Host” (as a letter) ensures that <code>R</code> treats the rabbit identifier as categorical. Another option is to ask <code>R</code> to treat the host number column <code>as.character()</code>. In the above data, <code>R</code> is treating host number as an integer, and integers are numbers, so if we do not make it clear that <code>HostNumber</code> should be treated as a category, <code>R</code> might treat it as counts or ranks.</p>
+<p>I want to response variable (<code>Wscut</code>) to remain as an integer, so that we can have a numeric response variable.</p>
+<p>Here is a way we can do that:</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb142-1" tabindex="-1"></a>tick.data<span class="sc">$</span>HostNumber <span class="ot">=</span> <span class="fu">as.character</span>(tick.data<span class="sc">$</span>HostNumber)</span>
+<span id="cb142-2"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb142-2" tabindex="-1"></a>tick.data</span></code></pre></div>
+<pre><code>##    Wscut HostNumber Host
+## 1    380          1    A
+## 2    376          1    A
+## 3    360          1    A
+## 4    368          1    A
+## 5    372          1    A
+## 6    366          1    A
+## 7    374          1    A
+## 8    382          1    A
+## 9    350          2    B
+## 10   356          2    B
+## 11   358          2    B
+## 12   376          2    B
+## 13   338          2    B
+## 14   342          2    B
+## 15   366          2    B
+## 16   350          2    B
+## 17   344          2    B
+## 18   364          2    B
+## 19   354          3    C
+## 20   360          3    C
+## 21   362          3    C
+## 22   352          3    C
+## 23   366          3    C
+## 24   372          3    C
+## 25   362          3    C
+## 26   344          3    C
+## 27   342          3    C
+## 28   358          3    C
+## 29   351          3    C
+## 30   348          3    C
+## 31   348          3    C
+## 32   376          4    D
+## 33   344          4    D
+## 34   342          4    D
+## 35   372          4    D
+## 36   374          4    D
+## 37   360          4    D</code></pre>
+<p>The print out of the data shows that <code>HostNumber</code> is changed to a character, so that it will be treated as a category in the analysis. We also have the column <code>Host</code>, which we can always use to check that there has been not mistake in treating <code>HostNumber</code> as a rank or integer.</p>
+<p>Let’s visualize the tick data:</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb144-2"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-2" tabindex="-1"></a><span class="fu">ggplot</span>(tick.data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(HostNumber), <span class="at">y =</span> Wscut)) <span class="sc">+</span></span>
+<span id="cb144-3"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-3" tabindex="-1"></a>  <span class="co"># 1. Add the box plot layer</span></span>
+<span id="cb144-4"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb144-5"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-5" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span>,       <span class="co"># CRITICAL: Prevents duplicate plotting of outliers</span></span>
+<span id="cb144-6"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-6" tabindex="-1"></a>    <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;maroon&quot;</span>, <span class="st">&quot;darkgray&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;gold2&quot;</span>),          </span>
+<span id="cb144-7"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-7" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;maroon&quot;</span>, <span class="st">&quot;darkgray&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;gold2&quot;</span>),       <span class="co"># Memorial colours</span></span>
+<span id="cb144-8"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-8" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span> <span class="co"># some transparency so we can still read the plot</span></span>
+<span id="cb144-9"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-9" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb144-10"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-10" tabindex="-1"></a>  <span class="co"># 2. Add the strip plot (jittered points) layer</span></span>
+<span id="cb144-11"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-11" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(</span>
+<span id="cb144-12"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-12" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="dv">0</span>), <span class="co"># Controls data spreading</span></span>
+<span id="cb144-13"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-13" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,        <span class="co"># Pick a distinct color for raw data points</span></span>
+<span id="cb144-14"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-14" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,                 <span class="co"># Modify point size</span></span>
+<span id="cb144-15"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-15" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb144-16"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-16" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb144-17"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-17" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Rabbit host identifier&quot;</span>,</span>
+<span id="cb144-18"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-18" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Scutum width (mm)&quot;</span>,</span>
+<span id="cb144-19"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-19" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;One explanatory variable that is a random effect&quot;</span></span>
+<span id="cb144-20"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-20" tabindex="-1"></a>  )<span class="sc">+</span><span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-70-1.png" alt="" width="672" /></p>
+<p>Based on this plot, it looks like the mean tick width is higher for rabbit 1, and that tick widths are more variable on rabbit 4 (a violation of our homogeneity of variance assumption). Therefore, I am expecting that we might reject the null hypothesis that tick width is the same for all the rabbits, but of course, we will need to test this!</p>
+<p>We can also inspect normality of our residuals:</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-1" tabindex="-1"></a>tick.model <span class="ot">=</span> <span class="fu">lm</span>(Wscut<span class="sc">~</span>HostNumber, <span class="at">data =</span> tick.data) <span class="co"># This treats HostNumber as a fixed effect (when we check our assumptions by plotting the residuals)</span></span>
+<span id="cb145-2"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-2" tabindex="-1"></a>tick.data<span class="sc">$</span>residuals <span class="ot">&lt;-</span> <span class="fu">residuals</span>(tick.model)</span>
+<span id="cb145-3"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-3" tabindex="-1"></a></span>
+<span id="cb145-4"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-4" tabindex="-1"></a><span class="co"># Plot using density instead of count</span></span>
+<span id="cb145-5"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-5" tabindex="-1"></a><span class="fu">ggplot</span>(tick.data, <span class="fu">aes</span>(<span class="at">x =</span> residuals)) <span class="sc">+</span></span>
+<span id="cb145-6"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-6" tabindex="-1"></a>  <span class="co"># after_stat(density) normalizes the bars so the curve fits the y-axis scale</span></span>
+<span id="cb145-7"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-7" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">bins =</span> <span class="dv">15</span>, </span>
+<span id="cb145-8"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-8" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb145-9"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-9" tabindex="-1"></a>  </span>
+<span id="cb145-10"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-10" tabindex="-1"></a><span class="co"># Layer a theoretical normal curve over the overall residuals data</span></span>
+<span id="cb145-11"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-11" tabindex="-1"></a><span class="fu">stat_function</span>(</span>
+<span id="cb145-12"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-12" tabindex="-1"></a>  <span class="at">fun =</span> dnorm, </span>
+<span id="cb145-13"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-13" tabindex="-1"></a>  <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fu">sd</span>(tick.data<span class="sc">$</span>residuals)), </span>
+<span id="cb145-14"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-14" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb145-15"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-15" tabindex="-1"></a>  <span class="at">linewidth =</span> <span class="dv">1</span></span>
+<span id="cb145-16"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-16" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb145-17"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-17" tabindex="-1"></a>  </span>
+<span id="cb145-18"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-18" tabindex="-1"></a><span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb145-19"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-19" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb145-20"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-20" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Residual Histogram vs. Theoretical Normal Distribution&quot;</span>,</span>
+<span id="cb145-21"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-21" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">&quot;Residuals&quot;</span>,</span>
+<span id="cb145-22"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-22" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">&quot;Density&quot;</span></span>
+<span id="cb145-23"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-23" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb145-24"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-24" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-71-1.png" alt="" width="672" /></p>
+<p>It looks like the residuals are quite normally-distributed.</p>
+<div id="execute-the-analysis-2" class="section level3 hasAnchor" number="20.1.1">
+<h3><span class="header-section-number">20.1.1</span> Execute the analysis<a href="mon-oct-26---one-way-anova-with-random-effects..html#execute-the-analysis-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To perform an analysis with random effects, we need to load a specific package <code>lme4</code>. You can do this using the <code>install.package()</code> command (or see the <a href="https://ahurford.github.io/quant-guide-all-courses/">Quantitative training guide</a>). To produce p-values associated with hypothesis testing we need to load <code>lmerTest</code>.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-1" tabindex="-1"></a><span class="fu">require</span>(lme4)</span>
+<span id="cb146-2"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-2" tabindex="-1"></a><span class="fu">require</span>(lmerTest)</span>
+<span id="cb146-3"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-3" tabindex="-1"></a><span class="co"># 1. Fit the random effects model</span></span>
+<span id="cb146-4"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-4" tabindex="-1"></a>mod <span class="ot">=</span> <span class="fu">lmer</span>(Wscut<span class="sc">~</span><span class="dv">1</span><span class="sc">|</span>HostNumber,<span class="at">data =</span> tick.data)</span>
+<span id="cb146-5"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-5" tabindex="-1"></a></span>
+<span id="cb146-6"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-6" tabindex="-1"></a><span class="co"># 2. View full summary (including p-values if lmerTest is loaded)</span></span>
+<span id="cb146-7"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-7" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: Wscut ~ 1 | HostNumber
+##    Data: tick.data
+## 
+## REML criterion at convergence: 281.4
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -1.7904 -0.7518  0.0493  0.7972  1.9190 
+## 
+## Random effects:
+##  Groups     Name        Variance Std.Dev.
+##  HostNumber (Intercept)  55.01    7.417  
+##  Residual               114.42   10.697  
+## Number of obs: 37, groups:  HostNumber, 4
+## 
+## Fixed effects:
+##             Estimate Std. Error      df t value Pr(&gt;|t|)    
+## (Intercept)  360.630      4.129   3.006   87.33 3.24e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb148-1" tabindex="-1"></a><span class="co"># 3. Extract variance components as a readable data frame</span></span>
+<span id="cb148-2"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb148-2" tabindex="-1"></a>var_comp <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">VarCorr</span>(mod))</span>
+<span id="cb148-3"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb148-3" tabindex="-1"></a><span class="fu">print</span>(var_comp)</span></code></pre></div>
+<pre><code>##          grp        var1 var2      vcov     sdcor
+## 1 HostNumber (Intercept) &lt;NA&gt;  55.01093  7.416935
+## 2   Residual        &lt;NA&gt; &lt;NA&gt; 114.42479 10.696952</code></pre>
+</div>
+</div>
+<div id="last-10-mins-correct-any-errors-on-quiz-3" class="section level2 hasAnchor" number="20.2">
+<h2><span class="header-section-number">20.2</span> Last 10 mins: Correct any errors on Quiz 3<a href="mon-oct-26---one-way-anova-with-random-effects..html#last-10-mins-correct-any-errors-on-quiz-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="readings-11" class="section level2 hasAnchor" number="20.3">
+<h2><span class="header-section-number">20.3</span> Readings<a href="mon-oct-26---one-way-anova-with-random-effects..html#readings-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_4.pdf">Chapter 10.4</a> of Dr. Schneider’s notes.</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="wed-oct-28---anova-with-interaction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
