@@ -18,24 +18,25 @@ assume that the levels are a sample from a larger population of levels or units,
 vary. With a random factor we infer to a larger population of levels or units that might
 have been chosen.
 
+We often do not seek to test hypothesis involving explanatory variables that are random effects. Instead, we aim to quantify how much of the variation in the response variable is explained by the random effect.
+
+
+The choice between random and fixed depends on how we define the
+population.
 
 **Example**. 
-The choice between random and fixed depends on how we define the
-population. Here is an example. A biologist carries out an experiment on the effects of
-nutrient enrichment on the growth of marine algae, at three different intertidal locations.
-Then repeats the experiment two more times, so that each location is exposed to each
-nutrient level on all three occasions.
+A biologist carries out an experiment on the effects of
+nutrient enrichment on the growth of marine algae, at three different intertidal locations.Then repeats the experiment two more times, so that each location is exposed to each nutrient level on all three occasions.
 
 The nutrient factor is clearly fixed.
 
 The location
 factor is usually random. However, the location factor could be taken as fixed, if the
-biologist had chosen the locations to represent the fixed types of possible conditions in the
-study area (i.e., low, medium and high turbidity).
+biologist had chosen the locations to represent the fixed types of possible conditions in the study area (i.e., low, medium and high turbidity).
 
 The three occasions can also be taken as either random or fixed. They
 would be random if a known source of temporal variation, such as season and time of
-day, were held the same, or selected at random. They become fixed if occasions where deliberated selected to differ with respect to a known source of temporal variation (i.e., sunrise, midday, sunset).
+day, were selected at random. They become fixed if occasions where deliberated selected to differ with respect to a known source of temporal variation (i.e., sunrise, midday, sunset).
 
 ## Tick widths on rabbit hosts: one explanatory varaible (rabbit), which is a random effect.
 
@@ -51,9 +52,9 @@ Our formal model is:
 W = \beta_0 + \beta_H H + \epsilon
 \]
 
-where $W$ is the width of the ticks in mm, $\beta_0$ is the grand mean of tick width (mm), $\beta_H$ is the mean width of ticks on each rabbit host relatve to the grand mean (mm), $H$ is an indicator varaible corresponding to each of the four rabbits, and $\epsilon$ are normally distributed errors.
+where $W$ is the width of the ticks in mm, $\beta_0$ is the grand mean of tick width (mm), $\beta_H$ is the mean width of ticks on each rabbit host relatve to the grand mean (mm), $H$ is an indicator variable corresponding to each of the four rabbits, and $\epsilon$ are normally distributed errors.
 
-Dr. Schneider has a note that it is nice to use arabic letters such as $H$ for random effects and greek letters, such as $\alpha$ for fixed effects.
+Dr. Schneider has a note that it is nice to use arabic letters, such as $H$, for random effects and greek letters, such as $\alpha$, for fixed effects.
 
 Let's load and visualize the tick data:
 
@@ -64,7 +65,7 @@ tick.data
 
 The column "Host" (as a letter) ensures that `R` treats the rabbit identifier as categorical. Another option is to ask `R` to treat the host number column `as.character()`. In the above data, `R` is treating host number as an integer, and integers are numbers, so if we do not make it clear that `HostNumber` should be treated as a category, `R` might treat it as counts or ranks.
 
-I want to response variable (`Wscut`) to remain as an integer, so that we can have a numeric response variable.
+I want the response variable (`Wscut`) to remain as an integer, so that we can have a numeric response variable.
 
 Here is a way we can do that:
 
@@ -73,7 +74,7 @@ tick.data$HostNumber = as.character(tick.data$HostNumber)
 tick.data
 ```
 
-The print out of the data shows that `HostNumber` is changed to a character, so that it will be treated as a category in the analysis. We also have the column `Host`, which we can always use to check that there has been not mistake in treating `HostNumber` as a rank or integer.
+The print out of the data shows that `HostNumber` is changed to a character, so that it will be treated as a category in the analysis. We also have the column `Host`, which we can always use to check that there has not been a mistake in treating `HostNumber` as a rank or integer.
 
 Let's visualize the tick data:
 
@@ -100,9 +101,9 @@ ggplot(tick.data, aes(x = factor(HostNumber), y = Wscut)) +
   )+theme_minimal()
 ```
 
-Based on this plot, it looks like the mean tick width is higher for rabbit 1, and that tick widths are more variable on rabbit 4 (a violation of our homogeneity of variance assumption). Therefore, I am expecting that we might reject the null hypothesis that tick width is the same for all the rabbits, but of course, we will need to test this!
+Based on this plot, it looks like some of the variation in tick width is explained by which rabbit they are on, particularly as the widest ticks seems to be found of rabbit 1.
 
-We can also inspect normality of our residuals:
+We can inspect the normality of our residuals:
 
 ```{r}
 tick.model = lm(Wscut~HostNumber, data = tick.data) # This treats HostNumber as a fixed effect (when we check our assumptions by plotting the residuals)
@@ -135,21 +136,21 @@ It looks like the residuals are quite normally-distributed.
 
 ### Execute the analysis
 
-To perform an analysis with random effects, we need to load a specific package `lme4`. You can do this using the `install.package()` command (or see the [Quantitative training guide](https://ahurford.github.io/quant-guide-all-courses/)). To produce p-values associated with hypothesis testing we need to load `lmerTest`.
+To perform an analysis with random effects, we need to load a specific package `lme4`. You can do this using the `install.package()` command (or see the [Quantitative training guide](https://ahurford.github.io/quant-guide-all-courses/)). 
 
 ```{r,message=FALSE}
 require(lme4)
-require(lmerTest)
-# 1. Fit the random effects model
+# fit the random effects model
 mod = lmer(Wscut~1|HostNumber,data = tick.data)
 
-# 2. View full summary (including p-values if lmerTest is loaded)
+# view summary
 summary(mod)
 
-# 3. Extract variance components as a readable data frame
-var_comp <- as.data.frame(VarCorr(mod))
-print(var_comp)
 ```
+
+From this output we see that the variance explained by the host is 55.01 mm$^2$ and the unexplained variance (in the residual) is 114.42 mm$^2$.
+
+Therefore, as the only explanatory variable is the random effect associated with each rabbit, the variation between hosts is the residual variance. Therefore, we find that the variation between rabbits (114.42 mm$^2$) is greater than the variation within rabbits (55.01 mm$^2$) and that 55.01/(114.42 + 55.01) = 32.5$\%$ of the variation is due to the ticks being associated with particular rabbits.
 
 
 ## Last 10 mins: Correct any errors on Quiz 3

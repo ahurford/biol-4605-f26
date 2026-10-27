@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"/>
-<link rel="next" href="wed-oct-28---anova-with-interaction.html"/>
+<link rel="next" href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -156,7 +156,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18" data-path="wed-oct-21---one-way-anova-fixed-effects.html"><a href="wed-oct-21---one-way-anova-fixed-effects.html"><i class="fa fa-check"></i><b>18</b> Wed Oct 21 - One way ANOVA (fixed effects)</a></li>
 <li class="chapter" data-level="19" data-path="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"><i class="fa fa-check"></i><b>19</b> <strong>Fri Oct 23 (Quiz 3, A3 due)</strong> Randomization when assumptions are not met.</a></li>
 <li class="chapter" data-level="20" data-path="mon-oct-26---one-way-anova-with-random-effects..html"><a href="mon-oct-26---one-way-anova-with-random-effects..html"><i class="fa fa-check"></i><b>20</b> Mon Oct 26 - One-way ANOVA with random effects.</a></li>
-<li class="chapter" data-level="21" data-path="wed-oct-28---anova-with-interaction.html"><a href="wed-oct-28---anova-with-interaction.html"><i class="fa fa-check"></i><b>21</b> Wed Oct 28 - ANOVA with interaction</a></li>
+<li class="chapter" data-level="21" data-path="wed-oct-28---parameter-estimation-with-maximum-likelihood.html"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html"><i class="fa fa-check"></i><b>21</b> Wed Oct 28 - Parameter estimation with maximum likelihood</a></li>
 <li class="chapter" data-level="22" data-path="fri-oct-30-a4-due---mixed-model---paired-t-test.html"><a href="fri-oct-30-a4-due---mixed-model---paired-t-test.html"><i class="fa fa-check"></i><b>22</b> <strong>Fri Oct 30 (A4 due)</strong> - Mixed model - paired t-test</a></li>
 <li class="chapter" data-level="23" data-path="mon-nov-02---mixed-model---random-block.html"><a href="mon-nov-02---mixed-model---random-block.html"><i class="fa fa-check"></i><b>23</b> Mon Nov 02 - Mixed model - random block</a></li>
 <li class="chapter" data-level="24" data-path="wed-nov-04---nested-anova.html"><a href="wed-nov-04---nested-anova.html"><i class="fa fa-check"></i><b>24</b> Wed Nov 04 - Nested ANOVA</a></li>
@@ -204,20 +204,19 @@ that are the only ones of interest, as in the analysis of sleep data in relation
 assume that the levels are a sample from a larger population of levels or units, which
 vary. With a random factor we infer to a larger population of levels or units that might
 have been chosen.</p>
+<p>We often do not seek to test hypothesis involving explanatory variables that are random effects. Instead, we aim to quantify how much of the variation in the response variable is explained by the random effect.</p>
+<p>The choice between random and fixed depends on how we define the
+population.</p>
 <p><strong>Example</strong>.
-The choice between random and fixed depends on how we define the
-population. Here is an example. A biologist carries out an experiment on the effects of
-nutrient enrichment on the growth of marine algae, at three different intertidal locations.
-Then repeats the experiment two more times, so that each location is exposed to each
-nutrient level on all three occasions.</p>
+A biologist carries out an experiment on the effects of
+nutrient enrichment on the growth of marine algae, at three different intertidal locations.Then repeats the experiment two more times, so that each location is exposed to each nutrient level on all three occasions.</p>
 <p>The nutrient factor is clearly fixed.</p>
 <p>The location
 factor is usually random. However, the location factor could be taken as fixed, if the
-biologist had chosen the locations to represent the fixed types of possible conditions in the
-study area (i.e., low, medium and high turbidity).</p>
+biologist had chosen the locations to represent the fixed types of possible conditions in the study area (i.e., low, medium and high turbidity).</p>
 <p>The three occasions can also be taken as either random or fixed. They
 would be random if a known source of temporal variation, such as season and time of
-day, were held the same, or selected at random. They become fixed if occasions where deliberated selected to differ with respect to a known source of temporal variation (i.e., sunrise, midday, sunset).</p>
+day, were selected at random. They become fixed if occasions where deliberated selected to differ with respect to a known source of temporal variation (i.e., sunrise, midday, sunset).</p>
 <div id="tick-widths-on-rabbit-hosts-one-explanatory-varaible-rabbit-which-is-a-random-effect." class="section level2 hasAnchor" number="20.1">
 <h2><span class="header-section-number">20.1</span> Tick widths on rabbit hosts: one explanatory varaible (rabbit), which is a random effect.<a href="mon-oct-26---one-way-anova-with-random-effects..html#tick-widths-on-rabbit-hosts-one-explanatory-varaible-rabbit-which-is-a-random-effect." class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Tick widths are measured on 4 different rabbits. Our question of interest is:</p>
@@ -228,8 +227,8 @@ day, were held the same, or selected at random. They become fixed if occasions w
 <p><span class="math display">\[
 W = \beta_0 + \beta_H H + \epsilon
 \]</span></p>
-<p>where <span class="math inline">\(W\)</span> is the width of the ticks in mm, <span class="math inline">\(\beta_0\)</span> is the grand mean of tick width (mm), <span class="math inline">\(\beta_H\)</span> is the mean width of ticks on each rabbit host relatve to the grand mean (mm), <span class="math inline">\(H\)</span> is an indicator varaible corresponding to each of the four rabbits, and <span class="math inline">\(\epsilon\)</span> are normally distributed errors.</p>
-<p>Dr. Schneider has a note that it is nice to use arabic letters such as <span class="math inline">\(H\)</span> for random effects and greek letters, such as <span class="math inline">\(\alpha\)</span> for fixed effects.</p>
+<p>where <span class="math inline">\(W\)</span> is the width of the ticks in mm, <span class="math inline">\(\beta_0\)</span> is the grand mean of tick width (mm), <span class="math inline">\(\beta_H\)</span> is the mean width of ticks on each rabbit host relatve to the grand mean (mm), <span class="math inline">\(H\)</span> is an indicator variable corresponding to each of the four rabbits, and <span class="math inline">\(\epsilon\)</span> are normally distributed errors.</p>
+<p>Dr. Schneider has a note that it is nice to use arabic letters, such as <span class="math inline">\(H\)</span>, for random effects and greek letters, such as <span class="math inline">\(\alpha\)</span>, for fixed effects.</p>
 <p>Let’s load and visualize the tick data:</p>
 <div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb140-1" tabindex="-1"></a>tick.data<span class="ot">=</span><span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/tick-width.csv&quot;</span>)</span>
 <span id="cb140-2"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb140-2" tabindex="-1"></a>tick.data</span></code></pre></div>
@@ -272,7 +271,7 @@ W = \beta_0 + \beta_H H + \epsilon
 ## 36   374          4    D
 ## 37   360          4    D</code></pre>
 <p>The column “Host” (as a letter) ensures that <code>R</code> treats the rabbit identifier as categorical. Another option is to ask <code>R</code> to treat the host number column <code>as.character()</code>. In the above data, <code>R</code> is treating host number as an integer, and integers are numbers, so if we do not make it clear that <code>HostNumber</code> should be treated as a category, <code>R</code> might treat it as counts or ranks.</p>
-<p>I want to response variable (<code>Wscut</code>) to remain as an integer, so that we can have a numeric response variable.</p>
+<p>I want the response variable (<code>Wscut</code>) to remain as an integer, so that we can have a numeric response variable.</p>
 <p>Here is a way we can do that:</p>
 <div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb142-1" tabindex="-1"></a>tick.data<span class="sc">$</span>HostNumber <span class="ot">=</span> <span class="fu">as.character</span>(tick.data<span class="sc">$</span>HostNumber)</span>
 <span id="cb142-2"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb142-2" tabindex="-1"></a>tick.data</span></code></pre></div>
@@ -314,7 +313,7 @@ W = \beta_0 + \beta_H H + \epsilon
 ## 35   372          4    D
 ## 36   374          4    D
 ## 37   360          4    D</code></pre>
-<p>The print out of the data shows that <code>HostNumber</code> is changed to a character, so that it will be treated as a category in the analysis. We also have the column <code>Host</code>, which we can always use to check that there has been not mistake in treating <code>HostNumber</code> as a rank or integer.</p>
+<p>The print out of the data shows that <code>HostNumber</code> is changed to a character, so that it will be treated as a category in the analysis. We also have the column <code>Host</code>, which we can always use to check that there has not been a mistake in treating <code>HostNumber</code> as a rank or integer.</p>
 <p>Let’s visualize the tick data:</p>
 <div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb144-2"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-2" tabindex="-1"></a><span class="fu">ggplot</span>(tick.data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(HostNumber), <span class="at">y =</span> Wscut)) <span class="sc">+</span></span>
@@ -337,8 +336,8 @@ W = \beta_0 + \beta_H H + \epsilon
 <span id="cb144-19"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-19" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;One explanatory variable that is a random effect&quot;</span></span>
 <span id="cb144-20"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb144-20" tabindex="-1"></a>  )<span class="sc">+</span><span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="book_files/figure-html/unnamed-chunk-70-1.png" alt="" width="672" /></p>
-<p>Based on this plot, it looks like the mean tick width is higher for rabbit 1, and that tick widths are more variable on rabbit 4 (a violation of our homogeneity of variance assumption). Therefore, I am expecting that we might reject the null hypothesis that tick width is the same for all the rabbits, but of course, we will need to test this!</p>
-<p>We can also inspect normality of our residuals:</p>
+<p>Based on this plot, it looks like some of the variation in tick width is explained by which rabbit they are on, particularly as the widest ticks seems to be found of rabbit 1.</p>
+<p>We can inspect the normality of our residuals:</p>
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-1" tabindex="-1"></a>tick.model <span class="ot">=</span> <span class="fu">lm</span>(Wscut<span class="sc">~</span>HostNumber, <span class="at">data =</span> tick.data) <span class="co"># This treats HostNumber as a fixed effect (when we check our assumptions by plotting the residuals)</span></span>
 <span id="cb145-2"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-2" tabindex="-1"></a>tick.data<span class="sc">$</span>residuals <span class="ot">&lt;-</span> <span class="fu">residuals</span>(tick.model)</span>
 <span id="cb145-3"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb145-3" tabindex="-1"></a></span>
@@ -367,16 +366,14 @@ W = \beta_0 + \beta_H H + \epsilon
 <p>It looks like the residuals are quite normally-distributed.</p>
 <div id="execute-the-analysis-2" class="section level3 hasAnchor" number="20.1.1">
 <h3><span class="header-section-number">20.1.1</span> Execute the analysis<a href="mon-oct-26---one-way-anova-with-random-effects..html#execute-the-analysis-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>To perform an analysis with random effects, we need to load a specific package <code>lme4</code>. You can do this using the <code>install.package()</code> command (or see the <a href="https://ahurford.github.io/quant-guide-all-courses/">Quantitative training guide</a>). To produce p-values associated with hypothesis testing we need to load <code>lmerTest</code>.</p>
+<p>To perform an analysis with random effects, we need to load a specific package <code>lme4</code>. You can do this using the <code>install.package()</code> command (or see the <a href="https://ahurford.github.io/quant-guide-all-courses/">Quantitative training guide</a>).</p>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-1" tabindex="-1"></a><span class="fu">require</span>(lme4)</span>
-<span id="cb146-2"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-2" tabindex="-1"></a><span class="fu">require</span>(lmerTest)</span>
-<span id="cb146-3"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-3" tabindex="-1"></a><span class="co"># 1. Fit the random effects model</span></span>
-<span id="cb146-4"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-4" tabindex="-1"></a>mod <span class="ot">=</span> <span class="fu">lmer</span>(Wscut<span class="sc">~</span><span class="dv">1</span><span class="sc">|</span>HostNumber,<span class="at">data =</span> tick.data)</span>
-<span id="cb146-5"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-5" tabindex="-1"></a></span>
-<span id="cb146-6"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-6" tabindex="-1"></a><span class="co"># 2. View full summary (including p-values if lmerTest is loaded)</span></span>
-<span id="cb146-7"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-7" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
-## lmerModLmerTest]
+<span id="cb146-2"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-2" tabindex="-1"></a><span class="co"># fit the random effects model</span></span>
+<span id="cb146-3"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-3" tabindex="-1"></a>mod <span class="ot">=</span> <span class="fu">lmer</span>(Wscut<span class="sc">~</span><span class="dv">1</span><span class="sc">|</span>HostNumber,<span class="at">data =</span> tick.data)</span>
+<span id="cb146-4"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-4" tabindex="-1"></a></span>
+<span id="cb146-5"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-5" tabindex="-1"></a><span class="co"># view summary</span></span>
+<span id="cb146-6"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb146-6" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: Wscut ~ 1 | HostNumber
 ##    Data: tick.data
 ## 
@@ -393,16 +390,10 @@ W = \beta_0 + \beta_H H + \epsilon
 ## Number of obs: 37, groups:  HostNumber, 4
 ## 
 ## Fixed effects:
-##             Estimate Std. Error      df t value Pr(&gt;|t|)    
-## (Intercept)  360.630      4.129   3.006   87.33 3.24e-06 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb148-1" tabindex="-1"></a><span class="co"># 3. Extract variance components as a readable data frame</span></span>
-<span id="cb148-2"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb148-2" tabindex="-1"></a>var_comp <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">VarCorr</span>(mod))</span>
-<span id="cb148-3"><a href="mon-oct-26---one-way-anova-with-random-effects..html#cb148-3" tabindex="-1"></a><span class="fu">print</span>(var_comp)</span></code></pre></div>
-<pre><code>##          grp        var1 var2      vcov     sdcor
-## 1 HostNumber (Intercept) &lt;NA&gt;  55.01093  7.416935
-## 2   Residual        &lt;NA&gt; &lt;NA&gt; 114.42479 10.696952</code></pre>
+##             Estimate Std. Error t value
+## (Intercept)  360.630      4.129   87.33</code></pre>
+<p>From this output we see that the variance explained by the host is 55.01 mm<span class="math inline">\(^2\)</span> and the unexplained variance (in the residual) is 114.42 mm<span class="math inline">\(^2\)</span>.</p>
+<p>Therefore, as the only explanatory variable is the random effect associated with each rabbit, the variation between hosts is the residual variance. Therefore, we find that the variation between rabbits (114.42 mm<span class="math inline">\(^2\)</span>) is greater than the variation within rabbits (55.01 mm<span class="math inline">\(^2\)</span>) and that 55.01/(114.42 + 55.01) = 32.5<span class="math inline">\(\%\)</span> of the variation is due to the ticks being associated with particular rabbits.</p>
 </div>
 </div>
 <div id="last-10-mins-correct-any-errors-on-quiz-3" class="section level2 hasAnchor" number="20.2">
@@ -422,7 +413,7 @@ W = \beta_0 + \beta_H H + \epsilon
         </div>
       </div>
 <a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="wed-oct-28---anova-with-interaction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
