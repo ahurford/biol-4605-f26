@@ -218,15 +218,15 @@ N_t = N_0 e^{rt},
 \]</span></p>
 <p>where the doubling time is calculated as <span class="math inline">\(t_D = \ln(2)/r\)</span>. Therefore, to calculate the doubling time, we need to estimate <span class="math inline">\(r\)</span> in the exponential growth model.</p>
 <p>Consider our data, which is the number of reported COVID-19 cases in Newfoundland and Labrador from February 5, 2021 to February 12, 2021.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb1-1" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
-<span id="cb1-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb1-2" tabindex="-1"></a><span class="co"># This code involves a bit of data cleaning, but at the end our data is printed.</span></span>
-<span id="cb1-3"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb1-3" tabindex="-1"></a>COVID.data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/NL-public-COVID-data/main/NL_prov_stats.csv&quot;</span>)</span>
-<span id="cb1-4"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb1-4" tabindex="-1"></a>dates <span class="ot">&lt;-</span> COVID.data<span class="sc">$</span>date_of_update</span>
-<span id="cb1-5"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb1-5" tabindex="-1"></a>COVID.data<span class="sc">$</span>date_of_update <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">as.POSIXct</span>(dates,<span class="at">format=</span><span class="st">&#39;%Y/%m/%d %H:%M:%S&#39;</span>),<span class="at">format=</span><span class="st">&#39;%Y/%m/%d&#39;</span>)</span>
-<span id="cb1-6"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb1-6" tabindex="-1"></a>COVID.data <span class="ot">=</span> <span class="fu">filter</span>(COVID.data,date_of_update <span class="sc">&gt;=</span> <span class="st">&quot;2021/02/05&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">filter</span>(date_of_update <span class="sc">&lt;=</span> <span class="st">&quot;2021/02/12&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">select</span>(date_of_update, new_provincial_cases)</span>
-<span id="cb1-7"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb1-7" tabindex="-1"></a>date <span class="ot">=</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2021/02/05&quot;</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2021/02/12&quot;</span>), <span class="st">&quot;days&quot;</span>)</span>
-<span id="cb1-8"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb1-8" tabindex="-1"></a>COVID.data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(COVID.data, date)<span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">t =</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">8</span>))<span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="at">cases=</span>new_provincial_cases)<span class="sc">%&gt;%</span><span class="fu">select</span>(<span class="sc">-</span>date_of_update)</span>
-<span id="cb1-9"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb1-9" tabindex="-1"></a>COVID.data</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb151-1" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
+<span id="cb151-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb151-2" tabindex="-1"></a><span class="co"># This code involves a bit of data cleaning, but at the end our data is printed.</span></span>
+<span id="cb151-3"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb151-3" tabindex="-1"></a>COVID.data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/NL-public-COVID-data/main/NL_prov_stats.csv&quot;</span>)</span>
+<span id="cb151-4"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb151-4" tabindex="-1"></a>dates <span class="ot">&lt;-</span> COVID.data<span class="sc">$</span>date_of_update</span>
+<span id="cb151-5"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb151-5" tabindex="-1"></a>COVID.data<span class="sc">$</span>date_of_update <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">as.POSIXct</span>(dates,<span class="at">format=</span><span class="st">&#39;%Y/%m/%d %H:%M:%S&#39;</span>),<span class="at">format=</span><span class="st">&#39;%Y/%m/%d&#39;</span>)</span>
+<span id="cb151-6"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb151-6" tabindex="-1"></a>COVID.data <span class="ot">=</span> <span class="fu">filter</span>(COVID.data,date_of_update <span class="sc">&gt;=</span> <span class="st">&quot;2021/02/05&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">filter</span>(date_of_update <span class="sc">&lt;=</span> <span class="st">&quot;2021/02/12&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">select</span>(date_of_update, new_provincial_cases)</span>
+<span id="cb151-7"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb151-7" tabindex="-1"></a>date <span class="ot">=</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2021/02/05&quot;</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2021/02/12&quot;</span>), <span class="st">&quot;days&quot;</span>)</span>
+<span id="cb151-8"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb151-8" tabindex="-1"></a>COVID.data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(COVID.data, date)<span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">t =</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">8</span>))<span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="at">cases=</span>new_provincial_cases)<span class="sc">%&gt;%</span><span class="fu">select</span>(<span class="sc">-</span>date_of_update)</span>
+<span id="cb151-9"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb151-9" tabindex="-1"></a>COVID.data</span></code></pre></div>
 <pre><code>##   cases       date t
 ## 1     1 2021-02-05 1
 ## 2     3 2021-02-06 2
@@ -237,11 +237,11 @@ N_t = N_0 e^{rt},
 ## 7   100 2021-02-11 7
 ## 8    50 2021-02-12 8</code></pre>
 <p>Let’s graph our COVID-19 data to inspect whether fitting an exponential growth model to these data is reasonable.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb3-1" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
-<span id="cb3-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb3-2" tabindex="-1"></a>g1<span class="ot">=</span><span class="fu">ggplot</span>(COVID.data, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> cases)) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb3-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;Days since February 5, 2021&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;New reported COVID-19 cases&quot;</span>)<span class="sc">+</span><span class="fu">theme_classic</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&quot;Alpha variant oubreak in Newfoundland and Labrador&quot;</span>)</span>
-<span id="cb3-4"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb3-4" tabindex="-1"></a>g1</span></code></pre></div>
-<p><img src="book_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb153-1" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
+<span id="cb153-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb153-2" tabindex="-1"></a>g1<span class="ot">=</span><span class="fu">ggplot</span>(COVID.data, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> cases)) <span class="sc">+</span></span>
+<span id="cb153-3"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb153-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;Days since February 5, 2021&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;New reported COVID-19 cases&quot;</span>)<span class="sc">+</span><span class="fu">theme_classic</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&quot;Alpha variant oubreak in Newfoundland and Labrador&quot;</span>)</span>
+<span id="cb153-4"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb153-4" tabindex="-1"></a>g1</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-74-1.png" alt="" width="672" /></p>
 <p>There is quite a bit of error deviation from exponential, likely due to undetected cases and reporting delays. Nonetheless, we will complete our analysis as a starting point. We will also assume that <span class="math inline">\(N_0 = 1\)</span>.</p>
 <div id="writing-the-likelihood-function" class="section level3 hasAnchor" number="21.1.1">
 <h3><span class="header-section-number">21.1.1</span> Writing the likelihood function<a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#writing-the-likelihood-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -254,29 +254,111 @@ L(\theta | y_1, y_2, \dots, y_n) = \prod_{i=1}^n p(y_i, n(t_i, \theta|\theta)).
 <p><span class="math display">\[\begin{equation}
 \begin{array}{lll}
 LL(\theta | y_1, y_2, \dots, y_n) &amp; = &amp; \log\left(\prod_{i=1}^n p(y_i, n(t_i, \theta|\theta))\right),\\
-&amp; = &amp; \sum_{i=1}^n \log\left(p(y_i, n(t_i, \theta|\theta))\right).
+&amp; = &amp; \sum_{i=1}^n \log\left(p(y_i, n(t_i, \theta|\theta))\right),
 \end{array}
 \end{equation}\]</span></p>
-<p>To write the likelihood function we need to make an assumption about our residuals. These case numbers are small, so we might choose the Poisson distribution. The Poisson distribution only has one parameter, so fitting this model involves one less complication than assuming normally distributed errors, where the normal distribution has both a mean and a variance parameter. Therefore, I will complete this example assuming a negative binomial distribution of errors.</p>
+<p>where,</p>
+<ul>
+<li><p><span class="math inline">\(y_1, y_2, \dots, y_n\)</span>: are the observations reported for the response variable.</p></li>
+<li><p><span class="math inline">\(n(t_i, \theta)\)</span> is the expected value of the response variable for the explanatory variable value that corresponds to observation <span class="math inline">\(i\)</span>, <span class="math inline">\(t_i\)</span>, and <span class="math inline">\(\theta\)</span> is a parameter (or a vector of parameters) in the model.</p></li>
+<li><p><span class="math inline">\(p(y_i, n(t_i,\theta)|\theta)\)</span> is the probability of the observation <span class="math inline">\(y_i\)</span> given the parameter choice of <span class="math inline">\(\theta\)</span>.</p></li>
+<li><p><span class="math inline">\(L(\theta | y_1, y_2, \dots, y_n)\)</span> is the likelihood of <span class="math inline">\(\theta\)</span> given the data.</p></li>
+</ul>
+<p>To write the likelihood function we need to make an assumption about the distribution of our residuals.</p>
+<p>For this COVID-19 case data, the numbers are small, so we might choose the Poisson distribution. The Poisson distribution only has one parameter (the mean), so fitting this model involves one less complication than assuming normally distributed errors, where the normal distribution has both a mean and a variance parameter. Therefore, I will complete this example assuming a negative binomial distribution of errors; to account for the small values and to show an example of fitting two parameters.</p>
 <p>I am going to complete my model fitting using the <code>mle2</code> function from the <code>bbmle</code> package.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb4-1" tabindex="-1"></a><span class="fu">require</span>(bbmle)</span>
-<span id="cb4-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb4-2" tabindex="-1"></a>?mle2</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb154-1" tabindex="-1"></a><span class="fu">require</span>(bbmle)</span>
+<span id="cb154-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb154-2" tabindex="-1"></a>?mle2</span></code></pre></div>
 <p>Using this function requires me to create a function that returns the negative log-likelihood. This function depends on two parameters that I wish to estimate, <span class="math inline">\(r\)</span> and the overdispersion parameter in the negative binomial, which is <code>size</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb5-1" tabindex="-1"></a>N0 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># fix N0 = 1</span></span>
-<span id="cb5-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb5-2" tabindex="-1"></a>nLL <span class="ot">=</span> <span class="cf">function</span>(r,size){</span>
-<span id="cb5-3"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb5-3" tabindex="-1"></a>  nLLi<span class="ot">=</span><span class="cn">NULL</span> <span class="co">#preallocation</span></span>
-<span id="cb5-4"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb5-4" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="fu">length</span>(COVID.data<span class="sc">$</span>t))){</span>
-<span id="cb5-5"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb5-5" tabindex="-1"></a>  t<span class="ot">=</span>COVID.data<span class="sc">$</span>t[i]</span>
-<span id="cb5-6"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb5-6" tabindex="-1"></a>  Nt<span class="ot">=</span>COVID.data<span class="sc">$</span>cases[i]</span>
-<span id="cb5-7"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb5-7" tabindex="-1"></a>  mu <span class="ot">=</span> N0<span class="sc">*</span><span class="fu">exp</span>(r<span class="sc">*</span>t) <span class="co"># the model-predicted value for time, t.</span></span>
-<span id="cb5-8"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb5-8" tabindex="-1"></a>  nLLi[i] <span class="ot">=</span> <span class="sc">-</span><span class="fu">log</span>(<span class="fu">dnbinom</span>(Nt,<span class="at">mu =</span> mu,<span class="at">size=</span>size)) <span class="co"># this is the negative log-likelihood for the observation made at time t, given the model, for a particular choice of r, and the overdispersion.</span></span>
-<span id="cb5-9"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb5-9" tabindex="-1"></a>  }</span>
-<span id="cb5-10"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb5-10" tabindex="-1"></a>  nLL <span class="ot">=</span> <span class="fu">sum</span>(nLLi)</span>
-<span id="cb5-11"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb5-11" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb155-1" tabindex="-1"></a>N0 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># fix N0 = 1</span></span>
+<span id="cb155-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb155-2" tabindex="-1"></a>nLL <span class="ot">=</span> <span class="cf">function</span>(r,size){</span>
+<span id="cb155-3"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb155-3" tabindex="-1"></a>  nLLi<span class="ot">=</span><span class="cn">NULL</span> <span class="co">#preallocation</span></span>
+<span id="cb155-4"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb155-4" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="fu">length</span>(COVID.data<span class="sc">$</span>t))){</span>
+<span id="cb155-5"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb155-5" tabindex="-1"></a>  t<span class="ot">=</span>COVID.data<span class="sc">$</span>t[i]</span>
+<span id="cb155-6"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb155-6" tabindex="-1"></a>  Nt<span class="ot">=</span>COVID.data<span class="sc">$</span>cases[i]</span>
+<span id="cb155-7"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb155-7" tabindex="-1"></a>  mu <span class="ot">=</span> N0<span class="sc">*</span><span class="fu">exp</span>(r<span class="sc">*</span>t) <span class="co"># the model-predicted value for time, t.</span></span>
+<span id="cb155-8"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb155-8" tabindex="-1"></a>  nLLi[i] <span class="ot">=</span> <span class="sc">-</span><span class="fu">log</span>(<span class="fu">dnbinom</span>(Nt,<span class="at">mu =</span> mu,<span class="at">size=</span>size)) <span class="co"># this is the negative log-likelihood for the observation made at time t, given the model, for a particular choice of r, and the overdispersion.</span></span>
+<span id="cb155-9"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb155-9" tabindex="-1"></a>  }</span>
+<span id="cb155-10"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb155-10" tabindex="-1"></a>  nLL <span class="ot">=</span> <span class="fu">sum</span>(nLLi)</span>
+<span id="cb155-11"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb155-11" tabindex="-1"></a>}</span></code></pre></div>
 <p>I can check my function supplying some values of <code>r</code> and <code>size</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb6-1" tabindex="-1"></a>test.val <span class="ot">=</span> <span class="fu">nLL</span>(<span class="at">r=</span><span class="dv">1</span>,<span class="at">size=</span><span class="dv">2</span>)</span>
-<span id="cb6-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb6-2" tabindex="-1"></a>test.val</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb156-1" tabindex="-1"></a>test.val <span class="ot">=</span> <span class="fu">nLL</span>(<span class="at">r=</span><span class="dv">1</span>,<span class="at">size=</span><span class="dv">2</span>)</span>
+<span id="cb156-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb156-2" tabindex="-1"></a>test.val</span></code></pre></div>
 <pre><code>## [1] 44.20782</code></pre>
+<p>I can also fix <code>size</code> and make a plot of the negative log-likelihood:</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb158-1" tabindex="-1"></a>r.vals <span class="ot">=</span> <span class="fu">seq</span>(<span class="fl">0.1</span>,<span class="dv">2</span>,<span class="fl">0.1</span>)</span>
+<span id="cb158-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb158-2" tabindex="-1"></a>nLL.out <span class="ot">&lt;-</span> <span class="cn">NULL</span> <span class="co">#preallocation</span></span>
+<span id="cb158-3"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb158-3" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="fu">length</span>(r.vals))){</span>
+<span id="cb158-4"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb158-4" tabindex="-1"></a>r <span class="ot">=</span> r.vals[i]</span>
+<span id="cb158-5"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb158-5" tabindex="-1"></a>nLL.out[i] <span class="ot">=</span> <span class="fu">nLL</span>(r,<span class="at">size=</span><span class="dv">2</span>)</span>
+<span id="cb158-6"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb158-6" tabindex="-1"></a>}</span>
+<span id="cb158-7"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb158-7" tabindex="-1"></a>nLL.out <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">r=</span>r.vals, <span class="at">nLL =</span> nLL.out)</span>
+<span id="cb158-8"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb158-8" tabindex="-1"></a>nLL.out</span></code></pre></div>
+<pre><code>##      r       nLL
+## 1  0.1 166.46890
+## 2  0.2 101.91043
+## 3  0.3  62.15926
+## 4  0.4  40.68094
+## 5  0.5  30.98082
+## 6  0.6  28.31345
+## 7  0.7  29.69811
+## 8  0.8  33.39383
+## 9  0.9  38.41487
+## 10 1.0  44.20782
+## 11 1.1  50.46069
+## 12 1.2  56.99544
+## 13 1.3  63.70869
+## 14 1.4  70.53907
+## 15 1.5  77.44921
+## 16 1.6  84.41572
+## 17 1.7  91.42348
+## 18 1.8  98.46241
+## 19 1.9 105.52558
+## 20 2.0 112.60807</code></pre>
+<p>We can plot these results:</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb160-1" tabindex="-1"></a>gnLL<span class="ot">=</span><span class="fu">ggplot</span>(nLL.out, <span class="fu">aes</span>(<span class="at">x =</span> r, <span class="at">y =</span> nLL)) <span class="sc">+</span></span>
+<span id="cb160-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb160-2" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;net reproduction number, r&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;negative log-likelihood&quot;</span>)<span class="sc">+</span><span class="fu">theme_classic</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&quot;Negative log-likelihood profile when size is fixed at 2&quot;</span>)</span>
+<span id="cb160-3"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb160-3" tabindex="-1"></a>gnLL</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-79-1.png" alt="" width="672" /></p>
+<p>From this graph we can see that when the dispersion parameter in the negative binomial is fixed at 2, the negative log-likelihood is minimized for <span class="math inline">\(r \approx\)</span> 0.6 days<span class="math inline">\(^{-1}\)</span>. This illustrates what were are aiming to do for the parameter estimation.</p>
+<p>When we estimate the parameters using <code>mle2</code> we will need to supply guesses of the <span class="math inline">\((r,1/k)\)</span> parameter values (where the size parameter is denoted <span class="math inline">\(1/k\)</span>) that minimize the negative log-likelihood.</p>
+<p>Note that the likelihood is maximized for the same parameter values as the log-likelihood because the logarithm function is monotonic. Note also that the parameter that maximizes the log-likelihood, also minimizes the negative log-likelihood.</p>
+<p>Let’s use the <code>mle2</code> function to estimate our <span class="math inline">\(r\)</span> and <span class="math inline">\(1/k\)</span> for this model.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb161-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">mle2</span>(</span>
+<span id="cb161-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb161-2" tabindex="-1"></a>  <span class="at">minuslogl =</span> nLL, </span>
+<span id="cb161-3"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb161-3" tabindex="-1"></a>  <span class="at">start =</span> <span class="fu">list</span>(<span class="at">r =</span> <span class="fl">0.6</span>, <span class="at">size =</span><span class="dv">2</span>), <span class="co"># Initial parameter guesses</span></span>
+<span id="cb161-4"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb161-4" tabindex="-1"></a>)</span>
+<span id="cb161-5"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb161-5" tabindex="-1"></a></span>
+<span id="cb161-6"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb161-6" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
+<pre><code>## Maximum likelihood estimation
+## 
+## Call:
+## mle2(minuslogl = nLL, start = list(r = 0.6, size = 2))
+## 
+## Coefficients:
+##      Estimate Std. Error z value  Pr(z)    
+## r     0.60813    0.03745 16.2384 &lt;2e-16 ***
+## size  3.99971    2.63948  1.5153 0.1297    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## -2 log L: 55.57756</code></pre>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb163-1" tabindex="-1"></a><span class="fu">confint</span>(fit)</span></code></pre></div>
+<pre><code>##          2.5 %     97.5 %
+## r    0.5271991  0.7006337
+## size 0.9274826 13.1798957</code></pre>
+<p>There is some risk with maximum likelihood of failure to converge or convergence to a local minimum. Therefore we should plot our estimates and our 95<span class="math inline">\(\%\)</span> confidence interval.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb165-1" tabindex="-1"></a>r.est <span class="ot">=</span> <span class="fl">0.60813</span></span>
+<span id="cb165-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb165-2" tabindex="-1"></a>r.lower <span class="ot">=</span> <span class="fl">0.5271991</span></span>
+<span id="cb165-3"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb165-3" tabindex="-1"></a>r.upper <span class="ot">=</span> <span class="fl">0.7006337</span></span>
+<span id="cb165-4"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb165-4" tabindex="-1"></a></span>
+<span id="cb165-5"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb165-5" tabindex="-1"></a>fitted.values <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">t =</span> COVID.data<span class="sc">$</span>t, <span class="at">mean =</span> N0<span class="sc">*</span><span class="fu">exp</span>(r.est<span class="sc">*</span>COVID.data<span class="sc">$</span>t), <span class="at">lower =</span> N0<span class="sc">*</span><span class="fu">exp</span>(r.lower<span class="sc">*</span>COVID.data<span class="sc">$</span>t), <span class="at">upper =</span> N0<span class="sc">*</span><span class="fu">exp</span>(r.upper<span class="sc">*</span>COVID.data<span class="sc">$</span>t))</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb166-1" tabindex="-1"></a>g2 <span class="ot">=</span> g1<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">data =</span> fitted.values, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> mean))<span class="sc">+</span><span class="fu">geom_ribbon</span>(<span class="at">data=</span>fitted.values, <span class="fu">aes</span>(<span class="at">x=</span>t,<span class="at">ymin =</span> lower, <span class="at">ymax=</span>upper,<span class="at">y=</span><span class="cn">NULL</span>), <span class="at">fill=</span><span class="st">&quot;grey&quot;</span>, <span class="at">alpha=</span><span class="fl">0.5</span>)</span>
+<span id="cb166-2"><a href="wed-oct-28---parameter-estimation-with-maximum-likelihood.html#cb166-2" tabindex="-1"></a>g2</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-82-1.png" alt="" width="672" /></p>
+<p>This has added the fitted estimate of <span class="math inline">\(\hat{r} = 0.60813\)</span> days<span class="math inline">\(^{-1}\)</span> to compare with the data. The shaded region is the 95<span class="math inline">\(\%\)</span> confidence interval. The original data are the first layer of the <code>ggplot</code>.</p>
+<p>To answer the question of what is the doubling time for COVID-19 cases in this situation, we use the formula <span class="math inline">\(t_D = \ln(2)/0.608 = 1.14\)</span> days. This means that if this pattern of growth in COVID-19 cases continues, we expect the number of cases to double after a little more than one day. Our 95<span class="math inline">\(\%\)</span> confidence interval for this estimate is: <span class="math inline">\([0.99,1.31]\)</span> days.</p>
+<p>My hope is that this code might be useful for you if you want to fit nonlinear models or non-normal error distributions. The theory of maximum likelihood is explained in Burnham and Anderson, 2004. Model selection and multimodel inference. This book will also explain how to select between different models, i.e., for example, this exponential model and the Susceptible-Infected-Recovered model, for example.</p>
 
 </div>
 </div>
