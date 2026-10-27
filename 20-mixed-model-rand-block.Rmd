@@ -3,9 +3,9 @@ title: "ANOVA with interaction"
 output: html_document
 ---
 
-# Wed Oct 28 - Parameter estimation with maximum likelihood
+# Wed Oct 28 - Parameter estimation using maximum likelihood estimation
 
-We have mentioned previously in class that taking the logarithm of the response variable is not desirable and that maximum likelihood parameter estimation is an alternative in these situations.
+We have mentioned previously in class that taking the logarithm of the response variable is not desirable and that maximum likelihood parameter estimation (MLE) is an alternative in these situations.
 
 For a model of exponential growth, i.e., such as the increase in the number of COVID-19 cases at the start of the outbreak, historically, the logarithm of the response variable for the model has been applied so that the relationship between the predictor variables and the response variables are linear. Specifically, the exponential growth model is,
 
@@ -63,7 +63,7 @@ g1
 
 There is quite a bit of error deviation from exponential, likely due to undetected cases and reporting delays. Nonetheless, we will complete our analysis as a starting point. We will also assume that $N_0 = 1$.
 
-### Writing the likelihood function
+## Writing the likelihood function
 
 **Likelihood**. Given the data, how likely is a parameter in the model. Can be contrasted with probability, where if the parameters are known, we can calculate the probability of an outcome.
 
@@ -127,7 +127,12 @@ test.val = nLL(r=1,size=2)
 test.val
 ```
 
-I can also fix `size` and make a plot of the negative log-likelihood:
+
+## Fit the model
+
+Before I fit the model, I would like to check my negative log-likelihood function some more.
+
+I can fix `size` and make a plot of the negative log-likelihood:
 
 ```{r}
 r.vals = seq(0.1,2,0.1)
@@ -184,4 +189,7 @@ This has added the fitted estimate of $\hat{r} = 0.60813$ days$^{-1}$ to compare
 
 To answer the question of what is the doubling time for COVID-19 cases in this situation, we use the formula $t_D = \ln(2)/0.608 = 1.14$ days. This means that if this pattern of growth in COVID-19 cases continues, we expect the number of cases to double after a little more than one day. Our 95$\%$ confidence interval for this estimate is: $[0.99,1.31]$ days.
 
-My hope is that this code might be useful for you if you want to fit nonlinear models or non-normal error distributions. The theory of maximum likelihood is explained in Burnham and Anderson, 2004. Model selection and multimodel inference. This book will also explain how to select between different models, i.e., for example, this exponential model and the Susceptible-Infected-Recovered model, for example.
+## Conclusion
+My hope is that this code might be useful for you if you want to fit nonlinear models or non-normal error distributions. The theory of maximum likelihood is explained in Burnham and Anderson, 2004. \emph{Model selection and multimodel inference.} 
+
+Burnham and Anderson (2004) also explains how to select between different models, i.e., for example, this exponential model and the Susceptible-Infected-Recovered model, for example.

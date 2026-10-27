@@ -129,9 +129,11 @@ tick-widths-on-rabbit-hosts-one-explanatory-varaible-rabbit-which-is-a-random-ef
 execute-the-analysis-2
 last-10-mins-correct-any-errors-on-quiz-3
 readings-11
-wed-oct-28---parameter-estimation-with-maximum-likelihood
+wed-oct-28---parameter-estimation-using-maximum-likelihood-estimation
 write-the-model
 writing-the-likelihood-function
+fit-the-model
+conclusion
 fri-oct-30-a4-due---mixed-model---paired-t-test
 readings-12
 mon-nov-02---mixed-model---random-block
