@@ -135,7 +135,7 @@ write-the-model
 writing-the-likelihood-function
 fit-the-model
 conclusion
-fri-oct-30---mixed-model---paired-t-test
+fri-oct-30---multiple-regression-two-or-more-explanatory-varibles
 readings-12
 mon-nov-02---mixed-model---random-block
 readings-13

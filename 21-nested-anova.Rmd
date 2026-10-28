@@ -3,9 +3,9 @@ title: "Mixed model - paired t-test"
 output: html_document
 ---
 
-# Fri Oct 30  - Mixed model - paired t-test
+# Fri Oct 30  - Multiple regression (two or more explanatory varibles)
 
 ## Readings
 
-- Ch13.3
+- [Ch 12.1](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch12_1.pdf)
 
