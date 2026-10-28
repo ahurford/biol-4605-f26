@@ -3,7 +3,7 @@ title: "GzLM Intro"
 output: html_document
 ---
 
-# Fri Nov 13 - GzLM Intro 
+# **Fri Nov 13 (A4 due)** - GzLM Intro 
 
 ## Readings
 - Ch16, 16.2, 16.4)

@@ -10,6 +10,6 @@ Find, in the published literature, two mean values with associated
 standard deviations and sample size, where it is reasonable to test a hypothesis that the means are equal.
 
 1. Report the 6 values with full citation of source of the published data.
-2. Compute the t-statistic using the appropriate formula from Ch7.3. State which formula you used and why.
-3. Use the generic recipe for decision making with statistics (Ch7.3, Table 7.1) to declare a decision about the two means. One sentence for each of the 10 points listed.
+2. Compute the t-statistic using the appropriate formula. State which formula you used and why.
+3. Use the generic recipe for decision making with statistics ([Ch7.3](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt2/Ch7_3.pdf), Table 7.1 on p2) to declare a decision about the two means. Some of the points requested on the generic recipe are a bit confusing. Please do your best. One sentence for each of the 10 points listed.
 

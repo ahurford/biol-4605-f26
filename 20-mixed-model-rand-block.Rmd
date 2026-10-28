@@ -5,6 +5,9 @@ output: html_document
 
 # Wed Oct 28 - Parameter estimation using maximum likelihood estimation
 
+## Assignment 4
+Assignment 4 ([link](assignment-4b)) is due on Friday Nov 6 on gradescope. I have also added links to [Assignment 3](assignment-3b) (in case it was difficult to find the generic recipe). Please submit Assignment 3 as soon as possible.
+
 We have mentioned previously in class that taking the logarithm of the response variable is not desirable and that maximum likelihood parameter estimation (MLE) is an alternative in these situations.
 
 For a model of exponential growth, i.e., such as the increase in the number of COVID-19 cases at the start of the outbreak, historically, the logarithm of the response variable for the model has been applied so that the relationship between the predictor variables and the response variables are linear. Specifically, the exponential growth model is,
