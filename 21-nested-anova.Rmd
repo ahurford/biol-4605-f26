@@ -3,7 +3,7 @@ title: "Mixed model - paired t-test"
 output: html_document
 ---
 
-# Fri Oct 30  - Multiple regression (two or more explanatory varibles)
+# Fri Oct 30  - Multiple regression (two explanatory varibles)
 
 Analysis of data from Snedecor and Cochrane 1980 Table 17.2.1
 Do corn plants use organic or inorganic phosphorus in soil? Phosphorus in corn
@@ -52,6 +52,8 @@ Let's also calculate our SS table and partition our degrees of freedom.
 ```{r}
 anova(corn.model)
 ```
+Note that the F value is calculated by dividing the mean squares (`Mean Sq`) for the model terms by the mean squares for the residuals.
+
 The degrees of freedom calculation is:
 
 \[
@@ -122,6 +124,8 @@ LR = (1-R2)^{-17/2}
 LR
 ```
 
+Dr. Schneider's notes also involve some likelihood ratio calculations to calculate the evidence for model terms.
+
 ## Plot the results
 
 ```{r}
@@ -148,6 +152,11 @@ inorganic.fitted = ggplot(inorganic, aes(x=inorganic.P))+
   geom_line(aes(y=fitted))+theme_classic()+ylab("corn phosphorous, ppm")+xlab("inorganic phosphorous, ppm")
 inorganic.fitted
 ```
+
+## Report the science conclusion
+
+We have support for inclusion of organic phosphorous in the model because the interaction term is significant. We find that inorganic phosphorous affects corn phosphorous and organic phosphorous also has an effect in combination with inorganic phosphorous. The model that best describes our data has all three explanatory variables.
+
 ## Readings
 
 - [Ch 12.1](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch12_1.pdf)
