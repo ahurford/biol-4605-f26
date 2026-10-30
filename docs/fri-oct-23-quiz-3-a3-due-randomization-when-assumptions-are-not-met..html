@@ -248,16 +248,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb127-1" tabindex="-1"></a>ecdf <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">f.value =</span> <span class="fu">sort</span>(random.f), <span class="at">quantile =</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">10000</span>)<span class="sc">/</span><span class="dv">10000</span>)</span>
 <span id="cb127-2"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb127-2" tabindex="-1"></a>p.est <span class="ot">=</span> ecdf<span class="sc">$</span>quantile[<span class="fu">min</span>(<span class="fu">which</span>(ecdf<span class="sc">$</span>f.value<span class="sc">&gt;</span>f.data))]</span>
 <span id="cb127-3"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb127-3" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span>p.est</span></code></pre></div>
-<pre><code>## [1] 0.0082</code></pre>
+<pre><code>## [1] 0.0089</code></pre>
 <p>We estimate that 0.0086 of the randomly generated F-statistics (assuming the null hypothesis) are bigger than the F-statistic generated from the real data. We can add this to our <code>ggplot</code>:</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb129-1" tabindex="-1"></a>g2 <span class="ot">=</span> g1<span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>f.data, <span class="at">y=</span>p.est)) <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>f.data, <span class="at">alpha=</span><span class="fl">0.5</span>)</span>
 <span id="cb129-2"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb129-2" tabindex="-1"></a>g2</span></code></pre></div>
-<pre><code>## Warning in geom_point(aes(x = f.data, y = p.est)): All aesthetics have length 1,
-## but the data has 10000 rows.
-## ℹ Please consider using
-##   `annotate()` or provide
-##   this layer with data
-##   containing a single row.</code></pre>
+<pre><code>## Warning in geom_point(aes(x = f.data, y = p.est)): All aesthetics have length 1, but the data has
+## 10000 rows.
+## ℹ Please consider using `annotate()` or provide
+##   this layer with data containing a single row.</code></pre>
 <p><img src="book_files/figure-html/unnamed-chunk-62-1.png" alt="" width="672" /></p>
 </div>
 <div id="anova-example" class="section level2 hasAnchor" number="19.3">
@@ -340,16 +338,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>And the quantile for the randomized data that thre real estimate corresponds to:</p>
 <div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb136-1" tabindex="-1"></a>p.est <span class="ot">=</span> ecdf<span class="sc">$</span>quantile[<span class="fu">min</span>(<span class="fu">which</span>(ecdf<span class="sc">$</span>f.value<span class="sc">&gt;</span>f.data))]</span>
 <span id="cb136-2"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb136-2" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span>p.est</span></code></pre></div>
-<pre><code>## [1] 1e-04</code></pre>
+<pre><code>## [1] 0</code></pre>
 <p>Let’s graph the results to see where the real estimate of the F-value occurs with respect to the quantiles of the F-statistics generated unber the null hypothesis</p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb138-1" tabindex="-1"></a><span class="fu">ggplot</span>(ecdf, <span class="fu">aes</span>(<span class="at">x =</span> f.value, <span class="at">y =</span> quantile)) <span class="sc">+</span> </span>
 <span id="cb138-2"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html#cb138-2" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;F-statistic values assuming null hypothesis&quot;</span>)<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&quot;ANOVA example: pea length&quot;</span>)<span class="sc">+</span><span class="fu">theme_classic</span>()<span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>f.data, <span class="at">y=</span>p.est)) <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>f.data, <span class="at">alpha=</span><span class="fl">0.5</span>)</span></code></pre></div>
-<pre><code>## Warning in geom_point(aes(x = f.data, y = p.est)): All aesthetics have length 1,
-## but the data has 10000 rows.
-## ℹ Please consider using
-##   `annotate()` or provide
-##   this layer with data
-##   containing a single row.</code></pre>
+<pre><code>## Warning in geom_point(aes(x = f.data, y = p.est)): All aesthetics have length 1, but the data has
+## 10000 rows.
+## ℹ Please consider using `annotate()` or provide
+##   this layer with data containing a single row.</code></pre>
 <p><img src="book_files/figure-html/unnamed-chunk-67-1.png" alt="" width="672" /></p>
 <p>We find that we still reject the null hypothesis that the group means for all the treatments (including the control) are the same.</p>
 <p>We could also do our posthoc analysis on the randomization data to test then null hypothesis that the mean of the control is equal to the mean of the treatments, for example.</p>

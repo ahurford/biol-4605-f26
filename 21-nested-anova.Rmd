@@ -5,6 +5,149 @@ output: html_document
 
 # Fri Oct 30  - Multiple regression (two or more explanatory varibles)
 
+Analysis of data from Snedecor and Cochrane 1980 Table 17.2.1
+Do corn plants use organic or inorganic phosphorus in soil? Phosphorus in corn
+(ppm) was measured in 17 Iowa soils at 20 deg C in relation to inorganic and organic
+phosphorus in the soil.
+
+```{r,message=FALSE}
+require(dplyr)
+corn.data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/corn2.csv")%>%rename(Pcorn=PaP,inorganic.P = ioP, organic.P = oP)
+corn.data
+```
+
+```{r,message=FALSE}
+require(ggplot2)
+g1=ggplot(corn.data,aes(x=inorganic.P, y=Pcorn))+geom_point()+xlab("Inorganic phosphorous, ppm")+ylab("Corn phosphorous, ppm")+theme_classic()
+g2=ggplot(corn.data,aes(x=organic.P, y=Pcorn))+xlab("Organic phosphorous, ppm")+geom_point()+ylab("Corn phosphorous, ppm")+theme_classic()
+g1
+g2
+```
+## Construct the model
+
+\[
+P_{corn} = \alpha + \beta_1 I + \beta_2 O + \beta_{12} I O + \epsilon.
+\]
+
+
+The parameter $\beta_{12}$ stands for rate of change in phosphorus content of corn relative to
+rate of change of inorganic phosphorus, adjusted for effects of organic phosphorus. It is
+read as ‘the rate of change in available phosphorus with change in inorganic phosphorus,
+controlled for organic phosphorus.’ The variable $I O$ is the product of the inorganic phosphorous, $I$, and the organic phosphorous, $O$ (units: ppm$^2$). This term, $\beta_{12} I O$ is called the interaction term. The other parameters are as have been defined in previous lectures. The parameter $\alpha$ is the intercept, and the value of $P_{corn}$ when $O = I = 0$.
+
+## Execute the model
+
+```{r}
+corn.model = lm(Pcorn~inorganic.P + organic.P + inorganic.P*organic.P, data = corn.data)
+summary(corn.model)
+```
+Based on our output are parameter estimates are:
+
+\[\alpha = 45.9 \mbox{ppm} \qquad \beta_1 = 5.30 \qquad \beta_2 = 0.33 \qquad \beta_{12} = -0.08 \mbox{ppm} \]
+
+We should also note that the effect of inorganic phosphorous is significant and the interaction term is significant. 
+
+Let's also calculate our SS table and partition our degrees of freedom.
+
+```{r}
+anova(corn.model)
+```
+The degrees of freedom calculation is:
+
+\[
+\begin{array}{lllll}
+\mbox{GLM} & P_{corn}-\alpha & = &   \beta_{1}I + \beta_2O + \beta_{12}IO & +  \ \ \epsilon \\
+\mbox{df} & 17-1 & = &  1 + 1 +1  & + 13 \ \  \\
+\mbox{SS} & 4426.47 & = & 2295.23+29.95+626.55 & + \ \ 1474.74 \\
+\end{array}
+\]
+
+## Check assumptions
+```{r}
+corn.data$residuals <- residuals(corn.model)
+
+# Plot using density instead of count
+ggplot(corn.data, aes(x = residuals)) +
+  # after_stat(density) normalizes the bars so the curve fits the y-axis scale
+  geom_histogram(aes(y = after_stat(density)), bins = 15, 
+                 fill = "steelblue", color = "white", alpha = 0.6) +
+  
+# Layer a theoretical normal curve over the overall residuals data
+stat_function(
+  fun = dnorm, 
+  args = list(mean = 0, sd = sd(corn.data$residuals)), 
+  color = "black", 
+  linewidth = 1
+) +
+  
+geom_vline(xintercept = 0, linetype = "dashed", color = "red", linewidth = 0.8) +
+labs(
+  title = "Residual Histogram vs. Theoretical Normal Distribution",
+  x = "Residuals",
+  y = "Density"
+) +
+theme_minimal()
+```
+
+
+```{r}
+#Create data frame holding just the predicted and residual values
+plot_data <- data.frame(
+  predicted = fitted(corn.model),
+  residuals = residuals(corn.model)
+)
+
+# 3. Build the ggplot
+ggplot(plot_data, aes(x = predicted, y = residuals)) +
+  geom_point(color = "black") +
+  labs(
+    title = "Residuals vs. Predicted Plot",
+    x = "Predicted Values (Fitted)",
+    y = "Residuals"
+  ) +
+  theme_minimal()
+```
+
+## Calculate the likelihood ratio
+
+```{r}
+SSinorganic = anova(corn.model)$`Sum Sq`[1]
+SSorganic = anova(corn.model)$`Sum Sq`[2]
+SSinteraction = anova(corn.model)$`Sum Sq`[3]
+SSmodel = SSinorganic+SSorganic+SSinteraction
+SSTotal = sum(anova(corn.model)$`Sum Sq`)
+R2 = SSmodel/SSTotal
+R2
+LR = (1-R2)^{-17/2}
+LR
+```
+
+## Plot the results
+
+```{r}
+alpha = unname(coef(corn.model)[1])
+beta1 = unname(coef(corn.model)[2])
+beta2 = unname(coef(corn.model)[3])
+beta12 = unname(coef(corn.model)[4])
+xvalues = alpha + beta1*corn.data$inorganic.P +  beta2*corn.data$organic.P +  beta12*corn.data$organic.P*corn.data$inorganic.P
+corn.data = data.frame(corn.data, fitted = corn.model$fitted.values, xvalues = xvalues)
+corn.data
+g1.fitted = ggplot(corn.data, aes(x=xvalues))+
+  geom_point(aes(y=Pcorn))+
+  geom_line(aes(y=fitted))+theme_classic()+ylab("corn phosphorous, ppm")+xlab("fitted explanatory variables: 45.9 + 5.3I + 0.32O -0.08IO")
+g1.fitted
+```
+```{r}
+# inorganic phosphorous only model:
+inorganic = data.frame(Pcorn = corn.data$Pcorn, inorganic.P = corn.data$inorganic.P)
+inorganic.model = lm(Pcorn~inorganic.P, data=inorganic)
+inorganic$fitted = inorganic.model$fitted.values
+
+inorganic.fitted = ggplot(inorganic, aes(x=inorganic.P))+
+  geom_point(aes(y=Pcorn))+
+  geom_line(aes(y=fitted))+theme_classic()+ylab("corn phosphorous, ppm")+xlab("inorganic phosphorous, ppm")
+inorganic.fitted
+```
 ## Readings
 
 - [Ch 12.1](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch12_1.pdf)

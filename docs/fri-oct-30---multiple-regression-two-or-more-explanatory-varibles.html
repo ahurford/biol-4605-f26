@@ -195,8 +195,195 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles" class="section level1 hasAnchor" number="22">
 <h1><span class="header-section-number">22</span> Fri Oct 30 - Multiple regression (two or more explanatory varibles)<a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#fri-oct-30---multiple-regression-two-or-more-explanatory-varibles" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="readings-12" class="section level2 hasAnchor" number="22.1">
-<h2><span class="header-section-number">22.1</span> Readings<a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#readings-12" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Analysis of data from Snedecor and Cochrane 1980 Table 17.2.1
+Do corn plants use organic or inorganic phosphorus in soil? Phosphorus in corn
+(ppm) was measured in 17 Iowa soils at 20 deg C in relation to inorganic and organic
+phosphorus in the soil.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb164-1" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
+<span id="cb164-2"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb164-2" tabindex="-1"></a>corn.data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/corn2.csv&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="at">Pcorn=</span>PaP,<span class="at">inorganic.P =</span> ioP, <span class="at">organic.P =</span> oP)</span>
+<span id="cb164-3"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb164-3" tabindex="-1"></a>corn.data</span></code></pre></div>
+<pre><code>##    plot inorganic.P organic.P Pcorn
+## 1     1         0.4        53    64
+## 2     2         0.4        23    60
+## 3     3         3.1        19    71
+## 4     4         0.6        34    61
+## 5     5         4.7        24    54
+## 6     6         1.7        65    77
+## 7     7         9.4        44    81
+## 8     8        10.1        31    93
+## 9     9        11.6        29    93
+## 10   10        12.6        58    51
+## 11   11        10.9        37    76
+## 12   12        23.1        46    96
+## 13   13        23.1        50    77
+## 14   14        21.6        44    93
+## 15   15        23.1        56    95
+## 16   16         1.9        36    54
+## 17   17        29.9        51    99</code></pre>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb166-1" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
+<span id="cb166-2"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb166-2" tabindex="-1"></a>g1<span class="ot">=</span><span class="fu">ggplot</span>(corn.data,<span class="fu">aes</span>(<span class="at">x=</span>inorganic.P, <span class="at">y=</span>Pcorn))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;Inorganic phosphorous, ppm&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Corn phosphorous, ppm&quot;</span>)<span class="sc">+</span><span class="fu">theme_classic</span>()</span>
+<span id="cb166-3"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb166-3" tabindex="-1"></a>g2<span class="ot">=</span><span class="fu">ggplot</span>(corn.data,<span class="fu">aes</span>(<span class="at">x=</span>organic.P, <span class="at">y=</span>Pcorn))<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;Organic phosphorous, ppm&quot;</span>)<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Corn phosphorous, ppm&quot;</span>)<span class="sc">+</span><span class="fu">theme_classic</span>()</span>
+<span id="cb166-4"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb166-4" tabindex="-1"></a>g1</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-84-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb167-1" tabindex="-1"></a>g2</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-84-2.png" alt="" width="672" />
+## Construct the model</p>
+<p><span class="math display">\[
+P_{corn} = \alpha + \beta_1 I + \beta_2 O + \beta_{12} I O + \epsilon.
+\]</span></p>
+<p>The parameter <span class="math inline">\(\beta_{12}\)</span> stands for rate of change in phosphorus content of corn relative to
+rate of change of inorganic phosphorus, adjusted for effects of organic phosphorus. It is
+read as ‘the rate of change in available phosphorus with change in inorganic phosphorus,
+controlled for organic phosphorus.’ The variable <span class="math inline">\(I O\)</span> is the product of the inorganic phosphorous, <span class="math inline">\(I\)</span>, and the organic phosphorous, <span class="math inline">\(O\)</span> (units: ppm<span class="math inline">\(^2\)</span>). This term, <span class="math inline">\(\beta_{12} I O\)</span> is called the interaction term. The other parameters are as have been defined in previous lectures. The parameter <span class="math inline">\(\alpha\)</span> is the intercept, and the value of <span class="math inline">\(P_{corn}\)</span> when <span class="math inline">\(O = I = 0\)</span>.</p>
+<div id="execute-the-model" class="section level2 hasAnchor" number="22.1">
+<h2><span class="header-section-number">22.1</span> Execute the model<a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#execute-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb168-1" tabindex="-1"></a>corn.model <span class="ot">=</span> <span class="fu">lm</span>(Pcorn<span class="sc">~</span>inorganic.P <span class="sc">+</span> organic.P <span class="sc">+</span> inorganic.P<span class="sc">*</span>organic.P, <span class="at">data =</span> corn.data)</span>
+<span id="cb168-2"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb168-2" tabindex="-1"></a><span class="fu">summary</span>(corn.model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Pcorn ~ inorganic.P + organic.P + inorganic.P * 
+##     organic.P, data = corn.data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -20.042  -6.353   2.443   5.180  15.687 
+## 
+## Coefficients:
+##                       Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)           45.92323   12.23633   3.753  0.00241 **
+## inorganic.P            5.30367    1.73357   3.059  0.00913 **
+## organic.P              0.32783    0.28562   1.148  0.27174   
+## inorganic.P:organic.P -0.08309    0.03536  -2.350  0.03522 * 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.65 on 13 degrees of freedom
+## Multiple R-squared:  0.6668, Adjusted R-squared:   0.59 
+## F-statistic: 8.673 on 3 and 13 DF,  p-value: 0.002022</code></pre>
+<p>Based on our output are parameter estimates are:</p>
+<p><span class="math display">\[\alpha = 45.9 \mbox{ppm} \qquad \beta_1 = 5.30 \qquad \beta_2 = 0.33 \qquad \beta_{12} = -0.08 \mbox{ppm} \]</span></p>
+<p>We should also note that the effect of inorganic phosphorous is significant and the interaction term is significant.</p>
+<p>Let’s also calculate our SS table and partition our degrees of freedom.</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb170-1" tabindex="-1"></a><span class="fu">anova</span>(corn.model)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Pcorn
+##                       Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## inorganic.P            1 2295.23 2295.23 20.2328 0.0005994 ***
+## organic.P              1   29.95   29.95  0.2640 0.6160271    
+## inorganic.P:organic.P  1  626.55  626.55  5.5231 0.0352174 *  
+## Residuals             13 1474.74  113.44                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The degrees of freedom calculation is:</p>
+<p><span class="math display">\[
+\begin{array}{lllll}
+\mbox{GLM} &amp; P_{corn}-\alpha &amp; = &amp;   \beta_{1}I + \beta_2O + \beta_{12}IO &amp; +  \ \ \epsilon \\
+\mbox{df} &amp; 17-1 &amp; = &amp;  1 + 1 +1  &amp; + 13 \ \  \\
+\mbox{SS} &amp; 4426.47 &amp; = &amp; 2295.23+29.95+626.55 &amp; + \ \ 1474.74 \\
+\end{array}
+\]</span></p>
+</div>
+<div id="check-assumptions" class="section level2 hasAnchor" number="22.2">
+<h2><span class="header-section-number">22.2</span> Check assumptions<a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#check-assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-1" tabindex="-1"></a>corn.data<span class="sc">$</span>residuals <span class="ot">&lt;-</span> <span class="fu">residuals</span>(corn.model)</span>
+<span id="cb172-2"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-2" tabindex="-1"></a></span>
+<span id="cb172-3"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-3" tabindex="-1"></a><span class="co"># Plot using density instead of count</span></span>
+<span id="cb172-4"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-4" tabindex="-1"></a><span class="fu">ggplot</span>(corn.data, <span class="fu">aes</span>(<span class="at">x =</span> residuals)) <span class="sc">+</span></span>
+<span id="cb172-5"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-5" tabindex="-1"></a>  <span class="co"># after_stat(density) normalizes the bars so the curve fits the y-axis scale</span></span>
+<span id="cb172-6"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-6" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">bins =</span> <span class="dv">15</span>, </span>
+<span id="cb172-7"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-7" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb172-8"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-8" tabindex="-1"></a>  </span>
+<span id="cb172-9"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-9" tabindex="-1"></a><span class="co"># Layer a theoretical normal curve over the overall residuals data</span></span>
+<span id="cb172-10"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-10" tabindex="-1"></a><span class="fu">stat_function</span>(</span>
+<span id="cb172-11"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-11" tabindex="-1"></a>  <span class="at">fun =</span> dnorm, </span>
+<span id="cb172-12"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-12" tabindex="-1"></a>  <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fu">sd</span>(corn.data<span class="sc">$</span>residuals)), </span>
+<span id="cb172-13"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-13" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb172-14"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-14" tabindex="-1"></a>  <span class="at">linewidth =</span> <span class="dv">1</span></span>
+<span id="cb172-15"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-15" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb172-16"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-16" tabindex="-1"></a>  </span>
+<span id="cb172-17"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-17" tabindex="-1"></a><span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb172-18"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-18" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb172-19"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-19" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Residual Histogram vs. Theoretical Normal Distribution&quot;</span>,</span>
+<span id="cb172-20"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-20" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">&quot;Residuals&quot;</span>,</span>
+<span id="cb172-21"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-21" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">&quot;Density&quot;</span></span>
+<span id="cb172-22"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-22" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb172-23"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb172-23" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-87-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-1" tabindex="-1"></a><span class="co">#Create data frame holding just the predicted and residual values</span></span>
+<span id="cb173-2"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-2" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb173-3"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-3" tabindex="-1"></a>  <span class="at">predicted =</span> <span class="fu">fitted</span>(corn.model),</span>
+<span id="cb173-4"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-4" tabindex="-1"></a>  <span class="at">residuals =</span> <span class="fu">residuals</span>(corn.model)</span>
+<span id="cb173-5"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-5" tabindex="-1"></a>)</span>
+<span id="cb173-6"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-6" tabindex="-1"></a></span>
+<span id="cb173-7"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-7" tabindex="-1"></a><span class="co"># 3. Build the ggplot</span></span>
+<span id="cb173-8"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-8" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> predicted, <span class="at">y =</span> residuals)) <span class="sc">+</span></span>
+<span id="cb173-9"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb173-10"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-10" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb173-11"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-11" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Residuals vs. Predicted Plot&quot;</span>,</span>
+<span id="cb173-12"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-12" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Predicted Values (Fitted)&quot;</span>,</span>
+<span id="cb173-13"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-13" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Residuals&quot;</span></span>
+<span id="cb173-14"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-14" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb173-15"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb173-15" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-88-1.png" alt="" width="672" /></p>
+</div>
+<div id="calculate-the-likelihood-ratio-1" class="section level2 hasAnchor" number="22.3">
+<h2><span class="header-section-number">22.3</span> Calculate the likelihood ratio<a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#calculate-the-likelihood-ratio-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb174-1" tabindex="-1"></a>SSinorganic <span class="ot">=</span> <span class="fu">anova</span>(corn.model)<span class="sc">$</span><span class="st">`</span><span class="at">Sum Sq</span><span class="st">`</span>[<span class="dv">1</span>]</span>
+<span id="cb174-2"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb174-2" tabindex="-1"></a>SSorganic <span class="ot">=</span> <span class="fu">anova</span>(corn.model)<span class="sc">$</span><span class="st">`</span><span class="at">Sum Sq</span><span class="st">`</span>[<span class="dv">2</span>]</span>
+<span id="cb174-3"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb174-3" tabindex="-1"></a>SSinteraction <span class="ot">=</span> <span class="fu">anova</span>(corn.model)<span class="sc">$</span><span class="st">`</span><span class="at">Sum Sq</span><span class="st">`</span>[<span class="dv">3</span>]</span>
+<span id="cb174-4"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb174-4" tabindex="-1"></a>SSmodel <span class="ot">=</span> SSinorganic<span class="sc">+</span>SSorganic<span class="sc">+</span>SSinteraction</span>
+<span id="cb174-5"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb174-5" tabindex="-1"></a>SSTotal <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">anova</span>(corn.model)<span class="sc">$</span><span class="st">`</span><span class="at">Sum Sq</span><span class="st">`</span>)</span>
+<span id="cb174-6"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb174-6" tabindex="-1"></a>R2 <span class="ot">=</span> SSmodel<span class="sc">/</span>SSTotal</span>
+<span id="cb174-7"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb174-7" tabindex="-1"></a>R2</span></code></pre></div>
+<pre><code>## [1] 0.6668361</code></pre>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb176-1" tabindex="-1"></a>LR <span class="ot">=</span> (<span class="dv">1</span><span class="sc">-</span>R2)<span class="sc">^</span>{<span class="sc">-</span><span class="dv">17</span><span class="sc">/</span><span class="dv">2</span>}</span>
+<span id="cb176-2"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb176-2" tabindex="-1"></a>LR</span></code></pre></div>
+<pre><code>## [1] 11413.22</code></pre>
+</div>
+<div id="plot-the-results" class="section level2 hasAnchor" number="22.4">
+<h2><span class="header-section-number">22.4</span> Plot the results<a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#plot-the-results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb178-1" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fu">unname</span>(<span class="fu">coef</span>(corn.model)[<span class="dv">1</span>])</span>
+<span id="cb178-2"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb178-2" tabindex="-1"></a>beta1 <span class="ot">=</span> <span class="fu">unname</span>(<span class="fu">coef</span>(corn.model)[<span class="dv">2</span>])</span>
+<span id="cb178-3"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb178-3" tabindex="-1"></a>beta2 <span class="ot">=</span> <span class="fu">unname</span>(<span class="fu">coef</span>(corn.model)[<span class="dv">3</span>])</span>
+<span id="cb178-4"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb178-4" tabindex="-1"></a>beta12 <span class="ot">=</span> <span class="fu">unname</span>(<span class="fu">coef</span>(corn.model)[<span class="dv">4</span>])</span>
+<span id="cb178-5"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb178-5" tabindex="-1"></a>xvalues <span class="ot">=</span> alpha <span class="sc">+</span> beta1<span class="sc">*</span>corn.data<span class="sc">$</span>inorganic.P <span class="sc">+</span>  beta2<span class="sc">*</span>corn.data<span class="sc">$</span>organic.P <span class="sc">+</span>  beta12<span class="sc">*</span>corn.data<span class="sc">$</span>organic.P<span class="sc">*</span>corn.data<span class="sc">$</span>inorganic.P</span>
+<span id="cb178-6"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb178-6" tabindex="-1"></a>corn.data <span class="ot">=</span> <span class="fu">data.frame</span>(corn.data, <span class="at">fitted =</span> corn.model<span class="sc">$</span>fitted.values, <span class="at">xvalues =</span> xvalues)</span>
+<span id="cb178-7"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb178-7" tabindex="-1"></a>corn.data</span></code></pre></div>
+<pre><code>##    plot inorganic.P organic.P Pcorn   residuals   fitted  xvalues
+## 1     1         0.4        53    64   0.3417789 63.65822 63.65822
+## 2     2         0.4        23    60   5.1796238 54.82038 54.82038
+## 3     3         3.1        19    71   7.3005504 63.69945 63.69945
+## 4     4         0.6        34    61   2.4433513 58.55665 58.55665
+## 5     5         4.7        24    54 -15.3459817 69.34598 69.34598
+## 6     6         1.7        65    77   9.9328873 67.06711 67.06711
+## 7     7         9.4        44    81   5.1633203 75.83668 75.83668
+## 8     8        10.1        31    93   9.3620974 83.63790 83.63790
+## 9     9        11.6        29    93   3.9982216 89.00178 89.00178
+## 10   10        12.6        58    51 -20.0422242 71.04222 71.04222
+## 11   11        10.9        37    76  -6.3531945 82.35319 82.35319
+## 12   12        23.1        46    96   0.7721028 95.22790 95.22790
+## 13   13        23.1        50    77 -11.8617932 88.86179 88.86179
+## 14   14        21.6        44    93  -2.9393139 95.93931 95.93931
+## 15   15        23.1        56    95  15.6873628 79.31264 79.31264
+## 16   16         1.9        36    54  -8.1188126 62.11881 62.11881
+## 17   17        29.9        51    99   4.4800234 94.51998 94.51998</code></pre>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb180-1" tabindex="-1"></a>g1.fitted <span class="ot">=</span> <span class="fu">ggplot</span>(corn.data, <span class="fu">aes</span>(<span class="at">x=</span>xvalues))<span class="sc">+</span></span>
+<span id="cb180-2"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb180-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span>Pcorn))<span class="sc">+</span></span>
+<span id="cb180-3"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb180-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fitted))<span class="sc">+</span><span class="fu">theme_classic</span>()<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;corn phosphorous, ppm&quot;</span>)<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;fitted explanatory variables: 45.9 + 5.3I + 0.32O -0.08IO&quot;</span>)</span>
+<span id="cb180-4"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb180-4" tabindex="-1"></a>g1.fitted</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-90-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb181-1" tabindex="-1"></a><span class="co"># inorganic phosphorous only model:</span></span>
+<span id="cb181-2"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb181-2" tabindex="-1"></a>inorganic <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Pcorn =</span> corn.data<span class="sc">$</span>Pcorn, <span class="at">inorganic.P =</span> corn.data<span class="sc">$</span>inorganic.P)</span>
+<span id="cb181-3"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb181-3" tabindex="-1"></a>inorganic.model <span class="ot">=</span> <span class="fu">lm</span>(Pcorn<span class="sc">~</span>inorganic.P, <span class="at">data=</span>inorganic)</span>
+<span id="cb181-4"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb181-4" tabindex="-1"></a>inorganic<span class="sc">$</span>fitted <span class="ot">=</span> inorganic.model<span class="sc">$</span>fitted.values</span>
+<span id="cb181-5"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb181-5" tabindex="-1"></a></span>
+<span id="cb181-6"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb181-6" tabindex="-1"></a>inorganic.fitted <span class="ot">=</span> <span class="fu">ggplot</span>(inorganic, <span class="fu">aes</span>(<span class="at">x=</span>inorganic.P))<span class="sc">+</span></span>
+<span id="cb181-7"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb181-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span>Pcorn))<span class="sc">+</span></span>
+<span id="cb181-8"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb181-8" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fitted))<span class="sc">+</span><span class="fu">theme_classic</span>()<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;corn phosphorous, ppm&quot;</span>)<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;inorganic phosphorous, ppm&quot;</span>)</span>
+<span id="cb181-9"><a href="fri-oct-30---multiple-regression-two-or-more-explanatory-varibles.html#cb181-9" tabindex="-1"></a>inorganic.fitted</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-91-1.png" alt="" width="672" />
+## Readings</p>
 <ul>
 <li><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch12_1.pdf">Ch 12.1</a></li>
 </ul>
