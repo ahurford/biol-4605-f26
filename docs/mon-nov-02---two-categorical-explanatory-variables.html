@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>23 Mon Nov 02 - Two categorical explanatory variables | book.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="23 Mon Nov 02 - Two categorical explanatory variables | book.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="23 Mon Nov 02 - Two categorical explanatory variables | book.knit" />
+  
+  
+  
+
+<meta name="author" content="Amy Hurford" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="fri-oct-30---multiple-regression-two-explanatory-varibles.html"/>
+<link rel="next" href="wed-nov-04---nested-anova.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to BIOL/OSCS 4605/7220!</a></li>
+<li class="chapter" data-level="2" data-path="wed-sept-9---introduction.html"><a href="wed-sept-9---introduction.html"><i class="fa fa-check"></i><b>2</b> Wed Sept 9 - Introduction</a></li>
+<li class="chapter" data-level="3" data-path="fri-sept-11---models-and-quantities.html"><a href="fri-sept-11---models-and-quantities.html"><i class="fa fa-check"></i><b>3</b> Fri Sept 11 - Models and quantities</a></li>
+<li class="chapter" data-level="4" data-path="mon-sept-14---equations-units-and-notation.html"><a href="mon-sept-14---equations-units-and-notation.html"><i class="fa fa-check"></i><b>4</b> Mon Sept 14 - Equations, units, and notation</a></li>
+<li class="chapter" data-level="5" data-path="wed-sept-16---samples-and-populations.html"><a href="wed-sept-16---samples-and-populations.html"><i class="fa fa-check"></i><b>5</b> Wed Sept 16 - Samples and populations</a></li>
+<li class="chapter" data-level="6" data-path="fri-sept-18-quiz-1-a1-due-a2-available-probability-distributions.html"><a href="fri-sept-18-quiz-1-a1-due-a2-available-probability-distributions.html"><i class="fa fa-check"></i><b>6</b> <strong>Fri Sept 18 (Quiz 1, A1 due, A2 available)</strong> Probability distributions</a></li>
+<li class="chapter" data-level="7" data-path="mon-sept-21---review-quiz-1-statistical.html"><a href="mon-sept-21---review-quiz-1-statistical.html"><i class="fa fa-check"></i><b>7</b> Mon Sept 21 - Review Quiz 1, statistical</a></li>
+<li class="chapter" data-level="8" data-path="wed-sept-23---frequentist-estimation.html"><a href="wed-sept-23---frequentist-estimation.html"><i class="fa fa-check"></i><b>8</b> Wed Sept 23 - Frequentist estimation</a></li>
+<li class="chapter" data-level="9" data-path="fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics.html"><a href="fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics.html"><i class="fa fa-check"></i><b>9</b> <strong>Fri Sept 25 (A2 due)</strong> - Hypothesis testing (frequentist) and Bayesian statistics</a></li>
+<li class="chapter" data-level="10" data-path="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html"><a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html"><i class="fa fa-check"></i><b>10</b> Mon Sept 28 - Sampling and experimental design and power analysis</a></li>
+<li class="chapter" data-level="11" data-path="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"><a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"><i class="fa fa-check"></i><b>11</b> <strong>Fri Oct 2 (Quiz 2) </strong> - What is a linear model and how to assess model fit</a></li>
+<li class="chapter" data-level="12" data-path="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html"><i class="fa fa-check"></i><b>12</b> Mon Oct 05 - Linear model fitting and how well does a linear model fit?</a></li>
+<li class="chapter" data-level="13" data-path="wed-oct-07---exploratory-data-analysis.html"><a href="wed-oct-07---exploratory-data-analysis.html"><i class="fa fa-check"></i><b>13</b> Wed Oct 07 - Exploratory data analysis</a></li>
+<li class="chapter" data-level="14" data-path="fri-oct-09---exam-i.html"><a href="fri-oct-09---exam-i.html"><i class="fa fa-check"></i><b>14</b> <strong>Fri Oct 09 - EXAM I</strong></a></li>
+<li class="chapter" data-level="15" data-path="corn.html"><a href="corn.html"><i class="fa fa-check"></i><b>15</b> Wed Oct 14 - Regression with one predictor variable fixed by experiment</a></li>
+<li class="chapter" data-level="16" data-path="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><i class="fa fa-check"></i><b>16</b> Fri Oct 16 - Linear model for a single categorical predictor (factor)</a></li>
+<li class="chapter" data-level="17" data-path="mon-oct-19---two-sample-t-test.html"><a href="mon-oct-19---two-sample-t-test.html"><i class="fa fa-check"></i><b>17</b> Mon Oct 19 - Two sample t-test</a></li>
+<li class="chapter" data-level="18" data-path="wed-oct-21---one-way-anova-fixed-effects.html"><a href="wed-oct-21---one-way-anova-fixed-effects.html"><i class="fa fa-check"></i><b>18</b> Wed Oct 21 - One way ANOVA (fixed effects)</a></li>
+<li class="chapter" data-level="19" data-path="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"><i class="fa fa-check"></i><b>19</b> <strong>Fri Oct 23 (Quiz 3, A3 due)</strong> Randomization when assumptions are not met.</a></li>
+<li class="chapter" data-level="20" data-path="mon-oct-26---one-way-anova-with-random-effects..html"><a href="mon-oct-26---one-way-anova-with-random-effects..html"><i class="fa fa-check"></i><b>20</b> Mon Oct 26 - One-way ANOVA with random effects.</a></li>
+<li class="chapter" data-level="21" data-path="wed-oct-28---parameter-estimation-using-maximum-likelihood-estimation.html"><a href="wed-oct-28---parameter-estimation-using-maximum-likelihood-estimation.html"><i class="fa fa-check"></i><b>21</b> Wed Oct 28 - Parameter estimation using maximum likelihood estimation</a></li>
+<li class="chapter" data-level="22" data-path="fri-oct-30---multiple-regression-two-explanatory-varibles.html"><a href="fri-oct-30---multiple-regression-two-explanatory-varibles.html"><i class="fa fa-check"></i><b>22</b> Fri Oct 30 - Multiple regression (two explanatory varibles)</a></li>
+<li class="chapter" data-level="23" data-path="mon-nov-02---two-categorical-explanatory-variables.html"><a href="mon-nov-02---two-categorical-explanatory-variables.html"><i class="fa fa-check"></i><b>23</b> Mon Nov 02 - Two categorical explanatory variables</a></li>
+<li class="chapter" data-level="24" data-path="wed-nov-04---nested-anova.html"><a href="wed-nov-04---nested-anova.html"><i class="fa fa-check"></i><b>24</b> Wed Nov 04 - Nested ANOVA</a></li>
+<li class="chapter" data-level="25" data-path="fri-nov-06---exam-2.html"><a href="fri-nov-06---exam-2.html"><i class="fa fa-check"></i><b>25</b> <strong>Fri Nov 06 - EXAM 2</strong></a></li>
+<li class="chapter" data-level="26" data-path="mon-nov-09---correlation-mvar.html"><a href="mon-nov-09---correlation-mvar.html"><i class="fa fa-check"></i><b>26</b> Mon Nov 09 - Correlation &amp; Mvar</a></li>
+<li class="chapter" data-level="27" data-path="fri-nov-13-a4-due---gzlm-intro.html"><a href="fri-nov-13-a4-due---gzlm-intro.html"><i class="fa fa-check"></i><b>27</b> <strong>Fri Nov 13 (A4 due)</strong> - GzLM Intro</a></li>
+<li class="chapter" data-level="28" data-path="mon-nov-16---logistic-regression.html"><a href="mon-nov-16---logistic-regression.html"><i class="fa fa-check"></i><b>28</b> Mon Nov 16 - Logistic Regression</a></li>
+<li class="chapter" data-level="29" data-path="wed-nov-18---prospective-analysis.html"><a href="wed-nov-18---prospective-analysis.html"><i class="fa fa-check"></i><b>29</b> Wed Nov 18 - Prospective Analysis</a></li>
+<li class="chapter" data-level="30" data-path="fri-nov-20-quiz-4--retrospective-analysis.html"><a href="fri-nov-20-quiz-4--retrospective-analysis.html"><i class="fa fa-check"></i><b>30</b> <strong>Fri Nov 20 (Quiz 4)</strong>- Retrospective Analysis</a></li>
+<li class="chapter" data-level="31" data-path="mon-nov-23---logistic-ancova.html"><a href="mon-nov-23---logistic-ancova.html"><i class="fa fa-check"></i><b>31</b> Mon Nov 23 - Logistic ANCOVA</a></li>
+<li class="chapter" data-level="32" data-path="wed-nov-25---poisson-regression.html"><a href="wed-nov-25---poisson-regression.html"><i class="fa fa-check"></i><b>32</b> Wed Nov 25 - Poisson Regression</a></li>
+<li class="chapter" data-level="33" data-path="fri-nov-27---contingency-tests-poisson.html"><a href="fri-nov-27---contingency-tests-poisson.html"><i class="fa fa-check"></i><b>33</b> Fri Nov 27 - Contingency Tests, Poisson</a></li>
+<li class="chapter" data-level="34" data-path="mon-nov-30---model-selection-i-eda-and-stepwise.html"><a href="mon-nov-30---model-selection-i-eda-and-stepwise.html"><i class="fa fa-check"></i><b>34</b> Mon Nov 30 - Model Selection I: EDA and Stepwise</a></li>
+<li class="chapter" data-level="35" data-path="wed-dec-02---multimodel-inf---aic-sic.html"><a href="wed-dec-02---multimodel-inf---aic-sic.html"><i class="fa fa-check"></i><b>35</b> Wed Dec 02 - Multimodel Inf - AIC, SIC</a></li>
+<li class="chapter" data-level="36" data-path="fri-dec-04---course-review.html"><a href="fri-dec-04---course-review.html"><i class="fa fa-check"></i><b>36</b> Fri Dec 04 - Course Review</a></li>
+<li class="chapter" data-level="37" data-path="assignment-1.html"><a href="assignment-1.html"><i class="fa fa-check"></i><b>37</b> Assignment 1 - Quantities (due Fri Sept 18)</a></li>
+<li class="chapter" data-level="38" data-path="assignment-2b.html"><a href="assignment-2b.html"><i class="fa fa-check"></i><b>38</b> Assignment 2 - Data equations (due Friday Sept 25)</a></li>
+<li class="chapter" data-level="39" data-path="assignment-3b.html"><a href="assignment-3b.html"><i class="fa fa-check"></i><b>39</b> Assignment 3 - Hypothesis testing (due Fri Oct 23)</a></li>
+<li class="chapter" data-level="40" data-path="assignment-4b.html"><a href="assignment-4b.html"><i class="fa fa-check"></i><b>40</b> Assignment 4 - Confidence intervals (due Friday Nov 13)</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mon-nov-02---two-categorical-explanatory-variables" class="section level1 hasAnchor" number="23">
+<h1><span class="header-section-number">23</span> Mon Nov 02 - Two categorical explanatory variables<a href="mon-nov-02---two-categorical-explanatory-variables.html#mon-nov-02---two-categorical-explanatory-variables" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Today, we will study two-factor fully crossed designs (full factorial designs). This is the simplest type of analysis involving two categorical variables that are fixed.</p>
+<p>Fully crossed means that all the combinations of the levels of the factors/predictors/explanatory variables are considered.</p>
+<p>Such designs allow us to measure the:</p>
+<ul>
+<li><p>main effect independent of (i.e. pooling over) the other effect; and</p></li>
+<li><p>interaction between factors, measuring the the effects of one factor depend on the groups of teh other factors. The absence of an interaction means that the joint effect of the factors is predictable by adding their individual effects. An interaction indicates synergistic or antagonistic effects.</p></li>
+</ul>
+<p><strong>Examples.</strong> Linton et al. (2009) examined the effect of insecticide on red land crabs on Christmas island. The design involves two fixed factors: bait types (with and without insecticide) and food level (2, 4 or <em>ad libitum</em>). The design is a completely randomized experimental design. The response variable is ovary dry mass.</p>
+<p>Breitwieser et al. (2016) survey variegated scallops, <em>Mimachlamys varia</em>. Five sites were chosen (4 contaminated and one clean). The authors sampled scallops at two times of year (March and September). The response variable is the biomarker, malondialdehyde (MDA) (<span class="math inline">\(\mu\)</span>g/mg fresh tissue). This is an observational (non-experimental design).</p>
+<p>The 8th edition of Snedecor and Cochran (1989) reported gains in weight in rats given diets that were high or low protein; and where the protein was beef, pork, or cereal. This was a full factorial experimental design (6 possible diets).</p>
+<div id="data" class="section level2 hasAnchor" number="23.1">
+<h2><span class="header-section-number">23.1</span> Data<a href="mon-nov-02---two-categorical-explanatory-variables.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb182-1" tabindex="-1"></a>diet.data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/rat-diet.csv&quot;</span>)</span>
+<span id="cb182-2"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb182-2" tabindex="-1"></a>diet.data</span></code></pre></div>
+<pre><code>##    protein.type protein.level weight
+## 1          beef          high     73
+## 2          beef          high    102
+## 3          beef          high    118
+## 4          beef          high    104
+## 5          beef          high     81
+## 6          beef          high    107
+## 7          beef          high    100
+## 8          beef          high     87
+## 9          beef          high    117
+## 10         beef          high    111
+## 11       cereal          high     98
+## 12       cereal          high     74
+## 13       cereal          high     56
+## 14       cereal          high    111
+## 15       cereal          high     95
+## 16       cereal          high     88
+## 17       cereal          high     82
+## 18       cereal          high     77
+## 19       cereal          high     86
+## 20       cereal          high     92
+## 21         pork          high     94
+## 22         pork          high     79
+## 23         pork          high     96
+## 24         pork          high     98
+## 25         pork          high    102
+## 26         pork          high    102
+## 27         pork          high    108
+## 28         pork          high     91
+## 29         pork          high    120
+## 30         pork          high    105
+## 31         beef           low     90
+## 32         beef           low     76
+## 33         beef           low     90
+## 34         beef           low     64
+## 35         beef           low     86
+## 36         beef           low     51
+## 37         beef           low     72
+## 38         beef           low     90
+## 39         beef           low     95
+## 40         beef           low     78
+## 41       cereal           low    107
+## 42       cereal           low     95
+## 43       cereal           low     97
+## 44       cereal           low     80
+## 45       cereal           low     98
+## 46       cereal           low     74
+## 47       cereal           low     74
+## 48       cereal           low     67
+## 49       cereal           low     89
+## 50       cereal           low     58
+## 51         pork           low     49
+## 52         pork           low     82
+## 53         pork           low     73
+## 54         pork           low     86
+## 55         pork           low     81
+## 56         pork           low     97
+## 57         pork           low    106
+## 58         pork           low     70
+## 59         pork           low     61
+## 60         pork           low     82</code></pre>
+<p>Plot the data to assess assumptions:</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb184-2"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-2" tabindex="-1"></a><span class="fu">ggplot</span>(diet.data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(protein.type), <span class="at">y =</span> weight)) <span class="sc">+</span></span>
+<span id="cb184-3"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-3" tabindex="-1"></a>  <span class="co"># 1. Add the box plot layer</span></span>
+<span id="cb184-4"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb184-5"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-5" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span>,       <span class="co"># CRITICAL: Prevents duplicate plotting of outliers</span></span>
+<span id="cb184-6"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-6" tabindex="-1"></a>    <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;maroon&quot;</span>, <span class="st">&quot;darkgray&quot;</span>, <span class="st">&quot;lightblue&quot;</span>),          </span>
+<span id="cb184-7"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-7" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;maroon&quot;</span>, <span class="st">&quot;darkgray&quot;</span>, <span class="st">&quot;lightblue&quot;</span>),       <span class="co"># Memorial colours</span></span>
+<span id="cb184-8"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-8" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span> <span class="co"># some transparency so we can still read the plot</span></span>
+<span id="cb184-9"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-9" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb184-10"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-10" tabindex="-1"></a>  <span class="co"># 2. Add the strip plot (jittered points) layer</span></span>
+<span id="cb184-11"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-11" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(</span>
+<span id="cb184-12"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-12" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="dv">0</span>), <span class="co"># Controls data spreading</span></span>
+<span id="cb184-13"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-13" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,        <span class="co"># Pick a distinct color for raw data points</span></span>
+<span id="cb184-14"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-14" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,                 <span class="co"># Modify point size</span></span>
+<span id="cb184-15"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-15" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb184-16"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-16" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb184-17"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-17" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Diet&quot;</span>,</span>
+<span id="cb184-18"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-18" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Weight gain (g)&quot;</span>,</span>
+<span id="cb184-19"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-19" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Two-factor fully crossed design (protein type)&quot;</span></span>
+<span id="cb184-20"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb184-20" tabindex="-1"></a>  )<span class="sc">+</span><span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-93-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb185-2"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-2" tabindex="-1"></a><span class="fu">ggplot</span>(diet.data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(protein.level), <span class="at">y =</span> weight)) <span class="sc">+</span></span>
+<span id="cb185-3"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-3" tabindex="-1"></a>  <span class="co"># 1. Add the box plot layer</span></span>
+<span id="cb185-4"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb185-5"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-5" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span>,       <span class="co"># CRITICAL: Prevents duplicate plotting of outliers</span></span>
+<span id="cb185-6"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-6" tabindex="-1"></a>    <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;darkgoldenrod2&quot;</span>, <span class="st">&quot;purple2&quot;</span>),          </span>
+<span id="cb185-7"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-7" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;darkgoldenrod2&quot;</span>, <span class="st">&quot;purple2&quot;</span>),       <span class="co"># Memorial colours</span></span>
+<span id="cb185-8"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-8" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span> <span class="co"># some transparency so we can still read the plot</span></span>
+<span id="cb185-9"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-9" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb185-10"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-10" tabindex="-1"></a>  <span class="co"># 2. Add the strip plot (jittered points) layer</span></span>
+<span id="cb185-11"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-11" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(</span>
+<span id="cb185-12"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-12" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="dv">0</span>), <span class="co"># Controls data spreading</span></span>
+<span id="cb185-13"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-13" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,        <span class="co"># Pick a distinct color for raw data points</span></span>
+<span id="cb185-14"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-14" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">3</span>,                 <span class="co"># Modify point size</span></span>
+<span id="cb185-15"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-15" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb185-16"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-16" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb185-17"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-17" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Diet&quot;</span>,</span>
+<span id="cb185-18"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-18" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Weight gain (grams)&quot;</span>,</span>
+<span id="cb185-19"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-19" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Two-factor fully crossed design (protein level)&quot;</span></span>
+<span id="cb185-20"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb185-20" tabindex="-1"></a>  )<span class="sc">+</span><span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-94-1.png" alt="" width="672" /></p>
+<p>Let’s find the means of all the groups.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb186-1" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
+<span id="cb186-2"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb186-2" tabindex="-1"></a>overall.mean <span class="ot">=</span> <span class="fu">mean</span>(diet.data<span class="sc">$</span>weight)</span>
+<span id="cb186-3"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb186-3" tabindex="-1"></a>overall.mean</span></code></pre></div>
+<pre><code>## [1] 87.86667</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb188-1" tabindex="-1"></a>diet.data<span class="sc">%&gt;%</span><span class="fu">group_by</span>(protein.level)<span class="sc">%&gt;%</span><span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(weight))<span class="sc">%&gt;%</span><span class="fu">data.frame</span>()</span></code></pre></div>
+<pre><code>##   protein.level     mean
+## 1          high 95.13333
+## 2           low 80.60000</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb190-1" tabindex="-1"></a>diet.data<span class="sc">%&gt;%</span><span class="fu">group_by</span>(protein.type)<span class="sc">%&gt;%</span><span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(weight))<span class="sc">%&gt;%</span><span class="fu">data.frame</span>()</span></code></pre></div>
+<pre><code>##   protein.type mean
+## 1         beef 89.6
+## 2       cereal 84.9
+## 3         pork 89.1</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb192-1" tabindex="-1"></a>diet.data<span class="sc">%&gt;%</span><span class="fu">group_by</span>(protein.type, protein.level)<span class="sc">%&gt;%</span><span class="fu">summarise</span>(<span class="at">mean=</span><span class="fu">mean</span>(weight))<span class="sc">%&gt;%</span><span class="fu">data.frame</span>()</span></code></pre></div>
+<pre><code>##   protein.type protein.level  mean
+## 1         beef          high 100.0
+## 2         beef           low  79.2
+## 3       cereal          high  85.9
+## 4       cereal           low  83.9
+## 5         pork          high  99.5
+## 6         pork           low  78.7</code></pre>
+<p>Let’s also plot the residuals vs. predicted values as in Figures 7.1-7.3 (p116-119) of Quinn and Keough. As has been noted in class previously, plotting the residuals requires fitting a model. The fitted models include an interaction term as in Boxes 7.1-7.3 in Quinn and Keough.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb194-1" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
+<span id="cb194-2"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb194-2" tabindex="-1"></a>diet.model <span class="ot">=</span> <span class="fu">lm</span>(weight <span class="sc">~</span> protein.type <span class="sc">+</span> protein.level <span class="sc">+</span> protein.type<span class="sc">*</span>protein.level, <span class="at">data =</span> diet.data)</span>
+<span id="cb194-3"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb194-3" tabindex="-1"></a>diet.data<span class="sc">$</span>residuals <span class="ot">=</span> diet.model<span class="sc">$</span>residuals</span>
+<span id="cb194-4"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb194-4" tabindex="-1"></a>diet.data<span class="sc">$</span>predicted <span class="ot">=</span> diet.model<span class="sc">$</span>fitted.values</span>
+<span id="cb194-5"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb194-5" tabindex="-1"></a><span class="fu">ggplot</span>(diet.data, <span class="fu">aes</span>(<span class="at">x =</span> predicted, <span class="at">y =</span> residuals, <span class="at">color=</span>protein.type))<span class="sc">+</span></span>
+<span id="cb194-6"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb194-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> protein.level))<span class="sc">+</span><span class="fu">theme_classic</span>()<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;predicted weight gain (g)&quot;</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-96-1.png" alt="" width="672" />
+We are examining this plot to determine if the residuals have homogeneous variance. The residuals look good, in this respect. This plot also shows that the interaction effect is likely significant, because whether the high level diet improves weight increase depends on the type of protein.</p>
+</div>
+<div id="write-the-model-1" class="section level2 hasAnchor" number="23.2">
+<h2><span class="header-section-number">23.2</span> Write the model<a href="mon-nov-02---two-categorical-explanatory-variables.html#write-the-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>I will write the model in the notation of Quinn and Keough p120.</p>
+<p><span class="math display">\[
+y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij} + \epsilon_{ijk}
+\]</span></p>
+<p>where <span class="math inline">\(i\)</span> are the different levels of protein type (beef, pork, cereal), <span class="math inline">\(j\)</span> are the different levels of protein (low, high), and <span class="math inline">\(k\)</span> is a particular observation.</p>
+<p>The expected (predicted) value is the model without the residuals:</p>
+<p><span class="math display">\[
+E[y_{ij}] = \mu + \alpha_{i} + \beta_j + (\alpha \beta)_{ij}
+\]</span></p>
+<p>These symbols correspond to the following variables:</p>
+<p><span class="math display">\[
+(\mbox{weight gain})_{ijk}  = (\mbox{overall mean of weight gain}) + (\mbox{effect of protein type})_i \\
++ (\mbox{effect of protein level})_j \\
++ (\mbox{interaction effect between protein type and level})_{ij} + \epsilon_{ijk}
+\]</span></p>
+<p>Note that we can use this index notation and then we do not need to include indicator (dummy) variables corresponding to the levels of treatment.</p>
+</div>
+<div id="execute-the-model-1" class="section level2 hasAnchor" number="23.3">
+<h2><span class="header-section-number">23.3</span> Execute the model<a href="mon-nov-02---two-categorical-explanatory-variables.html#execute-the-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb195-1" tabindex="-1"></a><span class="fu">summary</span>(diet.model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = weight ~ protein.type + protein.level + protein.type * 
+##     protein.level, data = diet.data)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -29.90  -8.75   2.20  10.80  27.30 
+## 
+## Coefficients:
+##                                        Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                           1.000e+02  4.632e+00  21.589  &lt; 2e-16 ***
+## protein.typecereal                   -1.410e+01  6.551e+00  -2.152  0.03585 *  
+## protein.typepork                     -5.000e-01  6.551e+00  -0.076  0.93944    
+## protein.level low                    -2.080e+01  6.551e+00  -3.175  0.00247 ** 
+## protein.typecereal:protein.level low  1.880e+01  9.264e+00   2.029  0.04736 *  
+## protein.typepork:protein.level low   -2.673e-16  9.264e+00   0.000  1.00000    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 14.65 on 54 degrees of freedom
+## Multiple R-squared:  0.2848, Adjusted R-squared:  0.2185 
+## F-statistic:   4.3 on 5 and 54 DF,  p-value: 0.002299</code></pre>
+<p>The reference category <code>(intercept)</code> estimate is the mean weight gain for a high level beef diet. The group mean for this group is 100 grams of weight gained. The overall mean has previously been calculated as <span class="math inline">\(\mu = 87.9\)</span> grams of weight gained. The effect of beef for the low level diet is <code>(Intercept)$estimate - protein.level low$estimate = 100 - 20.8 = 79.2</code>, which we can check against our earlier calculation.</p>
+<p>Our group means can be calculated by using either our model formula (in between the =) or the <code>diet.model</code> estimates (on the right hand side of the equal)</p>
+<p><span class="math display">\[\begin{equation}
+\begin{array}{lll}
+y_{\mbox{beef, high}} &amp;= 87.9 + \alpha_{\mbox{beef}} + \beta_{\mbox{high}} + \alpha \beta_{\mbox{beef,high}} &amp;= 100 \\
+y_{\mbox{beef, low}} &amp;= 87.9 + \alpha_{\mbox{beef}} + \beta_{\mbox{low}} + \alpha \beta_{\mbox{beef,low}} &amp;= 100- 20.8 = 79.2 \\
+y_{\mbox{pork, high}} &amp;= 87.9 + \alpha_{\mbox{pork}} + \beta_{\mbox{high}} + \alpha \beta_{\mbox{pork,high}} &amp;= 100 - 0.5 = 99.5 \\
+y_{\mbox{pork, low}} &amp;= 87.9 + \alpha_{\mbox{pork}} + \beta_{\mbox{low}} + \alpha \beta_{\mbox{pork,low}} &amp;= 100 - 0.5 - 20.8 + 0 = 78.7 \\
+y_{\mbox{cereal, high}} &amp;= 87.9 + \alpha_{\mbox{cereal}} + \beta_{\mbox{high}} + \alpha \beta_{\mbox{cereal,high}} &amp;= 100 - 14.1 = 85.9 \\
+y_{\mbox{cereal, low}} &amp;= 87.9 + \alpha_{\mbox{cereal}} + \beta_{\mbox{low}} + \alpha \beta_{\mbox{cereal,low}} &amp;= 100 - 14.1 - 20.8 + 18.8 =  83.9\\
+\end{array}
+\end{equation}\]</span></p>
+<p>Then our parameter estimates are:</p>
+<p><span class="math display">\[
+\mu = 87.9; \qquad \alpha_{\mbox{beef}} = \dfrac{100+79.2}{2} - 87.9 = 1.7; \qquad \beta_{\mbox{high}}=\dfrac{100+99.5+85.9}{3}-87.9 = 7.23; \\
+\alpha \beta_{\mbox{beef,high}} = 100 - 87.9 - 1.7 - 7.23 = 3.17.
+\]</span></p>
+<p>where similar calculations can be completed for the other parameter estimates.</p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="mon-nov-02---two-categorical-explanatory-variables.html#cb197-1" tabindex="-1"></a><span class="fu">anova</span>(diet.model)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: weight
+##                            Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## protein.type                2   266.5   133.3  0.6211 0.5411319    
+## protein.level               1  3168.3  3168.3 14.7666 0.0003224 ***
+## protein.type:protein.level  2  1178.1   589.1  2.7455 0.0731879 .  
+## Residuals                  54 11586.0   214.6                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="readings-13" class="section level2 hasAnchor" number="23.4">
+<h2><span class="header-section-number">23.4</span> Readings<a href="mon-nov-02---two-categorical-explanatory-variables.html#readings-13" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_2.pdf">Ch13.2</a></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="fri-oct-30---multiple-regression-two-explanatory-varibles.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="wed-nov-04---nested-anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

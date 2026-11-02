@@ -161,3 +161,5 @@ We have support for inclusion of organic phosphorous in the model because the in
 
 - [Ch 12.1](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch12_1.pdf)
 
+- Ch 8.1 Linear model for multiple continuous predictors: multiple regression in Quinn and Keough.
+

@@ -3,9 +3,160 @@ title: "Mixed model - random block"
 output: html_document
 ---
 
-# Mon Nov 02 - Mixed model - random block
+# Mon Nov 02 - Two categorical explanatory variables
+
+Today, we will study two-factor fully crossed designs (full factorial designs). This is the simplest type of analysis involving two categorical variables that are fixed.
+
+Fully crossed means that all the combinations of the levels of the factors/predictors/explanatory variables are considered.
+
+Such designs allow us to measure the:
+
+- main effect independent of (i.e. pooling over) the other effect; and
+
+- interaction between factors, measuring the the effects of one factor depend on the groups of teh other factors. The absence of an interaction means that the joint effect of the factors is predictable by adding their individual effects. An interaction indicates synergistic or antagonistic effects.
+
+**Examples.** Linton et al. (2009) examined the effect of insecticide on red land crabs on Christmas island. The design involves two fixed factors: bait types (with and without insecticide) and food level (2, 4 or _ad libitum_). The design is a completely randomized experimental design. The response variable is ovary dry mass.
+
+Breitwieser et al. (2016) survey variegated scallops, _Mimachlamys varia_. Five sites were chosen (4 contaminated and one clean). The authors sampled scallops at two times of year (March and September). The response variable is the biomarker, malondialdehyde (MDA) ($\mu$g/mg fresh tissue). This is an observational (non-experimental design).
+
+The 8th edition of Snedecor and Cochran (1989) reported gains in weight in rats given diets that were high or low protein; and where the protein was beef, pork, or cereal. This was a full factorial experimental design (6 possible diets).
+
+## Data
+
+```{r}
+diet.data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/rat-diet.csv")
+diet.data
+```
+Plot the data to assess assumptions:
+
+```{r,message=FALSE}
+library(ggplot2)
+ggplot(diet.data, aes(x = factor(protein.type), y = weight)) +
+  # 1. Add the box plot layer
+  geom_boxplot(
+    outlier.shape = NA,       # CRITICAL: Prevents duplicate plotting of outliers
+    fill = c("maroon", "darkgray", "lightblue"),          
+    color = c("maroon", "darkgray", "lightblue"),       # Memorial colours
+    alpha = 0.5 # some transparency so we can still read the plot
+  ) +
+  # 2. Add the strip plot (jittered points) layer
+  geom_jitter(
+    position = position_jitter(width = 0.2, height = 0), # Controls data spreading
+    color = "black",        # Pick a distinct color for raw data points
+    size = 3,                 # Modify point size
+  ) +
+  labs(
+    x = "Diet",
+    y = "Weight gain (g)",
+    title = "Two-factor fully crossed design (protein type)"
+  )+theme_minimal()
+```
+
+
+```{r,message=FALSE}
+library(ggplot2)
+ggplot(diet.data, aes(x = factor(protein.level), y = weight)) +
+  # 1. Add the box plot layer
+  geom_boxplot(
+    outlier.shape = NA,       # CRITICAL: Prevents duplicate plotting of outliers
+    fill = c("darkgoldenrod2", "purple2"),          
+    color = c("darkgoldenrod2", "purple2"),       # Memorial colours
+    alpha = 0.5 # some transparency so we can still read the plot
+  ) +
+  # 2. Add the strip plot (jittered points) layer
+  geom_jitter(
+    position = position_jitter(width = 0.2, height = 0), # Controls data spreading
+    color = "black",        # Pick a distinct color for raw data points
+    size = 3,                 # Modify point size
+  ) +
+  labs(
+    x = "Diet",
+    y = "Weight gain (grams)",
+    title = "Two-factor fully crossed design (protein level)"
+  )+theme_minimal()
+```
+
+Let's find the means of all the groups.
+
+```{r,message=FALSE}
+require(dplyr)
+overall.mean = mean(diet.data$weight)
+overall.mean
+diet.data%>%group_by(protein.level)%>%summarise(mean=mean(weight))%>%data.frame()
+diet.data%>%group_by(protein.type)%>%summarise(mean=mean(weight))%>%data.frame()
+diet.data%>%group_by(protein.type, protein.level)%>%summarise(mean=mean(weight))%>%data.frame()
+```
+Let's also plot the residuals vs. predicted values as in Figures 7.1-7.3 (p116-119) of Quinn and Keough. As has been noted in class previously, plotting the residuals requires fitting a model. The fitted models include an interaction term as in Boxes 7.1-7.3 in Quinn and Keough.
+
+```{r,message=FALSE,warning=FALSE}
+require(ggplot2)
+diet.model = lm(weight ~ protein.type + protein.level + protein.type*protein.level, data = diet.data)
+diet.data$residuals = diet.model$residuals
+diet.data$predicted = diet.model$fitted.values
+ggplot(diet.data, aes(x = predicted, y = residuals, color=protein.type))+
+  geom_point(aes(size = protein.level))+theme_classic()+xlab("predicted weight gain (g)")
+```
+We are examining this plot to determine if the residuals have homogeneous variance. The residuals look good, in this respect. This plot also shows that the interaction effect is likely significant, because whether the high level diet improves weight increase depends on the type of protein.
+
+## Write the model
+
+I will write the model in the notation of Quinn and Keough p120.
+
+\[
+y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij} + \epsilon_{ijk}
+\]
+
+where $i$ are the different levels of protein type (beef, pork, cereal), $j$ are the different levels of protein (low, high), and $k$ is a particular observation.
+
+The expected (predicted) value is the model without the residuals:
+
+\[
+E[y_{ij}] = \mu + \alpha_{i} + \beta_j + (\alpha \beta)_{ij}
+\]
+
+These symbols correspond to the following variables:
+
+\[
+(\mbox{weight gain})_{ijk}  = (\mbox{overall mean of weight gain}) + (\mbox{effect of protein type})_i \\
++ (\mbox{effect of protein level})_j \\
+ + (\mbox{interaction effect between protein type and level})_{ij} + \epsilon_{ijk}
+\]
+
+Note that we can use this index notation and then we do not need to include indicator (dummy) variables corresponding to the levels of treatment.
+
+## Execute the model
+```{r}
+summary(diet.model)
+```
+The reference category `(intercept)` estimate is the mean weight gain for a high level beef diet. The group mean for this group is 100 grams of weight gained. The overall mean has previously been calculated as $\mu = 87.9$ grams of weight gained. The effect of beef for the low level diet is `(Intercept)$estimate - protein.level low$estimate = 100 - 20.8 = 79.2`, which we can check against our earlier calculation.
+
+Our group means can be calculated by using either our model formula (in between the =) or the `diet.model` estimates (on the right hand side of the equal)
+
+\begin{equation}
+\begin{array}{lll}
+y_{\mbox{beef, high}} &= 87.9 + \alpha_{\mbox{beef}} + \beta_{\mbox{high}} + \alpha \beta_{\mbox{beef,high}} &= 100 \\
+y_{\mbox{beef, low}} &= 87.9 + \alpha_{\mbox{beef}} + \beta_{\mbox{low}} + \alpha \beta_{\mbox{beef,low}} &= 100- 20.8 = 79.2 \\
+y_{\mbox{pork, high}} &= 87.9 + \alpha_{\mbox{pork}} + \beta_{\mbox{high}} + \alpha \beta_{\mbox{pork,high}} &= 100 - 0.5 = 99.5 \\
+y_{\mbox{pork, low}} &= 87.9 + \alpha_{\mbox{pork}} + \beta_{\mbox{low}} + \alpha \beta_{\mbox{pork,low}} &= 100 - 0.5 - 20.8 + 0 = 78.7 \\
+y_{\mbox{cereal, high}} &= 87.9 + \alpha_{\mbox{cereal}} + \beta_{\mbox{high}} + \alpha \beta_{\mbox{cereal,high}} &= 100 - 14.1 = 85.9 \\
+y_{\mbox{cereal, low}} &= 87.9 + \alpha_{\mbox{cereal}} + \beta_{\mbox{low}} + \alpha \beta_{\mbox{cereal,low}} &= 100 - 14.1 - 20.8 + 18.8 =  83.9\\
+\end{array}
+\end{equation}
+
+Then our parameter estimates are:
+
+\[
+\mu = 87.9; \qquad \alpha_{\mbox{beef}} = \dfrac{100+79.2}{2} - 87.9 = 1.7; \qquad \beta_{\mbox{high}}=\dfrac{100+99.5+85.9}{3}-87.9 = 7.23; \\
+ \alpha \beta_{\mbox{beef,high}} = 100 - 87.9 - 1.7 - 7.23 = 3.17.
+\]
+
+where similar calculations can be completed for the other parameter estimates.
+
+```{r}
+anova(diet.model)
+```
 
 ## Readings 
-- Ch13.4
+- [Ch13.2](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_2.pdf) 
 
 

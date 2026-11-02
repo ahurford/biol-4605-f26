@@ -158,3 +158,5 @@ Therefore, as the only explanatory variable is the random effect associated with
 ## Readings 
 
 - [Chapter 10.4](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_4.pdf) of Dr. Schneider's notes.
+
+- Ch 6.2 Linear Model for a Single Categorical Predictor (Factor); 6.3 Predictor effects; 6.4 Assumptions; and 6.5 Model diagnostics from Quinn and Keough.

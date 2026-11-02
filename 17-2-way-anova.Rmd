@@ -242,5 +242,8 @@ inferring to other sugars or combinations of sugars.
 The experimental treatment of sugars decreases the occular length of peas. A two sugar treatment decreases the length more than a one sugar treatment, however, there is no difference between the application of one monosaccaride sugar as compared to one polysaccaride sugar.
 
 ### Readings
-[Ch 10.3](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_3.pdf) 
+
+- [Ch 10.3](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_3.pdf) 
+
+- Ch 6.2 Linear Model for a Single Categorical Predictor (Factor); 6.3 Predictor effects; 6.4 Assumptions; and 6.5 Model diagnostics from Quinn and Keough. 
 

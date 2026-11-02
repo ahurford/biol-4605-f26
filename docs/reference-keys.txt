@@ -142,7 +142,10 @@ calculate-the-likelihood-ratio-1
 plot-the-results
 report-the-science-conclusion
 readings-12
-mon-nov-02---mixed-model---random-block
+mon-nov-02---two-categorical-explanatory-variables
+data
+write-the-model-1
+execute-the-model-1
 readings-13
 wed-nov-04---nested-anova
 readings-14
