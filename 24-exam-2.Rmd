@@ -5,6 +5,4 @@ output: html_document
 
 # **Fri Nov 06 - EXAM 2**
 
-
-## Readings
-- Ch 15
+We are having a 50 minute exam in class that will cover all the course material from the last exam up until Monday's lecture of two categorical variables (both are fixed).

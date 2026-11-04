@@ -87,7 +87,7 @@ The `lme4` package does not return p-values because traditional F-tests rely on 
 
 We note that our estimate of the effects of Drug A and Drug B are the same and when we did this analysis as an unpaired t-test (i.e., without the random effect), but when we include the random effect less of the variation is unexplained, and we conclude that there is a difference in how much extra sleep people get on drug A versus drug B. This finding suggests that it is important to run this clinical trial by testing both Drug A and Drug B on the same person because without the additional variable describing 'person' we cannot account for individual variation in extra sleep.
 
-Lastly, a remark on dropping the interaction term.
+A remark on dropping the interaction term.
 
 - Degrees of freedom (total): 20 - 1
 
@@ -101,4 +101,15 @@ If we include an interaction term in the model then:
 
 - Degrees of freedom (interaction): (2-1) $\times$ (10-1) = 9.
 
-As such, if we include the interaction term there are no degrees of freedom in the residual. For this reason, the mixed effects model does not include an interaction term. 
+As such, if we include the interaction term there are no degrees of freedom in the residual. For this reason, the mixed effects model does not include an interaction term.
+
+## Can't we just do a paired t-test?
+
+```{r,message=FALSE}
+require(dplyr)
+drugA = sleep.data2%>%filter(drug=="A")%>%pull(extra.sleep)
+drugB = sleep.data2%>%filter(drug=="B")%>%pull(extra.sleep)
+t.test(drugA, drugB, paired = TRUE)
+t.test(drugA, drugB, paired = FALSE)
+```
+We recover the same conlcusion that the unexplained variation is different from the explained variation only when we explain some of the variation with `person`, however, our approach has been much more powerful, in that we can now understand that a paired t-test is a type of mixed effects model, and we can apply our method to more general settings such as [randomized blocks](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_4.pdf) and [repeated measures](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_5.pdf).
