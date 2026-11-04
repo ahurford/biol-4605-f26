@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>24 Wed Nov 04 - Two categorical variables: fixed and random effects | book.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="24 Wed Nov 04 - Two categorical variables: fixed and random effects | book.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="24 Wed Nov 04 - Two categorical variables: fixed and random effects | book.knit" />
+  
+  
+  
+
+<meta name="author" content="Amy Hurford" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="mon-nov-02---two-categorical-explanatory-variables.html"/>
+<link rel="next" href="fri-nov-06---exam-2.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to BIOL/OSCS 4605/7220!</a></li>
+<li class="chapter" data-level="2" data-path="wed-sept-9---introduction.html"><a href="wed-sept-9---introduction.html"><i class="fa fa-check"></i><b>2</b> Wed Sept 9 - Introduction</a></li>
+<li class="chapter" data-level="3" data-path="fri-sept-11---models-and-quantities.html"><a href="fri-sept-11---models-and-quantities.html"><i class="fa fa-check"></i><b>3</b> Fri Sept 11 - Models and quantities</a></li>
+<li class="chapter" data-level="4" data-path="mon-sept-14---equations-units-and-notation.html"><a href="mon-sept-14---equations-units-and-notation.html"><i class="fa fa-check"></i><b>4</b> Mon Sept 14 - Equations, units, and notation</a></li>
+<li class="chapter" data-level="5" data-path="wed-sept-16---samples-and-populations.html"><a href="wed-sept-16---samples-and-populations.html"><i class="fa fa-check"></i><b>5</b> Wed Sept 16 - Samples and populations</a></li>
+<li class="chapter" data-level="6" data-path="fri-sept-18-quiz-1-a1-due-a2-available-probability-distributions.html"><a href="fri-sept-18-quiz-1-a1-due-a2-available-probability-distributions.html"><i class="fa fa-check"></i><b>6</b> <strong>Fri Sept 18 (Quiz 1, A1 due, A2 available)</strong> Probability distributions</a></li>
+<li class="chapter" data-level="7" data-path="mon-sept-21---review-quiz-1-statistical.html"><a href="mon-sept-21---review-quiz-1-statistical.html"><i class="fa fa-check"></i><b>7</b> Mon Sept 21 - Review Quiz 1, statistical</a></li>
+<li class="chapter" data-level="8" data-path="wed-sept-23---frequentist-estimation.html"><a href="wed-sept-23---frequentist-estimation.html"><i class="fa fa-check"></i><b>8</b> Wed Sept 23 - Frequentist estimation</a></li>
+<li class="chapter" data-level="9" data-path="fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics.html"><a href="fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics.html"><i class="fa fa-check"></i><b>9</b> <strong>Fri Sept 25 (A2 due)</strong> - Hypothesis testing (frequentist) and Bayesian statistics</a></li>
+<li class="chapter" data-level="10" data-path="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html"><a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html"><i class="fa fa-check"></i><b>10</b> Mon Sept 28 - Sampling and experimental design and power analysis</a></li>
+<li class="chapter" data-level="11" data-path="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"><a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"><i class="fa fa-check"></i><b>11</b> <strong>Fri Oct 2 (Quiz 2) </strong> - What is a linear model and how to assess model fit</a></li>
+<li class="chapter" data-level="12" data-path="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html"><i class="fa fa-check"></i><b>12</b> Mon Oct 05 - Linear model fitting and how well does a linear model fit?</a></li>
+<li class="chapter" data-level="13" data-path="wed-oct-07---exploratory-data-analysis.html"><a href="wed-oct-07---exploratory-data-analysis.html"><i class="fa fa-check"></i><b>13</b> Wed Oct 07 - Exploratory data analysis</a></li>
+<li class="chapter" data-level="14" data-path="fri-oct-09---exam-i.html"><a href="fri-oct-09---exam-i.html"><i class="fa fa-check"></i><b>14</b> <strong>Fri Oct 09 - EXAM I</strong></a></li>
+<li class="chapter" data-level="15" data-path="corn.html"><a href="corn.html"><i class="fa fa-check"></i><b>15</b> Wed Oct 14 - Regression with one predictor variable fixed by experiment</a></li>
+<li class="chapter" data-level="16" data-path="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><i class="fa fa-check"></i><b>16</b> Fri Oct 16 - Linear model for a single categorical predictor (factor)</a></li>
+<li class="chapter" data-level="17" data-path="sleep.html"><a href="sleep.html"><i class="fa fa-check"></i><b>17</b> Mon Oct 19 - Two sample t-test</a></li>
+<li class="chapter" data-level="18" data-path="wed-oct-21---one-way-anova-fixed-effects.html"><a href="wed-oct-21---one-way-anova-fixed-effects.html"><i class="fa fa-check"></i><b>18</b> Wed Oct 21 - One way ANOVA (fixed effects)</a></li>
+<li class="chapter" data-level="19" data-path="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"><i class="fa fa-check"></i><b>19</b> <strong>Fri Oct 23 (Quiz 3, A3 due)</strong> Randomization when assumptions are not met.</a></li>
+<li class="chapter" data-level="20" data-path="random.html"><a href="random.html"><i class="fa fa-check"></i><b>20</b> Mon Oct 26 - One-way ANOVA with random effects</a></li>
+<li class="chapter" data-level="21" data-path="wed-oct-28---parameter-estimation-using-maximum-likelihood-estimation.html"><a href="wed-oct-28---parameter-estimation-using-maximum-likelihood-estimation.html"><i class="fa fa-check"></i><b>21</b> Wed Oct 28 - Parameter estimation using maximum likelihood estimation</a></li>
+<li class="chapter" data-level="22" data-path="fri-oct-30---multiple-regression-two-explanatory-varibles.html"><a href="fri-oct-30---multiple-regression-two-explanatory-varibles.html"><i class="fa fa-check"></i><b>22</b> Fri Oct 30 - Multiple regression (two explanatory varibles)</a></li>
+<li class="chapter" data-level="23" data-path="mon-nov-02---two-categorical-explanatory-variables.html"><a href="mon-nov-02---two-categorical-explanatory-variables.html"><i class="fa fa-check"></i><b>23</b> Mon Nov 02 - Two categorical explanatory variables</a></li>
+<li class="chapter" data-level="24" data-path="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html"><i class="fa fa-check"></i><b>24</b> Wed Nov 04 - Two categorical variables: fixed and random effects</a></li>
+<li class="chapter" data-level="25" data-path="fri-nov-06---exam-2.html"><a href="fri-nov-06---exam-2.html"><i class="fa fa-check"></i><b>25</b> <strong>Fri Nov 06 - EXAM 2</strong></a></li>
+<li class="chapter" data-level="26" data-path="mon-nov-09---correlation-mvar.html"><a href="mon-nov-09---correlation-mvar.html"><i class="fa fa-check"></i><b>26</b> Mon Nov 09 - Correlation &amp; Mvar</a></li>
+<li class="chapter" data-level="27" data-path="fri-nov-13-a4-due---gzlm-intro.html"><a href="fri-nov-13-a4-due---gzlm-intro.html"><i class="fa fa-check"></i><b>27</b> <strong>Fri Nov 13 (A4 due)</strong> - GzLM Intro</a></li>
+<li class="chapter" data-level="28" data-path="mon-nov-16---logistic-regression.html"><a href="mon-nov-16---logistic-regression.html"><i class="fa fa-check"></i><b>28</b> Mon Nov 16 - Logistic Regression</a></li>
+<li class="chapter" data-level="29" data-path="wed-nov-18---prospective-analysis.html"><a href="wed-nov-18---prospective-analysis.html"><i class="fa fa-check"></i><b>29</b> Wed Nov 18 - Prospective Analysis</a></li>
+<li class="chapter" data-level="30" data-path="fri-nov-20-quiz-4--retrospective-analysis.html"><a href="fri-nov-20-quiz-4--retrospective-analysis.html"><i class="fa fa-check"></i><b>30</b> <strong>Fri Nov 20 (Quiz 4)</strong>- Retrospective Analysis</a></li>
+<li class="chapter" data-level="31" data-path="mon-nov-23---logistic-ancova.html"><a href="mon-nov-23---logistic-ancova.html"><i class="fa fa-check"></i><b>31</b> Mon Nov 23 - Logistic ANCOVA</a></li>
+<li class="chapter" data-level="32" data-path="wed-nov-25---poisson-regression.html"><a href="wed-nov-25---poisson-regression.html"><i class="fa fa-check"></i><b>32</b> Wed Nov 25 - Poisson Regression</a></li>
+<li class="chapter" data-level="33" data-path="fri-nov-27---contingency-tests-poisson.html"><a href="fri-nov-27---contingency-tests-poisson.html"><i class="fa fa-check"></i><b>33</b> Fri Nov 27 - Contingency Tests, Poisson</a></li>
+<li class="chapter" data-level="34" data-path="mon-nov-30---model-selection-i-eda-and-stepwise.html"><a href="mon-nov-30---model-selection-i-eda-and-stepwise.html"><i class="fa fa-check"></i><b>34</b> Mon Nov 30 - Model Selection I: EDA and Stepwise</a></li>
+<li class="chapter" data-level="35" data-path="wed-dec-02---multimodel-inf---aic-sic.html"><a href="wed-dec-02---multimodel-inf---aic-sic.html"><i class="fa fa-check"></i><b>35</b> Wed Dec 02 - Multimodel Inf - AIC, SIC</a></li>
+<li class="chapter" data-level="36" data-path="fri-dec-04---course-review.html"><a href="fri-dec-04---course-review.html"><i class="fa fa-check"></i><b>36</b> Fri Dec 04 - Course Review</a></li>
+<li class="chapter" data-level="37" data-path="assignment-1.html"><a href="assignment-1.html"><i class="fa fa-check"></i><b>37</b> Assignment 1 - Quantities (due Fri Sept 18)</a></li>
+<li class="chapter" data-level="38" data-path="assignment-2b.html"><a href="assignment-2b.html"><i class="fa fa-check"></i><b>38</b> Assignment 2 - Data equations (due Friday Sept 25)</a></li>
+<li class="chapter" data-level="39" data-path="assignment-3b.html"><a href="assignment-3b.html"><i class="fa fa-check"></i><b>39</b> Assignment 3 - Hypothesis testing (due Fri Oct 23)</a></li>
+<li class="chapter" data-level="40" data-path="assignment-4b.html"><a href="assignment-4b.html"><i class="fa fa-check"></i><b>40</b> Assignment 4 - Confidence intervals (due Friday Nov 13)</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="wed-nov-04---two-categorical-variables-fixed-and-random-effects" class="section level1 hasAnchor" number="24">
+<h1><span class="header-section-number">24</span> Wed Nov 04 - Two categorical variables: fixed and random effects<a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#wed-nov-04---two-categorical-variables-fixed-and-random-effects" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We will consider two categorical variables: one fixed and one random effect. These analysis have various names:</p>
+<ul>
+<li><p><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_3.pdf">Ch13.3 Paired t-test</a></p></li>
+<li><p><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_4.pdf">Ch13.4 Randomized blocks</a></p></li>
+<li><p><a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_5.pdf">Ch13.5 Repeated measures</a></p></li>
+</ul>
+<div id="paired-t-test" class="section level2 hasAnchor" number="24.1">
+<h2><span class="header-section-number">24.1</span> Paired t-test<a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#paired-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The sleep study data that we have previously <a href="sleep.html#sleep">considered</a> found that drug A did not increase sleep and that drug B did not have an effect that was different than drug B.</p>
+<p>We assessed these hypotheses by calculating an F-statistic that evaluated whether there was a difference in the amount of variation in the response variable that is unexplained (i.e., the variation in the residual) and the variation explained by the drug.</p>
+<p>However, what if some of this unexplained variation was actually explained by individual differences? If we include ‘person’ as a random effect, then differences in sleep between individuals might explain some of the variation in the response variable extra sleep. Then, less of the variation is unexplained and it might be possible that we can find an effect of the drugs, when we control for these individual differences in sleep.</p>
+<p>Recall the sleep data:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb1-1" tabindex="-1"></a>sleep.data2 <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/extrasleep.csv&quot;</span>)</span>
+<span id="cb1-2"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb1-2" tabindex="-1"></a>sleep.data2</span></code></pre></div>
+<pre><code>##    drug extra.sleep person
+## 1     A         0.7      1
+## 2     A        -1.6      2
+## 3     A        -0.2      3
+## 4     A        -1.2      4
+## 5     A        -0.1      5
+## 6     A         3.4      6
+## 7     A         3.7      7
+## 8     A         0.8      8
+## 9     A         0.0      9
+## 10    A         2.0     10
+## 11    B         1.9      1
+## 12    B         0.8      2
+## 13    B         1.1      3
+## 14    B         0.1      4
+## 15    B        -0.1      5
+## 16    B         4.4      6
+## 17    B         5.5      7
+## 18    B         1.6      8
+## 19    B         4.6      9
+## 20    B         3.4     10</code></pre>
+<p>For this modelling, we need to make sure that <code>R</code> treats person as a label and not a quantitative property. To do this:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb3-1" tabindex="-1"></a>sleep.data2<span class="sc">$</span>person<span class="ot">&lt;-</span><span class="fu">as.factor</span>(sleep.data2<span class="sc">$</span>person)</span></code></pre></div>
+<p>We do not need to revisit plotting these data or examining hypotheses because we did this in previous lectures. However, a useful plot when treatment levels of the fixed effect are linked by a random factor is to visualize this linkage:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb4-2"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-2" tabindex="-1"></a><span class="fu">ggplot</span>(sleep.data2, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(drug), <span class="at">y =</span> extra.sleep)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-3" tabindex="-1"></a>  <span class="co"># 1. Add the box plot layer</span></span>
+<span id="cb4-4"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb4-5"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-5" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span>,       <span class="co"># CRITICAL: Prevents duplicate plotting of outliers</span></span>
+<span id="cb4-6"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-6" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;grey95&quot;</span>,          <span class="co"># Light fill to keep it as a background summary</span></span>
+<span id="cb4-7"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-7" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;maroon&quot;</span>,<span class="st">&quot;darkgray&quot;</span>)         <span class="co"># Muted border color</span></span>
+<span id="cb4-8"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> person, <span class="at">color =</span> person), <span class="at">alpha =</span> <span class="fl">0.7</span>)<span class="sc">+</span></span>
+<span id="cb4-10"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-10" tabindex="-1"></a>  <span class="co"># 2. Add the strip plot (jittered points) layer</span></span>
+<span id="cb4-11"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-11" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">color=</span>person),</span>
+<span id="cb4-12"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-12" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="dv">0</span>), <span class="co"># Controls data spreading - we need not spreading for this paired plot to work.</span></span>
+<span id="cb4-13"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-13" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">5</span>,                 <span class="co"># Modify point size</span></span>
+<span id="cb4-14"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-14" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-15"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-15" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-16"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-16" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Drug&quot;</span>,</span>
+<span id="cb4-17"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-17" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Extra sleep (hours)&quot;</span>,</span>
+<span id="cb4-18"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-18" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Visualize the data (two sample t-test)&quot;</span></span>
+<span id="cb4-19"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb4-19" tabindex="-1"></a>  )<span class="sc">+</span><span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" /></p>
+<p>The slope of these paired lines is generally all positive, showing that most people do get more sleep with drug B. The unpaired t-test assesss the effect of Drug A and Drug B by assuming random associations. Would these random associations also have nearly all positive slopes? Could this lack of consideration of individual variation be the reason why we did not find a difference in the drugs?</p>
+<p>We are still consideration the same null hypothesis: that the mean extra sleep for Drug A and Drug B are the same. Our model is different, however, because it includes another explanatory variable.</p>
+<p><span class="math display">\[
+S = \mu + \beta_1 X_D + \beta_2 X_P + \epsilon .
+\]</span></p>
+<p>For this model we do not include an interaction term, because we do not have enough degrees of freedom to estimate the main effects and the interaction effect. This will always be the case for a paired t-test. Therefore, we do not include the interaction term. Note that <span class="math inline">\(X_P\)</span> is an indicator variable corresponding to the particular person that we are considering.</p>
+</div>
+<div id="execute-the-analysis-3" class="section level2 hasAnchor" number="24.2">
+<h2><span class="header-section-number">24.2</span> Execute the analysis<a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#execute-the-analysis-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>When we to estimate the parameters for a mixed model, such as this i.e., involving a fixed and a random factor, we need to load the <code>lme4</code> package if we are using <code>R</code>. Recall our previous lecture that involved <a href="random.html#random">random effects</a>. Note that it is necessary to write the round brackets around the random factor.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb5-1" tabindex="-1"></a><span class="fu">require</span>(lme4)</span>
+<span id="cb5-2"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb5-2" tabindex="-1"></a><span class="fu">require</span>(lmerTest)</span>
+<span id="cb5-3"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb5-3" tabindex="-1"></a><span class="co"># fit the mixed effects model</span></span>
+<span id="cb5-4"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb5-4" tabindex="-1"></a>mixed.mod <span class="ot">=</span> <span class="fu">lmer</span>(extra.sleep<span class="sc">~</span>drug<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>person),<span class="at">data =</span> sleep.data2)</span>
+<span id="cb5-5"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb5-5" tabindex="-1"></a><span class="fu">summary</span>(mixed.mod)</span></code></pre></div>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: extra.sleep ~ drug + (1 | person)
+##    Data: sleep.data2
+## 
+## REML criterion at convergence: 70
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -1.63372 -0.34157  0.03346  0.31511  1.83859 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  person   (Intercept) 2.8483   1.6877  
+##  Residual             0.7564   0.8697  
+## Number of obs: 20, groups:  person, 10
+## 
+## Fixed effects:
+##             Estimate Std. Error      df t value Pr(&gt;|t|)   
+## (Intercept)   0.7500     0.6004 11.0814   1.249  0.23735   
+## drugB         1.5800     0.3890  9.0000   4.062  0.00283 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##       (Intr)
+## drugB -0.324</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb7-1" tabindex="-1"></a><span class="fu">anova</span>(mixed.mod)</span></code></pre></div>
+<pre><code>## Type III Analysis of Variance Table with Satterthwaite&#39;s method
+##      Sum Sq Mean Sq NumDF DenDF F value   Pr(&gt;F)   
+## drug 12.482  12.482     1     9  16.501 0.002833 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb9-1" tabindex="-1"></a><span class="fu">VarCorr</span>(mixed.mod)</span></code></pre></div>
+<pre><code>##  Groups   Name        Std.Dev.
+##  person   (Intercept) 1.68770 
+##  Residual             0.86974</code></pre>
+</div>
+<div id="interpret-the-results" class="section level2 hasAnchor" number="24.3">
+<h2><span class="header-section-number">24.3</span> Interpret the results<a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#interpret-the-results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <code>lme4</code> package does not return p-values because traditional F-tests rely on clear-cut degrees of freedom, but with crossed or nested random effects, those boundaries blur. One option is to load the <code>lmerTest</code> package before running the model, which automatically overrides <code>lme4</code>’s functions to calculate p-values using the Satterthwaite approximation (which is highly accurate and widely accepted). The purpose of this example was to show why is strong analysis choice can be to include a random effect. While, we would only report the amount of variation explained by the random effect: 2.8483 hours<span class="math inline">\(^2\)</span> having some additional variation explained, and no longer in the residual, improves our ability to detect the fixed effect.</p>
+<p>We note that our estimate of the effects of Drug A and Drug B are the same and when we did this analysis as an unpaired t-test (i.e., without the random effect), but when we include the random effect less of the variation is unexplained, and we conclude that there is a difference in how much extra sleep people get on drug A versus drug B. This finding suggests that it is important to run this clinical trial by testing both Drug A and Drug B on the same person because without the additional variable describing ‘person’ we cannot account for individual variation in extra sleep.</p>
+<p>Lastly, a remark on dropping the interaction term.</p>
+<ul>
+<li><p>Degrees of freedom (total): 20 - 1</p></li>
+<li><p>Degrees of freedom (drug): 2 levels - 1</p></li>
+<li><p>Degrees of freedom (person): 10 different people - 1</p></li>
+</ul>
+<p>This leaves 19 - 1 - 9 = 9 degrees of freedom in the residual.</p>
+<p>If we include an interaction term in the model then:</p>
+<ul>
+<li>Degrees of freedom (interaction): (2-1) <span class="math inline">\(\times\)</span> (10-1) = 9.</li>
+</ul>
+<p>As such, if we include the interaction term there are no degrees of freedom in the residual. For this reason, the mixed effects model does not include an interaction term.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mon-nov-02---two-categorical-explanatory-variables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="fri-nov-06---exam-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

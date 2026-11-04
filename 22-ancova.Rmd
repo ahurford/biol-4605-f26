@@ -156,6 +156,40 @@ where similar calculations can be completed for the other parameter estimates.
 anova(diet.model)
 ```
 
+## Degrees of freedom and SS table
+
+\[
+\begin{array}{lllll}
+\mbox{GLM} & y - \mu &=&  \alpha A + \beta B + (\alpha \beta) AB &+ \epsilon \\
+\mbox{df} & 60-1 & = &  (3-1) + (2-1) + (3-1)\times(2-1)  & + 54 \ \  \\
+\mbox{SS} &  & = & 113.3 + 3168.3 + 589.1  & + \ \214.6 \\
+\end{array}
+\]
+
+where $A$ and $B$ are indicator (dummy) variables. The degrees of freedom of the interaction term is 2 which is the product of the degrees of freedom for each variable involved in the interaction term: i.e., 3 levels of protein type - 1 = 2; and 2 levels for protein level - 1 = 1.
+
+## Calculate the likelihood ratio and R$^2$
+
+```{r}
+SStype = anova(diet.model)$`Sum Sq`[1]
+SSlevel = anova(diet.model)$`Sum Sq`[2]
+SSinteraction = anova(diet.model)$`Sum Sq`[3]
+SSmodel = SStype+SSlevel+SSinteraction
+SSTotal = sum(anova(diet.model)$`Sum Sq`)
+R2 = SSmodel/SSTotal
+R2
+LR = (1-R2)^{-60/2}
+LR
+```
+
+We can also calculate the likelihood for each model component (see Dr. Schneider's notes), although we have not covered this in class.
+
+## Science conclusion
+Protein level affects weight gain in rats, but this is less interesting than whether the type of protein matters. At the $\alpha = 0.05$ significance level we cannot conclude that protein type impacts weight gain.
+
+Given the data, a posthoc comparison is warranted. Specifically, we should consider cereal vs. meat protein (combining pork and beef). We may then find that the interaction term is significant, but that the type of protein: meat vs. cereal only matters when the level is high.
+
+
 ## Readings 
 - [Ch13.2](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_2.pdf) 
 

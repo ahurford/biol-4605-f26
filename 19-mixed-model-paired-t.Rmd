@@ -3,7 +3,7 @@ title: "2 way ANOVA"
 output: html_document
 ---
 
-# Mon Oct 26 - One-way ANOVA with random effects.
+# Mon Oct 26 - One-way ANOVA with random effects {#random}
 
 This lecture is based on [Chapter 10.4](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_4.pdf) of Dr. Schneider's notes.
 
@@ -145,7 +145,6 @@ mod = lmer(Wscut~1|HostNumber,data = tick.data)
 
 # view summary
 summary(mod)
-
 ```
 
 From this output we see that the variance explained by the host is 55.01 mm$^2$ and the unexplained variance (in the residual) is 114.42 mm$^2$.

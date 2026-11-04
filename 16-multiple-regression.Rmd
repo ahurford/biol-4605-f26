@@ -3,7 +3,7 @@ title: "1-way ANOVA"
 output: html_document
 ---
 
-# Mon Oct 19 - Two sample t-test
+# Mon Oct 19 - Two sample t-test {#sleep}
 
 This lecture is based on [Chapter 10.2](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt3/Ch10_2.pdf) from Dr. Schneider's notes.
 

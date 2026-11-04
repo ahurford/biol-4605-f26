@@ -3,10 +3,102 @@ title: "Course Drop / Review"
 output: html_document
 ---
 
-# Wed Nov 04 - Nested ANOVA
+# Wed Nov 04 - Two categorical variables: fixed and random effects
 
-## Readings
-- Ch13.6, 13.7
+We will consider two categorical variables: one fixed and one random effect. These analysis have various names:
 
+- [Ch13.3 Paired t-test](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_3.pdf)
 
+- [Ch13.4 Randomized blocks](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_4.pdf)
 
+- [Ch13.5 Repeated measures](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_5.pdf)
+
+## Paired t-test
+
+The sleep study data that we have previously [considered](#sleep) found that drug A did not increase sleep and that drug B did not have an effect that was different than drug B.
+
+We assessed these hypotheses by calculating an F-statistic that evaluated whether there was a difference in the amount of variation in the response variable that is unexplained (i.e., the variation in the residual) and the variation explained by the drug.
+
+However, what if some of this unexplained variation was actually explained by individual differences? If we include 'person' as a random effect, then differences in sleep between individuals might explain some of the variation in the response variable extra sleep. Then, less of the variation is unexplained and it might be possible that we can find an effect of the drugs, when we control for these individual differences in sleep.
+
+Recall the sleep data:
+
+```{r}
+sleep.data2 = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/extrasleep.csv")
+sleep.data2
+```
+
+For this modelling, we need to make sure that `R` treats person as a label and not a quantitative property. To do this:
+
+```{r}
+sleep.data2$person<-as.factor(sleep.data2$person)
+```
+
+We do not need to revisit plotting these data or examining hypotheses because we did this in previous lectures. However, a useful plot when treatment levels of the fixed effect are linked by a random factor is to visualize this linkage:
+
+```{r}
+library(ggplot2)
+ggplot(sleep.data2, aes(x = factor(drug), y = extra.sleep)) +
+  # 1. Add the box plot layer
+  geom_boxplot(
+    outlier.shape = NA,       # CRITICAL: Prevents duplicate plotting of outliers
+    fill = "grey95",          # Light fill to keep it as a background summary
+    color = c("maroon","darkgray")         # Muted border color
+  ) +
+  geom_line(aes(group = person, color = person), alpha = 0.7)+
+  # 2. Add the strip plot (jittered points) layer
+  geom_jitter(aes(color=person),
+    position = position_jitter(width = 0, height = 0), # Controls data spreading - we need not spreading for this paired plot to work.
+    size = 5,                 # Modify point size
+  ) +
+  labs(
+    x = "Drug",
+    y = "Extra sleep (hours)",
+    title = "Visualize the data (two sample t-test)"
+  )+theme_minimal()
+```
+
+The slope of these paired lines is generally all positive, showing that most people do get more sleep with drug B. The unpaired t-test assesss the effect of Drug A and Drug B by assuming random associations. Would these random associations also have nearly all positive slopes? Could this lack of consideration of individual variation be the reason why we did not find a difference in the drugs?
+
+We are still consideration the same null hypothesis: that the mean extra sleep for Drug A and Drug B are the same. Our model is different, however, because it includes another explanatory variable.
+
+\[
+S = \mu + \beta_1 X_D + \beta_2 X_P + \epsilon .
+\]
+
+For this model we do not include an interaction term, because we do not have enough degrees of freedom to estimate the main effects and the interaction effect. This will always be the case for a paired t-test. Therefore, we do not include the interaction term. Note that $X_P$ is an indicator variable corresponding to the particular person that we are considering. 
+
+## Execute the analysis
+
+When we to estimate the parameters for a mixed model, such as this i.e., involving a fixed and a random factor, we need to load the `lme4` package if we are using `R`. Recall our previous lecture that involved [random effects](#random). Note that it is necessary to write the round brackets around the random factor.
+
+```{r,message=FALSE}
+require(lme4)
+require(lmerTest)
+# fit the mixed effects model
+mixed.mod = lmer(extra.sleep~drug+(1|person),data = sleep.data2)
+summary(mixed.mod)
+anova(mixed.mod)
+VarCorr(mixed.mod)
+```
+
+## Interpret the results
+The `lme4` package does not return p-values because traditional F-tests rely on clear-cut degrees of freedom, but with crossed or nested random effects, those boundaries blur. One option is to load the `lmerTest` package before running the model, which automatically overrides `lme4`'s functions to calculate p-values using the Satterthwaite approximation (which is highly accurate and widely accepted). The purpose of this example was to show why is strong analysis choice can be to include a random effect. While, we would only report the amount of variation explained by the random effect: 2.8483 hours$^2$ having some additional variation explained, and no longer in the residual, improves our ability to detect the fixed effect.
+
+We note that our estimate of the effects of Drug A and Drug B are the same and when we did this analysis as an unpaired t-test (i.e., without the random effect), but when we include the random effect less of the variation is unexplained, and we conclude that there is a difference in how much extra sleep people get on drug A versus drug B. This finding suggests that it is important to run this clinical trial by testing both Drug A and Drug B on the same person because without the additional variable describing 'person' we cannot account for individual variation in extra sleep.
+
+Lastly, a remark on dropping the interaction term.
+
+- Degrees of freedom (total): 20 - 1
+
+- Degrees of freedom (drug): 2 levels - 1
+
+- Degrees of freedom (person): 10 different people - 1
+
+This leaves 19 - 1 - 9 = 9 degrees of freedom in the residual.
+
+If we include an interaction term in the model then:
+
+- Degrees of freedom (interaction): (2-1) $\times$ (10-1) = 9.
+
+As such, if we include the interaction term there are no degrees of freedom in the residual. For this reason, the mixed effects model does not include an interaction term. 
