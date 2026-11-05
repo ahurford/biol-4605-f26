@@ -149,7 +149,7 @@ summary(mod)
 
 From this output we see that the variance explained by the host is 55.01 mm$^2$ and the unexplained variance (in the residual) is 114.42 mm$^2$.
 
-Therefore, as the only explanatory variable is the random effect associated with each rabbit, the variation between hosts is the residual variance. Therefore, we find that the variation between rabbits (114.42 mm$^2$) is greater than the variation within rabbits (55.01 mm$^2$) and that 55.01/(114.42 + 55.01) = 32.5$\%$ of the variation is due to the ticks being associated with particular rabbits.
+Therefore, as the only explanatory variable is the random effect associated with each rabbit, the variation within hosts is the residual variance. Therefore, we find that the variation within rabbits (114.42 mm$^2$) is greater than the variation between rabbits (55.01 mm$^2$) and that 55.01/(114.42 + 55.01) = 32.5$\%$ of the variation is due to the ticks being associated with particular rabbits.
 
 
 ## Last 10 mins: Correct any errors on Quiz 3
