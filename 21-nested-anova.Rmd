@@ -125,7 +125,8 @@ LR
 ```
 
 
-## Adjusted sum squares
+## Adjusted sum squares {#adj-SS}
+
 Dr. Schneider's notes also involve some likelihood ratio calculations to calculate the evidence for model terms.
 
 ```{r,message=FALSE}

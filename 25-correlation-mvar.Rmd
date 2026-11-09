@@ -11,6 +11,8 @@ Today we consider some more examples of fixed and random effects for two categor
 
 - [Ch13.6 Heirachical ANOVA (Nested effects)](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_6.pdf)
 
+We will also discuss calculating adjusted sum of squares to determine whether individual terms in models are significant. See [here](#adj-SS).
+
 ## Randomized blocks
 
 The flour beetle _Tribolium casteneum_ was a model lab organism for establishing the
@@ -128,3 +130,9 @@ wing.data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/
 wing.data
 ```
 
+## Execute the analysis
+
+```{r}
+fly.model = aov(length ~ cage + Error(cage/fly), wing.data)
+summary(fly.model)
+```

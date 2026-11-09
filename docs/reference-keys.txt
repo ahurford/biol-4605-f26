@@ -139,7 +139,7 @@ fri-oct-30---multiple-regression-two-explanatory-varibles
 execute-the-model
 check-assumptions
 calculate-the-likelihood-ratio-1
-adjusted-sum-squares
+adj-SS
 plot-the-results
 report-the-science-conclusion
 readings-12
@@ -164,6 +164,7 @@ write-the-model-and-execute-the-analysis
 hierachical-anova-nested-effects
 data-1
 nested-models
+execute-the-analysis-4
 fri-nov-13-a4-due---gzlm-intro
 readings-14
 upcoming-assessments
