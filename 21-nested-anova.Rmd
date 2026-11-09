@@ -124,7 +124,16 @@ LR = (1-R2)^{-17/2}
 LR
 ```
 
+
+## Adjusted sum squares
 Dr. Schneider's notes also involve some likelihood ratio calculations to calculate the evidence for model terms.
+
+```{r,message=FALSE}
+library(car) # Type III sum of squares requires this package
+model <- lm(Pcorn ~ inorganic.P + organic.P + inorganic.P*organic.P, data = corn.data)
+# Calculate Type III (Adjusted) Sum of Squares
+Anova(model, type = "III")
+```
 
 ## Plot the results
 
@@ -141,6 +150,7 @@ g1.fitted = ggplot(corn.data, aes(x=xvalues))+
   geom_line(aes(y=fitted))+theme_classic()+ylab("corn phosphorous, ppm")+xlab("fitted explanatory variables: 45.9 + 5.3I + 0.32O -0.08IO")
 g1.fitted
 ```
+
 ```{r}
 # inorganic phosphorous only model:
 inorganic = data.frame(Pcorn = corn.data$Pcorn, inorganic.P = corn.data$inorganic.P)

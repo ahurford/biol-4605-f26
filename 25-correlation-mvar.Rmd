@@ -3,11 +3,128 @@ title: "Correlation & Mvar"
 output: html_document
 ---
 
-# Mon Nov 09 - Correlation & Mvar
+# Mon Nov 09 - Randomized blocks and nested effects
 
-## Readings
+Today we consider some more examples of fixed and random effects for two categorical explanatory variables.
 
-- Ch19.1, 20.1, 20.4
+- [Ch13.4 Randomized blocks](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_4.pdf)
 
-## Upcoming assessments
-- **Fri 13 Nov:** Quiz 8
+- [Ch13.6 Heirachical ANOVA (Nested effects)](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_6.pdf)
+
+## Randomized blocks
+
+The flour beetle _Tribolium casteneum_ was a model lab organism for establishing the
+basic facts and principles of quantitative genetics, including inbreeding and response to
+selection. Once the whole genome was sequenced, Tribolium was used in
+immunohistochemistry, in situ hybridization, gene sequencing for characterization of
+microRNAs, and gene editing.
+
+_Tribolium_ is a major pest of stored grain. Economic losses consist of reduced weight and
+product quality, difficulties in baking, reduced marketability of infested products, and an
+accompanying unpleasant smell. Pest numbers are reduced by sieving or by adding inert
+dusts that cause death by dessication.
+
+This study illustrates a randomized block design, which has a fixed and a random factor.
+The randomized block is an example of statistical control, in which the effects of one
+variable (the random factor) are removed in order to arrive at a better analysis of the fixed
+factor. This analysis is a more sensitive test because it removes some of the noise in the
+data before testing. The paired t-test is a special case of the randomized block, in which
+the fixed factor has just two categories.
+
+**Verbal model** Does weight of flour beetle Tribolium vary among genotype, after controlling for
+differences among experiments ? Genotype bb is a mutant strain, for which the expected
+weights are least for the homozygote bb and greatest for the heterozygote +b.
+The analysis removes the effects of blocks. This results in a more sensitive test of
+whether weight varies among genotypes.
+
+## Load the data and assess assumptions
+
+```{r}
+beetle.data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/tribolium.csv")
+beetle.data
+```
+
+These data are a bit ambiguous so I will do some renaming to avoid errors:
+
+```{r,message=FALSE}
+require(dplyr)
+beetle.data = beetle.data%>%mutate(genotype = case_when(Gtype == 1 ~ "++",
+                                          Gtype == 2 ~ "+b",
+                                          Gtype == 3 ~ "bb"))%>%rename(weight=Wt)
+beetle.data$block=as.factor(beetle.data$block)
+beetle.data
+```
+
+```{r,message=FALSE}
+library(ggplot2)
+ggplot(beetle.data, aes(x = factor(genotype), y = weight)) +
+  # 1. Add the box plot layer
+  geom_boxplot(
+    outlier.shape = NA,       # CRITICAL: Prevents duplicate plotting of outliers
+    fill = "grey95",          # Light fill to keep it as a background summary
+    color = c("maroon","darkgray","lightblue")         # Muted border color
+  ) +
+  geom_line(aes(group = block, color = block), alpha = 0.7)+
+  # 2. Add the strip plot (jittered points) layer
+  geom_jitter(aes(color=block),
+    position = position_jitter(width = 0, height = 0), # Controls data spreading - we need not spreading for this paired plot to work.
+    size = 5,                 # Modify point size
+  ) +
+  labs(
+    x = "Genotype",
+    y = "weight (grams)",
+    title = "Visualize the data (randomized block)"
+  )+theme_minimal()
+```
+
+## Write the model and execute the analysis
+
+\[
+M = \beta_0 + \beta_B B + \beta_G G + \epsilon
+\]
+or
+\[
+Y_{ijk} = \mu + B_j + \alpha_i + \epsilon_{ij}
+\]
+
+
+```{r,message=FALSE}
+require(lme4)
+require(lmerTest)
+beetle.model = lmer(weight~(1|block)+genotype, data=beetle.data)
+summary(beetle.model)
+anova(beetle.model)
+```
+
+```{r,message=FALSE}
+beetle.model2 = aov(weight~Error(block)+genotype, data=beetle.data)
+summary(beetle.model2)
+```
+
+## Hierachical ANOVA (nested effects)
+
+### Data
+
+Two measurements made on the left wings of 4 mosquitos in each of 3 cages.
+This is a nested design. We cannot match flies across cages.
+At a lower level, we cannot match wing measurements across flies.
+
+
+### Nested models
+
+Two-way ANOVA has an interaction term. Testing starts with this term.
+
+In randomized blocks, the interaction term is present logically, but assumed to be zero if
+blocks are homogeneous.
+
+Hierarchical ANOVA differs from crossed designs. The interaction term $\mbox{Fly} \times \mbox{Cage}$
+cannot be estimated. It is folded into a new term: $\mbox{Fly(Cage)} = \mbox{Cage} + \mbox{Fly} \times \mbox{Cage}$.
+
+In this example, we have no information to match a fly in Cage I (Fly A, B, C, D) to a fly in Cage II (Fly
+E, F, G, H). Fly is nested within cage. Consider this diagrammatically.
+
+```{r}
+wing.data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/fly-cage.csv")
+wing.data
+```
+
