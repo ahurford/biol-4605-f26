@@ -123,7 +123,7 @@ Hierarchical ANOVA differs from crossed designs. The interaction term $\mbox{Fly
 cannot be estimated. It is folded into a new term: $\mbox{Fly(Cage)} = \mbox{Cage} + \mbox{Fly} \times \mbox{Cage}$.
 
 In this example, we have no information to match a fly in Cage I (Fly A, B, C, D) to a fly in Cage II (Fly
-E, F, G, H). Fly is nested within cage. Consider this diagrammatically.
+E, F, G, H). Fly is nested within cage. Consider this diagrammatically (i.e. Figures 6.7 p95 and 7.4 p120 of Quinn and Keough and also the 'mobile' diagram in Dr. Schneider's notes for Ch 13.6).
 
 ```{r}
 wing.data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/fly-cage.csv")
