@@ -79,8 +79,9 @@ elevation = species.alt.data$elevation_km
 
 beta1.line = beta0 + elevation*beta.elev
 beta2.line = (beta0 + beta.sp) + elevation*(beta.int + beta.elev)
+beta3.line = (beta0+beta0+beta.sp)/2 + elevation*(beta.elev +beta.int + beta.elev)/2
 species.alt.data = data.frame(species.alt.data, beta1.line, beta2.line)
 
-g2 +geom_line(data=species.alt.data, aes(y=beta1.line), color = "black", linetype="dashed")+geom_line(data=species.alt.data, aes(y=beta2.line),color = "grey", linetype="dashed")
+g2 +geom_line(data=species.alt.data, aes(y=beta1.line), color = "black", linetype="dashed")+geom_line(data=species.alt.data, aes(y=beta2.line),color = "grey", linetype="dashed")+geom_line(data=species.alt.data, aes(y=beta3.line),color = "violet", linetype="dashed")
 
 ```
