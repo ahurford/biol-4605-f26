@@ -162,7 +162,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="24" data-path="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html"><i class="fa fa-check"></i><b>24</b> Wed Nov 04 - Two categorical variables: fixed and random effects</a></li>
 <li class="chapter" data-level="25" data-path="fri-nov-06---exam-2.html"><a href="fri-nov-06---exam-2.html"><i class="fa fa-check"></i><b>25</b> <strong>Fri Nov 06 - EXAM 2</strong></a></li>
 <li class="chapter" data-level="26" data-path="mon-nov-09---randomized-blocks-and-nested-effects.html"><a href="mon-nov-09---randomized-blocks-and-nested-effects.html"><i class="fa fa-check"></i><b>26</b> Mon Nov 09 - Randomized blocks and nested effects</a></li>
-<li class="chapter" data-level="27" data-path="fri-nov-13-a4-due---gzlm-intro.html"><a href="fri-nov-13-a4-due---gzlm-intro.html"><i class="fa fa-check"></i><b>27</b> <strong>Fri Nov 13 (A4 due)</strong> - GzLM Intro</a></li>
+<li class="chapter" data-level="27" data-path="fri-nov-13-a4-due---analysis-of-covariance-ancova.html"><a href="fri-nov-13-a4-due---analysis-of-covariance-ancova.html"><i class="fa fa-check"></i><b>27</b> <strong>Fri Nov 13 (A4 due)</strong> - Analysis of Covariance (ANCOVA)</a></li>
 <li class="chapter" data-level="28" data-path="mon-nov-16---logistic-regression.html"><a href="mon-nov-16---logistic-regression.html"><i class="fa fa-check"></i><b>28</b> Mon Nov 16 - Logistic Regression</a></li>
 <li class="chapter" data-level="29" data-path="wed-nov-18---prospective-analysis.html"><a href="wed-nov-18---prospective-analysis.html"><i class="fa fa-check"></i><b>29</b> Wed Nov 18 - Prospective Analysis</a></li>
 <li class="chapter" data-level="30" data-path="fri-nov-20-quiz-4--retrospective-analysis.html"><a href="fri-nov-20-quiz-4--retrospective-analysis.html"><i class="fa fa-check"></i><b>30</b> <strong>Fri Nov 20 (Quiz 4)</strong>- Retrospective Analysis</a></li>
@@ -340,17 +340,17 @@ P(\bar{y}-1.96\sigma_{\bar{y}} \leq \mu \leq \bar{y}+1.96\sigma_{\bar{y}}) = 0.9
 <span id="cb25-7"><a href="wed-sept-23---frequentist-estimation.html#cb25-7" tabindex="-1"></a>resampled.data <span class="ot">=</span> <span class="fu">data.frame</span>(sample1, sample2, sample3, sample4, sample5)</span>
 <span id="cb25-8"><a href="wed-sept-23---frequentist-estimation.html#cb25-8" tabindex="-1"></a>resampled.data</span></code></pre></div>
 <pre><code>##    sample1 sample2 sample3 sample4 sample5
-## 1       66      74      75      65      68
-## 2       71      68      72      76      68
-## 3       68      68      65      70      76
-## 4       76      74      75      68      72
-## 5       68      70      71      71      67
-## 6       75      75      70      71      65
-## 7       68      70      67      68      74
-## 8       67      68      71      67      72
-## 9       70      67      67      67      74
-## 10      68      74      71      66      70
-## 11      74      67      66      70      68</code></pre>
+## 1       65      74      66      66      65
+## 2       71      66      65      68      67
+## 3       65      68      66      68      71
+## 4       71      65      75      76      68
+## 5       68      71      76      70      75
+## 6       75      71      67      66      67
+## 7       67      72      68      66      67
+## 8       65      68      68      66      74
+## 9       67      72      68      70      65
+## 10      76      70      68      65      71
+## 11      68      68      67      72      67</code></pre>
 </div>
 <div id="jackknife" class="section level3 hasAnchor" number="8.7.2">
 <h3><span class="header-section-number">8.7.2</span> Jackknife<a href="wed-sept-23---frequentist-estimation.html#jackknife" class="anchor-section" aria-label="Anchor link to header"></a></h3>

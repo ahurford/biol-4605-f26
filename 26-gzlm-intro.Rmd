@@ -3,13 +3,84 @@ title: "GzLM Intro"
 output: html_document
 ---
 
-# **Fri Nov 13 (A4 due)** - GzLM Intro 
+# **Fri Nov 13 (A4 due)** - Analysis of Covariance (ANCOVA)
 
-## Readings
-- Ch16, 16.2, 16.4)
+ANCOVA is applied to data situations that require both ratio and nominal scale
+explanatory variables. This topic is discussed in Dr. Schneider's notes [here](). 
+
+One important use is to compare two or more regression lines.
+
+ANCOVA demonstrates the use of categorical along with ratio scale variables within
+the framework of the general linear model. The categorical variable is species (_D.
+persimilis_ or _D. pseudoobscura_).
+
+The ratio scale variable is change in heterozygosity
+with altitude. This example also shows the logic of interaction terms, which are
+examined before main effects.
+
+## Introduction
+The next application of the general linear model compares two functions expressed as
+straight lines. The data are from Dobzhansky (1948) as reported in Brussard (1984).
+Theodosius Dobzhansky collected data on inversion heterozygosity (assuming Hardy
+Weinberg equilibrium) of 3rd chromosome inversions from two species of fruit fly, from
+Yosemite Park, California.
+
+Inversion heterozygosity is a measure of genetic variability,
+which is the raw material that natural selection acts on to produce descent with
+modification (Darwinian evolution). Thus, the origin and maintenance of genetic
+variability is one of the central questions in population biology.
+
+What factors generate or
+erode genetic variability? Harsher environments at higher altitudes are expected to select
+for narrower range of phenotypes, hence reduce genetic variability. Does genetic
+variability decrease at higher altitude, due to stronger selection in extreme environments?
+Does the heterozygosity gradient differ in two co-occuring species of fruitfly _Drosophila
+persimila_ and _Drosophila pseudoobscura_?
+
+## Model
+
+**Verbal model** Inversion heterozygosity decreases with altitude, depending on species.
+
+## Data
+
+```{r}
+species.alt.data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/heteroz-alt-species.csv")
+species.alt.data
+```
+
+```{r,warning=FALSE}
+require(ggplot2)
+g1=ggplot(species.alt.data, aes(x = elevation_km, y = heterozygosity, color = species, fill = species)) +
+  geom_point(size = 3)+xlab("elevation (km)")+theme_classic()
+g1
+```
 
 
+```{r}
+species.alt.model <- lm(heterozygosity ~ species + elevation_km + species*elevation_km, data = species.alt.data)
+summary(species.alt.model)
+anova(species.alt.model)
+```
 
-## Upcoming assessments
-- **Fri 20 Nov:** Quiz 9
-- **Tue 24 Nov:** Lab 9a,b
+```{r}
+g2=g1+geom_smooth(method = "lm", se = TRUE, fullrange = TRUE) +
+  theme_minimal() + ggtitle("ANCOVA: Effect of elevation on heterozygosity for two fly species")
+g2
+```
+
+```{r}
+coef(species.alt.model)
+beta0 = unname(coef(species.alt.model))[1]
+beta.sp = unname(coef(species.alt.model))[2]
+beta.elev = unname(coef(species.alt.model))[3]
+beta.int = unname(coef(species.alt.model))[4]
+
+elevation = species.alt.data$elevation_km
+
+beta1.line = beta0 + elevation*beta.elev
+beta2.line = (beta0 + beta.sp) + elevation*(beta.int + beta.elev)
+species.alt.data = data.frame(species.alt.data, beta1.line, beta2.line)
+
+g2 +geom_line(data=species.alt.data, aes(y=beta1.line), color = "black", linetype="dashed")+geom_line(data=species.alt.data, aes(y=beta2.line),color = "grey", linetype="dashed")
+
+```

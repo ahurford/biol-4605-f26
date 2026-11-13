@@ -13,8 +13,6 @@ We will consider two categorical variables: one fixed and one random effect. The
 
 - [Ch13.5 Repeated measures](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_5.pdf)
 
-- [Ch13.6 Hierachical ANOVA (Nested effects)](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt4/Ch13_6.pdf)
-
 ## Paired t-test
 
 The sleep study data that we have previously [considered](#sleep) found that drug A did not increase sleep and that drug B did not have an effect that was different than drug B.
