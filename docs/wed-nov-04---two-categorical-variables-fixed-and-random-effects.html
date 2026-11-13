@@ -207,8 +207,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We assessed these hypotheses by calculating an F-statistic that evaluated whether there was a difference in the amount of variation in the response variable that is unexplained (i.e., the variation in the residual) and the variation explained by the drug.</p>
 <p>However, what if some of this unexplained variation was actually explained by individual differences? If we include ‘person’ as a random effect, then differences in sleep between individuals might explain some of the variation in the response variable extra sleep. Then, less of the variation is unexplained and it might be possible that we can find an effect of the drugs, when we control for these individual differences in sleep.</p>
 <p>Recall the sleep data:</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb205-1" tabindex="-1"></a>sleep.data2 <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/extrasleep.csv&quot;</span>)</span>
-<span id="cb205-2"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb205-2" tabindex="-1"></a>sleep.data2</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-1" tabindex="-1"></a>sleep.data2 <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/extrasleep.csv&quot;</span>)</span>
+<span id="cb208-2"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-2" tabindex="-1"></a>sleep.data2</span></code></pre></div>
 <pre><code>##    drug extra.sleep person
 ## 1     A         0.7      1
 ## 2     A        -1.6      2
@@ -231,27 +231,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 19    B         4.6      9
 ## 20    B         3.4     10</code></pre>
 <p>For this modelling, we need to make sure that <code>R</code> treats person as a label and not a quantitative property. To do this:</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb207-1" tabindex="-1"></a>sleep.data2<span class="sc">$</span>person<span class="ot">&lt;-</span><span class="fu">as.factor</span>(sleep.data2<span class="sc">$</span>person)</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb210-1" tabindex="-1"></a>sleep.data2<span class="sc">$</span>person<span class="ot">&lt;-</span><span class="fu">as.factor</span>(sleep.data2<span class="sc">$</span>person)</span></code></pre></div>
 <p>We do not need to revisit plotting these data or examining hypotheses because we did this in previous lectures. However, a useful plot when treatment levels of the fixed effect are linked by a random factor is to visualize this linkage:</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb208-2"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-2" tabindex="-1"></a><span class="fu">ggplot</span>(sleep.data2, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(drug), <span class="at">y =</span> extra.sleep)) <span class="sc">+</span></span>
-<span id="cb208-3"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-3" tabindex="-1"></a>  <span class="co"># 1. Add the box plot layer</span></span>
-<span id="cb208-4"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
-<span id="cb208-5"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-5" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span>,       <span class="co"># CRITICAL: Prevents duplicate plotting of outliers</span></span>
-<span id="cb208-6"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-6" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;grey95&quot;</span>,          <span class="co"># Light fill to keep it as a background summary</span></span>
-<span id="cb208-7"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-7" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;maroon&quot;</span>,<span class="st">&quot;darkgray&quot;</span>)         <span class="co"># Muted border color</span></span>
-<span id="cb208-8"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb208-9"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> person, <span class="at">color =</span> person), <span class="at">alpha =</span> <span class="fl">0.7</span>)<span class="sc">+</span></span>
-<span id="cb208-10"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-10" tabindex="-1"></a>  <span class="co"># 2. Add the strip plot (jittered points) layer</span></span>
-<span id="cb208-11"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-11" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">color=</span>person),</span>
-<span id="cb208-12"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-12" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="dv">0</span>), <span class="co"># Controls data spreading - we need not spreading for this paired plot to work.</span></span>
-<span id="cb208-13"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-13" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">5</span>,                 <span class="co"># Modify point size</span></span>
-<span id="cb208-14"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-14" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb208-15"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-15" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb208-16"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-16" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Drug&quot;</span>,</span>
-<span id="cb208-17"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-17" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Extra sleep (hours)&quot;</span>,</span>
-<span id="cb208-18"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-18" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Visualize the data (two sample t-test)&quot;</span></span>
-<span id="cb208-19"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb208-19" tabindex="-1"></a>  )<span class="sc">+</span><span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb211-2"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-2" tabindex="-1"></a><span class="fu">ggplot</span>(sleep.data2, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(drug), <span class="at">y =</span> extra.sleep)) <span class="sc">+</span></span>
+<span id="cb211-3"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-3" tabindex="-1"></a>  <span class="co"># 1. Add the box plot layer</span></span>
+<span id="cb211-4"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(</span>
+<span id="cb211-5"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-5" tabindex="-1"></a>    <span class="at">outlier.shape =</span> <span class="cn">NA</span>,       <span class="co"># CRITICAL: Prevents duplicate plotting of outliers</span></span>
+<span id="cb211-6"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-6" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;grey95&quot;</span>,          <span class="co"># Light fill to keep it as a background summary</span></span>
+<span id="cb211-7"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-7" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;maroon&quot;</span>,<span class="st">&quot;darkgray&quot;</span>)         <span class="co"># Muted border color</span></span>
+<span id="cb211-8"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb211-9"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-9" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> person, <span class="at">color =</span> person), <span class="at">alpha =</span> <span class="fl">0.7</span>)<span class="sc">+</span></span>
+<span id="cb211-10"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-10" tabindex="-1"></a>  <span class="co"># 2. Add the strip plot (jittered points) layer</span></span>
+<span id="cb211-11"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-11" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">color=</span>person),</span>
+<span id="cb211-12"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-12" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="dv">0</span>), <span class="co"># Controls data spreading - we need not spreading for this paired plot to work.</span></span>
+<span id="cb211-13"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-13" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">5</span>,                 <span class="co"># Modify point size</span></span>
+<span id="cb211-14"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-14" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb211-15"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-15" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb211-16"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-16" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Drug&quot;</span>,</span>
+<span id="cb211-17"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-17" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Extra sleep (hours)&quot;</span>,</span>
+<span id="cb211-18"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-18" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Visualize the data (two sample t-test)&quot;</span></span>
+<span id="cb211-19"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-19" tabindex="-1"></a>  )<span class="sc">+</span><span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="book_files/figure-html/unnamed-chunk-103-1.png" alt="" width="672" /></p>
 <p>The slope of these paired lines is generally all positive, showing that most people do get more sleep with drug B. The unpaired t-test assesss the effect of Drug A and Drug B by assuming random associations. Would these random associations also have nearly all positive slopes? Could this lack of consideration of individual variation be the reason why we did not find a difference in the drugs?</p>
 <p>We are still consideration the same null hypothesis: that the mean extra sleep for Drug A and Drug B are the same. Our model is different, however, because it includes another explanatory variable.</p>
@@ -263,11 +263,11 @@ S = \mu + \beta_1 X_D + \beta_2 X_P + \epsilon .
 <div id="execute-the-analysis-3" class="section level2 hasAnchor" number="24.2">
 <h2><span class="header-section-number">24.2</span> Execute the analysis<a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#execute-the-analysis-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When we to estimate the parameters for a mixed model, such as this i.e., involving a fixed and a random factor, we need to load the <code>lme4</code> package if we are using <code>R</code>. Recall our previous lecture that involved <a href="random.html#random">random effects</a>. Note that it is necessary to write the round brackets around the random factor.</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb209-1" tabindex="-1"></a><span class="fu">require</span>(lme4)</span>
-<span id="cb209-2"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb209-2" tabindex="-1"></a><span class="fu">require</span>(lmerTest)</span>
-<span id="cb209-3"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb209-3" tabindex="-1"></a><span class="co"># fit the mixed effects model</span></span>
-<span id="cb209-4"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb209-4" tabindex="-1"></a>mixed.mod <span class="ot">=</span> <span class="fu">lmer</span>(extra.sleep<span class="sc">~</span>drug<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>person),<span class="at">data =</span> sleep.data2)</span>
-<span id="cb209-5"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb209-5" tabindex="-1"></a><span class="fu">summary</span>(mixed.mod)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb212-1" tabindex="-1"></a><span class="fu">require</span>(lme4)</span>
+<span id="cb212-2"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb212-2" tabindex="-1"></a><span class="fu">require</span>(lmerTest)</span>
+<span id="cb212-3"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb212-3" tabindex="-1"></a><span class="co"># fit the mixed effects model</span></span>
+<span id="cb212-4"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb212-4" tabindex="-1"></a>mixed.mod <span class="ot">=</span> <span class="fu">lmer</span>(extra.sleep<span class="sc">~</span>drug<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>person),<span class="at">data =</span> sleep.data2)</span>
+<span id="cb212-5"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb212-5" tabindex="-1"></a><span class="fu">summary</span>(mixed.mod)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 ## lmerModLmerTest]
 ## Formula: extra.sleep ~ drug + (1 | person)
@@ -295,13 +295,13 @@ S = \mu + \beta_1 X_D + \beta_2 X_P + \epsilon .
 ## Correlation of Fixed Effects:
 ##       (Intr)
 ## drugB -0.324</code></pre>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb211-1" tabindex="-1"></a><span class="fu">anova</span>(mixed.mod)</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb214-1" tabindex="-1"></a><span class="fu">anova</span>(mixed.mod)</span></code></pre></div>
 <pre><code>## Type III Analysis of Variance Table with Satterthwaite&#39;s method
 ##      Sum Sq Mean Sq NumDF DenDF F value   Pr(&gt;F)   
 ## drug 12.482  12.482     1     9  16.501 0.002833 **
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb213-1" tabindex="-1"></a><span class="fu">VarCorr</span>(mixed.mod)</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb216-1" tabindex="-1"></a><span class="fu">VarCorr</span>(mixed.mod)</span></code></pre></div>
 <pre><code>##  Groups   Name        Std.Dev.
 ##  person   (Intercept) 1.68770 
 ##  Residual             0.86974</code></pre>
@@ -325,10 +325,10 @@ S = \mu + \beta_1 X_D + \beta_2 X_P + \epsilon .
 </div>
 <div id="cant-we-just-do-a-paired-t-test" class="section level2 hasAnchor" number="24.4">
 <h2><span class="header-section-number">24.4</span> Can’t we just do a paired t-test?<a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cant-we-just-do-a-paired-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb215-1" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
-<span id="cb215-2"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb215-2" tabindex="-1"></a>drugA <span class="ot">=</span> sleep.data2<span class="sc">%&gt;%</span><span class="fu">filter</span>(drug<span class="sc">==</span><span class="st">&quot;A&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">pull</span>(extra.sleep)</span>
-<span id="cb215-3"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb215-3" tabindex="-1"></a>drugB <span class="ot">=</span> sleep.data2<span class="sc">%&gt;%</span><span class="fu">filter</span>(drug<span class="sc">==</span><span class="st">&quot;B&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">pull</span>(extra.sleep)</span>
-<span id="cb215-4"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb215-4" tabindex="-1"></a><span class="fu">t.test</span>(drugA, drugB, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb218-1" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
+<span id="cb218-2"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb218-2" tabindex="-1"></a>drugA <span class="ot">=</span> sleep.data2<span class="sc">%&gt;%</span><span class="fu">filter</span>(drug<span class="sc">==</span><span class="st">&quot;A&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">pull</span>(extra.sleep)</span>
+<span id="cb218-3"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb218-3" tabindex="-1"></a>drugB <span class="ot">=</span> sleep.data2<span class="sc">%&gt;%</span><span class="fu">filter</span>(drug<span class="sc">==</span><span class="st">&quot;B&quot;</span>)<span class="sc">%&gt;%</span><span class="fu">pull</span>(extra.sleep)</span>
+<span id="cb218-4"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb218-4" tabindex="-1"></a><span class="fu">t.test</span>(drugA, drugB, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Paired t-test
 ## 
@@ -340,7 +340,7 @@ S = \mu + \beta_1 X_D + \beta_2 X_P + \epsilon .
 ## sample estimates:
 ## mean difference 
 ##           -1.58</code></pre>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb217-1" tabindex="-1"></a><span class="fu">t.test</span>(drugA, drugB, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html#cb220-1" tabindex="-1"></a><span class="fu">t.test</span>(drugA, drugB, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
