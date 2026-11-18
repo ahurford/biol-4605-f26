@@ -3,8 +3,15 @@ title: "Retrospective Analysis"
 output: html_document
 ---
 
-# **Fri Nov 20 (Quiz 4)**- Retrospective Analysis 
+# **Fri Nov 20 (Quiz 4)** Correlation/Variable importance/Model selection
 
-## Readings
-- Ch 18.3
+## Quiz 4 is 15 minutes in duration and will occur in the last 20 minutes of class
+
+This quiz with cover:
+
+- random effects and mixed models including paired t-test, randomized blocks, and heirachical ANOVA.
+
+- You should understand which variables might be considered random effects and why you would want to do your analysis as a mixed effects model.
+
+- You should know the definition of a random effect and how to interpret the output of a random or mixed effects model.
 

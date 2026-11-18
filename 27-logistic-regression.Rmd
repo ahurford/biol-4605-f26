@@ -3,11 +3,5 @@ title: "Logistic Regression"
 output: html_document
 ---
 
-# Mon Nov 16 - Logistic Regression 
+# Mon Nov 16 - Class was cancelled
 
-## Readings
-- Ch18, 18.1
-
-## Upcoming assessments
-- **Fri 20 Nov:** Quiz 9
-- **Tue 24 Nov:** Lab 9a,b
