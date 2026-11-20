@@ -309,7 +309,7 @@ H_0: \rho = 0
 <p><span class="math display">\[
 s_r = \sqrt{\dfrac{1-r^2}{\mbox{df}}} = \sqrt{\dfrac{1-r^2}{n-2}} =  \sqrt{\dfrac{1-0.883^2}{9-2}} = 0.117
 \]</span></p>
-<p>Therefore, <span class="math inline">\(t = 0.117/0.117 = 4.97\)</span> on 7 degrees of freedom.</p>
+<p>Therefore, <span class="math inline">\(t = 0.883 /0.177 = 4.97\)</span> on 7 degrees of freedom.</p>
 <div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="wed-nov-18---correlation.html#cb260-1" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">pt</span>(<span class="fl">4.97</span>, <span class="dv">7</span>))</span></code></pre></div>
 <pre><code>## [1] 0.001619176</code></pre>
 <p>where the multiplication by 2 is for the two-tailed test.</p>
@@ -320,7 +320,7 @@ s_r = \sqrt{\dfrac{1-r^2}{\mbox{df}}} = \sqrt{\dfrac{1-r^2}{n-2}} =  \sqrt{\dfra
 </div>
 <div id="science-conclusion-1" class="section level2 hasAnchor" number="29.8">
 <h2><span class="header-section-number">29.8</span> Science conclusion<a href="wed-nov-18---correlation.html#science-conclusion-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We conclude that the guinea pig litter sizes for strains 13 and B are correlated (<span class="math inline">\(\hat{rho} = 0.883\)</span>, <span class="math inline">\(p = 0.0016\)</span>, LR = <span class="math inline">\(905\)</span>). This supports our initial graphs which appear to show a linear relationship between the litter size for the two strains. It is usual to plot the two variables (and choose one for the vertical axis), however, if the appropriate statistical analysis is correlation rather than regression (for the reasons discussed at the start of this section) then it is necessary to perform the statistical analysis as outlined in this section.</p>
+<p>We conclude that the guinea pig litter sizes for strains 13 and B are correlated (<span class="math inline">\(\hat{\rho} = 0.883\)</span>, <span class="math inline">\(p = 0.0016\)</span>, LR = <span class="math inline">\(905\)</span>). This supports our initial graphs which appear to show a linear relationship between the litter size for the two strains. It is usual to plot the two variables (and choose one for the vertical axis), however, if the appropriate statistical analysis is correlation rather than regression (for the reasons discussed at the start of this section) then it is necessary to perform the statistical analysis as outlined in this section.</p>
 
 </div>
 </div>

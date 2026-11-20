@@ -96,7 +96,7 @@ which verbally means that there is no relationship. We use the t-statistic to es
 s_r = \sqrt{\dfrac{1-r^2}{\mbox{df}}} = \sqrt{\dfrac{1-r^2}{n-2}} =  \sqrt{\dfrac{1-0.883^2}{9-2}} = 0.117
 \]
 
-Therefore, $t = 0.117/0.117 = 4.97$ on 7 degrees of freedom.
+Therefore, $t = 0.883 /0.177 = 4.97$ on 7 degrees of freedom.
 
 ```{r}
 2*(1-pt(4.97, 7))
@@ -110,4 +110,4 @@ The likelihood ratio (which represents the evidence for the hypothesis) is calcu
 \]
 
 ## Science conclusion
-We conclude that the guinea pig litter sizes for strains 13 and B are correlated ($\hat{rho} = 0.883$, $p = 0.0016$, LR = $905$). This supports our initial graphs which appear to show a linear relationship between the litter size for the two strains. It is usual to plot the two variables (and choose one for the vertical axis), however, if the appropriate statistical analysis is correlation rather than regression (for the reasons discussed at the start of this section) then it is necessary to perform the statistical analysis as outlined in this section.
+We conclude that the guinea pig litter sizes for strains 13 and B are correlated ($\hat{\rho} = 0.883$, $p = 0.0016$, LR = $905$). This supports our initial graphs which appear to show a linear relationship between the litter size for the two strains. It is usual to plot the two variables (and choose one for the vertical axis), however, if the appropriate statistical analysis is correlation rather than regression (for the reasons discussed at the start of this section) then it is necessary to perform the statistical analysis as outlined in this section.
