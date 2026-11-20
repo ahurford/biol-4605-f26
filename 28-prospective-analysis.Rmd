@@ -93,7 +93,7 @@ H_0: \rho = 0
 which verbally means that there is no relationship. We use the t-statistic to estiamte a p-value. The degrees of freedom are $n-2$. The t-statistic is calculated as $t = r/s_r$ where,
 
 \[
-s_r = \sqrt{\dfrac{1-r^2}{\mbox{df}}} = \sqrt{\dfrac{1-r^2}{n-2}} =  \sqrt{\dfrac{1-0.883^2}{9-2}} = 0.117
+s_r = \sqrt{\dfrac{1-r^2}{\mbox{df}}} = \sqrt{\dfrac{1-r^2}{n-2}} =  \sqrt{\dfrac{1-0.883^2}{9-2}} = 0.177
 \]
 
 Therefore, $t = 0.883 /0.177 = 4.97$ on 7 degrees of freedom.

@@ -307,7 +307,7 @@ H_0: \rho = 0
 \]</span></p>
 <p>which verbally means that there is no relationship. We use the t-statistic to estiamte a p-value. The degrees of freedom are <span class="math inline">\(n-2\)</span>. The t-statistic is calculated as <span class="math inline">\(t = r/s_r\)</span> where,</p>
 <p><span class="math display">\[
-s_r = \sqrt{\dfrac{1-r^2}{\mbox{df}}} = \sqrt{\dfrac{1-r^2}{n-2}} =  \sqrt{\dfrac{1-0.883^2}{9-2}} = 0.117
+s_r = \sqrt{\dfrac{1-r^2}{\mbox{df}}} = \sqrt{\dfrac{1-r^2}{n-2}} =  \sqrt{\dfrac{1-0.883^2}{9-2}} = 0.177
 \]</span></p>
 <p>Therefore, <span class="math inline">\(t = 0.883 /0.177 = 4.97\)</span> on 7 degrees of freedom.</p>
 <div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="wed-nov-18---correlation.html#cb260-1" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">pt</span>(<span class="fl">4.97</span>, <span class="dv">7</span>))</span></code></pre></div>
