@@ -9,8 +9,8 @@ Akaike Information Criteria (AIC) is a type of model selection and this is expla
 
 My comments on these notes are that:
 
-- for nested models we should use the [likelihood ratio test](https://en.wikipedia.org/wiki/Likelihood-ratio_test) because the likelihood ratios for the models are chi-squared distributed.
+- for nested models we should use the [likelihood ratio test](https://en.wikipedia.org/wiki/Likelihood-ratio_test) because the likelihood ratios for the models are chi-squared distributed [Bolker 2007, Ch 6.6.1 starting on p271](https://math.mcmaster.ca/~bolker/emdbook/book.pdf).
 
 - $\Delta$AIC values for the basis of decision are: <2: Models are indistinguishable; 4-7: some support that models are indistinguishable from the best model and should not necessarily be discarded;  > 10 models are different.
 
-[Bolker 2007, p208-209](https://math.mcmaster.ca/~bolker/emdbook/book.pdf) (from Burnham and Anderson)
+[Bolker 2007, p278](https://math.mcmaster.ca/~bolker/emdbook/book.pdf).
