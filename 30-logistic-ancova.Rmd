@@ -3,12 +3,14 @@ title: "Logistic ANCOVA"
 output: html_document
 ---
 
-# Mon Nov 23 - Logistic ANCOVA
+# Mon Nov 23 - Model selection
 
-## Readings
- - Ch 18.6
+Akaike Information Criteria (AIC) is a type of model selection and this is explained in Dr. Schneider's notes [here](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt6/Ch23.pdf).
 
+My comments on these notes are that:
 
-### Upcoming assessments
-- **Tue 24 Nov:** Lab 9a,b
-- **Fri 27 Nov:** Quiz 10
+- for nested models we should use the [likelihood ratio test](https://en.wikipedia.org/wiki/Likelihood-ratio_test) because the likelihood ratios for the models are chi-squared distributed.
+
+- $\Delta$AIC values for the basis of decision are: <2: Models are indistinguishable; 4-7: some support that models are indistinguishable from the best model and should not necessarily be discarded;  > 10 models are different.
+
+[Bolker 2007, p208-209](https://math.mcmaster.ca/~bolker/emdbook/book.pdf) (from Burnham and Anderson)
