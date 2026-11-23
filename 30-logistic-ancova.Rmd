@@ -14,3 +14,69 @@ My comments on these notes are that:
 - $\Delta$AIC values for the basis of decision are: <2: Models are indistinguishable; 4-7: some support that models are indistinguishable from the best model and should not necessarily be discarded;  > 10 models are different.
 
 [Bolker 2007, p278](https://math.mcmaster.ca/~bolker/emdbook/book.pdf).
+
+We are learning about model selection in the context of making decisions about how many explanatory variables to include in our models. This is covered in Quinn and Keough Ch 9 _Predictor importance and model selection in multiple regression models_. The .html corresponding to the R markdown for Box 9.1 of Quinn and Keough is [here](https://mjkeough.github.io/examples/loyn_relaimpo.nb.html).
+
+```{r, message=FALSE}
+require(dplyr)
+loyn = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/loyn.csv")
+loyn = loyn%>%select(abund, area, yearisol, dist, distl, graze, alt)
+head(loyn,10) # just the first 10 rows because the whole dataset is very long.
+```
+
+```{r,message=FALSE,warning=FALSE}
+require(car)
+require(lm.beta)
+require(hier.part)
+```
+
+
+```{r}
+scatterplotMatrix(~abund+area+dist+graze+alt+yearisol, data=loyn, cex=0.33, regLine=FALSE, diagonal=list(method='boxplot'))
+```
+
+
+```{r}
+scatterplotMatrix(~abund+log10(area)+log10(dist)+graze+alt+yearisol, data=loyn, cex=0.33, regLine=FALSE, diagonal=list(method='boxplot'))
+```
+
+```{r}
+loyn$logarea <- log10(loyn$area)
+loyn$logdist <- log10(loyn$dist)
+```
+
+```{r}
+scatterplotMatrix(~logarea+logdist+graze+alt+yearisol, data=loyn, cex=0.33, regLine=FALSE, diagonal=list(method='boxplot'))
+cor(loyn[,c('logarea','logdist','graze','alt','yearisol')])
+vif(lm(abund~ logarea+logdist+graze+alt+yearisol, data=loyn))
+```
+
+
+```{r,warning=FALSE}
+library(AICcmodavg)
+
+# 1. Fit candidate models (must use the exact same dataset/response variable)
+m1 <- lm(abund ~ logarea+graze+yearisol, data = loyn)
+m2 <- lm(abund ~ logarea+graze+alt+yearisol, data = loyn)
+m3 <- lm(abund ~ logarea+graze, data = loyn)
+m4 <- lm(abund ~ logarea+logdist+graze+yearisol, data = loyn)
+m5 <- lm(abund ~ logarea+alt+yearisol, data = loyn)
+
+# 2. Bundle models into a list and define names
+models <- list(m1, m2, m3,m4,m5)
+
+# 3. Generate the model selection table
+aictab(cand.set = models)
+```
+```{r}
+summary(m1)
+logLik(m1)
+AIC(m1)
+AICc(m1)
+k = 5
+n = length(loyn$abund)
+AIC = 2*k - 2*unname(logLik(m1)[1])
+AIC
+AICc = AIC + 2*k*(k+1)/(n - k -1)
+AICc
+```

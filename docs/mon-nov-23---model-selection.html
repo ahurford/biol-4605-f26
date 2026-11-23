@@ -202,6 +202,108 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><span class="math inline">\(\Delta\)</span>AIC values for the basis of decision are: &lt;2: Models are indistinguishable; 4-7: some support that models are indistinguishable from the best model and should not necessarily be discarded; &gt; 10 models are different.</p></li>
 </ul>
 <p><a href="https://math.mcmaster.ca/~bolker/emdbook/book.pdf">Bolker 2007, p278</a>.</p>
+<p>We are learning about model selection in the context of making decisions about how many explanatory variables to include in our models. This is covered in Quinn and Keough Ch 9 <em>Predictor importance and model selection in multiple regression models</em>. The .html corresponding to the R markdown for Box 9.1 of Quinn and Keough is <a href="https://mjkeough.github.io/examples/loyn_relaimpo.nb.html">here</a>.</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="mon-nov-23---model-selection.html#cb262-1" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
+<span id="cb262-2"><a href="mon-nov-23---model-selection.html#cb262-2" tabindex="-1"></a>loyn <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/loyn.csv&quot;</span>)</span>
+<span id="cb262-3"><a href="mon-nov-23---model-selection.html#cb262-3" tabindex="-1"></a>loyn <span class="ot">=</span> loyn<span class="sc">%&gt;%</span><span class="fu">select</span>(abund, area, yearisol, dist, distl, graze, alt)</span>
+<span id="cb262-4"><a href="mon-nov-23---model-selection.html#cb262-4" tabindex="-1"></a><span class="fu">head</span>(loyn,<span class="dv">10</span>) <span class="co"># just the first 10 rows because the whole dataset is very long.</span></span></code></pre></div>
+<pre><code>##    abund area yearisol dist distl graze alt
+## 1    5.3  0.1     1968   39    39     2 160
+## 2    2.0  0.5     1920  234   234     5  60
+## 3    1.5  0.5     1900  104   311     5 140
+## 4   17.1  1.0     1966   66    66     3 160
+## 5   13.8  1.0     1918  246   246     5 140
+## 6   14.1  1.0     1965  234   285     3 130
+## 7    3.8  1.0     1955  467   467     5  90
+## 8    2.2  1.0     1920  284  1829     5  60
+## 9    3.3  1.0     1965  156   156     4 130
+## 10   3.0  1.0     1900  311   571     5 130</code></pre>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="mon-nov-23---model-selection.html#cb264-1" tabindex="-1"></a><span class="fu">require</span>(car)</span>
+<span id="cb264-2"><a href="mon-nov-23---model-selection.html#cb264-2" tabindex="-1"></a><span class="fu">require</span>(lm.beta)</span>
+<span id="cb264-3"><a href="mon-nov-23---model-selection.html#cb264-3" tabindex="-1"></a><span class="fu">require</span>(hier.part)</span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="mon-nov-23---model-selection.html#cb265-1" tabindex="-1"></a><span class="fu">scatterplotMatrix</span>(<span class="sc">~</span>abund<span class="sc">+</span>area<span class="sc">+</span>dist<span class="sc">+</span>graze<span class="sc">+</span>alt<span class="sc">+</span>yearisol, <span class="at">data=</span>loyn, <span class="at">cex=</span><span class="fl">0.33</span>, <span class="at">regLine=</span><span class="cn">FALSE</span>, <span class="at">diagonal=</span><span class="fu">list</span>(<span class="at">method=</span><span class="st">&#39;boxplot&#39;</span>))</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-125-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="mon-nov-23---model-selection.html#cb266-1" tabindex="-1"></a><span class="fu">scatterplotMatrix</span>(<span class="sc">~</span>abund<span class="sc">+</span><span class="fu">log10</span>(area)<span class="sc">+</span><span class="fu">log10</span>(dist)<span class="sc">+</span>graze<span class="sc">+</span>alt<span class="sc">+</span>yearisol, <span class="at">data=</span>loyn, <span class="at">cex=</span><span class="fl">0.33</span>, <span class="at">regLine=</span><span class="cn">FALSE</span>, <span class="at">diagonal=</span><span class="fu">list</span>(<span class="at">method=</span><span class="st">&#39;boxplot&#39;</span>))</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-126-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="mon-nov-23---model-selection.html#cb267-1" tabindex="-1"></a>loyn<span class="sc">$</span>logarea <span class="ot">&lt;-</span> <span class="fu">log10</span>(loyn<span class="sc">$</span>area)</span>
+<span id="cb267-2"><a href="mon-nov-23---model-selection.html#cb267-2" tabindex="-1"></a>loyn<span class="sc">$</span>logdist <span class="ot">&lt;-</span> <span class="fu">log10</span>(loyn<span class="sc">$</span>dist)</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="mon-nov-23---model-selection.html#cb268-1" tabindex="-1"></a><span class="fu">scatterplotMatrix</span>(<span class="sc">~</span>logarea<span class="sc">+</span>logdist<span class="sc">+</span>graze<span class="sc">+</span>alt<span class="sc">+</span>yearisol, <span class="at">data=</span>loyn, <span class="at">cex=</span><span class="fl">0.33</span>, <span class="at">regLine=</span><span class="cn">FALSE</span>, <span class="at">diagonal=</span><span class="fu">list</span>(<span class="at">method=</span><span class="st">&#39;boxplot&#39;</span>))</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-128-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="mon-nov-23---model-selection.html#cb269-1" tabindex="-1"></a><span class="fu">cor</span>(loyn[,<span class="fu">c</span>(<span class="st">&#39;logarea&#39;</span>,<span class="st">&#39;logdist&#39;</span>,<span class="st">&#39;graze&#39;</span>,<span class="st">&#39;alt&#39;</span>,<span class="st">&#39;yearisol&#39;</span>)])</span></code></pre></div>
+<pre><code>##             logarea     logdist      graze        alt    yearisol
+## logarea   1.0000000  0.30216662 -0.5590886  0.2751428  0.27841452
+## logdist   0.3021666  1.00000000 -0.1426392 -0.2190070 -0.01957223
+## graze    -0.5590886 -0.14263922  1.0000000 -0.4071671 -0.63556710
+## alt       0.2751428 -0.21900701 -0.4071671  1.0000000  0.23271541
+## yearisol  0.2784145 -0.01957223 -0.6355671  0.2327154  1.00000000</code></pre>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="mon-nov-23---model-selection.html#cb271-1" tabindex="-1"></a><span class="fu">vif</span>(<span class="fu">lm</span>(abund<span class="sc">~</span> logarea<span class="sc">+</span>logdist<span class="sc">+</span>graze<span class="sc">+</span>alt<span class="sc">+</span>yearisol, <span class="at">data=</span>loyn))</span></code></pre></div>
+<pre><code>##  logarea  logdist    graze      alt yearisol 
+## 1.619373 1.265608 2.522813 1.364838 1.735318</code></pre>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="mon-nov-23---model-selection.html#cb273-1" tabindex="-1"></a><span class="fu">library</span>(AICcmodavg)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;AICcmodavg&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:bbmle&#39;:
+## 
+##     AICc</code></pre>
+<pre><code>## The following object is masked from &#39;package:lme4&#39;:
+## 
+##     checkConv</code></pre>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="mon-nov-23---model-selection.html#cb277-1" tabindex="-1"></a><span class="co"># 1. Fit candidate models (must use the exact same dataset/response variable)</span></span>
+<span id="cb277-2"><a href="mon-nov-23---model-selection.html#cb277-2" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(abund <span class="sc">~</span> logarea<span class="sc">+</span>graze<span class="sc">+</span>yearisol, <span class="at">data =</span> loyn)</span>
+<span id="cb277-3"><a href="mon-nov-23---model-selection.html#cb277-3" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(abund <span class="sc">~</span> logarea<span class="sc">+</span>graze<span class="sc">+</span>alt<span class="sc">+</span>yearisol, <span class="at">data =</span> loyn)</span>
+<span id="cb277-4"><a href="mon-nov-23---model-selection.html#cb277-4" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(abund <span class="sc">~</span> logarea<span class="sc">+</span>graze, <span class="at">data =</span> loyn)</span>
+<span id="cb277-5"><a href="mon-nov-23---model-selection.html#cb277-5" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(abund <span class="sc">~</span> logarea<span class="sc">+</span>logdist<span class="sc">+</span>graze<span class="sc">+</span>yearisol, <span class="at">data =</span> loyn)</span>
+<span id="cb277-6"><a href="mon-nov-23---model-selection.html#cb277-6" tabindex="-1"></a>m5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(abund <span class="sc">~</span> logarea<span class="sc">+</span>alt<span class="sc">+</span>yearisol, <span class="at">data =</span> loyn)</span>
+<span id="cb277-7"><a href="mon-nov-23---model-selection.html#cb277-7" tabindex="-1"></a></span>
+<span id="cb277-8"><a href="mon-nov-23---model-selection.html#cb277-8" tabindex="-1"></a><span class="co"># 2. Bundle models into a list and define names</span></span>
+<span id="cb277-9"><a href="mon-nov-23---model-selection.html#cb277-9" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">list</span>(m1, m2, m3,m4,m5)</span>
+<span id="cb277-10"><a href="mon-nov-23---model-selection.html#cb277-10" tabindex="-1"></a></span>
+<span id="cb277-11"><a href="mon-nov-23---model-selection.html#cb277-11" tabindex="-1"></a><span class="co"># 3. Generate the model selection table</span></span>
+<span id="cb277-12"><a href="mon-nov-23---model-selection.html#cb277-12" tabindex="-1"></a><span class="fu">aictab</span>(<span class="at">cand.set =</span> models)</span></code></pre></div>
+<pre><code>## 
+## Model selection based on AICc:
+## 
+##      K   AICc Delta_AICc AICcWt Cum.Wt      LL
+## Mod1 5 372.31       0.00   0.32   0.32 -180.55
+## Mod2 6 373.24       0.93   0.20   0.52 -179.76
+## Mod3 4 373.30       0.99   0.20   0.72 -182.26
+## Mod4 6 373.86       1.55   0.15   0.87 -180.07
+## Mod5 5 374.06       1.75   0.13   1.00 -181.43</code></pre>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="mon-nov-23---model-selection.html#cb279-1" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = abund ~ logarea + graze + yearisol, data = loyn)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -14.5159  -3.8136   0.2027   3.1271  14.5542 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -134.26065   86.39085  -1.554   0.1262    
+## logarea        7.16617    1.27260   5.631 7.32e-07 ***
+## graze         -1.90216    0.87447  -2.175   0.0342 *  
+## yearisol       0.07835    0.04340   1.805   0.0768 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.311 on 52 degrees of freedom
+## Multiple R-squared:  0.6732, Adjusted R-squared:  0.6544 
+## F-statistic: 35.71 on 3 and 52 DF,  p-value: 1.135e-12</code></pre>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="mon-nov-23---model-selection.html#cb281-1" tabindex="-1"></a><span class="fu">logLik</span>(m1)</span></code></pre></div>
+<pre><code>## &#39;log Lik.&#39; -180.5546 (df=5)</code></pre>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="mon-nov-23---model-selection.html#cb283-1" tabindex="-1"></a><span class="fu">AIC</span>(m1)</span></code></pre></div>
+<pre><code>## [1] 371.1092</code></pre>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="mon-nov-23---model-selection.html#cb285-1" tabindex="-1"></a><span class="fu">AICc</span>(m1)</span></code></pre></div>
+<pre><code>## [1] 372.3092</code></pre>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="mon-nov-23---model-selection.html#cb287-1" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb287-2"><a href="mon-nov-23---model-selection.html#cb287-2" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(loyn<span class="sc">$</span>abund)</span>
+<span id="cb287-3"><a href="mon-nov-23---model-selection.html#cb287-3" tabindex="-1"></a>AIC <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span>k <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">unname</span>(<span class="fu">logLik</span>(m1)[<span class="dv">1</span>])</span>
+<span id="cb287-4"><a href="mon-nov-23---model-selection.html#cb287-4" tabindex="-1"></a>AIC</span></code></pre></div>
+<pre><code>## [1] 371.1092</code></pre>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="mon-nov-23---model-selection.html#cb289-1" tabindex="-1"></a>AICc <span class="ot">=</span> AIC <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>k<span class="sc">*</span>(k<span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span>(n <span class="sc">-</span> k <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb289-2"><a href="mon-nov-23---model-selection.html#cb289-2" tabindex="-1"></a>AICc</span></code></pre></div>
+<pre><code>## [1] 372.3092</code></pre>
 
 </div>
             </section>
