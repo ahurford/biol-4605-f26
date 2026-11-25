@@ -167,7 +167,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="29" data-path="wed-nov-18---correlation.html"><a href="wed-nov-18---correlation.html"><i class="fa fa-check"></i><b>29</b> Wed Nov 18 - Correlation</a></li>
 <li class="chapter" data-level="30" data-path="fri-nov-20-quiz-4-correlationvariable-importancemodel-selection.html"><a href="fri-nov-20-quiz-4-correlationvariable-importancemodel-selection.html"><i class="fa fa-check"></i><b>30</b> <strong>Fri Nov 20 (Quiz 4)</strong> Correlation/Variable importance/Model selection</a></li>
 <li class="chapter" data-level="31" data-path="mon-nov-23---model-selection.html"><a href="mon-nov-23---model-selection.html"><i class="fa fa-check"></i><b>31</b> Mon Nov 23 - Model selection</a></li>
-<li class="chapter" data-level="32" data-path="wed-nov-25---poisson-regression.html"><a href="wed-nov-25---poisson-regression.html"><i class="fa fa-check"></i><b>32</b> Wed Nov 25 - Poisson Regression</a></li>
+<li class="chapter" data-level="32" data-path="wed-nov-25---intro-to-generalized-linear-models.html"><a href="wed-nov-25---intro-to-generalized-linear-models.html"><i class="fa fa-check"></i><b>32</b> Wed Nov 25 - Intro to Generalized linear models</a></li>
 <li class="chapter" data-level="33" data-path="fri-nov-27---contingency-tests-poisson.html"><a href="fri-nov-27---contingency-tests-poisson.html"><i class="fa fa-check"></i><b>33</b> Fri Nov 27 - Contingency Tests, Poisson</a></li>
 <li class="chapter" data-level="34" data-path="mon-nov-30---model-selection-i-eda-and-stepwise.html"><a href="mon-nov-30---model-selection-i-eda-and-stepwise.html"><i class="fa fa-check"></i><b>34</b> Mon Nov 30 - Model Selection I: EDA and Stepwise</a></li>
 <li class="chapter" data-level="35" data-path="wed-dec-02---multimodel-inf---aic-sic.html"><a href="wed-dec-02---multimodel-inf---aic-sic.html"><i class="fa fa-check"></i><b>35</b> Wed Dec 02 - Multimodel Inf - AIC, SIC</a></li>
@@ -212,8 +212,8 @@ on litter size in two strains of Guinea pigs from the
 genetics lab of Sokal’s thesis supervisor, Sewall
 Wright. The data can be viewed as two time
 series. Do the two time series covary?</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="wed-nov-18---correlation.html#cb249-1" tabindex="-1"></a>guinea.litter <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/guinea-litter.csv&quot;</span>)</span>
-<span id="cb249-2"><a href="wed-nov-18---correlation.html#cb249-2" tabindex="-1"></a>guinea.litter</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="wed-nov-18---correlation.html#cb252-1" tabindex="-1"></a>guinea.litter <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/guinea-litter.csv&quot;</span>)</span>
+<span id="cb252-2"><a href="wed-nov-18---correlation.html#cb252-2" tabindex="-1"></a>guinea.litter</span></code></pre></div>
 <pre><code>##   StrainB Strain13 Year
 ## 1    2.68     2.36 1916
 ## 2    2.60     2.41 1917
@@ -235,16 +235,16 @@ y = E[Y] + \epsilon
 <p>where <span class="math inline">\(E[Y] = \alpha + \beta x\)</span>. For correlation, there is no clear choice of which variable is the response, and if we choose one variable as the response we then imply assumptions about residuals that are different than if we choose the other variable as the response.</p>
 <p>Additionally, as suggested by the title of the the section on correlation in Quinn and Keough, when there is no clear choice of the response variable, then we also are likely to have measurement (or other errors) in the explanatory variable too. This section in Quinn and Keough is titled <em>regression with random X</em>, i.e., regression with measurement error in the explanatory varaible. This situation is called `correlation’. It is also called Type II regression. (Type I regression is what we have done for most of the class, and recall that Type III regression is when the order of the terms affects the partitioning of the sums of squares and is used to calculate the adjusted SS which is this partitioning when the specific explanatory variable to considered last).</p>
 <p>From the preceeding discussion it should be clear, that we we cannot reasonably assign one variable to the x-axis (explanatory) and one to the y-axis (response variable), and that we also know that if we do a regression given an arbitrary choice of response variable, then we have made assumptions that differentiate our two variables even though we have no justification for treating our variables differently. Consider to alternative graphs for our guinea pig data:</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="wed-nov-18---correlation.html#cb251-1" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
-<span id="cb251-2"><a href="wed-nov-18---correlation.html#cb251-2" tabindex="-1"></a><span class="fu">require</span>(patchwork)</span>
-<span id="cb251-3"><a href="wed-nov-18---correlation.html#cb251-3" tabindex="-1"></a>g1<span class="ot">=</span><span class="fu">ggplot</span>(guinea.litter, <span class="fu">aes</span>(<span class="at">x=</span>StrainB, <span class="at">y =</span> Strain13))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&quot;vertical axis: Strain 13&quot;</span>)</span>
-<span id="cb251-4"><a href="wed-nov-18---correlation.html#cb251-4" tabindex="-1"></a>g2<span class="ot">=</span><span class="fu">ggplot</span>(guinea.litter, <span class="fu">aes</span>(<span class="at">x=</span>Strain13, <span class="at">y =</span> StrainB))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&quot;vertical axis: Strain B&quot;</span>)</span>
-<span id="cb251-5"><a href="wed-nov-18---correlation.html#cb251-5" tabindex="-1"></a>g1<span class="sc">+</span>g2</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="wed-nov-18---correlation.html#cb254-1" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
+<span id="cb254-2"><a href="wed-nov-18---correlation.html#cb254-2" tabindex="-1"></a><span class="fu">require</span>(patchwork)</span>
+<span id="cb254-3"><a href="wed-nov-18---correlation.html#cb254-3" tabindex="-1"></a>g1<span class="ot">=</span><span class="fu">ggplot</span>(guinea.litter, <span class="fu">aes</span>(<span class="at">x=</span>StrainB, <span class="at">y =</span> Strain13))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&quot;vertical axis: Strain 13&quot;</span>)</span>
+<span id="cb254-4"><a href="wed-nov-18---correlation.html#cb254-4" tabindex="-1"></a>g2<span class="ot">=</span><span class="fu">ggplot</span>(guinea.litter, <span class="fu">aes</span>(<span class="at">x=</span>Strain13, <span class="at">y =</span> StrainB))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&quot;vertical axis: Strain B&quot;</span>)</span>
+<span id="cb254-5"><a href="wed-nov-18---correlation.html#cb254-5" tabindex="-1"></a>g1<span class="sc">+</span>g2</span></code></pre></div>
 <p><img src="book_files/figure-html/unnamed-chunk-119-1.png" alt="" width="672" /></p>
 <p>We get different parameter estimates when we choose either variable as the response variable in the regression:</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="wed-nov-18---correlation.html#cb252-1" tabindex="-1"></a>mod1 <span class="ot">=</span> <span class="fu">lm</span>(Strain13<span class="sc">~</span>StrainB, guinea.litter)</span>
-<span id="cb252-2"><a href="wed-nov-18---correlation.html#cb252-2" tabindex="-1"></a>mod2 <span class="ot">=</span> <span class="fu">lm</span>(StrainB<span class="sc">~</span>Strain13, guinea.litter)</span>
-<span id="cb252-3"><a href="wed-nov-18---correlation.html#cb252-3" tabindex="-1"></a>mod1</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="wed-nov-18---correlation.html#cb255-1" tabindex="-1"></a>mod1 <span class="ot">=</span> <span class="fu">lm</span>(Strain13<span class="sc">~</span>StrainB, guinea.litter)</span>
+<span id="cb255-2"><a href="wed-nov-18---correlation.html#cb255-2" tabindex="-1"></a>mod2 <span class="ot">=</span> <span class="fu">lm</span>(StrainB<span class="sc">~</span>Strain13, guinea.litter)</span>
+<span id="cb255-3"><a href="wed-nov-18---correlation.html#cb255-3" tabindex="-1"></a>mod1</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Strain13 ~ StrainB, data = guinea.litter)
@@ -252,7 +252,7 @@ y = E[Y] + \epsilon
 ## Coefficients:
 ## (Intercept)      StrainB  
 ##     -0.2359       1.0474</code></pre>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="wed-nov-18---correlation.html#cb254-1" tabindex="-1"></a>mod2</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="wed-nov-18---correlation.html#cb257-1" tabindex="-1"></a>mod2</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = StrainB ~ Strain13, data = guinea.litter)
@@ -265,7 +265,7 @@ y = E[Y] + \epsilon
 </div>
 <div id="analysis" class="section level2 hasAnchor" number="29.5">
 <h2><span class="header-section-number">29.5</span> Analysis<a href="wed-nov-18---correlation.html#analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="wed-nov-18---correlation.html#cb256-1" tabindex="-1"></a><span class="fu">cor.test</span>(guinea.litter<span class="sc">$</span>StrainB, guinea.litter<span class="sc">$</span>Strain13)</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="wed-nov-18---correlation.html#cb259-1" tabindex="-1"></a><span class="fu">cor.test</span>(guinea.litter<span class="sc">$</span>StrainB, guinea.litter<span class="sc">$</span>Strain13)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -277,7 +277,7 @@ y = E[Y] + \epsilon
 ## sample estimates:
 ##      cor 
 ## 0.883175</code></pre>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="wed-nov-18---correlation.html#cb258-1" tabindex="-1"></a><span class="fu">cor.test</span>(guinea.litter<span class="sc">$</span>Strain13, guinea.litter<span class="sc">$</span>StrainB) <span class="co"># opposite order makes no difference</span></span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="wed-nov-18---correlation.html#cb261-1" tabindex="-1"></a><span class="fu">cor.test</span>(guinea.litter<span class="sc">$</span>Strain13, guinea.litter<span class="sc">$</span>StrainB) <span class="co"># opposite order makes no difference</span></span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -310,7 +310,7 @@ H_0: \rho = 0
 s_r = \sqrt{\dfrac{1-r^2}{\mbox{df}}} = \sqrt{\dfrac{1-r^2}{n-2}} =  \sqrt{\dfrac{1-0.883^2}{9-2}} = 0.177
 \]</span></p>
 <p>Therefore, <span class="math inline">\(t = 0.883 /0.177 = 4.97\)</span> on 7 degrees of freedom.</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="wed-nov-18---correlation.html#cb260-1" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">pt</span>(<span class="fl">4.97</span>, <span class="dv">7</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="wed-nov-18---correlation.html#cb263-1" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">pt</span>(<span class="fl">4.97</span>, <span class="dv">7</span>))</span></code></pre></div>
 <pre><code>## [1] 0.001619176</code></pre>
 <p>where the multiplication by 2 is for the two-tailed test.</p>
 <p>The likelihood ratio (which represents the evidence for the hypothesis) is calculated as:</p>

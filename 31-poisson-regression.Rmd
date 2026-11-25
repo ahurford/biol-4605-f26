@@ -3,10 +3,28 @@ title: "Poisson Regression"
 output: html_document
 ---
 
-# Wed Nov 25 - Poisson Regression
+# Wed Nov 25 - Intro to Generalized linear models
 
-## Readings:
-- Ch 17.1
+Read [Ch 16](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt5/Ch16.pdf) and [Ch 16.1](https://davidcschneider.github.io/StatisticalScience/LNotes/Pt5/Ch16_1.pdf) in Dr. Schneider's notes.
 
-## Upcoming assessments
-- **Fri 27 Nov:** Quiz 10
+Let's write the 2-way ANOVA as a generalized linear model:
+
+Distribution: \[H \sim N(\mu, \sigma)\]
+
+Link function: \[H = \eta\]
+
+Model: \[\eta = \beta_0 + \beta_{Alt}Alt + \beta_{Sp}SP + \beta_{Alt\cdot Sp}Alt\cdot Sp\]
+
+
+```{r}
+fly.data = read.csv("https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/heteroz-alt-species.csv")
+fly.data
+```
+
+```{r}
+fly.model = glm(heterozygosity ~ species + elevation_km + species*elevation_km , family = gaussian(link = identity), data=fly.data)
+anova(fly.model, test="Chisq") #Sequential deviances
+require(car)
+Anova(fly.model, type="III", test.statistic = "LR") #Adjusted deviances
+deviance(fly.model)
+```
