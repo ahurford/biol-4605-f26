@@ -9,13 +9,13 @@ Akaike Information Criteria (AIC) is a type of model selection and this is expla
 
 My comments on these notes are that:
 
-- for nested models we should use the [likelihood ratio test](https://en.wikipedia.org/wiki/Likelihood-ratio_test) because the likelihood ratios for the models are chi-squared distributed [Bolker 2007, Ch 6.6.1 starting on p271](https://math.mcmaster.ca/~bolker/emdbook/book.pdf).
+- for nested models we should use the [likelihood ratio test](https://en.wikipedia.org/wiki/Likelihood-ratio_test) because the likelihood ratios for the models are chi-squared distributed [Bolker 2007, Ch 6.6.1 starting on p271](https://math.mcmaster.ca/~bolker/emdbook/book.pdf). However, if there are many explanatory variables, it is likely that some of the model comparisons you want to do are not nested, and so you need to use AIC.
 
-- $\Delta$AIC values for the basis of decision are: <2: Models are indistinguishable; 4-7: some support that models are indistinguishable from the best model and should not necessarily be discarded;  > 10 models are different.
-
-[Bolker 2007, p278](https://math.mcmaster.ca/~bolker/emdbook/book.pdf).
+- $\Delta$AIC values for the basis of decision are: <2: Models are indistinguishable; 4-7: some support that models are indistinguishable from the best model and these models should not necessarily be discarded;  > 10 models are different. For justificaiton see [Bolker 2007, p278](https://math.mcmaster.ca/~bolker/emdbook/book.pdf).
 
 We are learning about model selection in the context of making decisions about how many explanatory variables to include in our models. This is covered in Quinn and Keough Ch 9 _Predictor importance and model selection in multiple regression models_. The .html corresponding to the R markdown for Box 9.1 of Quinn and Keough is [here](https://mjkeough.github.io/examples/loyn_relaimpo.nb.html).
+
+In this example, we want to understand which explanatory variables explain bird abundance.
 
 ```{r, message=FALSE}
 require(dplyr)
@@ -30,27 +30,46 @@ require(lm.beta)
 require(hier.part)
 ```
 
+Quinn and Keough begin by assessing colinearity in explanatory variables and if explanatory variables have a skewed distribution.
 
 ```{r}
 scatterplotMatrix(~abund+area+dist+graze+alt+yearisol, data=loyn, cex=0.33, regLine=FALSE, diagonal=list(method='boxplot'))
 ```
-
+The assessment is that the explanatory variables are not sustantially colinear, but area and distance are quite skewed as so we explore the logarithm of these variables to correct for the skewedness.
 
 ```{r}
 scatterplotMatrix(~abund+log10(area)+log10(dist)+graze+alt+yearisol, data=loyn, cex=0.33, regLine=FALSE, diagonal=list(method='boxplot'))
 ```
+
+We add in the log variables to our dataset.
 
 ```{r}
 loyn$logarea <- log10(loyn$area)
 loyn$logdist <- log10(loyn$dist)
 ```
 
+We assess colinearity by finding the correlatin matrix. The diagonal elements are variance and the off-diagional elements are co-variances.
+
+We also calculate the variance inflation factors to understand the contribution of each explanatory variable to the variance explained by the full model.
+
 ```{r}
-scatterplotMatrix(~logarea+logdist+graze+alt+yearisol, data=loyn, cex=0.33, regLine=FALSE, diagonal=list(method='boxplot'))
 cor(loyn[,c('logarea','logdist','graze','alt','yearisol')])
 vif(lm(abund~ logarea+logdist+graze+alt+yearisol, data=loyn))
 ```
+## Akaike information criteria
+The models below are the output of Quinn and Keough's analysis in Box 9.1.
 
+The top five models are indistingishable because the $\Delta$AIC is < 2. Some of these models have more variables, but adding in these additional variables does improve the fit because the Delta AIC ($\Delta$AIC) is less than 2.
+
+These top five models involve the variables:
+
+- m1: log area, grazing and year isolated;
+- m2: log area, grazing, altitude and year isolated;
+- m3: log area, and grazing;
+- m4: log area, log distance, grazing, and year isolated;
+- m5: log area, altitude, and year isolated.
+
+This packages will output a nice AIC table to summarize our model selection analysis:
 
 ```{r,warning=FALSE}
 library(AICcmodavg)
@@ -68,6 +87,20 @@ models <- list(m1, m2, m3,m4,m5)
 # 3. Generate the model selection table
 aictab(cand.set = models)
 ```
+To better understand how the AIC and AICc values are calculated note that the log likelihood is an output of the `lm()` command. $k$ is the number of parameters in the model, which is one for each explanatory variable, one for the intercept, and in this example, one for the fitted residual variance. $n$ is the sample size.
+
+The formula for AIC is for model $i$ is:
+
+\[\mbox{AIC}_i = 2k - \mbox{LL}(m_i) \]
+
+The best and most parsimonious model has the lowest AIC. The Delta AIC is calculated relative to the best model (i.e., by subtracting the AIC of the best model).
+
+The AICc is a correction for a small sample size and is calculated as:
+
+\[\mbox{AICc} = \mbox{AIC} + \frac{2k(k+1)}{n-k-1}\]
+
+A rough guide is to use AICc when $n < 25$, but you can consult Burnham and Anderson for more precise advice.
+
 ```{r}
 summary(m1)
 logLik(m1)
