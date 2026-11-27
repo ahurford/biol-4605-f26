@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="mon-nov-23---model-selection.html"/>
-<link rel="next" href="fri-nov-27---contingency-tests-poisson.html"/>
+<link rel="next" href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -168,7 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="30" data-path="fri-nov-20-quiz-4-correlationvariable-importancemodel-selection.html"><a href="fri-nov-20-quiz-4-correlationvariable-importancemodel-selection.html"><i class="fa fa-check"></i><b>30</b> <strong>Fri Nov 20 (Quiz 4)</strong> Correlation/Variable importance/Model selection</a></li>
 <li class="chapter" data-level="31" data-path="mon-nov-23---model-selection.html"><a href="mon-nov-23---model-selection.html"><i class="fa fa-check"></i><b>31</b> Mon Nov 23 - Model selection</a></li>
 <li class="chapter" data-level="32" data-path="wed-nov-25---intro-to-generalized-linear-models.html"><a href="wed-nov-25---intro-to-generalized-linear-models.html"><i class="fa fa-check"></i><b>32</b> Wed Nov 25 - Intro to Generalized linear models</a></li>
-<li class="chapter" data-level="33" data-path="fri-nov-27---contingency-tests-poisson.html"><a href="fri-nov-27---contingency-tests-poisson.html"><i class="fa fa-check"></i><b>33</b> Fri Nov 27 - Contingency Tests, Poisson</a></li>
+<li class="chapter" data-level="33" data-path="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html"><i class="fa fa-check"></i><b>33</b> Fri Nov 27 - Goodness of fit tests and Poisson regression</a></li>
 <li class="chapter" data-level="34" data-path="mon-nov-30---model-selection-i-eda-and-stepwise.html"><a href="mon-nov-30---model-selection-i-eda-and-stepwise.html"><i class="fa fa-check"></i><b>34</b> Mon Nov 30 - Model Selection I: EDA and Stepwise</a></li>
 <li class="chapter" data-level="35" data-path="wed-dec-02---multimodel-inf---aic-sic.html"><a href="wed-dec-02---multimodel-inf---aic-sic.html"><i class="fa fa-check"></i><b>35</b> Wed Dec 02 - Multimodel Inf - AIC, SIC</a></li>
 <li class="chapter" data-level="36" data-path="fri-dec-04---course-review.html"><a href="fri-dec-04---course-review.html"><i class="fa fa-check"></i><b>36</b> Fri Dec 04 - Course Review</a></li>
@@ -200,8 +200,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Distribution: <span class="math display">\[H \sim N(\mu, \sigma)\]</span></p>
 <p>Link function: <span class="math display">\[H = \eta\]</span></p>
 <p>Model: <span class="math display">\[\eta = \beta_0 + \beta_{Alt}Alt + \beta_{Sp}SP + \beta_{Alt\cdot Sp}Alt\cdot Sp\]</span></p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="wed-nov-25---intro-to-generalized-linear-models.html#cb293-1" tabindex="-1"></a>fly.data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/heteroz-alt-species.csv&quot;</span>)</span>
-<span id="cb293-2"><a href="wed-nov-25---intro-to-generalized-linear-models.html#cb293-2" tabindex="-1"></a>fly.data</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="wed-nov-25---intro-to-generalized-linear-models.html#cb290-1" tabindex="-1"></a>fly.data <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/heteroz-alt-species.csv&quot;</span>)</span>
+<span id="cb290-2"><a href="wed-nov-25---intro-to-generalized-linear-models.html#cb290-2" tabindex="-1"></a>fly.data</span></code></pre></div>
 <pre><code>##    elevation.ft elevation_km  species heterozygosity
 ## 1           850      0.25908    Dpers           0.59
 ## 2          3000      0.91440    Dpers           0.37
@@ -217,8 +217,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 12         8000      2.43840  Dpseudo           0.70
 ## 13         8600      2.62128  Dpseudo           0.62
 ## 14        10000      3.04800  Dpseudo           0.68</code></pre>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="wed-nov-25---intro-to-generalized-linear-models.html#cb295-1" tabindex="-1"></a>fly.model <span class="ot">=</span> <span class="fu">glm</span>(heterozygosity <span class="sc">~</span> species <span class="sc">+</span> elevation_km <span class="sc">+</span> species<span class="sc">*</span>elevation_km , <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> identity), <span class="at">data=</span>fly.data)</span>
-<span id="cb295-2"><a href="wed-nov-25---intro-to-generalized-linear-models.html#cb295-2" tabindex="-1"></a><span class="fu">anova</span>(fly.model, <span class="at">test=</span><span class="st">&quot;Chisq&quot;</span>) <span class="co">#Sequential deviances</span></span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="wed-nov-25---intro-to-generalized-linear-models.html#cb292-1" tabindex="-1"></a>fly.model <span class="ot">=</span> <span class="fu">glm</span>(heterozygosity <span class="sc">~</span> species <span class="sc">+</span> elevation_km <span class="sc">+</span> species<span class="sc">*</span>elevation_km , <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> identity), <span class="at">data=</span>fly.data)</span>
+<span id="cb292-2"><a href="wed-nov-25---intro-to-generalized-linear-models.html#cb292-2" tabindex="-1"></a><span class="fu">anova</span>(fly.model, <span class="at">test=</span><span class="st">&quot;Chisq&quot;</span>) <span class="co">#Sequential deviances</span></span></code></pre></div>
 <pre><code>## Analysis of Deviance Table
 ## 
 ## Model: gaussian, link: identity
@@ -235,8 +235,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## species:elevation_km  1  0.03798        10    0.02477 9.017e-05 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="wed-nov-25---intro-to-generalized-linear-models.html#cb297-1" tabindex="-1"></a><span class="fu">require</span>(car)</span>
-<span id="cb297-2"><a href="wed-nov-25---intro-to-generalized-linear-models.html#cb297-2" tabindex="-1"></a><span class="fu">Anova</span>(fly.model, <span class="at">type=</span><span class="st">&quot;III&quot;</span>, <span class="at">test.statistic =</span> <span class="st">&quot;LR&quot;</span>) <span class="co">#Adjusted deviances</span></span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="wed-nov-25---intro-to-generalized-linear-models.html#cb294-1" tabindex="-1"></a><span class="fu">require</span>(car)</span>
+<span id="cb294-2"><a href="wed-nov-25---intro-to-generalized-linear-models.html#cb294-2" tabindex="-1"></a><span class="fu">Anova</span>(fly.model, <span class="at">type=</span><span class="st">&quot;III&quot;</span>, <span class="at">test.statistic =</span> <span class="st">&quot;LR&quot;</span>) <span class="co">#Adjusted deviances</span></span></code></pre></div>
 <pre><code>## Analysis of Deviance Table (Type III tests)
 ## 
 ## Response: heterozygosity
@@ -246,7 +246,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## species:elevation_km   15.332  1  9.017e-05 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="wed-nov-25---intro-to-generalized-linear-models.html#cb299-1" tabindex="-1"></a><span class="fu">deviance</span>(fly.model)</span></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="wed-nov-25---intro-to-generalized-linear-models.html#cb296-1" tabindex="-1"></a><span class="fu">deviance</span>(fly.model)</span></code></pre></div>
 <pre><code>## [1] 0.02476863</code></pre>
 
 </div>
@@ -256,7 +256,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="mon-nov-23---model-selection.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="fri-nov-27---contingency-tests-poisson.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

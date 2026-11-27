@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>33 Fri Nov 27 - Goodness of fit tests and Poisson regression | book.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="33 Fri Nov 27 - Goodness of fit tests and Poisson regression | book.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="33 Fri Nov 27 - Goodness of fit tests and Poisson regression | book.knit" />
+  
+  
+  
+
+<meta name="author" content="Amy Hurford" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="wed-nov-25---intro-to-generalized-linear-models.html"/>
+<link rel="next" href="mon-nov-30---model-selection-i-eda-and-stepwise.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to BIOL/OSCS 4605/7220!</a></li>
+<li class="chapter" data-level="2" data-path="wed-sept-9---introduction.html"><a href="wed-sept-9---introduction.html"><i class="fa fa-check"></i><b>2</b> Wed Sept 9 - Introduction</a></li>
+<li class="chapter" data-level="3" data-path="fri-sept-11---models-and-quantities.html"><a href="fri-sept-11---models-and-quantities.html"><i class="fa fa-check"></i><b>3</b> Fri Sept 11 - Models and quantities</a></li>
+<li class="chapter" data-level="4" data-path="mon-sept-14---equations-units-and-notation.html"><a href="mon-sept-14---equations-units-and-notation.html"><i class="fa fa-check"></i><b>4</b> Mon Sept 14 - Equations, units, and notation</a></li>
+<li class="chapter" data-level="5" data-path="wed-sept-16---samples-and-populations.html"><a href="wed-sept-16---samples-and-populations.html"><i class="fa fa-check"></i><b>5</b> Wed Sept 16 - Samples and populations</a></li>
+<li class="chapter" data-level="6" data-path="fri-sept-18-quiz-1-a1-due-a2-available-probability-distributions.html"><a href="fri-sept-18-quiz-1-a1-due-a2-available-probability-distributions.html"><i class="fa fa-check"></i><b>6</b> <strong>Fri Sept 18 (Quiz 1, A1 due, A2 available)</strong> Probability distributions</a></li>
+<li class="chapter" data-level="7" data-path="mon-sept-21---review-quiz-1-statistical.html"><a href="mon-sept-21---review-quiz-1-statistical.html"><i class="fa fa-check"></i><b>7</b> Mon Sept 21 - Review Quiz 1, statistical</a></li>
+<li class="chapter" data-level="8" data-path="wed-sept-23---frequentist-estimation.html"><a href="wed-sept-23---frequentist-estimation.html"><i class="fa fa-check"></i><b>8</b> Wed Sept 23 - Frequentist estimation</a></li>
+<li class="chapter" data-level="9" data-path="fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics.html"><a href="fri-sept-25-a2-due---hypothesis-testing-frequentist-and-bayesian-statistics.html"><i class="fa fa-check"></i><b>9</b> <strong>Fri Sept 25 (A2 due)</strong> - Hypothesis testing (frequentist) and Bayesian statistics</a></li>
+<li class="chapter" data-level="10" data-path="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html"><a href="mon-sept-28---sampling-and-experimental-design-and-power-analysis.html"><i class="fa fa-check"></i><b>10</b> Mon Sept 28 - Sampling and experimental design and power analysis</a></li>
+<li class="chapter" data-level="11" data-path="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"><a href="fri-oct-2-quiz-2---what-is-a-linear-model-and-how-to-assess-model-fit.html"><i class="fa fa-check"></i><b>11</b> <strong>Fri Oct 2 (Quiz 2) </strong> - What is a linear model and how to assess model fit</a></li>
+<li class="chapter" data-level="12" data-path="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html"><a href="mon-oct-05---linear-model-fitting-and-how-well-does-a-linear-model-fit.html"><i class="fa fa-check"></i><b>12</b> Mon Oct 05 - Linear model fitting and how well does a linear model fit?</a></li>
+<li class="chapter" data-level="13" data-path="wed-oct-07---exploratory-data-analysis.html"><a href="wed-oct-07---exploratory-data-analysis.html"><i class="fa fa-check"></i><b>13</b> Wed Oct 07 - Exploratory data analysis</a></li>
+<li class="chapter" data-level="14" data-path="fri-oct-09---exam-i.html"><a href="fri-oct-09---exam-i.html"><i class="fa fa-check"></i><b>14</b> <strong>Fri Oct 09 - EXAM I</strong></a></li>
+<li class="chapter" data-level="15" data-path="corn.html"><a href="corn.html"><i class="fa fa-check"></i><b>15</b> Wed Oct 14 - Regression with one predictor variable fixed by experiment</a></li>
+<li class="chapter" data-level="16" data-path="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><a href="fri-oct-16---linear-model-for-a-single-categorical-predictor-factor.html"><i class="fa fa-check"></i><b>16</b> Fri Oct 16 - Linear model for a single categorical predictor (factor)</a></li>
+<li class="chapter" data-level="17" data-path="sleep.html"><a href="sleep.html"><i class="fa fa-check"></i><b>17</b> Mon Oct 19 - Two sample t-test</a></li>
+<li class="chapter" data-level="18" data-path="wed-oct-21---one-way-anova-fixed-effects.html"><a href="wed-oct-21---one-way-anova-fixed-effects.html"><i class="fa fa-check"></i><b>18</b> Wed Oct 21 - One way ANOVA (fixed effects)</a></li>
+<li class="chapter" data-level="19" data-path="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"><a href="fri-oct-23-quiz-3-a3-due-randomization-when-assumptions-are-not-met..html"><i class="fa fa-check"></i><b>19</b> <strong>Fri Oct 23 (Quiz 3, A3 due)</strong> Randomization when assumptions are not met.</a></li>
+<li class="chapter" data-level="20" data-path="random.html"><a href="random.html"><i class="fa fa-check"></i><b>20</b> Mon Oct 26 - One-way ANOVA with random effects</a></li>
+<li class="chapter" data-level="21" data-path="wed-oct-28---parameter-estimation-using-maximum-likelihood-estimation.html"><a href="wed-oct-28---parameter-estimation-using-maximum-likelihood-estimation.html"><i class="fa fa-check"></i><b>21</b> Wed Oct 28 - Parameter estimation using maximum likelihood estimation</a></li>
+<li class="chapter" data-level="22" data-path="fri-oct-30---multiple-regression-two-explanatory-varibles.html"><a href="fri-oct-30---multiple-regression-two-explanatory-varibles.html"><i class="fa fa-check"></i><b>22</b> Fri Oct 30 - Multiple regression (two explanatory varibles)</a></li>
+<li class="chapter" data-level="23" data-path="mon-nov-02---two-categorical-explanatory-variables.html"><a href="mon-nov-02---two-categorical-explanatory-variables.html"><i class="fa fa-check"></i><b>23</b> Mon Nov 02 - Two categorical explanatory variables</a></li>
+<li class="chapter" data-level="24" data-path="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html"><a href="wed-nov-04---two-categorical-variables-fixed-and-random-effects.html"><i class="fa fa-check"></i><b>24</b> Wed Nov 04 - Two categorical variables: fixed and random effects</a></li>
+<li class="chapter" data-level="25" data-path="fri-nov-06---exam-2.html"><a href="fri-nov-06---exam-2.html"><i class="fa fa-check"></i><b>25</b> <strong>Fri Nov 06 - EXAM 2</strong></a></li>
+<li class="chapter" data-level="26" data-path="mon-nov-09---randomized-blocks-and-nested-effects.html"><a href="mon-nov-09---randomized-blocks-and-nested-effects.html"><i class="fa fa-check"></i><b>26</b> Mon Nov 09 - Randomized blocks and nested effects</a></li>
+<li class="chapter" data-level="27" data-path="fri-nov-13-a4-due---analysis-of-covariance-ancova.html"><a href="fri-nov-13-a4-due---analysis-of-covariance-ancova.html"><i class="fa fa-check"></i><b>27</b> <strong>Fri Nov 13 (A4 due)</strong> - Analysis of Covariance (ANCOVA)</a></li>
+<li class="chapter" data-level="28" data-path="mon-nov-16---class-was-cancelled.html"><a href="mon-nov-16---class-was-cancelled.html"><i class="fa fa-check"></i><b>28</b> Mon Nov 16 - Class was cancelled</a></li>
+<li class="chapter" data-level="29" data-path="wed-nov-18---correlation.html"><a href="wed-nov-18---correlation.html"><i class="fa fa-check"></i><b>29</b> Wed Nov 18 - Correlation</a></li>
+<li class="chapter" data-level="30" data-path="fri-nov-20-quiz-4-correlationvariable-importancemodel-selection.html"><a href="fri-nov-20-quiz-4-correlationvariable-importancemodel-selection.html"><i class="fa fa-check"></i><b>30</b> <strong>Fri Nov 20 (Quiz 4)</strong> Correlation/Variable importance/Model selection</a></li>
+<li class="chapter" data-level="31" data-path="mon-nov-23---model-selection.html"><a href="mon-nov-23---model-selection.html"><i class="fa fa-check"></i><b>31</b> Mon Nov 23 - Model selection</a></li>
+<li class="chapter" data-level="32" data-path="wed-nov-25---intro-to-generalized-linear-models.html"><a href="wed-nov-25---intro-to-generalized-linear-models.html"><i class="fa fa-check"></i><b>32</b> Wed Nov 25 - Intro to Generalized linear models</a></li>
+<li class="chapter" data-level="33" data-path="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html"><i class="fa fa-check"></i><b>33</b> Fri Nov 27 - Goodness of fit tests and Poisson regression</a></li>
+<li class="chapter" data-level="34" data-path="mon-nov-30---model-selection-i-eda-and-stepwise.html"><a href="mon-nov-30---model-selection-i-eda-and-stepwise.html"><i class="fa fa-check"></i><b>34</b> Mon Nov 30 - Model Selection I: EDA and Stepwise</a></li>
+<li class="chapter" data-level="35" data-path="wed-dec-02---multimodel-inf---aic-sic.html"><a href="wed-dec-02---multimodel-inf---aic-sic.html"><i class="fa fa-check"></i><b>35</b> Wed Dec 02 - Multimodel Inf - AIC, SIC</a></li>
+<li class="chapter" data-level="36" data-path="fri-dec-04---course-review.html"><a href="fri-dec-04---course-review.html"><i class="fa fa-check"></i><b>36</b> Fri Dec 04 - Course Review</a></li>
+<li class="chapter" data-level="37" data-path="assignment-1.html"><a href="assignment-1.html"><i class="fa fa-check"></i><b>37</b> Assignment 1 - Quantities (due Fri Sept 18)</a></li>
+<li class="chapter" data-level="38" data-path="assignment-2b.html"><a href="assignment-2b.html"><i class="fa fa-check"></i><b>38</b> Assignment 2 - Data equations (due Friday Sept 25)</a></li>
+<li class="chapter" data-level="39" data-path="assignment-3b.html"><a href="assignment-3b.html"><i class="fa fa-check"></i><b>39</b> Assignment 3 - Hypothesis testing (due Fri Oct 23)</a></li>
+<li class="chapter" data-level="40" data-path="assignment-4b.html"><a href="assignment-4b.html"><i class="fa fa-check"></i><b>40</b> Assignment 4 - Confidence intervals (due Friday Nov 13)</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="fri-nov-27---goodness-of-fit-tests-and-poisson-regression" class="section level1 hasAnchor" number="33">
+<h1><span class="header-section-number">33</span> Fri Nov 27 - Goodness of fit tests and Poisson regression<a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#fri-nov-27---goodness-of-fit-tests-and-poisson-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="goodness-of-fit" class="section level2 hasAnchor" number="33.1">
+<h2><span class="header-section-number">33.1</span> Goodness of fit<a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#goodness-of-fit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This lecture is based on <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt5/Ch16_3.pdf">Ch 16.3</a> of Dr. Schneider’s notes.</p>
+<p>These data are quite straightforward, so I will code them into <code>R</code> directly, rather than load a data file from the internet as we have done in all the other examples.</p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb298-1" tabindex="-1"></a>flower.data <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">colour =</span> <span class="fu">c</span>(<span class="st">&quot;purple&quot;</span>, <span class="st">&quot;white&quot;</span>), <span class="at">counts =</span> <span class="fu">c</span>(<span class="dv">705</span>,<span class="dv">224</span>))</span>
+<span id="cb298-2"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb298-2" tabindex="-1"></a>flower.data</span></code></pre></div>
+<pre><code>##   colour counts
+## 1 purple    705
+## 2  white    224</code></pre>
+<p>The error distribution is Poisson. A binomial error structure is appropriate and was demonstrate by McCullagh and Nelder; however, this does not feature in the analysis.</p>
+<p>We want to test if this colours of the flowers differs from a 3:1 ratio.</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb300-1" tabindex="-1"></a>expected <span class="ot">=</span> <span class="fu">c</span>((<span class="dv">3</span><span class="sc">/</span><span class="dv">4</span>)<span class="sc">*</span>(<span class="dv">705</span><span class="sc">+</span><span class="dv">224</span>), (<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>)<span class="sc">*</span>(<span class="dv">705</span><span class="sc">+</span><span class="dv">224</span>))</span>
+<span id="cb300-2"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb300-2" tabindex="-1"></a>flower.data <span class="ot">=</span> <span class="fu">data.frame</span>(flower.data,expected)</span>
+<span id="cb300-3"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb300-3" tabindex="-1"></a>flower.data</span></code></pre></div>
+<pre><code>##   colour counts expected
+## 1 purple    705   696.75
+## 2  white    224   232.25</code></pre>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb302-1" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
+<span id="cb302-2"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb302-2" tabindex="-1"></a>flower.data <span class="ot">=</span> flower.data<span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">difference2.expected =</span> (counts <span class="sc">-</span> expected)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>expected)</span>
+<span id="cb302-3"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb302-3" tabindex="-1"></a>flower.data</span></code></pre></div>
+<pre><code>##   colour counts expected difference2.expected
+## 1 purple    705   696.75           0.09768568
+## 2  white    224   232.25           0.29305705</code></pre>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb304-1" tabindex="-1"></a>X2 <span class="ot">=</span> <span class="fu">sum</span>(flower.data<span class="sc">$</span>difference2.expected)</span>
+<span id="cb304-2"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb304-2" tabindex="-1"></a>X2</span></code></pre></div>
+<pre><code>## [1] 0.3907427</code></pre>
+<p>The <span class="math inline">\(X^2\)</span> statistics is chi-square distributed with 1 degree of freedom. There is one degree of freedom because no df’s are used in the biologically-motivated hypothesis of a 3:1 ratio. There is one df from the data because there are two reported values that are constrained in that we are considering the fraction of white and purple flowers, where this fraction must sum to 1.</p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb306-1" tabindex="-1"></a><span class="fu">pchisq</span>(X2,<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 0.4680908</code></pre>
+<p>We conclude that the observaed data is not different than a 3:1 ratio.</p>
+<div id="g-statistic" class="section level3 hasAnchor" number="33.1.1">
+<h3><span class="header-section-number">33.1.1</span> G-statistic<a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#g-statistic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The modern measure of goodness of fit is the likelihood ratio Chisquare, written
+either as G or as G<span class="math inline">\(^2\)</span>. The G-statistic is based on the solid theoretical underpinning
+of likelihood (Fisher 1935) , which considers the likelihood of the model given of
+the data.</p>
+<p><span class="math display">\[
+G = 2\ln LR
+\]</span></p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb308-1" tabindex="-1"></a>flower.data <span class="ot">=</span> flower.data<span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">logLR=</span>counts<span class="sc">*</span><span class="fu">log</span>(counts<span class="sc">/</span>expected))</span>
+<span id="cb308-2"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb308-2" tabindex="-1"></a>flower.data</span></code></pre></div>
+<pre><code>##   colour counts expected difference2.expected     logLR
+## 1 purple    705   696.75           0.09768568  8.298651
+## 2  white    224   232.25           0.29305705 -8.101705</code></pre>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb310-1" tabindex="-1"></a>G <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">sum</span>(flower.data<span class="sc">$</span>logLR)</span>
+<span id="cb310-2"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb310-2" tabindex="-1"></a>G</span></code></pre></div>
+<pre><code>## [1] 0.3938924</code></pre>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb312-1" tabindex="-1"></a>LR <span class="ot">=</span> <span class="fu">exp</span>(G<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb312-2"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb312-2" tabindex="-1"></a>LR</span></code></pre></div>
+<pre><code>## [1] 1.217679</code></pre>
+<p>All of these results suggest that the pea data follows a 3:1 ratio. We cannot test the assumptions of residuals because we have</p>
+</div>
+</div>
+<div id="poisson-regression" class="section level2 hasAnchor" number="33.2">
+<h2><span class="header-section-number">33.2</span> Poisson regression<a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#poisson-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This lecture follows <a href="https://davidcschneider.github.io/StatisticalScience/LNotes/Pt5/Ch17_1.pdf">Ch 17.1</a> of Dr. Schneider’s notes.</p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb314-1" tabindex="-1"></a>horse.kicks <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ahurford/biol-4605-data/refs/heads/main/data/horse-kick.csv&quot;</span>)</span>
+<span id="cb314-2"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb314-2" tabindex="-1"></a>horse.kicks</span></code></pre></div>
+<pre><code>##    year kicks
+## 1  1875     0
+## 2  1876     2
+## 3  1877     2
+## 4  1878     1
+## 5  1879     0
+## 6  1880     0
+## 7  1881     1
+## 8  1882     1
+## 9  1883     0
+## 10 1884     3
+## 11 1885     0
+## 12 1886     2
+## 13 1887     1
+## 14 1888     0
+## 15 1889     0
+## 16 1890     1
+## 17 1891     0
+## 18 1892     1
+## 19 1893     0
+## 20 1894     1</code></pre>
+<p>These data are Poisson-distributed because the number of trials is not fixed (as data on the number of possible kicks is not reported). These counts are also small such that approximating the Poisson distribution with a normal distribution is not likely to be reasonable.</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb316-1" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
+<span id="cb316-2"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb316-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>year,<span class="at">y=</span>kicks),<span class="at">data=</span>horse.kicks)<span class="sc">+</span><span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-139-1.png" alt="" width="672" /></p>
+<p><strong>Verbal model</strong> Is the number of kicks resulting in death showing a trend from 1874 to 1895 (increasing or decreasing)?</p>
+<p>For our information, let’s consider the GLM and see how the residual vs. fitted plot might look.</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-1" tabindex="-1"></a><span class="co"># 1. Fit the linear regression</span></span>
+<span id="cb317-2"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-2" tabindex="-1"></a>kick.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(kicks <span class="sc">~</span> year, <span class="at">data =</span> horse.kicks)</span>
+<span id="cb317-3"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-3" tabindex="-1"></a></span>
+<span id="cb317-4"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-4" tabindex="-1"></a><span class="co"># 2. Create data frame holding just the predicted and residual values</span></span>
+<span id="cb317-5"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-5" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb317-6"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-6" tabindex="-1"></a>  <span class="at">predicted =</span> <span class="fu">fitted</span>(kick.model),</span>
+<span id="cb317-7"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-7" tabindex="-1"></a>  <span class="at">residuals =</span> <span class="fu">residuals</span>(kick.model)</span>
+<span id="cb317-8"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-8" tabindex="-1"></a>)</span>
+<span id="cb317-9"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-9" tabindex="-1"></a></span>
+<span id="cb317-10"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-10" tabindex="-1"></a><span class="co"># 3. Build the ggplot</span></span>
+<span id="cb317-11"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-11" tabindex="-1"></a>g1<span class="ot">=</span><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> predicted, <span class="at">y =</span> residuals)) <span class="sc">+</span></span>
+<span id="cb317-12"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-12" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb317-13"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-13" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb317-14"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-14" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Normally-distributed residuals&quot;</span>,</span>
+<span id="cb317-15"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-15" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Predicted Values (Fitted)&quot;</span>,</span>
+<span id="cb317-16"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-16" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Residuals&quot;</span></span>
+<span id="cb317-17"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-17" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb317-18"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-18" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb317-19"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb317-19" tabindex="-1"></a>g1</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-140-1.png" alt="" width="672" /></p>
+<p>This plot doesn’t look particularly different than plots that we have said are OK, but these small counts definitely suggest the Poisson-distribution is more appropriate.</p>
+<p>We need to fit the Poisson regression to assess this assumption:</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-1" tabindex="-1"></a><span class="fu">require</span>(patchwork) <span class="co"># is nice to combine figure panels</span></span>
+<span id="cb318-2"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-2" tabindex="-1"></a><span class="co">#1. Fit the Poisson regression</span></span>
+<span id="cb318-3"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-3" tabindex="-1"></a>poisson.model <span class="ot">&lt;-</span> <span class="fu">glm</span>(kicks <span class="sc">~</span> year,</span>
+<span id="cb318-4"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-4" tabindex="-1"></a><span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> log), <span class="at">data =</span> horse.kicks)</span>
+<span id="cb318-5"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-5" tabindex="-1"></a></span>
+<span id="cb318-6"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-6" tabindex="-1"></a><span class="co"># 2. Create data frame holding just the predicted and residual values</span></span>
+<span id="cb318-7"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-7" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb318-8"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-8" tabindex="-1"></a>  <span class="at">predicted =</span> <span class="fu">fitted</span>(poisson.model),</span>
+<span id="cb318-9"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-9" tabindex="-1"></a>  <span class="at">residuals =</span> <span class="fu">residuals</span>(poisson.model)</span>
+<span id="cb318-10"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-10" tabindex="-1"></a>)</span>
+<span id="cb318-11"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-11" tabindex="-1"></a></span>
+<span id="cb318-12"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-12" tabindex="-1"></a><span class="co"># 3. Build the ggplot</span></span>
+<span id="cb318-13"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-13" tabindex="-1"></a>g2<span class="ot">=</span><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> predicted, <span class="at">y =</span> residuals)) <span class="sc">+</span></span>
+<span id="cb318-14"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-14" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb318-15"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-15" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb318-16"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-16" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Poisson-distributed residuals&quot;</span>,</span>
+<span id="cb318-17"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-17" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Predicted Values (Fitted)&quot;</span>,</span>
+<span id="cb318-18"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-18" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Residuals&quot;</span></span>
+<span id="cb318-19"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-19" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb318-20"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-20" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb318-21"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb318-21" tabindex="-1"></a>g1<span class="sc">+</span>g2</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-141-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb319-2"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-2" tabindex="-1"></a>res_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">resid =</span> <span class="fu">residuals</span>(kick.model))</span>
+<span id="cb319-3"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-3" tabindex="-1"></a></span>
+<span id="cb319-4"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-4" tabindex="-1"></a>g3<span class="ot">=</span><span class="fu">ggplot</span>(res_df, <span class="fu">aes</span>(<span class="at">x =</span> resid)) <span class="sc">+</span></span>
+<span id="cb319-5"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-5" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">bins =</span> <span class="dv">15</span>, <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb319-6"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-6" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb319-7"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-7" tabindex="-1"></a>    <span class="at">fun =</span> dnorm,</span>
+<span id="cb319-8"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-8" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(res_df<span class="sc">$</span>resid), <span class="at">sd =</span> <span class="fu">sd</span>(res_df<span class="sc">$</span>resid)),</span>
+<span id="cb319-9"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-9" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb319-10"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-10" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">1</span></span>
+<span id="cb319-11"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-11" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb319-12"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-12" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb319-13"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-13" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Residuals with Normal Curve&quot;</span>,</span>
+<span id="cb319-14"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-14" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Residuals&quot;</span>,</span>
+<span id="cb319-15"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-15" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Density&quot;</span></span>
+<span id="cb319-16"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-16" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb319-17"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-17" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb319-18"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-18" tabindex="-1"></a></span>
+<span id="cb319-19"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-19" tabindex="-1"></a>pois_res_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">resid =</span> <span class="fu">residuals</span>(poisson.model, <span class="at">type =</span> <span class="st">&quot;deviance&quot;</span>))</span>
+<span id="cb319-20"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-20" tabindex="-1"></a></span>
+<span id="cb319-21"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-21" tabindex="-1"></a>g4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(pois_res_df, <span class="fu">aes</span>(<span class="at">x =</span> resid)) <span class="sc">+</span></span>
+<span id="cb319-22"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-22" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb319-23"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-23" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), </span>
+<span id="cb319-24"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-24" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">15</span>, </span>
+<span id="cb319-25"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-25" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;steelblue&quot;</span>, </span>
+<span id="cb319-26"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-26" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, </span>
+<span id="cb319-27"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-27" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.7</span></span>
+<span id="cb319-28"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-28" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb319-29"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-29" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb319-30"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-30" tabindex="-1"></a>    <span class="at">fun =</span> dnorm,</span>
+<span id="cb319-31"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-31" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(pois_res_df<span class="sc">$</span>resid), <span class="at">sd =</span> <span class="fu">sd</span>(pois_res_df<span class="sc">$</span>resid)),</span>
+<span id="cb319-32"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-32" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb319-33"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-33" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">1</span></span>
+<span id="cb319-34"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-34" tabindex="-1"></a>  )<span class="sc">+</span>  <span class="fu">labs</span>(</span>
+<span id="cb319-35"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-35" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Residuals with Poisson Curve&quot;</span>,</span>
+<span id="cb319-36"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-36" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Residuals&quot;</span>,</span>
+<span id="cb319-37"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-37" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Density&quot;</span></span>
+<span id="cb319-38"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-38" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb319-39"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-39" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb319-40"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-40" tabindex="-1"></a></span>
+<span id="cb319-41"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-41" tabindex="-1"></a></span>
+<span id="cb319-42"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb319-42" tabindex="-1"></a>g3<span class="sc">+</span>g4</span></code></pre></div>
+<p><img src="book_files/figure-html/unnamed-chunk-142-1.png" alt="" width="672" /></p>
+<p>Again, it is not obvious from this plot to test the assumptions that a Poisson error distribution is more appropriate.</p>
+<div id="writing-the-model" class="section level3 hasAnchor" number="33.2.1">
+<h3><span class="header-section-number">33.2.1</span> Writing the model<a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#writing-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Remember that writing the model consists of 3 parts: error distribution, linear model, and link function. For the Poisson error distribution we choose the log link. See Dr. Schneider’s notes for the model.</p>
+</div>
+<div id="execute-the-analysis-5" class="section level3 hasAnchor" number="33.2.2">
+<h3><span class="header-section-number">33.2.2</span> Execute the analysis<a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#execute-the-analysis-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We have already done the Poisson model (it is labelled <code>poisson.model</code>) when we were plotting the residuals.</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb320-1" tabindex="-1"></a><span class="fu">anova</span>(poisson.model)</span></code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model: poisson, link: log
+## 
+## Response: kicks
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##      Df Deviance Resid. Df Resid. Dev Pr(&gt;Chi)
+## NULL                    19     22.050         
+## year  1  0.61137        18     21.439   0.4343</code></pre>
+<p>The total deviance is 22.05. The residual deviance is 21.44. The degrees of freedom for the residual are 20 observations - 1 df for the intercept - 1 df for the slope associated with year, to give 18 degrees of freedom for the residual.</p>
+<p>The change in deviance to the regression term is 0.61 (<span class="math inline">\(p=0.43\)</span>) and so including year as a explanatory does not improve the fit over an intercept only model (assumes no trend over the years).</p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb322-1" tabindex="-1"></a><span class="fu">summary</span>(poisson.model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = kicks ~ year, family = poisson(link = log), data = horse.kicks)
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept) 64.01267   82.60534   0.775    0.438
+## year        -0.03410    0.04386  -0.777    0.437
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 22.050  on 19  degrees of freedom
+## Residual deviance: 21.439  on 18  degrees of freedom
+## AIC: 50.272
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-1" tabindex="-1"></a>g5<span class="ot">=</span><span class="fu">ggplot</span>(horse.kicks, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> kicks)) <span class="sc">+</span></span>
+<span id="cb324-2"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-2" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb324-3"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-3" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;glm&quot;</span>,</span>
+<span id="cb324-4"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-4" tabindex="-1"></a>    <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">&quot;poisson&quot;</span>),</span>
+<span id="cb324-5"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-5" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb324-6"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-6" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span></span>
+<span id="cb324-7"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-7" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb324-8"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-8" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb324-9"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-9" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb324-10"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-10" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Poisson Regression Fit&quot;</span>,</span>
+<span id="cb324-11"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-11" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb324-12"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-12" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;kicks&quot;</span></span>
+<span id="cb324-13"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-13" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb324-14"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb324-15"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-15" tabindex="-1"></a></span>
+<span id="cb324-16"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-16" tabindex="-1"></a>g6<span class="ot">=</span><span class="fu">ggplot</span>(horse.kicks, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> kicks))<span class="sc">+</span></span>
+<span id="cb324-17"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-17" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb324-18"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-18" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb324-19"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-19" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb324-20"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-20" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span></span>
+<span id="cb324-21"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-21" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb324-22"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-22" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb324-23"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-23" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb324-24"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-24" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Linear Regression Fit&quot;</span>,</span>
+<span id="cb324-25"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-25" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb324-26"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-26" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;kicks&quot;</span></span>
+<span id="cb324-27"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-27" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb324-28"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-28" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb324-29"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-29" tabindex="-1"></a></span>
+<span id="cb324-30"><a href="fri-nov-27---goodness-of-fit-tests-and-poisson-regression.html#cb324-30" tabindex="-1"></a>g5<span class="sc">+</span>g6</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;
+## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="book_files/figure-html/unnamed-chunk-145-1.png" alt="" width="672" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="wed-nov-25---intro-to-generalized-linear-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mon-nov-30---model-selection-i-eda-and-stepwise.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
